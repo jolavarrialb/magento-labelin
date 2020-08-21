@@ -3,7 +3,7 @@
   "description": "Labelin Magento 2 Modules",
   "require": {
     "php": "~7.3",
-    "magento/product-community-edition": "~2.3.5"
+    "magento/product-community-edition": "~2.3.5-p1"
   },
   "type": "magento2-module",
   "license": "Commercial",
