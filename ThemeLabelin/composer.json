@@ -1,0 +1,21 @@
+{
+    "name": "labelin/theme-frontend-labelin",
+    "description": "Labelin Theme",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~7.3",
+        "magento/theme-frontend-luma": "100.3.5"
+    },
+    "type": "magento2-theme",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}
