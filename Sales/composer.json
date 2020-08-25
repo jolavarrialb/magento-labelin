@@ -1,0 +1,14 @@
+{
+    "name": "labelin/sales",
+    "license": "Commercial",
+    "description": "Labelin Sales",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\Sales\\": ""
+        }
+    }
+}
