@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction" class="Labelin\Sales\Ui\Component\MassAction">
+            <action name="assign_designer">
+                <settings>
+                    <type>assign_designer</type>
+                    <label translate="true">Assign Designer</label>
+                    <actions class="Labelin\Sales\Ui\Component\MassAction\Designer\Assign" />
+                </settings>
+            </action>
+            <action name="unassign_designer">
+                <settings>
+                    <type>unassign_designer</type>
+                    <label translate="true">Unassign Designer</label>
+                    <url path="sales/order/massDesignerUnAssign"/>
+                    <confirm>
+                        <title translate="true">Unassign Designer</title>
+                        <message translate="true">Are you sure to unassign selected orders from designer?</message>
+                    </confirm>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

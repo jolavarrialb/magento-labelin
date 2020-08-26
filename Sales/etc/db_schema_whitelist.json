@@ -1,0 +1,13 @@
+{
+    "sales_order": {
+        "column": {
+            "assigned_designer_id": true
+        },
+        "index": {
+            "SALES_ORDER_ASSIGNED_DESIGNER_ID": true
+        },
+        "constraint": {
+            "SALES_ORDER_ASSIGNED_DESIGNER_ID_ADMIN_USER_USER_ID": true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Labelin\Sales\Ui\Component\MassAction\Designer\Assign">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">sales/order/massDesignerAssign</item>
+                <item name="paramName" xsi:type="string">designerId</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Assign Designer</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure to assign selected orders to designer?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
