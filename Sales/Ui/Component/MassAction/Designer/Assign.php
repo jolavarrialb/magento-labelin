@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Ui\Component\MassAction\Designer;
 
-use Labelin\Sales\Helper\Designer as Helper;
+use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Magento\Framework\Phrase;
 use Magento\Framework\UrlInterface;
 use Magento\User\Model\User;
@@ -29,13 +29,13 @@ class Assign implements \JsonSerializable
     /*** @var array */
     protected $additionalData = [];
 
-    /*** @var Helper */
-    protected $helper;
+    /*** @var DesignerHelper */
+    protected $designerHelper;
 
-    public function __construct(UrlInterface $urlBuilder, Helper $helper, array $data = [])
+    public function __construct(UrlInterface $urlBuilder, DesignerHelper $designerHelper, array $data = [])
     {
         $this->urlBuilder = $urlBuilder;
-        $this->helper = $helper;
+        $this->designerHelper = $designerHelper;
         $this->data = $data;
     }
 
@@ -45,13 +45,13 @@ class Assign implements \JsonSerializable
             return $this->options;
         }
 
-        if ($this->helper->getDesignersCollection()->count() === 0) {
+        if ($this->designerHelper->getDesignersCollection()->count() === 0) {
             return $this->options;
         }
 
         $options = [];
 
-        foreach ($this->helper->getDesignersCollection() as $designer) {
+        foreach ($this->designerHelper->getDesignersCollection() as $designer) {
             /** @var User $designer */
             $options[] = [
                 'value' => $designer->getId(),
