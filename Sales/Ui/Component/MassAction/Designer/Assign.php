@@ -55,7 +55,7 @@ class Assign implements \JsonSerializable
             /** @var User $designer */
             $options[] = [
                 'value' => $designer->getId(),
-                'label' => $designer->getName() . ' (' . $designer->getUserName() . ')',
+                'label' => sprintf('%s (%s)', $designer->getName(),$designer->getUserName()),
             ];
         }
 

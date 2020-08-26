@@ -15,18 +15,13 @@ class MassAction extends \Magento\Ui\Component\MassAction
     /** @var DesignerHelper */
     protected $designerHelper;
 
-    /*** @var Session */
-    protected $authSession;
-
     public function __construct(
         ContextInterface $context,
         DesignerHelper $designerHelper,
-        Session $authSession,
         array $components = [],
         array $data = []
     ) {
         $this->designerHelper = $designerHelper;
-        $this->authSession = $authSession;
 
         parent::__construct($context, $components, $data);
     }
@@ -35,11 +30,11 @@ class MassAction extends \Magento\Ui\Component\MassAction
     {
         parent::prepare();
 
-        if (!$this->authSession->getUser()) {
+        if (!$this->designerHelper->getCurrentAuthUserRole()) {
             return;
         }
 
-        if ($this->authSession->getUser()->getRole()->getId() === $this->designerHelper->getDesignerRole()->getId()) {
+        if ($this->designerHelper->getCurrentAuthUserRole()->getId() === $this->designerHelper->getDesignerRole()->getId()) {
 
             $config = $this->getConfiguration();
             $allowedActions = [];

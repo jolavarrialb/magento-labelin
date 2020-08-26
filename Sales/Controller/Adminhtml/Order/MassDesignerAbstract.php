@@ -17,9 +17,6 @@ abstract class MassDesignerAbstract extends Action
     /*** @var DesignerHelper */
     protected $designerHelper;
 
-    /*** @var Session */
-    protected $authSession;
-
     /*** @var OrderFactory */
     protected $orderFactory;
 
@@ -32,12 +29,10 @@ abstract class MassDesignerAbstract extends Action
     public function __construct(
         Context $context,
         DesignerHelper $designerHelper,
-        Session $authSession,
         OrderRepositoryInterface $orderRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->designerHelper = $designerHelper;
-        $this->authSession = $authSession;
         $this->orderRepository = $orderRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
 
@@ -46,10 +41,10 @@ abstract class MassDesignerAbstract extends Action
 
     protected function _isAllowed(): bool
     {
-        if (!$this->authSession->getUser()) {
+        if (!$this->designerHelper->getCurrentAuthUserRole()) {
             return false;
         }
 
-        return $this->authSession->getUser()->getRole()->getId() !== $this->designerHelper->getDesignerRole()->getId();
+        return $this->designerHelper->getCurrentAuthUserRole()->getId() !== $this->designerHelper->getDesignerRole()->getId();
     }
 }

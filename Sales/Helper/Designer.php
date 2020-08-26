@@ -4,37 +4,45 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Helper;
 
+use Magento\Authorization\Model\ResourceModel\Role\CollectionFactory as RoleCollectionFactory;
 use Magento\Authorization\Model\ResourceModel\Role\Collection as RoleCollection;
 use Magento\Authorization\Model\Role;
+use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\DataObject;
+use Magento\User\Model\ResourceModel\User\CollectionFactory as UserCollectionFactory;
 use Magento\User\Model\ResourceModel\User\Collection as UserCollection;
 
 class Designer extends AbstractHelper
 {
     public const DESIGNER_ROLE_NAME = 'Designer';
 
-    /*** @var UserCollection */
-    protected $designersCollection;
+    /*** @var UserCollectionFactory */
+    protected $designersCollectionFactory;
 
     /*** @var RoleCollection */
-    protected $roleCollection;
+    protected $roleCollectionFactory;
+
+    /*** @var Session */
+    protected $authSession;
 
     public function __construct(
         Context $context,
-        UserCollection $userCollection,
-        RoleCollection $roleCollection
+        UserCollectionFactory $userCollectionFactory,
+        RoleCollectionFactory $roleCollectionFactory,
+        Session $authSession
     ) {
         parent::__construct($context);
 
-        $this->roleCollection = $roleCollection;
-        $this->designersCollection = $userCollection;
+        $this->roleCollectionFactory = $roleCollectionFactory;
+        $this->designersCollectionFactory = $userCollectionFactory;
+        $this->authSession = $authSession;
     }
 
     public function getDesignersCollection(): UserCollection
     {
-        return $this->designersCollection
+        return $this->initDesignersCollection()
             ->addFieldToFilter('is_active', true)
             ->addFieldToFilter('user_role.parent_id', $this->getDesignerRole()->getId());
     }
@@ -44,9 +52,28 @@ class Designer extends AbstractHelper
      */
     public function getDesignerRole()
     {
-        return $this->roleCollection
+        return $this->initRoleCollection()
             ->setRolesFilter()
             ->addFieldToFilter('role_name', static::DESIGNER_ROLE_NAME)
             ->getFirstItem();
+    }
+
+    public function getCurrentAuthUserRole(): ?Role
+    {
+        if (!$this->authSession->getUser()) {
+            return null;
+        }
+
+        return $this->authSession->getUser()->getRole();
+    }
+
+    protected function initDesignersCollection(array $data = []): UserCollection
+    {
+        return $this->designersCollectionFactory->create($data);
+    }
+
+    protected function initRoleCollection(array $data = []): RoleCollection
+    {
+        return $this->roleCollectionFactory->create($data);
     }
 }
