@@ -30,23 +30,20 @@ class MassAction extends \Magento\Ui\Component\MassAction
     {
         parent::prepare();
 
-        if (!$this->designerHelper->getCurrentAuthUserRole()) {
+        if (!$this->designerHelper->isCurrentAuthUserDesigner()) {
             return;
         }
 
-        if ($this->designerHelper->getCurrentAuthUserRole()->getId() === $this->designerHelper->getDesignerRole()->getId()) {
+        $config = $this->getConfiguration();
+        $allowedActions = [];
 
-            $config = $this->getConfiguration();
-            $allowedActions = [];
-
-            foreach ($config['actions'] as $action) {
-                if (!in_array($action['type'], static::ACTIONS, false)) {
-                    $allowedActions[] = $action;
-                }
+        foreach ($config['actions'] as $action) {
+            if (!in_array($action['type'], static::ACTIONS, false)) {
+                $allowedActions[] = $action;
             }
-
-            $config['actions'] = $allowedActions;
-            $this->setData('config', $config);
         }
+
+        $config['actions'] = $allowedActions;
+        $this->setData('config', $config);
     }
 }

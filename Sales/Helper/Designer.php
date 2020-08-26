@@ -67,6 +67,15 @@ class Designer extends AbstractHelper
         return $this->authSession->getUser()->getRole();
     }
 
+    public function isCurrentAuthUserDesigner(): bool
+    {
+        if (!$this->getCurrentAuthUserRole()) {
+            return false;
+        }
+
+        return $this->getCurrentAuthUserRole()->getId() === $this->getDesignerRole()->getId();
+    }
+
     protected function initDesignersCollection(array $data = []): UserCollection
     {
         return $this->designersCollectionFactory->create($data);

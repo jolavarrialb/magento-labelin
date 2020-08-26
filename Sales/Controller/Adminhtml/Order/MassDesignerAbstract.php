@@ -41,10 +41,6 @@ abstract class MassDesignerAbstract extends Action
 
     protected function _isAllowed(): bool
     {
-        if (!$this->designerHelper->getCurrentAuthUserRole()) {
-            return false;
-        }
-
-        return $this->designerHelper->getCurrentAuthUserRole()->getId() !== $this->designerHelper->getDesignerRole()->getId();
+        return !$this->designerHelper->isCurrentAuthUserDesigner();
     }
 }
