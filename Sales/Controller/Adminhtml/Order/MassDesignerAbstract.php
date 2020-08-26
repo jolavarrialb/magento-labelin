@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Controller\Adminhtml\Order;
 
-use Labelin\Sales\Helper\Designer as Helper;
+use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -14,8 +14,8 @@ use Magento\Sales\Model\OrderFactory;
 
 abstract class MassDesignerAbstract extends Action
 {
-    /*** @var Helper */
-    protected $helper;
+    /*** @var DesignerHelper */
+    protected $designerHelper;
 
     /*** @var Session */
     protected $authSession;
@@ -31,12 +31,12 @@ abstract class MassDesignerAbstract extends Action
 
     public function __construct(
         Context $context,
-        Helper $helper,
+        DesignerHelper $designerHelper,
         Session $authSession,
         OrderRepositoryInterface $orderRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
-        $this->helper = $helper;
+        $this->designerHelper = $designerHelper;
         $this->authSession = $authSession;
         $this->orderRepository = $orderRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -50,6 +50,6 @@ abstract class MassDesignerAbstract extends Action
             return false;
         }
 
-        return $this->authSession->getUser()->getRole()->getId() !== $this->helper->getDesignerRole()->getId();
+        return $this->authSession->getUser()->getRole()->getId() !== $this->designerHelper->getDesignerRole()->getId();
     }
 }

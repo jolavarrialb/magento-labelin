@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Ui\Component;
 
-use Labelin\Sales\Helper\Designer as Helper;
+use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
@@ -12,20 +12,20 @@ class MassAction extends \Magento\Ui\Component\MassAction
 {
     protected const ACTIONS = ['assign_designer', 'unassign_designer'];
 
-    /** @var Helper */
-    protected $helper;
+    /** @var DesignerHelper */
+    protected $designerHelper;
 
     /*** @var Session */
     protected $authSession;
 
     public function __construct(
         ContextInterface $context,
-        Helper $helper,
+        DesignerHelper $designerHelper,
         Session $authSession,
         array $components = [],
         array $data = []
     ) {
-        $this->helper = $helper;
+        $this->designerHelper = $designerHelper;
         $this->authSession = $authSession;
 
         parent::__construct($context, $components, $data);
@@ -39,7 +39,7 @@ class MassAction extends \Magento\Ui\Component\MassAction
             return;
         }
 
-        if ($this->authSession->getUser()->getRole()->getId() === $this->helper->getDesignerRole()->getId()) {
+        if ($this->authSession->getUser()->getRole()->getId() === $this->designerHelper->getDesignerRole()->getId()) {
 
             $config = $this->getConfiguration();
             $allowedActions = [];
