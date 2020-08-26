@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Labelin\Sales\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -8,21 +10,14 @@ use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 
 class AddCustomSalesStatuses implements DataPatchInterface, PatchRevertableInterface
 {
-    /**
-     * @var ModuleDataSetupInterface
-     */
+    /** @var ModuleDataSetupInterface */
     private $moduleDataSetup;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $statusTable;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected $tableColumns = ['status', 'label'];
-
 
     public function __construct(ModuleDataSetupInterface $moduleDataSetup)
     {
@@ -30,22 +25,17 @@ class AddCustomSalesStatuses implements DataPatchInterface, PatchRevertableInter
         $this->statusTable = $moduleDataSetup->getTable('sales_order_status');
     }
 
-
-    /**
-     * {@inheritDoc}
-     * @throws \Exception
-     */
-    public function apply()
+    public function apply(): void
     {
         $this->moduleDataSetup->getConnection()->startSetup();
         $updateData = [];
-        $statuses4Add = [
+        $newStatuses = [
             'designer_review' => __('Review'),
             'in_production' => __('In Production'),
             'overdue' => __('Overdue'),
         ];
 
-        foreach ($statuses4Add as $status => $label) {
+        foreach ($newStatuses as $status => $label) {
             $updateData[] = ['status' => $status, 'label' => $label];
         }
 
@@ -57,7 +47,6 @@ class AddCustomSalesStatuses implements DataPatchInterface, PatchRevertableInter
             );
         } catch (\Exception $e) {
             $this->moduleDataSetup->getConnection()->rollBack();
-            var_dump($e->getMessage());
             throw $e;
         }
 
@@ -75,22 +64,18 @@ class AddCustomSalesStatuses implements DataPatchInterface, PatchRevertableInter
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 
-    /**
-     * {@inheritDoc}
-     * @throws \Exception
-     */
-    public function revert()
+    public function revert(): void
     {
         $this->moduleDataSetup->getConnection()->startSetup();
 
-        $statuses4Delete = [
+        $statusesForDelete = [
             'designer_review',
             'in_production',
             'overdue',
         ];
 
         try {
-            foreach ($statuses4Delete as $status) {
+            foreach ($statusesForDelete as $status) {
                 $this->moduleDataSetup->getConnection()->delete($this->statusTable, 'status = ' . $status);
             }
         } catch (\Exception $e) {
@@ -112,18 +97,12 @@ class AddCustomSalesStatuses implements DataPatchInterface, PatchRevertableInter
         $this->moduleDataSetup->getConnection()->endSetup();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public static function getDependencies()
+    public static function getDependencies(): array
     {
         return [];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getAliases()
+    public function getAliases(): array
     {
         return [];
     }
