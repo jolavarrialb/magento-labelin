@@ -22,11 +22,12 @@ class OnHoldStatusHandler implements ObserverInterface
         $order = $observer->getOrder();
 
         foreach ($order->getAllItems() as $orderItem) {
+            /** @var Item $orderItem */
+
             if ($orderItem->getProductType() !== Configurable::TYPE_CODE) {
                 continue;
             }
 
-            /** @var Item $orderItem */
             $options = $orderItem->getProductOptionByCode('options');
 
             if (empty($options)) {
