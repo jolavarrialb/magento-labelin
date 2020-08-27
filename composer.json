@@ -9,7 +9,8 @@
   "license": "Commercial",
   "autoload": {
     "files": [
-      "ThemeLabelin/registration.php"
+      "ThemeLabelin/registration.php",
+      "Sales/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales"
