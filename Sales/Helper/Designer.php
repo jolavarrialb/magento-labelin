@@ -13,6 +13,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\DataObject;
 use Magento\User\Model\ResourceModel\User\CollectionFactory as UserCollectionFactory;
 use Magento\User\Model\ResourceModel\User\Collection as UserCollection;
+use Magento\User\Model\User;
 
 class Designer extends AbstractHelper
 {
@@ -58,13 +59,18 @@ class Designer extends AbstractHelper
             ->getFirstItem();
     }
 
+    public function getCurrentAuthUser(): ?User
+    {
+        return $this->authSession->getUser();
+    }
+
     public function getCurrentAuthUserRole(): ?Role
     {
-        if (!$this->authSession->getUser()) {
+        if (!$this->getCurrentAuthUser()) {
             return null;
         }
 
-        return $this->authSession->getUser()->getRole();
+        return $this->getCurrentAuthUser()->getRole();
     }
 
     public function isCurrentAuthUserDesigner(): bool

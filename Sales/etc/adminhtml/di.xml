@@ -12,4 +12,19 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tab\Invoices">
+        <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\DesignerTabsHandler" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tab\Creditmemos">
+        <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\DesignerTabsHandler" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tab\Shipments">
+        <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\DesignerTabsHandler" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tab\Transactions">
+        <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\DesignerTabsHandler" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Controller\Adminhtml\Order\View">
+        <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Controller\Adminhtml\Order\View" sortOrder="1"/>
+    </type>
 </config>
