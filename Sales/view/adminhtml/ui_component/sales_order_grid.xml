@@ -22,5 +22,30 @@
                 </settings>
             </action>
         </massaction>
+        <filters name="designer_filters"/>
     </listingToolbar>
+    <columns name="sales_order_columns">
+        <column name="assigned_designer_name">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Assigned designer name</label>
+                <filter>select</filter>
+            </settings>
+        </column>
+        <column
+            name="attached_image_label"
+            component="Magento_Ui/js/grid/columns/link"
+            class="Labelin\Sales\Ui\Component\Column\Link\Link"
+        >
+            <settings>
+                <links>
+                    <link name="link" active="true">${ $.$data.rowIndex }</link>
+                </links>
+                <label translate="true">Attached image</label>
+                <fieldAction ></fieldAction>
+            </settings>
+        </column>
+
+    </columns>
+
 </listing>
