@@ -11,7 +11,7 @@ use Magento\Sales\Model\Order\Item;
 
 class Artwork extends AbstractHelper
 {
-    protected const FILE_OPTION_TYPE = 'file';
+    public const FILE_OPTION_TYPE = 'file';
 
     public function isArtworkAttachedToOrder(Order $order): bool
     {

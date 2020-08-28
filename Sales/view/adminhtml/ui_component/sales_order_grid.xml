@@ -7,7 +7,7 @@
                 <settings>
                     <type>assign_designer</type>
                     <label translate="true">Assign Designer</label>
-                    <actions class="Labelin\Sales\Ui\Component\MassAction\Designer\Assign" />
+                    <actions class="Labelin\Sales\Ui\Component\MassAction\Designer\Assign"/>
                 </settings>
             </action>
             <action name="unassign_designer">
@@ -22,13 +22,12 @@
                 </settings>
             </action>
         </massaction>
-        <filters name="designer_filters"/>
     </listingToolbar>
     <columns name="sales_order_columns">
         <column name="assigned_designer_name">
             <settings>
                 <dataType>text</dataType>
-                <label translate="true">Assigned designer name</label>
+                <label translate="true">Designer</label>
                 <filter>select</filter>
             </settings>
         </column>
@@ -42,7 +41,7 @@
                     <link name="link" active="true">${ $.$data.rowIndex }</link>
                 </links>
                 <label translate="true">Attached image</label>
-                <fieldAction ></fieldAction>
+                <fieldAction></fieldAction>
             </settings>
         </column>
 
