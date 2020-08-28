@@ -22,6 +22,25 @@ class Order extends MagentoOrder
         return !in_array($this->getStatus(), [static::STATUS_REVIEW, static::STATUS_IN_PRODUCTION], false);
     }
 
+    public function canOverdue(): bool
+    {
+        if (!in_array($this->getState(), [static::STATE_PROCESSING, static::STATE_NEW], false)) {
+            return false;
+        }
+
+        return in_array($this->getStatus(), static::getOverdueAvailableStatuses(), false);
+    }
+
+    public static function getOverdueAvailableStatuses(): array
+    {
+        return [
+            static::STATE_PROCESSING,
+            static::STATE_NEW,
+            static::STATE_HOLDED,
+            static::STATUS_REVIEW,
+        ];
+    }
+
     /**
      * @return $this
      * @throws LocalizedException
@@ -35,6 +54,23 @@ class Order extends MagentoOrder
         $this
             ->setStatus(static::STATUS_REVIEW)
             ->addStatusToHistory(static::STATUS_REVIEW, __('Order putted on review'));
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function markAsOverdue(): self
+    {
+        if (!$this->canOverdue()) {
+            throw new LocalizedException(__('An overdue action is not available.'));
+        }
+
+        $this
+            ->setStatus(static::STATUS_OVERDUE)
+            ->addStatusToHistory(static::STATUS_OVERDUE, __('Order putted on overdue'));
 
         return $this;
     }
