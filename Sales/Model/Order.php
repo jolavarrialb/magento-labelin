@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model;
 
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order as MagentoOrder;
 
 class Order extends MagentoOrder
@@ -19,5 +20,22 @@ class Order extends MagentoOrder
         }
 
         return !in_array($this->getStatus(), [static::STATUS_REVIEW, static::STATUS_IN_PRODUCTION], false);
+    }
+
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function markAsReview(): self
+    {
+        if (!$this->canReview()) {
+            throw new LocalizedException(__('A review action is not available.'));
+        }
+
+        $this
+            ->setStatus(static::STATUS_REVIEW)
+            ->addStatusToHistory(static::STATUS_REVIEW, __('Order putted on review'));
+
+        return $this;
     }
 }

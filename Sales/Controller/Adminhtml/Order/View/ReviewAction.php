@@ -9,6 +9,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\OrderFactory;
 
@@ -40,10 +41,19 @@ class ReviewAction extends Action
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        $order = $this->orderRepository->get($orderId);
-        $order->setStatus(Order::STATUS_REVIEW);
+        try {
+            /** @var Order $order */
+            $order = $this->orderRepository->get($orderId);
 
-        $this->orderRepository->save($order);
+            $order->markAsReview();
+
+            $this->orderRepository->save($order);
+
+        } catch (LocalizedException $exception) {
+            $this->messageManager->addErrorMessage($exception->getMessage());
+
+            return $this->_redirect($this->_redirect->getRefererUrl());
+        }
 
         $this->messageManager->addSuccessMessage(__('You put the order on review.'));
 
