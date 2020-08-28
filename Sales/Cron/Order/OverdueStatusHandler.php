@@ -88,7 +88,6 @@ class OverdueStatusHandler
         return $this
             ->initOrderCollection()
             ->addFieldToFilter('status', ['in' => Order::getOverdueAvailableStatuses()])
-            ->addFieldToFilter('status', ['neq' => Order::STATUS_OVERDUE])
             ->addFieldToFilter('created_at', ['lteq' => $this->getOverdueDateTime()]);
     }
 
