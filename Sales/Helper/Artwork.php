@@ -15,7 +15,7 @@ class Artwork extends AbstractHelper
 
     public function isArtworkAttachedToOrder(Order $order): bool
     {
-        $isOnHoldStatusAvailable = true;
+        $isArtworkAttached = true;
 
         foreach ($order->getAllItems() as $orderItem) {
             /** @var Item $orderItem */
@@ -23,6 +23,8 @@ class Artwork extends AbstractHelper
             if ($orderItem->getProductType() !== Configurable::TYPE_CODE) {
                 continue;
             }
+
+            $isArtworkAttached = false;
 
             $options = $orderItem->getProductOptionByCode('options');
 
@@ -32,11 +34,11 @@ class Artwork extends AbstractHelper
 
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
-                    $isOnHoldStatusAvailable = false;
+                    $isArtworkAttached = true;
                 }
             }
         }
 
-        return $isOnHoldStatusAvailable;
+        return $isArtworkAttached;
     }
 }
