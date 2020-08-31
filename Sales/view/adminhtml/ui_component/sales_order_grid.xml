@@ -24,11 +24,12 @@
         </massaction>
     </listingToolbar>
     <columns name="sales_order_columns">
-        <column name="assigned_designer_name">
+        <column name="assigned_designer_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <dataType>text</dataType>
                 <label translate="true">Designer</label>
+                <options class="Labelin\Sales\Ui\Component\Filters\FilterSelect\Options\AssignedDesigner"/>
                 <filter>select</filter>
+                <dataType>select</dataType>
             </settings>
         </column>
         <column
@@ -44,7 +45,5 @@
                 <fieldAction></fieldAction>
             </settings>
         </column>
-
     </columns>
-
 </listing>
