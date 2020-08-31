@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="labelin" translate="label" sortOrder="10">
+            <label>Labelin</label>
+        </tab>
+        <section id="labelin_sales" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Sales</label>
+            <tab>labelin</tab>
+            <resource>Labelin_Sales::sales_config</resource>
+            <group id="order_configuration" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Configuration</label>
+                <field id="overdue_days" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Overdue days</label>
+                    <comment>Is a number of days assigned by the admin to orders to count from when the order is placed to finalization (shipped)</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -8,4 +8,31 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="Labelin\Sales\OverdueStatusDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/labelin_overdue_status.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Labelin\Sales\OverdueStatusLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Labelin\Sales\OverdueStatusDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\Sales\Cron\Order\OverdueStatusHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\Sales\OverdueStatusLogger</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Order">
+        <arguments>
+            <argument name="overdueAvailableStatuses" xsi:type="array">
+                <item name="processing" xsi:type="const">Magento\Sales\Model\Order::STATE_PROCESSING</item>
+                <item name="new" xsi:type="const">Magento\Sales\Model\Order::STATE_NEW</item>
+                <item name="hold" xsi:type="const">Magento\Sales\Model\Order::STATE_HOLDED</item>
+                <item name="review" xsi:type="const">Labelin\Sales\Model\Order::STATUS_REVIEW</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
