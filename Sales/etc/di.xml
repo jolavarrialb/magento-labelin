@@ -25,4 +25,14 @@
             <argument name="logger" xsi:type="object">Labelin\Sales\OverdueStatusLogger</argument>
         </arguments>
     </type>
+    <type name="Labelin\Sales\Model\Order">
+        <arguments>
+            <argument name="overdueAvailableStatuses" xsi:type="array">
+                <item name="processing" xsi:type="const">Magento\Sales\Model\Order::STATE_PROCESSING</item>
+                <item name="new" xsi:type="const">Magento\Sales\Model\Order::STATE_NEW</item>
+                <item name="hold" xsi:type="const">Magento\Sales\Model\Order::STATE_HOLDED</item>
+                <item name="review" xsi:type="const">Labelin\Sales\Model\Order::STATUS_REVIEW</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

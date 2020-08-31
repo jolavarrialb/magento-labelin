@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Cron\Order;
 
-use Labelin\Sales\Helper\Data as DataHelper;
+use Labelin\Sales\Helper\Config\Overdue as OverdueConfigHelper;
 use Labelin\Sales\Model\Order;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\OrderRepository;
@@ -19,8 +19,8 @@ class OverdueStatusHandler
     /** @var LoggerInterface */
     protected $logger;
 
-    /** @var DataHelper */
-    protected $dataHelper;
+    /** @var OverdueConfigHelper */
+    protected $overdueConfigHelper;
 
     /** @var OrderRepositoryInterface */
     protected $orderCollectionFactory;
@@ -31,18 +31,23 @@ class OverdueStatusHandler
     /** @var \DateTime */
     protected $dateTime;
 
+    /** @var Order */
+    protected $order;
+
     public function __construct(
         LoggerInterface $logger,
-        DataHelper $dataHelper,
+        OverdueConfigHelper $overdueConfigHelper,
         OrderCollectionFactory $orderCollectionFactory,
         OrderRepositoryInterface $orderRepository,
-        \DateTime $dateTime
+        \DateTime $dateTime,
+        Order $order
     ) {
         $this->logger = $logger;
-        $this->dataHelper = $dataHelper;
+        $this->overdueConfigHelper = $overdueConfigHelper;
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->orderRepository = $orderRepository;
         $this->dateTime = $dateTime;
+        $this->order = $order;
     }
 
     public function execute(): self
@@ -80,14 +85,14 @@ class OverdueStatusHandler
 
     protected function getOverdueDateTime(): \DateTime
     {
-        return $this->dateTime->modify(sprintf('- %s days midnight', $this->dataHelper->getOverdueDays()));
+        return $this->dateTime->modify(sprintf('- %s days midnight', $this->overdueConfigHelper->getOverdueDays()));
     }
 
     protected function getOrderCollection(): OrderCollection
     {
         return $this
             ->initOrderCollection()
-            ->addFieldToFilter('status', ['in' => Order::getOverdueAvailableStatuses()])
+            ->addFieldToFilter('status', ['in' => $this->order->getOverdueAvailableStatuses()])
             ->addFieldToFilter('created_at', ['lteq' => $this->getOverdueDateTime()]);
     }
 
