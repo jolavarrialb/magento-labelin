@@ -12,7 +12,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Link extends Column
 {
-    /** @var Json  */
+    /** @var Json */
     protected $json;
 
     /** @var string */
@@ -24,8 +24,7 @@ class Link extends Column
         Json $json,
         array $components = [],
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->json = $json;
     }
