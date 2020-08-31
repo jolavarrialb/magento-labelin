@@ -120,7 +120,6 @@ class Order extends MagentoOrder
         );
     }
 
-
     public function canReview(): bool
     {
         if (!in_array($this->getState(), [static::STATE_PROCESSING, static::STATE_NEW], false)) {
