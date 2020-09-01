@@ -42,7 +42,7 @@ class Artwork extends AbstractHelper
         return $isArtworkAttached;
     }
 
-    public function getOrderArtworksHtml(Order $order): string
+    public function getOrderArtworksLinksHtml(Order $order): string
     {
         $artworks = '';
 

@@ -47,7 +47,7 @@ class Artworks extends Column
 
         foreach ($data as &$item) {
             $order = $this->orderRepository->get($item['entity_id']);
-            $item['order_artworks'] = $this->artworkHelper->getOrderArtworksHtml($order);
+            $item['order_artworks'] = $this->artworkHelper->getOrderArtworksLinksHtml($order);
         }
 
         return $dataSource;
