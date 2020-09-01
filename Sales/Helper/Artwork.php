@@ -42,9 +42,9 @@ class Artwork extends AbstractHelper
         return $isArtworkAttached;
     }
 
-    public function getOrderArtworksLinksHtml(Order $order): string
+    public function getOrderArtworkLinks(Order $order): array
     {
-        $artworks = '';
+        $artworks = [];
 
         if (!$this->isArtworkAttachedToOrder($order)) {
             return $artworks;
@@ -59,7 +59,7 @@ class Artwork extends AbstractHelper
 
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
-                    $artworks .= $option['value'] . '<br />';
+                    $artworks[] = $option['value'];
                 }
             }
         }

@@ -32,10 +32,11 @@
                 <label translate="true">Designer</label>
             </settings>
         </column>
-        <column name="order_artworks" class="Labelin\Sales\Ui\Component\Column\Html\Artworks">
+        <column name="order_artworks" class="Labelin\Sales\Ui\Component\Column\Html\Artworks" component="Labelin_Sales/js/grid/columns/artwork">
             <settings>
-                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <bodyTmpl>Labelin_Sales/ui/grid/cells/artwork</bodyTmpl>
                 <label translate="true">Artworks</label>
+                <fieldAction></fieldAction>
             </settings>
         </column>
     </columns>
