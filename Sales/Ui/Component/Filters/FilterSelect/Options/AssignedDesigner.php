@@ -27,7 +27,8 @@ class AssignedDesigner implements \Magento\Framework\Data\OptionSourceInterface
         $options = [];
         foreach ($designerCollection as $item) {
             $options[] = [
-                'value' => $item->getUserId(), 'label' => $item->getFirstname() . ' ' . $item->getLastname()
+                'value' => $item->getUserId(),
+                'label' => \sprintf('%1$s %2$s', $item->getFirstname(), $item->getLastname())
             ];
         }
 

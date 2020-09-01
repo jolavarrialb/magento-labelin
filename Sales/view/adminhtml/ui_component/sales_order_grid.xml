@@ -26,23 +26,16 @@
     <columns name="sales_order_columns">
         <column name="assigned_designer_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <label translate="true">Designer</label>
-                <options class="Labelin\Sales\Ui\Component\Filters\FilterSelect\Options\AssignedDesigner"/>
                 <filter>select</filter>
+                <options class="Labelin\Sales\Ui\Component\Filters\FilterSelect\Options\AssignedDesigner"/>
                 <dataType>select</dataType>
+                <label translate="true">Designer</label>
             </settings>
         </column>
-        <column
-            name="attached_image_label"
-            component="Magento_Ui/js/grid/columns/link"
-            class="Labelin\Sales\Ui\Component\Column\Link\Link"
-        >
+        <column name="order_artworks" class="Labelin\Sales\Ui\Component\Column\Html\Artworks">
             <settings>
-                <links>
-                    <link name="link" active="true">${ $.$data.rowIndex }</link>
-                </links>
-                <label translate="true">Attached image</label>
-                <fieldAction></fieldAction>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <label translate="true">Artworks</label>
             </settings>
         </column>
     </columns>
