@@ -10,6 +10,7 @@ use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Sales\Model\ResourceModel\Order;
 use Magento\Sales\Model\ResourceModel\Order\Grid\Collection as GridCollection;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable as Configurable;
 use Psr\Log\LoggerInterface as Logger;
 
 /**
@@ -38,10 +39,6 @@ class Collection extends GridCollection
     {
         parent::_initSelect();
 
-        if (!$this->designerHelper->getCurrentAuthUser() || !$this->designerHelper->isCurrentAuthUserDesigner()) {
-            return $this;
-        }
-
         $this
             ->getSelect()
             ->joinLeft(
@@ -49,8 +46,17 @@ class Collection extends GridCollection
                 'main_table.entity_id = sales_order.entity_id',
                 ['assigned_designer_id']
             );
+        $this
+            ->getSelect()
+            ->joinLeft(
+                ['users_table' => $this->getTable('admin_user')],
+                'sales_order.assigned_designer_id = users_table.user_id',
+                ['assigned_designer_name' => $this->getConnection()->getConcatSql(['firstname', 'lastname'], ' ')]
+            );
 
-        $this->addFieldToFilter('assigned_designer_id', $this->designerHelper->getCurrentAuthUser()->getId());
+        if ($this->designerHelper->isCurrentAuthUserDesigner()) {
+            $this->addFieldToFilter('assigned_designer_id', $this->designerHelper->getCurrentAuthUser()->getId());
+        }
 
         return $this;
     }

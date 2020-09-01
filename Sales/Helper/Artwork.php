@@ -11,7 +11,7 @@ use Magento\Sales\Model\Order\Item;
 
 class Artwork extends AbstractHelper
 {
-    protected const FILE_OPTION_TYPE = 'file';
+    public const FILE_OPTION_TYPE = 'file';
 
     public function isArtworkAttachedToOrder(Order $order): bool
     {
@@ -40,5 +40,30 @@ class Artwork extends AbstractHelper
         }
 
         return $isArtworkAttached;
+    }
+
+    public function getOrderArtworkLinks(Order $order): array
+    {
+        $artworks = [];
+
+        if (!$this->isArtworkAttachedToOrder($order)) {
+            return $artworks;
+        }
+
+        foreach ($order->getAllItems() as $orderItem) {
+            $options = $orderItem->getProductOptionByCode('options');
+
+            if (empty($options)) {
+                continue;
+            }
+
+            foreach ($options as $option) {
+                if ($option['option_type'] === static::FILE_OPTION_TYPE) {
+                    $artworks[] = $option['value'];
+                }
+            }
+        }
+
+        return $artworks;
     }
 }
