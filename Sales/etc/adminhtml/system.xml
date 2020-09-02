@@ -16,6 +16,14 @@
                     <comment>Is a number of days assigned by the admin to orders to count from when the order is placed to finalization (shipped)</comment>
                 </field>
             </group>
+            <group id="artwork_configuration" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Artwork Configuration</label>
+                <field id="declines_max_count" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Declines max count</label>
+                    <comment>Specify 0 if you want to unlimited declines. In this case, the customer has unlimited decline option.</comment>
+                    <validate>validate-digits validate-zero-or-greater validate-number-range number-range-0-100</validate>
+                </field>
+            </group>
         </section>
     </system>
 </config>
