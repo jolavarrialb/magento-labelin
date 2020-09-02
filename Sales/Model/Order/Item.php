@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model\Order;
 
+use Labelin\Sales\Exception\MaxArtworkDeclineAttemptsReached;
 use Labelin\Sales\Helper\Config\ArtworkDecline as ArtworkDeclineHelper;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Api\AttributeValueFactory;
@@ -53,8 +54,16 @@ class Item extends MagentoOrderItem
         );
     }
 
+    /**
+     * @return $this
+     * @throws MaxArtworkDeclineAttemptsReached
+     */
     public function incrementArtworkDeclinesCount(): self
     {
+        if (!$this->isArtworkDeclineAvailable()) {
+            throw new MaxArtworkDeclineAttemptsReached(__('Max artwork declines reached.'));
+        }
+
         $qty = 0;
         if (!$this->artworkDeclineHelper->hasArtworkUnlimitedDeclines()) {
             $qty = $this->getArtworkDeclinesCount() + 1;
