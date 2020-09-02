@@ -5,6 +5,9 @@
             <order_configuration>
                 <overdue_days>10</overdue_days>
             </order_configuration>
+            <artwork_configuration>
+                <declines_max_count>3</declines_max_count>
+            </artwork_configuration>
         </labelin_sales>
     </default>
 </config>
