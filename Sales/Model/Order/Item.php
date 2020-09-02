@@ -6,10 +6,14 @@ namespace Labelin\Sales\Model\Order;
 
 use Labelin\Sales\Exception\MaxArtworkDeclineAttemptsReached;
 use Labelin\Sales\Helper\Config\ArtworkDecline as ArtworkDeclineHelper;
+use Labelin\Sales\Model\Order;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\Product\Type;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
@@ -71,6 +75,8 @@ class Item extends MagentoOrderItem
 
         $this->setData('artwork_declines_count', $qty);
 
+        $this->_eventManager->dispatch('labelin_order_item_decline_after', ['order_item' => $this]);
+
         return $this;
     }
 
@@ -86,5 +92,40 @@ class Item extends MagentoOrderItem
         }
 
         return $this->getArtworkDeclinesCount() < $this->artworkDeclineHelper->getDeclinesQty();
+    }
+
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function approveArtwork(): self
+    {
+        if (!$this->isArtworkApproveAvailable()) {
+            throw new LocalizedException(__('Approve denied. You can\'t approve this order item. Please contact your designer.'));
+        }
+
+        $this->setData('is_artwork_approved', true);
+
+        $this->_eventManager->dispatch('labelin_order_item_approve_after', ['order_item' => $this]);
+
+        return $this;
+    }
+
+    public function isArtworkApproved(): bool
+    {
+        return (bool)$this->getData('is_artwork_approved');
+    }
+
+    public function isArtworkApproveAvailable(): bool
+    {
+        if (!$this->getOrder()) {
+            return false;
+        }
+
+        if ($this->getProductType() === Type::TYPE_SIMPLE) {
+            return true;
+        }
+
+        return $this->getProductType() === Configurable::TYPE_CODE && $this->getOrder()->getStatus() === Order::STATUS_REVIEW;
     }
 }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model;
 
+use Labelin\Sales\Model\Order\Item;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Directory\Model\CurrencyFactory;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Framework\Api\AttributeValueFactory;
@@ -138,6 +140,24 @@ class Order extends MagentoOrder
         return in_array($this->getStatus(), $this->getOverdueAvailableStatuses(), false);
     }
 
+    public function canInProduction(): bool
+    {
+        if ($this->getStatus() === static::STATUS_IN_PRODUCTION) {
+            return false;
+        }
+
+        $availableForProduction = true;
+
+        foreach ($this->getAllItems() as $item) {
+            /** @var Item $item */
+            if ($item->getProductType() === Configurable::TYPE_CODE && !$item->isArtworkApproved()) {
+                $availableForProduction = false;
+            }
+        }
+
+        return $availableForProduction;
+    }
+
     public function getOverdueAvailableStatuses(): array
     {
         return $this->overdueAvailableStatuses;
@@ -157,6 +177,8 @@ class Order extends MagentoOrder
             ->setStatus(static::STATUS_REVIEW)
             ->addStatusToHistory(static::STATUS_REVIEW, __('Order putted on review'));
 
+        $this->_eventManager->dispatch('labelin_order_review_status_after', ['order' => $this]);
+
         return $this;
     }
 
@@ -173,6 +195,27 @@ class Order extends MagentoOrder
         $this
             ->setStatus(static::STATUS_OVERDUE)
             ->addStatusToHistory(static::STATUS_OVERDUE, __('Order putted on overdue'));
+
+        $this->_eventManager->dispatch('labelin_order_overdue_status_after', ['order' => $this]);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function markAsProduction(): self
+    {
+        if (!$this->canInProduction()) {
+            throw new LocalizedException(__('An production action is not available.'));
+        }
+
+        $this
+            ->setStatus(static::STATUS_IN_PRODUCTION)
+            ->addStatusToHistory(static::STATUS_IN_PRODUCTION, __('Order is on production'));
+
+        $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $this]);
 
         return $this;
     }

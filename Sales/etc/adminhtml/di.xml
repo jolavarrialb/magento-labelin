@@ -28,6 +28,7 @@
         <plugin name="show_tab_for_designers" type="Labelin\Sales\Plugin\Controller\Adminhtml\Order\View" sortOrder="1"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View">
-        <plugin name="labelin_adminhtml_order_view_add_review_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View" sortOrder="10" />
+        <plugin name="labelin_adminhtml_order_view_add_review_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ReviewButton" sortOrder="10" />
+        <plugin name="labelin_adminhtml_order_view_add_production_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ProductionButton" sortOrder="20" />
     </type>
 </config>
