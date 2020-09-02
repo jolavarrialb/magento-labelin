@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Labelin\Sales\Observer\Order;
 
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Item;
 
 class OnHoldStatusHandler implements ObserverInterface
 {
@@ -21,16 +20,26 @@ class OnHoldStatusHandler implements ObserverInterface
         $this->artworkHelper = $artworkHelper;
     }
 
+    /**
+     * @param Observer $observer
+     *
+     * @return $this
+     * @throws LocalizedException
+     */
     public function execute(Observer $observer): self
     {
         /** @var Order $order */
         $order = $observer->getOrder();
 
-        if (!$this->artworkHelper->isArtworkAttachedToOrder($order)) {
-            $order
-                ->setState(Order::STATE_HOLDED)
-                ->setStatus(Order::STATE_HOLDED);
+        if ($this->artworkHelper->isArtworkAttachedToOrder($order)) {
+            return $this;
         }
+
+        if (!$order->canHold()) {
+            throw new LocalizedException(__('Can\'t hold order.'));
+        }
+
+        $order->hold();
 
         return $this;
     }
