@@ -7,7 +7,7 @@ namespace Labelin\Sales\Helper;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Item;
+use Labelin\Sales\Model\Order\Item;
 
 class Artwork extends AbstractHelper
 {
@@ -65,5 +65,24 @@ class Artwork extends AbstractHelper
         }
 
         return $artworks;
+    }
+
+    public function isArtworkAttachedToOrderItem(Item $item): bool
+    {
+        $isArtworkAttached = false;
+
+        $options = $item->getProductOptionByCode('options');
+
+        if (empty($options)) {
+            return $isArtworkAttached;
+        }
+
+        foreach ($options as $option) {
+            if ($option['option_type'] === static::FILE_OPTION_TYPE) {
+                $isArtworkAttached = true;
+            }
+        }
+
+        return $isArtworkAttached;
     }
 }

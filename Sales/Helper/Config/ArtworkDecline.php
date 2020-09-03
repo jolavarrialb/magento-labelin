@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class ArtworkDecline extends AbstractHelper
 {
-    protected const XML_PATH_LABELIN_ARTWORK_MAX_DECLINES_COUNT = 'labelin_sales/artwork_configuration/declines_max_count';
+    protected const XML_PATH_ARTWORK_MAX_DECLINES_COUNT = 'labelin_sales/artwork_configuration/declines_max_count';
 
     public function hasArtworkUnlimitedDeclines($storeId = null): bool
     {
@@ -19,7 +19,7 @@ class ArtworkDecline extends AbstractHelper
     public function getDeclinesQty($storeId = null): int
     {
         return (int)$this->scopeConfig->getValue(
-            static::XML_PATH_LABELIN_ARTWORK_MAX_DECLINES_COUNT,
+            static::XML_PATH_ARTWORK_MAX_DECLINES_COUNT,
             ScopeInterface::SCOPE_STORE,
             $storeId
         );

@@ -101,7 +101,7 @@ class Item extends MagentoOrderItem
     public function approveArtwork(): self
     {
         if (!$this->isArtworkApproveAvailable()) {
-            throw new LocalizedException(__('Approve denied. You can\'t approve this order item. Please contact your designer.'));
+            throw new LocalizedException(__('Approve denied. Please contact your designer.'));
         }
 
         $this->setData('is_artwork_approved', true);
@@ -126,6 +126,7 @@ class Item extends MagentoOrderItem
             return true;
         }
 
-        return $this->getProductType() === Configurable::TYPE_CODE && $this->getOrder()->getStatus() === Order::STATUS_REVIEW;
+        return $this->getProductType() === Configurable::TYPE_CODE &&
+            $this->getOrder()->getStatus() === Order::STATUS_REVIEW;
     }
 }
