@@ -12,10 +12,12 @@
     },
     "sales_order_item": {
         "column": {
-            "artwork_declines_count": true
+            "artwork_declines_count": true,
+            "is_artwork_approved": true
         },
         "index": {
-            "SALES_ORDER_ITEM_ARTWORK_DECLINES_COUNT": true
+            "SALES_ORDER_ITEM_ARTWORK_DECLINES_COUNT": true,
+            "SALES_ORDER_ITEM_IS_ARTWORK_APPROVED": true
         }
     }
 }
