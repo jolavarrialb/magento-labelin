@@ -140,22 +140,22 @@ class Order extends MagentoOrder
         return in_array($this->getStatus(), $this->getOverdueAvailableStatuses(), false);
     }
 
-    public function canInProduction(): bool
+    public function isReadyForProduction(): bool
     {
         if ($this->getStatus() === static::STATUS_IN_PRODUCTION) {
             return false;
         }
 
-        $availableForProduction = true;
+        $isReadyForProduction = true;
 
         foreach ($this->getAllItems() as $item) {
             /** @var Item $item */
             if ($item->getProductType() === Configurable::TYPE_CODE && !$item->isArtworkApproved()) {
-                $availableForProduction = false;
+                $isReadyForProduction = false;
             }
         }
 
-        return $availableForProduction;
+        return $isReadyForProduction;
     }
 
     public function getOverdueAvailableStatuses(): array
@@ -207,7 +207,7 @@ class Order extends MagentoOrder
      */
     public function markAsProduction(): self
     {
-        if (!$this->canInProduction()) {
+        if (!$this->isReadyForProduction()) {
             throw new LocalizedException(__('An production action is not available.'));
         }
 
