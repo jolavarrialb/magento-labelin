@@ -1,0 +1,29 @@
+<?php /* @var $block \Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceForm */ ?>
+<?php if ($block->isFormAvailable()): ?>
+    <form action="<?= /* @noEscape */ $block->getSubmitUrl() ?>"
+          name="artwork_acceptance_form"
+          data-mage-init='{"validation":{}}'
+          method="POST"
+          enctype="multipart/form-data"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="admin__field">
+            <input type="file" name="artwork" class="action-default scalable action-secondary save required"/>
+        </div>
+        <div class="admin__field">
+            <label for="comment" class="admin__field-label">
+                <?= $block->escapeHtml(__('Comment')) ?>
+            </label>
+            <div class="admin__field-control">
+                <textarea name="comment" rows="3" cols="5" id="comment" class="admin__control-textarea"></textarea>
+            </div>
+        </div>
+        <div class="admin__field">
+            <div class="order-history-comments-actions">
+                <button title="Update Artwork" type="submit" class="action-default scalable action-secondary save">
+                    <?= $block->escapeHtml(__('Update Artwork')) ?>
+                </button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
