@@ -2,6 +2,11 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
+        <referenceBlock name="default_order_items_renderer">
+            <block class="Labelin\Sales\Block\Adminhtml\Order\Item\Renderer\DefaultRenderer\ArtWork"
+                   name="labelin.sales.adminhtml.order.item.renderers.default.artwork" as="artwork"
+                   template="Labelin_Sales::order/items/renderer/default/artwork.phtml"></block>
+        </referenceBlock>
         <referenceBlock name="column_name">
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Labelin_Sales::items/column/name.phtml</argument>

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer;
+namespace Labelin\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer;
 
 use Labelin\Sales\Helper\Config\ArtworkOptions as ArtworkOptionsHelper;
 use Magento\Catalog\Model\Product\OptionFactory;
-use Magento\Framework\View\Element\Template;
+use Magento\Backend\Block\Template;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\UrlInterface;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper ;
 
-class ArtWork extends \Magento\Framework\View\Element\Template
+class ArtWork extends \Magento\Backend\Block\Template
 {
     /** @var ArtworkOptionsHelper */
     protected $artworkOptionsHelper;
@@ -57,6 +57,7 @@ class ArtWork extends \Magento\Framework\View\Element\Template
         $this->url = $url;
         $this->artworkHelper = $artworkHelper;
         parent::__construct($context, $data);
+
     }
 
     public function parseItemOptions()
