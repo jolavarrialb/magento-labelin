@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 body {
     margin: 0px;
 }
@@ -59,6 +58,7 @@ body {
     font-size: 16px;
     line-height: 19px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .page-main .main-header {
@@ -107,6 +107,7 @@ body {
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .main-header .main-header__stickers-wrapper {
@@ -119,10 +120,7 @@ body {
     position: absolute;
     width: 100%;
     height: 620px;
-    background-image: url("../../img/Sticker-Group.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 10px -10px;
+    top: 0;
 }
 
 .page-main .order-section {
@@ -158,6 +156,7 @@ body {
     line-height: 22px;
     font-weight: bold;
     margin-top: 70px;
+    cursor: pointer;
 }
 
 .video-section {
@@ -207,6 +206,7 @@ body {
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .labels-section {
@@ -253,4 +253,5 @@ body {
     font-size: 18px;
     line-height: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
