@@ -1,30 +1,14 @@
 <?php
 /** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
-$option = $this->getData('option');
-
-// $block->escapeHtml($formatedOptionValue['value'], ['a', 'img'])
+$this->parseItemOptions();
 ?>
-<div class="tooltip content">
-    <dl class="item options">
-        <dt><?= $block->escapeHtml($option['label']) ?></dt>
-    </dl>
-</div>
-<div data-bind="scope: 'artwork-component'">
-    <h1 class="ATATA" data-bind="text: titleFun1()"></h1>
-    <h1 class="ATATA" data-bind="text: options"></h1>
-</div>
-<h1>Artwork phtml</h1>
-<script type="text/x-magento-init">
-{
-    "*": {
-        "Magento_Ui/js/core/app": {
-            "components": {
-                "artwork-component": {
-                    "component": "Labelin_Sales/js/artwork/component",
-                    "options": "<?= /* @noEscape */ $block->getComponentOptions(); ?>"
-                }
-            }
-        }
-    }
-}
-</script>
+<embed
+    src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
+    type="<?= /* @noEscape */ $block->getArtworkType() ?>"
+    width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
+    height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
+>
+<br>
+<a href="<?= /* @noEscape */ $block->getArtworkUrl() ?>">
+    <span>Download:</span>"<?= /* @noEscape */ $block->getArtworkLabel() ?>"
+</a>

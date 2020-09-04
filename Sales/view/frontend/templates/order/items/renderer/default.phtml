@@ -13,13 +13,7 @@ $_item = $block->getItem();
                     <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                     <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
                         <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
-                           <?php echo $block
-                                        ->getChildBlock('artwork')
-                                        ->setData(
-                                            [
-                                                'option' => $_option,
-                                            ]
-                                        )->toHtml(); ?>
+                           <?= $block->getChildBlock('artwork')->setData(['option' => $_option, 'item' => $_item])->toHtml(); ?>
                         <?php endif; ?>
                     </dd>
                 <?php else : ?>
