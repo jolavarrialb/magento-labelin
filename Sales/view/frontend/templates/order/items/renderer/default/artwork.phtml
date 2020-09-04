@@ -1,9 +1,9 @@
 <?php
 /** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
 $option = $this->getData('option');
-$formatedOptionValue = $this->getData('formatedOptionValue');
+
+// $block->escapeHtml($formatedOptionValue['value'], ['a', 'img'])
 ?>
-<?= $block->escapeHtml($formatedOptionValue['value'], ['a', 'img']) ?>
 <div class="tooltip content">
     <dl class="item options">
         <dt><?= $block->escapeHtml($option['label']) ?></dt>

@@ -23,6 +23,16 @@
                     <comment>Specify 0 if you want to unlimited declines. In this case, the customer has unlimited decline option.</comment>
                     <validate>validate-digits validate-zero-or-greater validate-number-range number-range-0-100</validate>
                 </field>
+                <field id="order_items_grid_width_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Artwork width size</label>
+                    <comment>Specify Artwork width on order items grid 0px-1000px</comment>
+                    <validate>validate-digits validate-zero-or-greater validate-number-range number-range-0-1000</validate>
+                </field>
+                <field id="order_items_grid_height_size" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Artwork height size</label>
+                    <comment>Specify Artwork height on order items grid 0px-1000px</comment>
+                    <validate>validate-digits validate-zero-or-greater validate-number-range number-range-0-1000</validate>
+                </field>
             </group>
         </section>
     </system>
