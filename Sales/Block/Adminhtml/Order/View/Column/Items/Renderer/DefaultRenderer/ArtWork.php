@@ -31,7 +31,7 @@ class ArtWork extends \Magento\Backend\Block\Template
     /** @var ArtworkHelper */
     protected $artworkHelper;
 
-    /** @var UrlBuilder     */
+    /** @var UrlBuilder */
     protected $url;
 
 
@@ -57,7 +57,6 @@ class ArtWork extends \Magento\Backend\Block\Template
         $this->url = $url;
         $this->artworkHelper = $artworkHelper;
         parent::__construct($context, $data);
-
     }
 
     public function parseItemOptions()
