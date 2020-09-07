@@ -3,11 +3,13 @@
 $this->parseItemOptions();
 ?>
 <a href="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
-    title="Download: <?= /* @noEscape */ $block->getArtworkLabel() ?>">
-<embed
-    src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
-    type="<?= /* @noEscape */ $block->getArtworkType() ?>"
-    width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
-    height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
->
+   title="Download: <?= /* @noEscape */ $block->getArtworkLabel() ?>">
+    <embed
+        src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
+        type="<?= /* @noEscape */ $block->getArtworkType() ?>"
+        width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
+        height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
+    >
+    <br>
+    <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $block->getArtworkLabel(); ?>
 </a>

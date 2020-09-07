@@ -10,4 +10,6 @@ $this->parseItemOptions();
         width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
         height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
     >
+    <br>
+    <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $block->getArtworkLabel(); ?>
 </a>
