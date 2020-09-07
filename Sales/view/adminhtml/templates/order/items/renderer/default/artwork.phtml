@@ -1,14 +1,13 @@
 <?php
-/** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
+/** @var $block Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtWork */
 $this->parseItemOptions();
 ?>
-<embed
-    src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
-    type="<?= /* @noEscape */ $block->getArtworkType() ?>"
-    width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
-    height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
->
-<br>
-<a href="<?= /* @noEscape */ $block->getArtworkUrl() ?>">
-    <span>Download:</span>"<?= /* @noEscape */ $block->getArtworkLabel() ?>"
+<a href="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
+   title="Download: <?= /* @noEscape */ $block->getArtworkLabel() ?>">
+    <embed
+        src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
+        type="<?= /* @noEscape */ $block->getArtworkType() ?>"
+        width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
+        height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
+    >
 </a>

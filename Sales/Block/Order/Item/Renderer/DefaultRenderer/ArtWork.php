@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer;
 
 use Labelin\Sales\Helper\Config\ArtworkOptions as ArtworkOptionsHelper;
+use Magento\Catalog\Model\Product\Option\UrlBuilder;
 use Magento\Catalog\Model\Product\OptionFactory;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\UrlInterface;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper ;
 
 class ArtWork extends \Magento\Framework\View\Element\Template
@@ -28,7 +28,7 @@ class ArtWork extends \Magento\Framework\View\Element\Template
     /** @var array */
     protected $optionValues = [];
 
-    /** @var UrlInterface */
+    /** @var UrlBuilder */
     protected $url;
 
     /** @var ArtworkHelper */
@@ -39,15 +39,15 @@ class ArtWork extends \Magento\Framework\View\Element\Template
      * ArtWork constructor.
      * @param Template\Context $context
      * @param ArtworkOptionsHelper $artworkOptionsHelper
-     * @param UrlInterface $url
-     * @param Json|null $serializer
+     * @param UrlBuilder $url
      * @param ArtworkHelper $artworkHelper
+     * @param Json|null $serializer
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         ArtworkOptionsHelper $artworkOptionsHelper,
-        UrlInterface $url,
+        UrlBuilder $url,
         ArtworkHelper $artworkHelper,
         Json $serializer = null,
         array $data = []
@@ -61,8 +61,6 @@ class ArtWork extends \Magento\Framework\View\Element\Template
 
     public function parseItemOptions()
     {
-
-
         $options = $this->getOrderOptions($this->getData('item'));
 
         if (!empty($options['option_value'])) {

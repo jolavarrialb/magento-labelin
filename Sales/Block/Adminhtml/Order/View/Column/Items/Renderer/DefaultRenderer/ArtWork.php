@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Labelin\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer;
+namespace Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer;
 
 use Labelin\Sales\Helper\Config\ArtworkOptions as ArtworkOptionsHelper;
 use Magento\Catalog\Model\Product\OptionFactory;
 use Magento\Backend\Block\Template;
 use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\UrlInterface;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper ;
+use Magento\Catalog\Model\Product\Option\UrlBuilder;
 
 class ArtWork extends \Magento\Backend\Block\Template
 {
@@ -23,31 +23,31 @@ class ArtWork extends \Magento\Backend\Block\Template
     protected $item = null;
 
     /** @var Json|mixed|null */
-    private $serializer;
+    protected $serializer;
 
     /** @var array */
     protected $optionValues = [];
 
-    /** @var UrlInterface */
-    protected $url;
-
     /** @var ArtworkHelper */
-    private $artworkHelper;
+    protected $artworkHelper;
+
+    /** @var UrlBuilder     */
+    protected $url;
 
 
     /**
      * ArtWork constructor.
      * @param Template\Context $context
      * @param ArtworkOptionsHelper $artworkOptionsHelper
-     * @param UrlInterface $url
-     * @param Json|null $serializer
+     * @param UrlBuilder $url
      * @param ArtworkHelper $artworkHelper
+     * @param Json|null $serializer
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         ArtworkOptionsHelper $artworkOptionsHelper,
-        UrlInterface $url,
+        UrlBuilder $url,
         ArtworkHelper $artworkHelper,
         Json $serializer = null,
         array $data = []
@@ -62,8 +62,6 @@ class ArtWork extends \Magento\Backend\Block\Template
 
     public function parseItemOptions()
     {
-
-
         $options = $this->getOrderOptions($this->getData('item'));
 
         if (!empty($options['option_value'])) {
