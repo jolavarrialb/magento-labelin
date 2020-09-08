@@ -59,7 +59,7 @@ class ArtWork extends \Magento\Backend\Block\Template
         parent::__construct($context, $data);
     }
 
-    public function parseItemOptions()
+    public function parseItemOptions(): void
     {
         $options = $this->getOrderOptions($this->getData('item'));
 
