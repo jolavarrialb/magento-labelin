@@ -1,0 +1,45 @@
+<?php /* @var $block \Labelin\Sales\Block\Order\Items\Renderer\ArtworkAcceptanceForm */ ?>
+<?php if ($block->isFormAvailable()): ?>
+    <legend class="legend">
+        <span>Artwork</span>
+    </legend>
+    <form action="<?= /* @noEscape */ $block->getSubmitUrl() ?>"
+          name="artwork_customer_acceptance_form_"<?= /* @noEscape */ $block->getOrderItem()->getId() ?>
+          data-mage-init='{"validation":{}}'
+          method="POST"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button title="Approve" type="submit" name="approve" value="1" class="action primary">
+                    <?= $block->escapeHtml(__('Approve')) ?>
+                </button>
+                <button title="Decline" type="button" data-order-item-id="<?= /* @noEscape */ $block->getOrderItem()->getId() ?>" class="acceptance-form-decline action primary">
+                    <?= $block->escapeHtml(__('Decline')) ?>
+                </button>
+            </div>
+        </div>
+        <br/>
+        <fieldset
+            id="field-comment-<?= /* @noEscape */ $block->getOrderItem()->getId() ?>"
+            class="fieldset fieldset-field-comment"
+        >
+            <div class="field field-comment required">
+                <label for="comment" class="label">
+                    <?= $block->escapeHtml(__('Notes')) ?>
+                </label>
+                <div class="control">
+                    <textarea name="comment" rows="3" cols="5" id="comment" class="input-text required-entry"></textarea>
+                </div>
+
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button title="Submit" type="submit" name="approve" value="0" class="action primary">
+                        <?= $block->escapeHtml(__('Submit')) ?>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+<?php endif; ?>

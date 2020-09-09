@@ -1,0 +1,26 @@
+<?php /* @var $block \Labelin\Sales\Block\Order\Items\Renderer\ArtworkUploadForm */ ?>
+<?php if ($block->isFormAvailable()): ?>
+    <legend class="legend">
+        <span>Artwork</span>
+    </legend>
+    <form action="<?= /* @noEscape */ $block->getSubmitUrl() ?>"
+          name="artwork_upload_form_"<?= /* @noEscape */ $block->getOrderItem()->getId() ?>
+          data-mage-init='{"validation":{}}'
+          method="POST"
+          enctype="multipart/form-data"
+    >
+        <div class="field field-file required">
+            <div class="control">
+                <input type="file" name="artwork" class="required-entry"/>
+            </div>
+        </div>
+        <br/>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button title="Submit Artwork" type="submit" class="action primary">
+                    <?= $block->escapeHtml(__('Submit Artwork')) ?>
+                </button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>

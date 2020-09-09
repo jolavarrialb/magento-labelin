@@ -104,7 +104,7 @@ class Item extends MagentoOrderItem
             throw new LocalizedException(__('Approve denied. Please contact your designer.'));
         }
 
-        $this->setData('is_artwork_approved', true);
+        $this->setData('is_artwork_approved', 1);
 
         $this->_eventManager->dispatch('labelin_order_item_approve_after', ['order_item' => $this]);
 
