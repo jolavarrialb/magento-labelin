@@ -1,15 +1,16 @@
 <?php
 /** @var $block Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtWork */
-$this->parseItemOptions();
+$rendererHelper = $block->getHelper();
+$rendererHelper->parseItemOptions($this->getData('item'));
 ?>
-<a href="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
-   title="Download: <?= /* @noEscape */ $block->getArtworkLabel() ?>">
+<a href="<?= /* @noEscape */ $rendererHelper->getArtworkUrl() ?>"
+   title="Download: <?= /* @noEscape */ $rendererHelper->getArtworkLabel() ?>">
     <embed
-        src="<?= /* @noEscape */ $block->getArtworkUrl() ?>"
-        type="<?= /* @noEscape */ $block->getArtworkType() ?>"
-        width="<?= /* @noEscape */ $block->getArtworkWidth() ?>"
-        height="<?= /* @noEscape */ $block->getArtworkHeight() ?>"
+        src="<?= /* @noEscape */ $rendererHelper->getArtworkUrl() ?>"
+        type="<?= /* @noEscape */ $rendererHelper->getArtworkType() ?>"
+        width="<?= /* @noEscape */ $rendererHelper->getArtworkWidth() ?>"
+        height="<?= /* @noEscape */ $rendererHelper->getArtworkHeight() ?>"
     >
     <br>
-    <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $block->getArtworkLabel(); ?>
+    <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $rendererHelper->getArtworkLabel(); ?>
 </a>

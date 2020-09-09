@@ -4,60 +4,31 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer;
 
-use Labelin\Sales\Block\Traits\Order\Items\Renderer\DefaultRenderer\ArtWorkTrait;
-use Labelin\Sales\Helper\Config\ArtworkOptions as ArtworkOptionsHelper;
-use Magento\Catalog\Model\Product\OptionFactory;
 use Magento\Backend\Block\Template;
-use Magento\Framework\Serialize\Serializer\Json;
-use Labelin\Sales\Helper\Artwork as ArtworkHelper ;
-use Magento\Catalog\Model\Product\Option\UrlBuilder;
+use Labelin\Sales\Helper\ArtworkRenderer as ArtworkRendererHelper ;
 
-class ArtWork extends \Magento\Backend\Block\Template
+class ArtWork extends Template
 {
-    use ArtWorkTrait;
-    /** @var ArtworkOptionsHelper */
-    protected $artworkOptionsHelper;
-
-    /** @var OptionFactory  */
-    protected $productOptionFactory;
-
-    /**@var array|mixed|null */
-    protected $item = null;
-
-    /** @var Json|mixed|null */
-    protected $json;
-
-    /** @var array */
-    protected $optionValues = [];
-
-    /** @var ArtworkHelper */
-    protected $artworkHelper;
-
-    /** @var UrlBuilder */
-    protected $url;
-
+    /** @var ArtworkRendererHelper */
+    protected $artworkRendererHelper;
 
     /**
      * ArtWork constructor.
      * @param Template\Context $context
-     * @param ArtworkOptionsHelper $artworkOptionsHelper
-     * @param UrlBuilder $url
-     * @param ArtworkHelper $artworkHelper
-     * @param Json|null $json
+     * @param ArtworkRendererHelper $artworkRendererHelper
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
-        ArtworkOptionsHelper $artworkOptionsHelper,
-        UrlBuilder $url,
-        ArtworkHelper $artworkHelper,
-        Json $json = null,
+        ArtworkRendererHelper $artworkRendererHelper,
         array $data = []
     ) {
-        $this->json = $json ?: \Magento\Framework\App\ObjectManager::getInstance()->get(Json::class);
-        $this->artworkOptionsHelper = $artworkOptionsHelper;
-        $this->url = $url;
-        $this->artworkHelper = $artworkHelper;
+        $this->artworkRendererHelper = $artworkRendererHelper;
         parent::__construct($context, $data);
+    }
+
+    public function getHelper(): ArtworkRendererHelper
+    {
+        return $this->artworkRendererHelper;
     }
 }
