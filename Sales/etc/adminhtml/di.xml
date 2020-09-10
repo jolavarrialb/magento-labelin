@@ -31,4 +31,17 @@
         <plugin name="labelin_adminhtml_order_view_add_review_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ReviewButton" sortOrder="10" />
         <plugin name="labelin_adminhtml_order_view_add_production_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ProductionButton" sortOrder="20" />
     </type>
+    <type name="Labelin\Sales\Block\Adminhtml\Order\Chart">
+        <arguments>
+            <argument name="availableStatusesForChart" xsi:type="array">
+                <item name="processing" xsi:type="const">Labelin\Sales\Model\Order::STATE_PROCESSING</item>
+                <item name="designer_review" xsi:type="const">Labelin\Sales\Model\Order::STATUS_REVIEW</item>
+                <item name="in_production" xsi:type="const">Labelin\Sales\Model\Order::STATUS_IN_PRODUCTION</item>
+                <item name="overdue" xsi:type="const">Labelin\Sales\Model\Order::STATUS_OVERDUE</item>
+                <item name="complete" xsi:type="const">Labelin\Sales\Model\Order::STATE_COMPLETE</item>
+                <item name="holded" xsi:type="const">Labelin\Sales\Model\Order::STATE_HOLDED</item>
+                <item name="pending" xsi:type="const">Labelin\Sales\Model\Order::STATUS_PENDING</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
