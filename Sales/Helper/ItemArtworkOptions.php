@@ -12,7 +12,7 @@ use Magento\Catalog\Model\Product\Option\UrlBuilder;
 use Magento\Sales\Model\Order\Item;
 
 
-class ArtworkRenderer extends AbstractHelper
+class ItemArtworkOptions extends AbstractHelper
 {
     /** @var ArtworkSizes */
     protected $artworkSizesHelper;
