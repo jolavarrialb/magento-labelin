@@ -38,7 +38,7 @@ class UpdateArtwork extends Action
     }
 
     /**
-     * @return ResponseInterface|Json|ResultInterface
+     * @return ResponseInterface|ResultInterface
      */
     public function execute()
     {

@@ -3,4 +3,7 @@
     <event name="sales_order_place_after">
         <observer name="order_status_on_hold_handler" instance="Labelin\Sales\Observer\Order\OnHoldStatusHandler" />
     </event>
+    <event name="sales_order_item_save_after">
+        <observer name="order_status_unhold_handler" instance="Labelin\Sales\Observer\Order\UnholdStatusHandler" />
+    </event>
 </config>

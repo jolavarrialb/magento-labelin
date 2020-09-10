@@ -1,5 +1,8 @@
 <?php /* @var $block \Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceForm */ ?>
 <?php if ($block->isFormAvailable()): ?>
+    <div class="admin__page-section-title">
+        <span class="title">Artwork</span>
+    </div>
     <form action="<?= /* @noEscape */ $block->getSubmitUrl() ?>"
           name="artwork_acceptance_form"
           data-mage-init='{"validation":{}}'
@@ -8,7 +11,7 @@
     >
         <?= $block->getBlockHtml('formkey') ?>
         <div class="admin__field">
-            <input type="file" name="artwork" class="action-default scalable action-secondary save required"/>
+            <input type="file" name="artwork" class="scalable required"/>
         </div>
         <div class="admin__field">
             <label for="comment" class="admin__field-label">
