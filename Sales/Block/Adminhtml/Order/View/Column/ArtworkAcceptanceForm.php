@@ -8,12 +8,5 @@ use Labelin\Sales\Block\Common\ArtworkFormAbstract;
 
 class ArtworkAcceptanceForm extends ArtworkFormAbstract
 {
-    public function getSubmitUrl(): string
-    {
-        if (!$this->getOrderItem()) {
-            return '';
-        }
 
-        return $this->getUrl('sales/order_item/updateArtwork', ['item_id' => $this->getOrderItem()->getId()]);
-    }
 }

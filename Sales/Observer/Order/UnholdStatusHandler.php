@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Labelin\Sales\Observer\Order;
 
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
+use Labelin\Sales\Model\Order;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Sales\Model\Order;
+use Labelin\Sales\Model\Order\Item as OrderItem;
 
-class OnHoldStatusHandler implements ObserverInterface
+class UnholdStatusHandler implements ObserverInterface
 {
     /** @var ArtworkHelper */
     protected $artworkHelper;
@@ -28,14 +29,21 @@ class OnHoldStatusHandler implements ObserverInterface
      */
     public function execute(Observer $observer): self
     {
-        /** @var Order $order */
-        $order = $observer->getOrder();
+        /** @var OrderItem $orderItem */
+        $orderItem = $observer->getItem();
 
-        if ($this->artworkHelper->isArtworkAttachedToOrder($order)) {
+        /** @var Order $order */
+        $order = $orderItem->getOrder();
+
+        if ($order->getStatus() !== Order::STATE_HOLDED) {
             return $this;
         }
 
-        $order->hold();
+        if (!$this->artworkHelper->isArtworkAttachedToOrder($order)) {
+            return $this;
+        }
+
+        $order->unhold();
 
         return $this;
     }

@@ -22,8 +22,6 @@ abstract class ArtworkFormAbstract extends Template
         parent::__construct($context, $data);
     }
 
-    abstract public function getSubmitUrl(): string;
-
     public function isFormAvailable(): bool
     {
         $orderItem = $this->getOrderItem();
@@ -44,5 +42,14 @@ abstract class ArtworkFormAbstract extends Template
     public function getOrderItem(): ?Item
     {
         return $this->getData('item');
+    }
+
+    public function getSubmitUrl(): string
+    {
+        if (!$this->getOrderItem()) {
+            return '';
+        }
+
+        return $this->getUrl('sales/order_item/updateArtwork', ['item_id' => $this->getOrderItem()->getId()]);
     }
 }

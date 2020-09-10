@@ -45,13 +45,13 @@ class UpdateArtwork extends Action
      */
     public function execute()
     {
-        if (!$this->getRequest()->getParam('item_id')) {
+        if (!$this->isValidRequestItem()) {
             $this->messageManager->addErrorMessage(__('Please specify order item.'));
 
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        if (!$this->getRequest()->getParam('approve') && !$this->getRequest()->getParam('comment')) {
+        if ($this->isInValidRequestDecline()) {
             $this->messageManager->addErrorMessage(__('For decline necessary comment. Please add notes when decline.'));
 
             return $this->_redirect($this->_redirect->getRefererUrl());
@@ -120,5 +120,15 @@ class UpdateArtwork extends Action
         $this->messageManager->addNoticeMessage(__('Artwork was declined. Please wait until designer will update artwork'));
 
         return $this;
+    }
+
+    protected function isValidRequestItem(): bool
+    {
+        return (bool)$this->getRequest()->getParam('item_id');
+    }
+
+    protected function isInValidRequestDecline(): bool
+    {
+        return !$this->getRequest()->getParam('approve') && !$this->getRequest()->getParam('comment');
     }
 }
