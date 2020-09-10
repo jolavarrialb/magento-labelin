@@ -23,6 +23,11 @@ $_item = $block->getItem();
             <?php endforeach; ?>
             </dl>
         <?php endif; ?>
+
+        <br/>
+        <?= $block->getChildBlock('customer_acceptance')->setData('item', $_item)->toHtml() ?>
+        <?= $block->getChildBlock('artwork_upload_form')->setData('item', $_item)->toHtml() ?>
+
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
         <?php if ($addtInfoBlock) : ?>
             <?= $addtInfoBlock->setItem($_item)->toHtml() ?>

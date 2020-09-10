@@ -1,16 +1,18 @@
 <?php
 /** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
-$rendererHelper = $block->getHelper();
-$rendererHelper->parseItemOptions($this->getData('item'));
+$artworkOptionsHelper = $block->getHelper();
+$initOptions = $artworkOptionsHelper->initItemOptions($this->getData('item'));
 ?>
-<a href="<?= /* @noEscape */ $rendererHelper->getArtworkUrl() ?>"
-   title="Download: <?= /* @noEscape */ $rendererHelper->getArtworkLabel() ?>">
-    <embed
-        src="<?= /* @noEscape */ $rendererHelper->getArtworkUrl() ?>"
-        type="<?= /* @noEscape */ $rendererHelper->getArtworkType() ?>"
-        width="<?= /* @noEscape */ $rendererHelper->getArtworkWidth() ?>"
-        height="<?= /* @noEscape */ $rendererHelper->getArtworkHeight() ?>"
-    >
-    <br>
-    <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $rendererHelper->getArtworkLabel(); ?>
-</a>
+<?php if ($initOptions): ?>
+    <a href="<?= /* @noEscape */ $artworkOptionsHelper->getArtworkUrl() ?>"
+       title="Download: <?= /* @noEscape */ $artworkOptionsHelper->getArtworkLabel() ?>">
+        <embed
+            src="<?= /* @noEscape */ $artworkOptionsHelper->getArtworkUrl() ?>"
+            type="<?= /* @noEscape */ $artworkOptionsHelper->getArtworkType() ?>"
+            width="<?= /* @noEscape */ $artworkOptionsHelper->getArtworkWidth() ?>"
+            height="<?= /* @noEscape */ $artworkOptionsHelper->getArtworkHeight() ?>"
+        >
+        <br>
+        <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $artworkOptionsHelper->getArtworkLabel(); ?>
+    </a>
+<?php endif; ?>

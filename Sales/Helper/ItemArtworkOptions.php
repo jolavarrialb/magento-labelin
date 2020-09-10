@@ -53,14 +53,21 @@ class ItemArtworkOptions extends AbstractHelper
 
     /**
      * @param Item $item
+     * @return bool
      */
-    public function parseItemOptions(Item $item): void
+    public function initItemOptions(Item $item): bool
     {
+        if (null === $item) {
+            return (bool)false;
+        }
+
         $options = $this->getOrderOptions($item);
 
         if (!empty($options['option_value'])) {
             $this->optionValues = $this->json->unserialize($options['option_value']);
         }
+
+        return (bool)true;
     }
 
     public function getArtworkType(): string
