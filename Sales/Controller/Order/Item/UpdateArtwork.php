@@ -89,14 +89,14 @@ class UpdateArtwork extends Action
     protected function processOrderItemDecline(Item $item): self
     {
         try {
-            $item->incrementArtworkDeclinesCount();
-            $this->orderItemRepository->save($item);
-
             $order = $item->getOrder();
 
             if (!$order) {
                 return $this;
             }
+
+            $item->incrementArtworkDeclinesCount();
+            $this->orderItemRepository->save($item);
 
             $order->addStatusToHistory($order->getStatus(), sprintf(
                     '%s: %s',
@@ -104,6 +104,11 @@ class UpdateArtwork extends Action
                     $this->getRequest()->getParam('comment')
                 )
             );
+
+            $this->_eventManager->dispatch('labelin_order_item_decline_after', [
+                'order_item' => $item,
+                'comment'    => $this->getRequest()->getParam('comment'),
+            ]);
 
             $this->orderRepository->save($order);
 

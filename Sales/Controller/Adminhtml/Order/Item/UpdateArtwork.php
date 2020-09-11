@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Labelin\Sales\Controller\Adminhtml\Order\Item;
 
 use Labelin\Sales\Helper\Designer as DesignerHelper;
+use Labelin\Sales\Model\Order\Item;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
-use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
@@ -58,20 +58,27 @@ class UpdateArtwork extends Action
 
         // toDo process image file (update artwork)
 
+        /** @var Item $orderItem */
+        $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
+
         if ($this->getRequest()->getParam('comment')) {
-            $this->processComment();
+            $this->processComment($orderItem);
         }
+
+        $this->_eventManager->dispatch('labelin_artwork_designer_upload', [
+            'order_item' => $orderItem,
+            'comment'    => $this->getRequest()->getParam('comment'),
+        ]);
 
         $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));
 
         return $this->_redirect($this->_redirect->getRefererUrl());
     }
 
-    protected function processComment(): self
+    protected function processComment(Item $item): self
     {
         $comment = $this->getRequest()->getParam('comment');
-        $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
-        $order = $orderItem->getOrder();
+        $order = $item->getOrder();
         $authUser = $this->designerHelper->getCurrentAuthUser();
 
         if (!$order) {

@@ -75,8 +75,6 @@ class Item extends MagentoOrderItem
 
         $this->setData('artwork_declines_count', $qty);
 
-        $this->_eventManager->dispatch('labelin_order_item_decline_after', ['order_item' => $this]);
-
         return $this;
     }
 

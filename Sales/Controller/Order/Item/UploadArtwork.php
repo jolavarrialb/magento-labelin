@@ -69,6 +69,8 @@ class UploadArtwork extends Action
     {
         try {
             $this->orderItemRepository->save($item);
+
+            $this->_eventManager->dispatch('labelin_artwork_customer_upload', ['order_item' => $item]);
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
 
