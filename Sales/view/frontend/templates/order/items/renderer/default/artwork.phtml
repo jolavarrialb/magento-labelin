@@ -1,0 +1,18 @@
+<?php
+/** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
+$artworkPreviewHelper = $block->getHelper();
+$initOptions = $artworkPreviewHelper->initItemOptions($this->getData('item'));
+?>
+<?php if ($initOptions): ?>
+    <a href="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
+       title="Download: <?= /* @noEscape */ $artworkPreviewHelper->getArtworkLabel() ?>">
+        <embed
+            src="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
+            type="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkType() ?>"
+            width="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkWidth() ?>"
+            height="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkHeight() ?>"
+        >
+        <br>
+        <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $artworkPreviewHelper->getArtworkLabel(); ?>
+    </a>
+<?php endif; ?>

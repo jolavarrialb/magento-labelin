@@ -5,6 +5,7 @@
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Labelin_Sales::order/items/renderer/default.phtml</argument>
             </action>
+            <block class="Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork" name="labelin.sales.order.item.renderers.default.artwork" as="artwork" template="Labelin_Sales::order/items/renderer/default/artwork.phtml" />
             <block class="Labelin\Sales\Block\Order\Items\Renderer\ArtworkAcceptanceForm" name="artwork_customer_acceptance_form" as="customer_acceptance" template="Labelin_Sales::order/items/renderer/artworkacceptanceform.phtml" />
             <block class="Labelin\Sales\Block\Order\Items\Renderer\ArtworkUploadForm" name="artwork_upload_form" template="Labelin_Sales::order/items/renderer/artworkuploadform.phtml" />
         </referenceBlock>

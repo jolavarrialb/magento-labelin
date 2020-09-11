@@ -7,25 +7,20 @@ $_item = $block->getItem();
         <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
         <?php if ($_options = $block->getItemOptions()) : ?>
             <dl class="item-options">
-                <?php foreach ($_options as $_option) : ?>
-                    <dt><?= $block->escapeHtml($_option['label']) ?></dt>
-                    <?php if (!$block->getPrintStatus()) : ?>
-                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
-                        <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
-                            <?= $block->escapeHtml($_formatedOptionValue['value'], ['a', 'img']) ?>
-                            <?php if (isset($_formatedOptionValue['full_view'])) : ?>
-                                <div class="tooltip content">
-                                    <dl class="item options">
-                                        <dt><?= $block->escapeHtml($_option['label']) ?></dt>
-                                        <dd><?= $block->escapeHtml($_formatedOptionValue['full_view']) ?></dd>
-                                    </dl>
-                                </div>
-                            <?php endif; ?>
-                        </dd>
-                    <?php else : ?>
-                        <dd><?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?></dd>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+            <?php foreach ($_options as $_option) : ?>
+                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                <?php if (!$block->getPrintStatus()) : ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
+                        <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
+                           <?= $block->getChildBlock('artwork')->setData(['item' => $_item])->toHtml(); ?>
+                        <?php endif; ?>
+                    </dd>
+                <?php else : ?>
+                    <dd><?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?></dd>
+                <?php endif; ?>
+
+            <?php endforeach; ?>
             </dl>
         <?php endif; ?>
 
