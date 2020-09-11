@@ -18,9 +18,9 @@ class ChartButton extends Container
         AclHelper $aclHelper,
         array $data = []
     ) {
-        $this->aclHelper = $aclHelper;
-
         parent::__construct($context, $data);
+
+        $this->aclHelper = $aclHelper;
     }
 
     protected function _prepareLayout(): self

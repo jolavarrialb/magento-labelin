@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Block\Adminhtml\Order;
 
 use Labelin\Sales\Helper\Acl as AclHelper;
+use Labelin\Sales\Helper\Config\OrdersChart as ChartHelper;
 use Labelin\Sales\Model\Order;
 use Magento\Backend\Block\Template;
 use Magento\Framework\Exception\LocalizedException;
@@ -22,34 +23,28 @@ class Chart extends Template
     /** @var AclHelper */
     protected $aclHelper;
 
+    /** @var ChartHelper */
+    protected $chartHelper;
+
     /** @var array */
     protected $availableStatusesForChart;
-
-    /** @var int */
-    protected $width;
-
-    /** @var int */
-    protected $height;
 
     public function __construct(
         Template\Context $context,
         OrderCollectionFactory $orderCollectionFactory,
         AclHelper $aclHelper,
+        ChartHelper $chartHelper,
         array $availableStatusesForChart = [],
-        $width = 200,
-        $height = 50,
         array $data = []
     ) {
+        parent::__construct($context, $data);
+
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->availableStatusesForChart = $availableStatusesForChart;
         $this->orderCollection = $this->getOrderCollection();
 
-        $this->width = $width;
-        $this->height = $height;
-
         $this->aclHelper = $aclHelper;
-
-        parent::__construct($context, $data);
+        $this->chartHelper = $chartHelper;
     }
 
     public function isAvailable(): bool
@@ -104,12 +99,12 @@ class Chart extends Template
 
     public function getWidth(): int
     {
-        return $this->width;
+        return $this->chartHelper->getChartWidth();
     }
 
     public function getHeight(): int
     {
-        return $this->height;
+        return $this->chartHelper->getChartHeight();
     }
 
     protected function initOrderCollection(array $data = []): OrderCollection
