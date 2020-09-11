@@ -5,30 +5,24 @@ declare(strict_types=1);
 namespace Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer;
 
 use Magento\Backend\Block\Template;
-use Labelin\Sales\Helper\ItemArtworkOptions as ItemArtworkOptionsHelper ;
+use Labelin\Sales\Helper\ArtworkPreview as ArtworkPreviewHelper ;
 
 class ArtWork extends Template
 {
-    /** @var ItemArtworkOptionsHelper */
-    protected $ItemArtworkOptionsHelper;
+    /** @var ArtworkPreviewHelper */
+    protected $artworkPreviewHelper;
 
-    /**
-     * ArtWork constructor.
-     * @param Template\Context $context
-     * @param ItemArtworkOptionsHelper $ItemArtworkOptionsHelper
-     * @param array $data
-     */
     public function __construct(
         Template\Context $context,
-        ItemArtworkOptionsHelper $ItemArtworkOptionsHelper,
+        ArtworkPreviewHelper $artworkPreviewHelper,
         array $data = []
     ) {
-        $this->ItemArtworkOptionsHelper = $ItemArtworkOptionsHelper;
+        $this->artworkPreviewHelper = $artworkPreviewHelper;
         parent::__construct($context, $data);
     }
 
-    public function getHelper(): ItemArtworkOptionsHelper
+    public function getHelper(): ArtworkPreviewHelper
     {
-        return $this->ItemArtworkOptionsHelper;
+        return $this->artworkPreviewHelper;
     }
 }

@@ -12,7 +12,7 @@ use Magento\Catalog\Model\Product\Option\UrlBuilder;
 use Magento\Sales\Model\Order\Item;
 
 
-class ItemArtworkOptions extends AbstractHelper
+class ArtworkPreview extends AbstractHelper
 {
     /** @var ArtworkSizes */
     protected $artworkSizesHelper;
@@ -32,13 +32,6 @@ class ItemArtworkOptions extends AbstractHelper
     /** @var UrlBuilder */
     protected $url;
 
-    /**
-     * ArtWork constructor.
-     * @param ArtworkSizes $artworkSizes
-     * @param UrlBuilder $url
-     * @param ArtworkHelper $artworkHelper
-     * @param Json|null $json
-     */
     public function __construct(
         ArtworkSizes $artworkSizes,
         UrlBuilder $url,
@@ -51,10 +44,6 @@ class ItemArtworkOptions extends AbstractHelper
         $this->artworkHelper = $artworkHelper;
     }
 
-    /**
-     * @param Item $item
-     * @return bool
-     */
     public function initItemOptions(Item $item): bool
     {
         if (null === $item) {
