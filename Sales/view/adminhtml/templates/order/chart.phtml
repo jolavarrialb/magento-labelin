@@ -1,0 +1,23 @@
+<?php /**@var $block \Labelin\Sales\Block\Adminhtml\Order\Chart */ ?>
+<?php if($block->isAvailable()): ?>
+    <div  data-bind="scope: 'chartscope'" id="orders-pie-chart" style="display: none">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "chartscope": {
+                                "component": "Labelin_Sales/js/chart",
+                                "labels": <?= /* @noEscape */ json_encode($block->getLabels()) ?>,
+                                "dataValues": <?= /* @noEscape */ json_encode($block->getValues()) ?>,
+                                "width": <?= /* @noEscape */ $block->getWidth() ?>,
+                                "height": <?= /* @noEscape */ $block->getHeight() ?>
+                            }
+                        }
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>

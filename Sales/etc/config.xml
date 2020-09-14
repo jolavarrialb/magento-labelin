@@ -5,6 +5,10 @@
             <order_configuration>
                 <overdue_days>10</overdue_days>
             </order_configuration>
+            <orders_chart_configuration>
+                <width>200</width>
+                <height>50</height>
+            </orders_chart_configuration>
             <artwork_configuration>
                 <declines_max_count>3</declines_max_count>
                 <order_items_grid_width_size>150</order_items_grid_width_size>

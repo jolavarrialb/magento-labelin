@@ -45,6 +45,7 @@ class Order extends MagentoOrder
     public const STATUS_REVIEW        = 'designer_review';
     public const STATUS_IN_PRODUCTION = 'in_production';
     public const STATUS_OVERDUE       = 'overdue';
+    public const STATUS_PENDING       = 'pending';
 
     /** @var array */
     protected $overdueAvailableStatuses;
