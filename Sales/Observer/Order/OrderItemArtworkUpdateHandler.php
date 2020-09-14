@@ -124,7 +124,11 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     {
         $tmp = $this->item->getProductOptions();
 
-        $key = $this->getOptionKeyForImageUpdate($tmp['options']);
+        if (!array_key_exists('options',$tmp)) {
+            $key = 0;
+        } else {
+            $key = $this->getOptionKeyForImageUpdate($tmp['options']);
+        }
         $url['url'] = $this->getDownloadOptionValue();
 
         $result = [

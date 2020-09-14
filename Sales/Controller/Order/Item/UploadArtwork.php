@@ -59,7 +59,8 @@ class UploadArtwork extends Action
         /** @var Item $orderItem */
         $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
 
-        // toDo process image file (update artwork)
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update', ['itemId' => $orderItem->getId()]);
+
         $this->processOrderItem($orderItem);
 
         return $this->_redirect($this->_redirect->getRefererUrl());
