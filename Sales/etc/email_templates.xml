@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="labelin_sales_email_artwork_approve_template"
+              label="Artwork Approve"
+              file="artwork_approve.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+    <template id="labelin_sales_email_artwork_decline_template"
+              label="Artwork Decline"
+              file="artwork_decline.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+    <template id="labelin_sales_email_artwork_customer_upload_template"
+              label="Artwork Update by User"
+              file="artwork_customer_upload.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+    <template id="labelin_sales_email_artwork_designer_upload_template"
+              label="Artwork Update by Designer"
+              file="artwork_designer_upload.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+</config>

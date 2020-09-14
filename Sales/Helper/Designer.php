@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Helper;
 
+use Labelin\Sales\Model\Order;
 use Magento\Authorization\Model\ResourceModel\Role\CollectionFactory as RoleCollectionFactory;
 use Magento\Authorization\Model\ResourceModel\Role\Collection as RoleCollection;
 use Magento\Authorization\Model\Role;
@@ -56,6 +57,18 @@ class Designer extends AbstractHelper
         return $this->initRoleCollection()
             ->setRolesFilter()
             ->addFieldToFilter('role_name', static::DESIGNER_ROLE_NAME)
+            ->getFirstItem();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return User|DataObject
+     */
+    public function getDesignerById(int $id)
+    {
+        return $this->initDesignersCollection()
+            ->addFieldToFilter('main_table.user_id', ['eq' => $id])
             ->getFirstItem();
     }
 

@@ -11,5 +11,31 @@
                 <order_items_grid_height_size>150</order_items_grid_height_size>
             </artwork_configuration>
         </labelin_sales>
+        <labelin_sales_email>
+            <artwork_approve>
+                <enabled>1</enabled>
+                <template>labelin_sales_email_artwork_approve_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </artwork_approve>
+            <artwork_decline>
+                <enabled>1</enabled>
+                <template>labelin_sales_email_artwork_decline_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </artwork_decline>
+            <artwork_customer_upload>
+                <enabled>1</enabled>
+                <template>labelin_sales_email_artwork_customer_upload_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </artwork_customer_upload>
+            <artwork_designer_upload>
+                <enabled>1</enabled>
+                <template>labelin_sales_email_artwork_designer_upload_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </artwork_designer_upload>
+        </labelin_sales_email>
     </default>
 </config>

@@ -1,0 +1,20 @@
+<!--@subject {{trans "Artwork Approved"}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="float:left; margin-right: 10px" class="fue-abc-items">
+    <tr>
+        <td>
+            <div class="greeting">Hi, {{var designer_name}}.</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{var customer_name}} has <b>approved</b> artwork.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Please click <a href="{{var order_url | raw}}">link</a> to process with this order.
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

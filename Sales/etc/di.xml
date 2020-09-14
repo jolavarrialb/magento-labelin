@@ -36,4 +36,68 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="ApproveIdentity" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/artwork_approve/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/artwork_approve/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/artwork_approve/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_approve/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_approve/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DeclineIdentity" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/artwork_decline/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/artwork_decline/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/artwork_decline/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_decline/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_decline/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="UpdateByDesignerIdentity" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/artwork_designer_upload/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/artwork_designer_upload/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/artwork_designer_upload/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_designer_upload/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_designer_upload/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="UpdateByCustomerIdentity" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/artwork_customer_upload/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/artwork_customer_upload/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/artwork_customer_upload/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_customer_upload/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_customer_upload/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\ApproveSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">ApproveIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\DeclineSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">DeclineIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\UpdateByDesignerSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">UpdateByDesignerIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\UpdateByCustomerSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">UpdateByCustomerIdentity</argument>
+        </arguments>
+    </type>
 </config>
