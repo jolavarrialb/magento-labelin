@@ -1,7 +1,14 @@
 header {
+    .block-static-block {
+        width: 100%;
+    }
     @media (max-width: 768px) {
         display: none;
     }
+}
+
+.nav-sections {
+    display: none;
 }
 
 .page-header {
@@ -26,52 +33,13 @@ header {
     .header {
         display: flex;
         max-width: 1440px;
-        padding: 20px 20px 0;
+        padding: 0;
+        align-items: center;
         .logo {
-            margin: 0 auto;
+            margin: 5px auto 15px 0;
         }
         .navigation {
-            background: @color-white;
-            display: flex;
-            justify-content: flex-end;
-            .ui-menu {
-                display: flex;
-                list-style: none;
-                padding-left: 0;
-                margin: 0;
-                align-items: center;
-                font-family: "Lato", sans-serif;
-                color: @color-grafite;
-                font-weight: 500;
-                font-size: @fs-content-small;
-                line-height: 17px;
-                li {
-                    margin-right: 40px;
-                    text-transform: uppercase;
-                    margin-bottom: 0;
-                    a {
-                        color: @color-grafite;
-                        padding: 0;
-                    }
-                }
-            }
-        }
-
-        .nav-button {
-            color: @color-black;
-            background-color: @color-white;
-            padding: 13px 0;
-            border-radius: 30px;
-            border: 2px solid @color-black;
-            max-width: 160px;
-            width: 100%;
-            font-size: @fs-content;
-            line-height: 19px;
-            font-weight: bold;
-            text-align: center;
-            &:hover {
-                text-decoration: none;
-            }
+            display: none;
         }
     }
 }
