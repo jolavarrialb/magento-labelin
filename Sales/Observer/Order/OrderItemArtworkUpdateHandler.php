@@ -72,7 +72,7 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     public function execute(Observer $observer): void
     {
         $this->item = $observer->getData('item');
-        $this->product = $this->getLoadProduct($this->item->getProduct()->getId());
+        $this->product = $this->getProductById($this->item->getProduct()->getId());
 
         //Upload new image
         $this->artworkData = $this->prepareArtworkProcessQueue();
@@ -194,5 +194,7 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
                 return $key;
             }
         }
+
+        return count($options);
     }
 }

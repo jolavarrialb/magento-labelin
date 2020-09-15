@@ -14,10 +14,10 @@ $_item = $block->getItem();
                     <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
                         <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
                            <?= $block->getChildBlock('artwork')->setData(['item' => $_item])->toHtml(); ?>
+                        <?php else : ?>
+                            <?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?>
                         <?php endif; ?>
                     </dd>
-                <?php else : ?>
-                    <dd><?= $block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value'])) ?></dd>
                 <?php endif; ?>
 
             <?php endforeach; ?>

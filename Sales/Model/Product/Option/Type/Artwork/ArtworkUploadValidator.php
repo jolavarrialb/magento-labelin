@@ -38,7 +38,7 @@ class ArtworkUploadValidator extends ValidatorFile
      * @param Option $option
      * @return array
      */
-    public function validate(DataObject $processingParams, Option $option) :array
+    public function validate($processingParams, $option): array
     {
         $this->product = $processingParams->getProduct();
         $upload = $this->httpFactory->create();

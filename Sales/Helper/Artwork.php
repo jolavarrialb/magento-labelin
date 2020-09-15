@@ -52,7 +52,7 @@ class Artwork extends AbstractHelper
 
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
-                    $isArtworkAttached = true;
+                    return $isArtworkAttached = true;
                 }
             }
         }
