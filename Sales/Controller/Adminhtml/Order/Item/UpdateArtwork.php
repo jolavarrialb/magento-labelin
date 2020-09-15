@@ -105,8 +105,8 @@ class UpdateArtwork extends Action
 
     protected function processItemArtworkUpdate(Item $item): self
     {
-        $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
         try {
+            $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
             $this->orderItemRepository->save($item);
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());

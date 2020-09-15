@@ -59,8 +59,6 @@ class UploadArtwork extends Action
         /** @var Item $orderItem */
         $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
 
-        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $orderItem]);
-
         $this->processOrderItem($orderItem);
 
         return $this->_redirect($this->_redirect->getRefererUrl());
@@ -69,6 +67,8 @@ class UploadArtwork extends Action
     protected function processOrderItem(Item $item): self
     {
         try {
+            $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
+
             $this->orderItemRepository->save($item);
 
             $this->_eventManager->dispatch('labelin_artwork_customer_upload', ['order_item' => $item]);
