@@ -56,8 +56,7 @@ class UpdateArtwork extends Action
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        $itemId = $this->getRequest()->getParam('item_id');
-        if (!$itemId) {
+        if (!$this->getRequest()->getParam('item_id')) {
             $this->messageManager->addErrorMessage(__('Please specify order item.'));
 
             return $this->_redirect($this->_redirect->getRefererUrl());
@@ -74,7 +73,7 @@ class UpdateArtwork extends Action
 
         $this->_eventManager->dispatch('labelin_artwork_designer_upload', [
             'order_item' => $orderItem,
-            'comment'    => $this->getRequest()->getParam('comment'),
+            'comment' => $this->getRequest()->getParam('comment'),
         ]);
 
         $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));

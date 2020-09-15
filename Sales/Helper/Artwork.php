@@ -15,8 +15,8 @@ class Artwork extends AbstractHelper
 {
     public const FILE_OPTION_TYPE = 'file';
 
-    public const ARTWORK_STATUS_DECLINE   = 'decline';
-    public const ARTWORK_STATUS_APPROVE   = 'approve';
+    public const ARTWORK_STATUS_DECLINE = 'decline';
+    public const ARTWORK_STATUS_APPROVE = 'approve';
     public const ARTWORK_STATUS_NO_ACTION = 'no_action';
 
     /** @var OrderItemRepositoryInterface */
@@ -25,8 +25,7 @@ class Artwork extends AbstractHelper
     public function __construct(
         OrderItemRepositoryInterface $itemRepository,
         Context $context
-    )
-    {
+    ) {
         $this->itemRepository = $itemRepository;
         parent::__construct($context);
     }
@@ -52,7 +51,7 @@ class Artwork extends AbstractHelper
 
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
-                    return $isArtworkAttached = true;
+                    $isArtworkAttached = true;
                 }
             }
         }
@@ -79,7 +78,7 @@ class Artwork extends AbstractHelper
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
                     $artworks[] = [
-                        'link'   => $option['value'],
+                        'link' => $option['value'],
                         'status' => $this->getArtworkStatus($orderItem),
                     ];
                 }
@@ -127,9 +126,8 @@ class Artwork extends AbstractHelper
         return $this->isOrderItemArtworkDeclined($item) ? static::ARTWORK_STATUS_DECLINE : static::ARTWORK_STATUS_NO_ACTION;
     }
 
-    public function getArtworkProductOptionByItemId($itemId): array
+    public function getArtworkProductOptionByItem(Item $item): array
     {
-        $item = $this->itemRepository->get($itemId);
         $productOptions = $item->getProductOptions();
 
         if (!is_array($productOptions) || !isset($productOptions['options'])) {

@@ -122,6 +122,7 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         } else {
             $key = $this->getOptionKeyForImageUpdate($productOptions['options']);
         }
+
         $url['url'] = $this->getDownloadOptionValue();
 
         $result = [
@@ -195,6 +196,8 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
             }
         }
 
-        return count($options);
+        ksort($options);
+
+        return array_key_last($options) + 1;
     }
 }

@@ -37,8 +37,7 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
         OrderItemRepositoryInterface $itemRepository,
         Artwork $artworkHelper,
         Json $serializer = null
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->resultForwardFactory = $resultForwardFactory;
         $this->download = $download;
@@ -67,7 +66,7 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
             return $resultForward->forward('noroute');
         }
 
-        $productCustomOption = $this->artworkHelper->getArtworkProductOptionByItemId($orderId);
+        $productCustomOption = $this->artworkHelper->getArtworkProductOptionByItem($this->itemRepository->get($orderId));
 
         if (empty($productCustomOption)) {
             return $resultForward->forward('noroute');
