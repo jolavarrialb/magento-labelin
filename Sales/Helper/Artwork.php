@@ -13,6 +13,10 @@ class Artwork extends AbstractHelper
 {
     public const FILE_OPTION_TYPE = 'file';
 
+    public const ARTWORK_STATUS_DECLINE   = 'decline';
+    public const ARTWORK_STATUS_APPROVE   = 'approve';
+    public const ARTWORK_STATUS_NO_ACTION = 'no_action';
+
     public function isArtworkAttachedToOrder(Order $order): bool
     {
         $isArtworkAttached = true;
@@ -51,6 +55,7 @@ class Artwork extends AbstractHelper
         }
 
         foreach ($order->getAllItems() as $orderItem) {
+            /** @var Item $orderItem */
             $options = $orderItem->getProductOptionByCode('options');
 
             if (empty($options)) {
@@ -59,7 +64,10 @@ class Artwork extends AbstractHelper
 
             foreach ($options as $option) {
                 if ($option['option_type'] === static::FILE_OPTION_TYPE) {
-                    $artworks[] = $option['value'];
+                    $artworks[] = [
+                        'link'   => $option['value'],
+                        'status' => $this->getArtworkStatus($orderItem),
+                    ];
                 }
             }
         }
@@ -84,5 +92,24 @@ class Artwork extends AbstractHelper
         }
 
         return $isArtworkAttached;
+    }
+
+    public function isOrderItemArtworkApproved(Item $item): bool
+    {
+        return $item->isArtworkApproved();
+    }
+
+    public function isOrderItemArtworkDeclined(Item $item): bool
+    {
+        return !$item->isArtworkApproved() && $item->getArtworkDeclinesCount() > 0;
+    }
+
+    protected function getArtworkStatus(Item $item): string
+    {
+        if ($this->isOrderItemArtworkApproved($item)) {
+            return static::ARTWORK_STATUS_APPROVE;
+        }
+
+        return $this->isOrderItemArtworkDeclined($item) ? static::ARTWORK_STATUS_DECLINE : static::ARTWORK_STATUS_NO_ACTION;
     }
 }
