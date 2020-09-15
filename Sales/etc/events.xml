@@ -3,9 +3,6 @@
     <event name="sales_order_place_after">
         <observer name="order_status_on_hold_handler" instance="Labelin\Sales\Observer\Order\OnHoldStatusHandler" />
     </event>
-    <event name="sales_order_item_save_after">
-        <observer name="order_status_unhold_handler" instance="Labelin\Sales\Observer\Order\UnholdStatusHandler" />
-    </event>
     <event name="labelin_order_item_approve_after">
         <observer name="artwork_approve_send_email_handler" instance="Labelin\Sales\Observer\Artwork\ApproveHandler"/>
     </event>
@@ -13,6 +10,7 @@
         <observer name="artwork_decline_send_email_handler" instance="Labelin\Sales\Observer\Artwork\DeclineHandler"/>
     </event>
     <event name="labelin_artwork_customer_upload">
+        <observer name="order_status_unhold_handler" instance="Labelin\Sales\Observer\Order\UnholdStatusHandler" />
         <observer name="artwork_customer_upload_send_email_handler" instance="Labelin\Sales\Observer\Artwork\CustomerUploadHandler"/>
     </event>
     <event name="labelin_artwork_designer_upload">
