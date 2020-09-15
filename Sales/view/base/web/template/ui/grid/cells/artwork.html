@@ -1,6 +1,15 @@
 <div class="data-grid-cell-content">
     <!-- ko foreach: $col.getArtwork($row()) -->
-        <span data-bind="html: $data"></span>
-        <br/>
+    <!-- ko if: ($data['status'] === 'approve') -->
+    <b><span style="color: green" data-bind="text: 'Approved'"></span></b>:
+    <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'decline') -->
+    <b><span style="color: red" data-bind="text: 'Declined'"></span></b>:
+    <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'no_action') -->
+    <b><span style="color: grey" data-bind="text: 'No Action'"></span></b>:
+    <!-- /ko -->
+    <span data-bind="html: $data['link']"></span>
+    <br/>
     <!-- /ko -->
 </div>
