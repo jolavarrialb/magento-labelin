@@ -12,6 +12,7 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
+use Magento\Framework\Event\ManagerInterface as EventManager;
 
 class UpdateArtwork extends Action
 {
@@ -24,15 +25,20 @@ class UpdateArtwork extends Action
     /** @var DesignerHelper */
     protected $designerHelper;
 
+    /** @var EventManager */
+    protected $eventManager;
+
     public function __construct(
         Context $context,
         OrderItemRepositoryInterface $orderItemRepository,
         OrderRepositoryInterface $orderRepository,
-        DesignerHelper $designerHelper
+        DesignerHelper $designerHelper,
+        EventManager $eventManager
     ) {
         $this->orderItemRepository = $orderItemRepository;
         $this->orderRepository = $orderRepository;
         $this->designerHelper = $designerHelper;
+        $this->eventManager = $eventManager;
 
         parent::__construct($context);
     }
@@ -56,10 +62,10 @@ class UpdateArtwork extends Action
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        // toDo process image file (update artwork)
-
         /** @var Item $orderItem */
         $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
+
+        $this->processItemArtworkUpdate($orderItem);
 
         if ($this->getRequest()->getParam('comment')) {
             $this->processComment($orderItem);
@@ -67,7 +73,7 @@ class UpdateArtwork extends Action
 
         $this->_eventManager->dispatch('labelin_artwork_designer_upload', [
             'order_item' => $orderItem,
-            'comment'    => $this->getRequest()->getParam('comment'),
+            'comment' => $this->getRequest()->getParam('comment'),
         ]);
 
         $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));
@@ -93,6 +99,20 @@ class UpdateArtwork extends Action
         ));
 
         $this->orderRepository->save($order);
+
+        return $this;
+    }
+
+    protected function processItemArtworkUpdate(Item $item): self
+    {
+        try {
+            $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
+            $this->orderItemRepository->save($item);
+        } catch (\Exception $exception) {
+            $this->messageManager->addErrorMessage($exception->getMessage());
+
+            return $this;
+        }
 
         return $this;
     }

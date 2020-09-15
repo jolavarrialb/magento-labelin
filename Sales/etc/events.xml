@@ -18,4 +18,7 @@
     <event name="labelin_artwork_designer_upload">
         <observer name="artwork_designer_upload_send_email_handler" instance="Labelin\Sales\Observer\Artwork\DesignerUploadHandler"/>
     </event>
+    <event name="labelin_sales_order_item_artwork_update">
+        <observer name="order_item_artwork_update_handler" instance="Labelin\Sales\Observer\Order\OrderItemArtworkUpdateHandler" />
+    </event>
 </config>
