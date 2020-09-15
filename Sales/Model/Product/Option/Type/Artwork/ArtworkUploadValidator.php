@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace Labelin\Sales\Model\Product\Option\Type\Artwork;
 
 use Magento\Catalog\Model\Product\Exception as ProductException;
+use Magento\Catalog\Model\Product\Option;
 use Magento\Catalog\Model\Product\Option\Type\File\ValidatorFile;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;
 
 class ArtworkUploadValidator extends ValidatorFile
 {
+    protected const FORM_FILE_ARTWORK_ID = 'artwork';
+
+    /** @var Random|mixed */
     protected $random;
 
     public function __construct(
@@ -28,11 +33,16 @@ class ArtworkUploadValidator extends ValidatorFile
         parent::__construct($scopeConfig, $filesystem, $fileSize, $httpFactory, $isImageValidator, $random);
     }
 
-    public function validate($processingParams, $option)
+    /**
+     * @param DataObject $processingParams
+     * @param Option $option
+     * @return array
+     */
+    public function validate(DataObject $processingParams, Option $option) :array
     {
         $this->product = $processingParams->getProduct();
         $upload = $this->httpFactory->create();
-        $file = 'artwork';
+        $file = static::FORM_FILE_ARTWORK_ID;
         try {
             $runValidation = $option->getIsRequire() || $upload->isUploaded($file);
             if (!$runValidation) {

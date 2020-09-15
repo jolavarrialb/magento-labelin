@@ -63,10 +63,10 @@ class UpdateArtwork extends Action
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['itemId' => $itemId]);
-
         /** @var Item $orderItem */
         $orderItem = $this->orderItemRepository->get($this->getRequest()->getParam('item_id'));
+
+        $this->processItemArtworkUpdate($orderItem);
 
         if ($this->getRequest()->getParam('comment')) {
             $this->processComment($orderItem);
@@ -100,6 +100,20 @@ class UpdateArtwork extends Action
         ));
 
         $this->orderRepository->save($order);
+
+        return $this;
+    }
+
+    protected function processItemArtworkUpdate(Item $item): self
+    {
+        $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
+        try {
+            $this->orderItemRepository->save($item);
+        } catch (\Exception $exception) {
+            $this->messageManager->addErrorMessage($exception->getMessage());
+
+            return $this;
+        }
 
         return $this;
     }

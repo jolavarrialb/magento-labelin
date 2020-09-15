@@ -6,6 +6,7 @@ namespace Labelin\Sales\Observer\Order;
 
 use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Model\Product\Option\Type\Artwork\ArtworkUploadValidator;
+use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product\Option;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject;
@@ -16,13 +17,11 @@ use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
 use Magento\Sales\Model\Order\Item;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Quote\Model\ResourceModel\Quote\Item\Option\CollectionFactory as ItemOptionCollectionFactory;
 use Magento\Catalog\Model\Product\Option\UrlBuilder;
 
 class OrderItemArtworkUpdateHandler implements ObserverInterface
 {
-
-    public const CUSTOM_OPTION_DOWNLOAD_URL = 'sales/download/downloadCustomOptionFile';
+    protected const CUSTOM_OPTION_DOWNLOAD_URL = 'sales/download/downloadCustomOptionFile';
 
     /** @var Item */
     protected $item;
@@ -53,9 +52,6 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     /** @var ProductRepositoryInterface */
     protected $productRepositoryInterface;
 
-    /** @var ItemOptionCollectionFactory */
-    protected $itemOptionCollectionFactory;
-
     /** @var UrlBuilder */
     protected $urlBuilder;
 
@@ -63,22 +59,19 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         ArtworkUploadValidator $fileUploadValidator,
         OrderItemRepositoryInterface $orderItemRepository,
         ProductRepositoryInterface $productRepositoryInterface,
-        ItemOptionCollectionFactory $itemOptionCollectionFactory,
         UrlBuilder $urlBuilder,
         SerializerInterface $json = null
-    )
-    {
+    ) {
         $this->fileUploadValidator = $fileUploadValidator;
         $this->orderItemRepository = $orderItemRepository;
         $this->json = $json ?: ObjectManager::getInstance()->get(Json::class);
         $this->productRepositoryInterface = $productRepositoryInterface;
-        $this->itemOptionCollectionFactory = $itemOptionCollectionFactory;
         $this->urlBuilder = $urlBuilder;
     }
 
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
-        $this->item = $this->orderItemRepository->get($observer->getData('itemId'));
+        $this->item = $observer->getData('item');
         $this->product = $this->getLoadProduct($this->item->getProduct()->getId());
 
         //Upload new image
@@ -90,7 +83,7 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         $this->updateItemData();
     }
 
-    protected function getLoadProduct($id)
+    protected function getProductById($id): ProductInterface
     {
         return $this->productRepositoryInterface->getById($id);
     }
@@ -122,12 +115,12 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
 
     protected function updateItemData(): void
     {
-        $tmp = $this->item->getProductOptions();
+        $productOptions = $this->item->getProductOptions();
 
-        if (!array_key_exists('options',$tmp)) {
+        if (!array_key_exists('options', $productOptions)) {
             $key = 0;
         } else {
-            $key = $this->getOptionKeyForImageUpdate($tmp['options']);
+            $key = $this->getOptionKeyForImageUpdate($productOptions['options']);
         }
         $url['url'] = $this->getDownloadOptionValue();
 
@@ -141,10 +134,9 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
             'custom_view' => true
         ];
 
-        $tmp['options'][$key] = $result;
+        $productOptions['options'][$key] = $result;
 
-        $this->item->setProductOptions($tmp);
-        $this->orderItemRepository->save($this->item);
+        $this->item->setProductOptions($productOptions);
     }
 
     protected function getValue(): string

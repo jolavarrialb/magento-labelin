@@ -27,11 +27,15 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
     /** @var OrderItemRepositoryInterface */
     protected $itemRepository;
 
+    /** @var Artwork */
+    protected $artworkHelper;
+
     public function __construct(
         Context $context,
         ForwardFactory $resultForwardFactory,
         Download $download,
         OrderItemRepositoryInterface $itemRepository,
+        Artwork $artworkHelper,
         Json $serializer = null
     )
     {
@@ -42,6 +46,7 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
         $this->serializer = $serializer ?: ObjectManager::getInstance()->get(
             Json::class
         );
+        $this->artworkHelper = $artworkHelper;
     }
 
     /**
@@ -56,13 +61,13 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
         /** @var \Magento\Framework\Controller\Result\Forward $resultForward */
         $resultForward = $this->resultForwardFactory->create();
 
-        $quoteItemOptionId = $this->getRequest()->getParam('id');
+        $orderId = $this->getRequest()->getParam('id');
 
-        if (empty($quoteItemOptionId)) {
+        if (empty($orderId)) {
             return $resultForward->forward('noroute');
         }
 
-        $productCustomOption = $this->getOption($quoteItemOptionId);
+        $productCustomOption = $this->artworkHelper->getArtworkProductOptionByItemId($orderId);
 
         if (empty($productCustomOption)) {
             return $resultForward->forward('noroute');
@@ -86,25 +91,6 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
     {
         // phpcs:ignore Magento2.Security.LanguageConstruct.ExitUsage
         exit(0);
-    }
-
-    protected function getOption($itemId): array
-    {
-        $item = $this->itemRepository->get($itemId);
-        $productOptions = $item->getProductOptions();
-
-        if (!is_array($productOptions) || !isset($productOptions['options'])) {
-
-            return [];
-        }
-
-        foreach ($productOptions['options'] as $productOption) {
-            if (array_key_exists('option_type', $productOption) && $productOption['option_type'] === Artwork::FILE_OPTION_TYPE) {
-                return $productOption;
-            }
-        }
-
-        return [];
     }
 }
 
