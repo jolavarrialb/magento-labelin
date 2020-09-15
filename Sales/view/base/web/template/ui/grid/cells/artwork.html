@@ -1,13 +1,13 @@
 <div class="data-grid-cell-content">
     <!-- ko foreach: $col.getArtwork($row()) -->
     <!-- ko if: ($data['status'] === 'approve') -->
-    <b><span style="color: green" data-bind="text: 'Approved'"></span></b>:
+    <b><span style="color: green" data-bind="i18n: 'Approved'"></span></b>:
     <!-- /ko -->
     <!-- ko if: ($data['status'] === 'decline') -->
-    <b><span style="color: red" data-bind="text: 'Declined'"></span></b>:
+    <b><span style="color: red" data-bind="i18n: 'Declined'"></span></b>:
     <!-- /ko -->
     <!-- ko if: ($data['status'] === 'no_action') -->
-    <b><span style="color: grey" data-bind="text: 'No Action'"></span></b>:
+    <b><span style="color: grey" data-bind="i18n: 'No Action'"></span></b>:
     <!-- /ko -->
     <span data-bind="html: $data['link']"></span>
     <br/>
