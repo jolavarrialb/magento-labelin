@@ -8,5 +8,22 @@ use Labelin\Sales\Block\Common\ArtworkFormAbstract;
 
 class ArtworkAcceptanceForm extends ArtworkFormAbstract
 {
+    public function isFormAvailable(): bool
+    {
+        $orderItem = $this->getOrderItem();
 
+        if (!$orderItem) {
+            return false;
+        }
+
+        if (!$orderItem->isArtworkApprovedByDesigner() && $orderItem->getArtworkDeclinesCount() === 0) {
+            return true;
+        }
+
+        if (!$orderItem->isArtworkApprovedByDesigner() && $orderItem->getArtworkDeclinesCount()) {
+            return false;
+        }
+
+        return parent::isFormAvailable();
+    }
 }
