@@ -20,6 +20,9 @@
             cursor: pointer;
             &:hover {
                 background-color: @color-hover-grey;
+                .order-button {
+                    background-color: @color-black;
+                }
             }
             .order-button {
                 color: @color-white;
@@ -114,6 +117,10 @@
                 text-align: center;
                 &:hover {
                     text-decoration: none;
+                    background-color: @color-buttons-hover;
+                }
+                &:active {
+                    background-color: @color-black;
                 }
             }
         }
@@ -164,6 +171,30 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    &.examples-images {
+        .column {
+            display: flex;
+            justify-content: space-between;
+            max-width: 708px;
+            width: 100%;
+            img {
+                @media (max-width: 1024px) {
+                    width: 50%;
+                }
+
+                @media (max-width: 768px) {
+                    margin-bottom: 10px;
+                    width: 50%;
+                    height: 50%;
+                }
+                &:last-of-type {
+                    @media (max-width: 768px) {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
 
     .image-card-wrapper {
         display: flex;
@@ -203,6 +234,9 @@
     text-align: center;
     &:hover {
         text-decoration: none;
+        background-color: @color-buttons-hover;
     }
-    
+    &:active {
+        background-color: @color-black;
+    }
 }
