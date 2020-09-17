@@ -9,7 +9,6 @@ use Labelin\Sales\Model\Product\Option\Type\Artwork\ArtworkUploadValidator;
 use Magento\Catalog\Api\Data\ProductCustomOptionInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\CustomOptions\CustomOption;
-use Magento\Catalog\Model\Product\Exception;
 use Magento\Catalog\Model\Product\Option;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject;
@@ -74,47 +73,49 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         $this->urlBuilder = $urlBuilder;
     }
 
-    public function execute(Observer $observer): void
+    /**
+     * @param Observer $observer
+     *
+     * @return $this
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
+     */
+    public function execute(Observer $observer): self
     {
         $this->item = $observer->getData('item');
-        try {
-            $this->product = $this->getProductById($this->item->getProduct()->getId());
-        } catch (NoSuchEntityException $e) {
+
+        if (!$this->item->getProduct()) {
+            return $this;
         }
 
+        $this->product = $this->getProductById($this->item->getProduct()->getId());
+
         //Upload new image
-        try {
-            $this->artworkData = $this->prepareArtworkProcessQueue();
-        } catch (Exception $e) {
-        } catch (\Magento\Framework\Validator\Exception $e) {
-        } catch (LocalizedException $e) {
-        }
-        try {
-            $this->uploadArtwork();
-        } catch (LocalizedException $e) {
-        }
+        $this->artworkData = $this->prepareArtworkProcessQueue();
+        $this->uploadArtwork();
 
         //Update order product_options
         $this->customOptionUrlParams = $this->getCustomOptionsParams();
         $this->updateItemProductOption();
         $this->updateItemExtensionAttributesOption();
+
+        return $this;
     }
 
     /**
-     * @param $id
+     * @param int $id
+     *
      * @return ProductInterface
      * @throws NoSuchEntityException
      */
-    protected function getProductById($id): ProductInterface
+    protected function getProductById(int $id): ProductInterface
     {
         return $this->productRepositoryInterface->getById($id);
     }
 
     /**
      * @return array
-     * @throws Exception
      * @throws LocalizedException
-     * @throws \Magento\Framework\Validator\Exception
      */
     protected function prepareArtworkProcessQueue(): array
     {
@@ -126,7 +127,12 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
 
     protected function getItemProductOptionForFileUpload(): Option
     {
+        if (!$this->item->getProduct()) {
+            return ObjectManager::getInstance()->get(Option::class);
+        }
+
         $options = $this->item->getProduct()->getOptions();
+
         foreach ($options as $option) {
             if ($option['type'] === Artwork::FILE_OPTION_TYPE) {
                 $this->productOption = $option;
@@ -143,6 +149,10 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
      */
     protected function uploadArtwork(): void
     {
+        if (!$this->item->getProduct()) {
+            return;
+        }
+
         $this->item->getProduct()->getTypeInstance()->processFileQueue();
     }
 
@@ -165,7 +175,7 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
             'option_id' => $this->productOption->getOptionId(),
             'option_type' => $this->productOption->getType(),
             'option_value' => $this->json->serialize(array_merge($this->artworkData, $url)),
-            'custom_view' => true
+            'custom_view' => true,
         ];
 
         $productOptions['options'][$key] = $result;
@@ -177,21 +187,29 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     {
         $productOption = $this->item->getProductOption();
         $extAttr = $productOption->getExtensionAttributes();
+
+        if (!$extAttr) {
+            return;
+        }
+
         $customOptions = $extAttr->getCustomOptions();
 
-        $customOptionIsSavedOnProduct = null;
+        $customOptionIsSavedOnProduct = true;
+
         foreach ($customOptions as $key => $optionItem) {
-            if ((int)$optionItem->getOptionId() == (int)$this->productOption->getOptionId()) {
+            if ((int)$optionItem->getOptionId() === (int)$this->productOption->getOptionId()) {
                 $optionItem->setData('option_value', $this->artworkData);
-                $customOptionIsSavedOnProduct = true;
+                $customOptionIsSavedOnProduct = false;
             }
         }
-        if (null === $customOptionIsSavedOnProduct) {
+
+        if ($customOptionIsSavedOnProduct) {
             $productCustomOption = ObjectManager::getInstance()->get(CustomOption::class);
             $productCustomOption->setData('option_id', $this->productOption->getOptionId());
             $productCustomOption->setData('option_value', $this->artworkData);
             $customOptions[] = $productCustomOption;
         }
+
         $extAttr->setCustomOptions($customOptions);
         $productOption->setExtensionAttributes($extAttr);
         $this->item->setProductOption($productOption);
@@ -216,9 +234,8 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     {
         return [
             'route' => static::CUSTOM_OPTION_DOWNLOAD_URL,
-            'params' => $this->getCustomOptionsParams()
+            'params' => $this->getCustomOptionsParams(),
         ];
-
     }
 
     protected function getCustomOptionsParams(): array
@@ -226,9 +243,10 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         if (!empty($this->customOptionUrlParams)) {
             return $this->customOptionUrlParams;
         }
+
         $this->customOptionUrlParams = [
             'id' => $this->item->getId(),
-            'key' => $this->artworkData['secret_key']
+            'key' => $this->artworkData['secret_key'],
         ];
 
         return $this->customOptionUrlParams;
