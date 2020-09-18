@@ -141,6 +141,11 @@ class Order extends MagentoOrder
         return in_array($this->getStatus(), $this->getOverdueAvailableStatuses(), false);
     }
 
+    public function canReorder(): bool
+    {
+        return $this->getState() === static::STATE_COMPLETE;
+    }
+
     public function isReadyForProduction(): bool
     {
         if ($this->getStatus() === static::STATUS_IN_PRODUCTION) {
@@ -219,10 +224,5 @@ class Order extends MagentoOrder
         $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $this]);
 
         return $this;
-    }
-
-    public function canReorder(): bool
-    {
-        return $this->getState() === static::STATE_COMPLETE;
     }
 }
