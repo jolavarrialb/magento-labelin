@@ -1,0 +1,14 @@
+{
+    "name": "labelin/configurable-product",
+    "license": "Commercial",
+    "description": "Labelin ConfigurableProduct",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\ConfigurableProduct\\": ""
+        }
+    }
+}
