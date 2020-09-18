@@ -13,7 +13,8 @@
       "Sales/registration.php"
     ],
     "psr-4": {
-      "Labelin\\Sales\\": "Sales"
+      "Labelin\\Sales\\": "Sales",
+      "Labelin\\ConfigurableProduct\\": "ConfigurableProduct"
     }
   }
 }
