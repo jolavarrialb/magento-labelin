@@ -10,7 +10,8 @@
   "autoload": {
     "files": [
       "ThemeLabelin/registration.php",
-      "Sales/registration.php"
+      "Sales/registration.php",
+      "ConfigurableProduct/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
