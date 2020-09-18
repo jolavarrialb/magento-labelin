@@ -74,6 +74,7 @@ class Item extends MagentoOrderItem
         }
 
         $this->setData('artwork_declines_count', $qty);
+        $this->unApproveArtworkByDesigner();
 
         return $this;
     }
@@ -109,9 +110,38 @@ class Item extends MagentoOrderItem
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function approveArtworkByDesigner(): self
+    {
+        if (!$this->isArtworkApproveAvailable()) {
+            throw new LocalizedException(__('Update denied. Please contact your designer.'));
+        }
+
+        $this->setData('is_designer_update_artwork', 1);
+
+        $this->_eventManager->dispatch('labelin_order_item_approve_by_designer_after', ['order_item' => $this]);
+
+        return $this;
+    }
+
+    public function unApproveArtworkByDesigner(): self
+    {
+        $this->setData('is_designer_update_artwork', 0);
+
+        return $this;
+    }
+
     public function isArtworkApproved(): bool
     {
         return (bool)$this->getData('is_artwork_approved');
+    }
+
+    public function isArtworkApprovedByDesigner(): bool
+    {
+        return (bool)$this->getData('is_designer_update_artwork');
     }
 
     public function isArtworkApproveAvailable(): bool

@@ -107,6 +107,9 @@ class UpdateArtwork extends Action
     {
         try {
             $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
+
+            $item->approveArtworkByDesigner();
+
             $this->orderItemRepository->save($item);
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
