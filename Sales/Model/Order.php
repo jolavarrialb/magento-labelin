@@ -42,10 +42,10 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Order extends MagentoOrder
 {
-    public const STATUS_REVIEW        = 'designer_review';
+    public const STATUS_REVIEW = 'designer_review';
     public const STATUS_IN_PRODUCTION = 'in_production';
-    public const STATUS_OVERDUE       = 'overdue';
-    public const STATUS_PENDING       = 'pending';
+    public const STATUS_OVERDUE = 'overdue';
+    public const STATUS_PENDING = 'pending';
 
     /** @var array */
     protected $overdueAvailableStatuses;
@@ -139,6 +139,11 @@ class Order extends MagentoOrder
         }
 
         return in_array($this->getStatus(), $this->getOverdueAvailableStatuses(), false);
+    }
+
+    public function canReorder(): bool
+    {
+        return $this->getState() === static::STATE_COMPLETE;
     }
 
     public function isReadyForProduction(): bool
