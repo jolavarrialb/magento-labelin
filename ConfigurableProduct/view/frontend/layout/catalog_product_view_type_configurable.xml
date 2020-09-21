@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Labelin_ConfigurableProduct::js/sticker-steps.js" />
+    </head>
+    <body>
+        <referenceContainer name="product.info.price" remove="true"/>
+        <referenceContainer name="product.info.extrahint" remove="true"/>
+        <referenceContainer name="product.info.social" remove="true"/>
+        <referenceContainer name="product.info.media" remove="true"/>
+        <referenceContainer name="product.info.details" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceContainer name="product.info.main" htmlClass="product-info-main product-info-main-sticker"/>
+        <referenceBlock name="product.info">
+            <referenceContainer name="product.info.form.content" remove="true" />
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/form.phtml</argument>
+            </action>
+        </referenceBlock>
+        <move element="product.price.tier" destination="product.info.options.wrapper" />
+        <referenceBlock name="product.info.options.wrapper">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/options/wrapper.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info">
+            <block name="product.info.steps" as="sticker_steps" template="Labelin_ConfigurableProduct::product/view/steps.phtml" />
+            <block name="product.info.sticker.buttons" as="sticker_buttons" template="Labelin_ConfigurableProduct::product/view/buttons.phtml" />
+            <block name="product.info.order.info" as="sticker_order_info" template="Labelin_ConfigurableProduct::product/view/orderinfo.phtml" />
+        </referenceBlock>
+    </body>
+</page>
