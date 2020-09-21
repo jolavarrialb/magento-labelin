@@ -1,0 +1,36 @@
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-layout-1column {
+        .product-info-main-sticker {
+            width: 100%;
+
+            .sticker-buttons {
+                display: flex;
+
+                button {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    .product-info-main-sticker {
+        #sticker-steps-wrapper {
+            display: flex;
+
+            .sticker-step-info {
+                width: 100px;
+                height: 10px;
+                border: 1px solid black;
+                background-color: transparent;
+            }
+
+            .info-active {
+                background-color: red;
+            }
+
+            .info-nonactive {
+                background-color: transparent;
+            }
+        }
+    }
+}

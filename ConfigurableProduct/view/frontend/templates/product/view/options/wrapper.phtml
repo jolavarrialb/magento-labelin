@@ -11,9 +11,11 @@ if ($block->hasRequiredOptions()) {
             <?= $block->getChildHtml('swatch_options', true) ?>
         </div>
         <div id="sticker_price" style="display: none">
+            <span style="display: none" class="swatch-attribute-label"><?= __('Quantity') ?></span>
             <?= $block->getChildHtml('product.price.tier', true) ?>
         </div>
         <div id="sticker_artwork" style="display: none">
+            <span style="display: none" class="swatch-attribute-label"><?= __('Upload') ?></span>
             <?= $block->getChildHtml('product_options', true) ?>
         </div>
     </div>
