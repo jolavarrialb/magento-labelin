@@ -11,7 +11,8 @@ document.addEventListener('swatch-full-render', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     let backStep = document.querySelector('#sticker-back-step'),
-        nextStep = document.querySelector('#sticker-next-step');
+        nextStep = document.querySelector('#sticker-next-step'),
+        submitStep = document.querySelector('#product-addtocart-button');
 
     if (isFirstStep()) {
         hideBtn(backStep);
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (document.querySelectorAll('div[data-step]').length > parseInt(localStorage.getItem('sticker_current_step'))) {
             showBtn(nextStep);
+            hideBtn(submitStep);
         }
     });
 
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (isLastStep()) {
             hideBtn(this);
+            showBtn(submitStep);
         }
 
         if (parseInt(localStorage.getItem('sticker_current_step')) > 1) {
@@ -62,10 +65,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function hideBtn(element) {
         element.style.display = 'none';
+        element.disabled = true;
     }
 
     function showBtn(element) {
         element.style.display = 'block';
+        element.disabled = false;
     }
 });
 

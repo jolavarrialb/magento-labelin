@@ -1,12 +1,27 @@
 <div class="sticker-buttons">
-    <button id="sticker-back-step" type="button">
+    <button id="sticker-back-step" class="action primary" type="button">
         <span>
             <?= __('Back') ?>
         </span>
     </button>
-    <button id="sticker-next-step" type="button">
+    <button id="sticker-next-step" class="action primary" type="button">
         <span>
             <?= __('Next') ?>
         </span>
     </button>
+    <button type="submit"
+            title="<?= __('Submit') ?>"
+            class="action primary tocart"
+            id="product-addtocart-button"
+            style="display: none"
+            disabled>
+        <span><?= __('Submit') ?></span>
+    </button>
 </div>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

@@ -20,6 +20,9 @@
             </action>
         </referenceBlock>
         <move element="product.price.tier" destination="product.info.options.wrapper" />
+        <referenceBlock name="product.info.form.options">
+            <referenceBlock name="product.info.options.wrapper.bottom" remove="true"/>
+        </referenceBlock>
         <referenceBlock name="product.info.options.wrapper">
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/options/wrapper.phtml</argument>
