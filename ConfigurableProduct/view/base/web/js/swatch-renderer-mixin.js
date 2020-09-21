@@ -111,6 +111,115 @@ define([
 
             document.dispatchEvent(fullRender);
         },
+        _OnClick: function ($this, $widget) {
+            var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
+                $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
+                $label = $parent.find('.' + $widget.options.classes.attributeSelectedOptionLabelClass),
+                attributeId = $parent.attr('attribute-id'),
+                $input = $parent.find('.' + $widget.options.classes.attributeInput),
+                checkAdditionalData = JSON.parse(this.options.jsonSwatchConfig[attributeId]['additional_data']);
+
+            if ($widget.inProductList) {
+                $input = $widget.productForm.find(
+                    '.' + $widget.options.classes.attributeInput + '[name="super_attribute[' + attributeId + ']"]'
+                );
+            }
+
+            if ($this.hasClass('disabled')) {
+                return;
+            }
+
+            if ($this.hasClass('selected')) {
+                $parent.removeAttr('option-selected').find('.selected').removeClass('selected');
+                $input.val('');
+                $label.text('');
+                $this.attr('aria-checked', false);
+
+                let selectSwatch = document.createEvent('Event');
+                selectSwatch.initEvent('swatch-unselect-option', true, true);
+
+                document.dispatchEvent(selectSwatch);
+            } else {
+                $parent.attr('option-selected', $this.attr('option-id')).find('.selected').removeClass('selected');
+                $label.text($this.attr('option-label'));
+                $input.val($this.attr('option-id'));
+                $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
+                $this.addClass('selected');
+                $widget._toggleCheckedAttributes($this, $wrapper);
+
+                let selectSwatch = document.createEvent('Event');
+                selectSwatch.initEvent('swatch-select-option', true, true);
+
+                document.dispatchEvent(selectSwatch);
+            }
+
+            $widget._Rebuild();
+
+            if ($widget.element.parents($widget.options.selectorProduct)
+                .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
+            ) {
+                $widget._UpdatePrice();
+            }
+
+            $(document).trigger('updateMsrpPriceBlock',
+                [
+                    _.findKey($widget.options.jsonConfig.index, $widget.options.jsonConfig.defaultValues),
+                    $widget.options.jsonConfig.optionPrices
+                ]);
+
+            if (parseInt(checkAdditionalData['update_product_preview_image'], 10) === 1) {
+                $widget._loadMedia();
+            }
+
+            $input.trigger('change');
+        },
+        _Rebuild: function () {
+            var $widget = this,
+                controls = $widget.element.find('.' + $widget.options.classes.attributeClass + '[attribute-id]'),
+                selected = controls.filter('[option-selected]');
+
+            // Enable all options
+            $widget._Rewind(controls);
+
+            // done if nothing selected
+            if (selected.length <= 0) {
+                return;
+            }
+
+            // Disable not available options
+            controls.each(function () {
+                var $this = $(this),
+                    id = $this.attr('attribute-id'),
+                    products = $widget._CalcProducts(id);
+
+                if (selected.length === 1 && selected.first().attr('attribute-id') === id) {
+                    return;
+                }
+
+                $this.find('[option-id]').each(function () {
+                    var $element = $(this),
+                        option = $element.attr('option-id');
+
+                    if (!$widget.optionsMap.hasOwnProperty(id) || !$widget.optionsMap[id].hasOwnProperty(option) ||
+                        $element.hasClass('selected') ||
+                        $element.is(':selected')) {
+                        return;
+                    }
+
+                    if (_.intersection(products, $widget.optionsMap[id][option].products).length <= 0) {
+                        $element.attr('disabled', true).addClass('disabled').hide();
+                    }
+                });
+            });
+        },
+        _Rewind: function (controls) {
+            controls.find('div[option-id], option[option-id]').removeClass('disabled').removeAttr('disabled').show();
+            controls.find('div[option-empty], option[option-empty]')
+                .attr('disabled', true)
+                .addClass('disabled')
+                .attr('tabindex', '-1')
+                .hide();
+        },
     };
 
     return function () {

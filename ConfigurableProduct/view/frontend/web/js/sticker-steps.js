@@ -2,24 +2,43 @@ document.addEventListener('swatch-full-render', function () {
     let stepsSelectors = document.querySelectorAll('div[data-step]');
 
     document
-        .querySelector('#sticker_price')
+        .getElementById('sticker_price')
         .setAttribute('data-step', stepsSelectors.length + 1);
     document
-        .querySelector('#sticker_artwork')
+        .getElementById('sticker_artwork')
         .setAttribute('data-step', stepsSelectors.length + 2);
 });
 
+document.addEventListener('swatch-select-option', function () {
+    let nextStep = document.getElementById('sticker-next-step');
+
+    nextStep.disabled = false;
+});
+
+document.addEventListener('swatch-unselect-option', function () {
+    let nextStep = document.getElementById('sticker-next-step');
+
+    nextStep.disabled = true;
+});
+
 document.addEventListener('DOMContentLoaded', function () {
-    let backStep = document.querySelector('#sticker-back-step'),
-        nextStep = document.querySelector('#sticker-next-step'),
-        submitStep = document.querySelector('#product-addtocart-button');
+    let backStep = document.getElementById('sticker-back-step'),
+        nextStep = document.getElementById('sticker-next-step'),
+        submitStep = document.getElementById('product-addtocart-button');
 
     if (isFirstStep()) {
         hideBtn(backStep);
     }
 
     backStep.addEventListener('click', function () {
-        proceedStep(parseInt(localStorage.getItem('sticker_current_step')) - 1);
+        let currentStep = parseInt(localStorage.getItem('sticker_current_step'));
+
+        proceedStep(currentStep - 1);
+
+        nextStep.disabled = false;
+        if (document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option')) {
+            nextStep.disabled = !document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option.selected');
+        }
 
         if (isFirstStep()) {
             hideBtn(this);
@@ -31,9 +50,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    nextStep.addEventListener('click', function (e) {
+    nextStep.addEventListener('click', function () {
+        let currentStep = parseInt(localStorage.getItem('sticker_current_step'));
 
-        proceedStep(parseInt(localStorage.getItem('sticker_current_step')) + 1);
+        proceedStep(currentStep + 1);
+
+        this.disabled = false;
+        if (document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option')) {
+            this.disabled = !document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected');
+        }
 
         if (isLastStep()) {
             hideBtn(this);
