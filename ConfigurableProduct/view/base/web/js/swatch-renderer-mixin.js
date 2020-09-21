@@ -69,6 +69,7 @@ define([
                 );
 
                 $widget.optionsMap[item.id] = {};
+                localStorage.removeItem('order-information-' + item.code);
 
                 // Aggregate options array to hash (key => value)
                 $.each(item.options, function () {
@@ -146,6 +147,8 @@ define([
                 $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
                 $this.addClass('selected');
                 $widget._toggleCheckedAttributes($this, $wrapper);
+
+                localStorage.setItem('order-information-' + this._getAttributeCodeById(attributeId), $label.text());
 
                 let selectSwatch = document.createEvent('Event');
                 selectSwatch.initEvent('swatch-select-option', true, true);
