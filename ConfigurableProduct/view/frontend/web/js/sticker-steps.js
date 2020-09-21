@@ -13,20 +13,32 @@ document.addEventListener('DOMContentLoaded', function () {
     let backStep = document.querySelector('#sticker-back-step'),
         nextStep = document.querySelector('#sticker-next-step');
 
+    if (isFirstStep()) {
+        hideBtn(backStep);
+    }
+
     backStep.addEventListener('click', function () {
         proceedStep(parseInt(localStorage.getItem('sticker_current_step')) - 1);
 
-        /*if (parseInt(localStorage.getItem('sticker_current_step')) === 1) {
-            this.style.display = 'none';
-        }*/
+        if (isFirstStep()) {
+            hideBtn(this);
+        }
+
+        if (document.querySelectorAll('div[data-step]').length > parseInt(localStorage.getItem('sticker_current_step'))) {
+            showBtn(nextStep);
+        }
     });
 
     nextStep.addEventListener('click', function (e) {
 
         proceedStep(parseInt(localStorage.getItem('sticker_current_step')) + 1);
 
-        if (document.querySelectorAll('div[data-step]').length === parseInt(localStorage.getItem('sticker_current_step'))) {
-            this.style.display = 'none';
+        if (isLastStep()) {
+            hideBtn(this);
+        }
+
+        if (parseInt(localStorage.getItem('sticker_current_step')) > 1) {
+            showBtn(backStep);
         }
     });
 
@@ -38,6 +50,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         localStorage.removeItem('sticker_current_step');
         localStorage.setItem('sticker_current_step', stepId);
+    }
+
+    function isFirstStep() {
+        return parseInt(localStorage.getItem('sticker_current_step')) === 1;
+    }
+
+    function isLastStep() {
+        return document.querySelectorAll('div[data-step]').length === parseInt(localStorage.getItem('sticker_current_step'));
+    }
+
+    function hideBtn(element) {
+        element.style.display = 'none';
+    }
+
+    function showBtn(element) {
+        element.style.display = 'block';
     }
 });
 
