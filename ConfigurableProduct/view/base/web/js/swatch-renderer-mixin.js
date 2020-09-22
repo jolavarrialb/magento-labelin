@@ -69,7 +69,10 @@ define([
                 );
 
                 $widget.optionsMap[item.id] = {};
-                localStorage.removeItem('order-information-' + item.code);
+
+                Array
+                    .from(Array(10).keys())
+                    .forEach(element => localStorage.removeItem('data-step-' + element))
 
                 // Aggregate options array to hash (key => value)
                 $.each(item.options, function () {
@@ -148,7 +151,7 @@ define([
                 $this.addClass('selected');
                 $widget._toggleCheckedAttributes($this, $wrapper);
 
-                localStorage.setItem('order-information-' + this._getAttributeCodeById(attributeId), $label.text());
+                localStorage.setItem('data-step-' + localStorage.getItem('sticker_current_step'), $label.text());
 
                 let selectSwatch = document.createEvent('Event');
                 selectSwatch.initEvent('swatch-select-option', true, true);
