@@ -1,0 +1,232 @@
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-layout-1column {
+        .product-info-main-sticker {
+            width: 100%;
+
+            .sticker-buttons {
+                display: flex;
+
+                button {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    .product-info-main-sticker {
+        #sticker-steps-wrapper {
+            display: flex;
+
+            .sticker-step-info {
+                width: 100px;
+                height: 10px;
+                border: 1px solid black;
+                background-color: transparent;
+            }
+
+            .info-active {
+                background-color: red;
+            }
+
+            .info-nonactive {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+.container-sticker {
+    max-width: 1455px;
+    padding: 40px 10px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    @media (max-width: 768px) {
+        padding: 45px 16px;
+    }
+    float: inherit;
+}
+
+.main-checkout-wrapper {
+    background-color: @color-bg-grey;
+    font-family: "Lato", sans-serif;
+
+    .column.main {
+        padding-bottom: 0;
+    }
+
+    .messages {
+        max-width: 1455px;
+        padding-top: 10px;
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+        @media (max-width: 768px) {
+            padding: 45px 16px;
+        }
+        float: inherit;
+    }
+
+    .checkout-main {
+        display: flex;
+
+        .sticker-form-wrapper {
+            width: 100%;
+            display: flex;
+            .card-wrapper {
+                cursor: pointer;
+                .card-text {
+                    font-weight: normal;
+                    font-size: @fs-header;
+                    line-height: 32px;
+                    color: @color-grafite;
+                    margin-top: 10px;
+                    margin-bottom: 10px !important;
+                    text-align: center;
+                }
+            }
+        }
+
+        .chosen-values-wrapper {
+            margin-left: 35px;
+
+            .chosen-values {
+                background-color: @color-white;
+                box-shadow: 4px 8px 24px rgba(217, 219, 222, 0.32);
+                border-radius: 6px;
+                padding: 23px 26px 40px 26px;
+                min-width: 345px;
+
+                .values-header {
+                    font-weight: normal;
+                    font-size: @fs-header-content;
+                    line-height: 36px;
+                    color: @color-grafite;
+                    text-align: center;
+                }
+
+                .value {
+                    font-size: @fs-content;
+                    line-height: 50px;
+                    color: @color-placeholder;
+                    padding-left: 40px;
+                    position: relative;
+
+                    .value-text {
+                        margin-right: 40px;
+
+                        &.mini {
+                            margin-right: 51px;
+                        }
+
+                        &.quantity {
+                            margin-right: 28px;
+                        }
+                    }
+                }
+
+                .checked {
+                    &::before {
+                        position: absolute;
+                        top: 15px;
+                        left: 15px;
+                        content: "";
+                        display: block;
+                        width: 9px;
+                        height: 17px;
+                        border: solid @color-green;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+                }
+
+                .value:nth-last-of-type(odd) {
+                    background-color: @color-bg-grey;
+                }
+
+                .selected-value {
+                    font-size: @fs-content;
+                    line-height: 50px;
+                    color: @color-grafite;
+                    font-weight: bold;
+
+                    &.size {
+                        margin-left: 5px;
+                    }
+                }
+            }
+
+            .next-and-back-button-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 34px;
+
+                .back-button,
+                .next-button,
+                .submit-button {
+                    border-radius: 32px;
+                    max-width: 165px;
+                    width: 100%;
+                    height: 60px;
+                    font-size: @fs-header;
+                    line-height: 22px;
+                    font-weight: bold;
+                }
+
+                .back-button {
+                    color: @color-black;
+                    background-color: @color-white;
+                    border: 3px solid @color-black;
+                }
+
+                .next-button {
+                    background-color: @color-grafite;
+                    color: @color-white;
+                    border: none;
+                    position: relative;
+
+                    &::after {
+                        position: absolute;
+                        top: 24px;
+                        right: 45px;
+                        content: "";
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        border: solid @color-white;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(315deg);
+                    }
+
+                    &:hover {
+                        background-color: @color-buttons-hover;
+                    }
+                }
+
+                .submit-button {
+                    background-color: @color-grafite;
+                    color: @color-white;
+                    border: none;
+                    position: relative;
+
+                    &:hover {
+                        background-color: @color-buttons-hover;
+                    }
+                }
+
+                .next-button:focus,
+                .back-button:focus,
+                .submit-button:focus {
+                    outline: none;
+                }
+            }
+
+            @media (max-width: 1024px) {
+                margin-top: 33px;
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    }
+}
