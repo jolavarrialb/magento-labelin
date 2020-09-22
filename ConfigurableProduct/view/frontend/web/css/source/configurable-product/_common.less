@@ -18,19 +18,28 @@
             display: flex;
 
             .sticker-step-info {
-                width: 100px;
-                height: 10px;
-                border: 1px solid black;
+                width: 200px;
+                height: 6px;
                 background-color: transparent;
+                margin-right: 6px;
             }
 
             .info-active {
-                background-color: red;
+                background-color: @color-step-red;
             }
 
             .info-nonactive {
-                background-color: transparent;
+                background-color: @color-step-transparent;
             }
+        }
+        #sticker-steps-wrapper-info {
+            width: 290px;
+            height: 28px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 28px;
+            color: #82898F
         }
     }
 }
@@ -227,6 +236,10 @@
                 margin-left: 0;
                 width: 100%;
             }
+        }
+        @media (max-width: 1024px) {
+            flex-direction: column;
+            align-items: center;
         }
     }
 }

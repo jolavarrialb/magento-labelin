@@ -3,6 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <script src="Labelin_ConfigurableProduct::js/sticker-steps.js" />
+        <script src="Labelin_ConfigurableProduct::js/your-order-section.js" />
     </head>
     <body>
         <referenceContainer name="product.info.price" remove="true"/>
