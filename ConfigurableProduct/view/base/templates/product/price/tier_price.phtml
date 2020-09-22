@@ -1,0 +1,50 @@
+<script type="text/x-magento-template" id="tier-prices-template">
+    <h2 class="checkout-page-header"><?= __('Select Quantity'); ?></h2>
+    <p class="checkout-page-text">
+        <?= __('The larger quantity gives the lower cost per sticker'); ?>
+    </p>
+
+    <div class="ac-container">
+        <% _.each(tierPrices, function(item, key) { %>
+        <div>
+            <input id="ac-<%= (key+1) %>"
+                   name="accordion-<%= (key+1) %>"
+                   type="radio"
+
+            <% if (true) { %>
+            checked
+            <% }; %>
+
+            class="ac-input"
+            />
+            <label class="ac-label" for="<%= (key+1) %>"><%= item.label %></label>
+            <div class="accordion-content">
+                <ul class="accordion-header">
+                    <li><?= __('Amount'); ?></li>
+                    <li><?= __('Price'); ?></li>
+                    <li><?= __('Price per sticker'); ?></li>
+                </ul>
+                <div class="radiobuttons-wrapper">
+                    <% _.each(item.groupData, function(item, key) { %>
+                    <div class="radio-container">
+                        <input type="radio"
+                               id="radio<%= (key+1) %>"
+                               name="contact"
+                               value="<%= item.qty %>"
+                               class="radiobutton"
+                               checked
+                        />
+                        <label for="radio<%= (key+1) %>">
+                            <span class="count"><%= item.qty %></span>
+                            <span class="price"><%= item.bulkPrice %></span>
+                            <span class="price"><%= item.price %></span>
+                        </label>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</script>
+<div data-role="tier-price-block"></div>

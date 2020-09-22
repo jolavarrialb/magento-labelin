@@ -1,0 +1,68 @@
+.header-wrapper {
+    .checkout-page-header {
+        span {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+}
+.checkout-main {
+    .radiobuttons-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 344px;
+        width: 100%;
+        .radio-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 12px;
+            &.selected {
+                background-color: @color-selected-bg;
+            }
+            .radiobutton {
+                width: 20px;
+                height: 20px;
+                position: relative;
+                &:checked {
+                    &::after {
+                        display: block;
+                        position: relative;
+                        top: -25px;
+                        left: -2px;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        content: url("../../../images/source/checkouts/set-size/radio_button.png");
+                    }
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: relative;
+                        top: 0;
+                        left: -1px;
+                        width: 22px;
+                        height: 22px;
+                        border-radius: 50%;
+                        background-color: @color-bg-grey;
+                    }
+                }
+            }
+            label {
+                font-size: @fs-content;
+                line-height: 36px;
+                color: @color-grafite;
+                text-align: center;
+                margin-bottom: 0;
+                margin-left: 21px;
+            }
+        }
+    }
+    .set-size-image-wrapper {
+        margin-right: 170px;
+        margin-left: 170px;
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
+}
