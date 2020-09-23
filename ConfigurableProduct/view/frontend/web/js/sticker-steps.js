@@ -130,7 +130,7 @@ function processCurrentStepWrapper() {
         currentStepWrapper = document.querySelector('.sticker-step-info[data-step-wrapper="' + currentStep + '"]'),
         nextStepWrapper = document.querySelector('.sticker-step-info[data-step-wrapper="' + (currentStep + 1) + '"]'),
         swatchLabel = document.querySelector('div[data-step="' + currentStep + '"] .swatch-attribute-label'),
-        stepWrapperLabel = 'Step ' + currentStep + ': ' + swatchLabel.innerHTML;
+        stepWrapperLabel = '<span class="step-qty-info">Step ' + currentStep + ':</span> ' + swatchLabel.innerHTML;
 
     if (!isLastStep()) {
         nextStepWrapper.classList.remove('info-active');
@@ -140,5 +140,5 @@ function processCurrentStepWrapper() {
     currentStepWrapper.classList.remove('info-nonactive');
     currentStepWrapper.classList.add('info-active');
 
-    document.getElementById('sticker-steps-wrapper-info').innerText = stepWrapperLabel;
+    document.getElementById('sticker-steps-wrapper-info').innerHTML = stepWrapperLabel;
 }

@@ -9,16 +9,16 @@ function processYourOrderSection() {
         div.className = 'value';
         div.id = 'your-order-section-step-' + dataStep;
 
-        let spanLabel = document.createElement('span');
-        spanLabel.className = 'value-text';
-        spanLabel.innerHTML = label;
-        div.append(spanLabel);
+        let divLabel = document.createElement('div');
+        divLabel.className = 'value-text';
+        divLabel.innerHTML = label;
+        div.append(divLabel);
 
         if (localStorage.getItem('data-step-' + dataStep)) {
-            let spanValue = document.createElement('span');
-            spanValue.className = 'selected-value';
-            spanValue.innerHTML = localStorage.getItem('data-step-' + dataStep);
-            div.append(spanValue);
+            let divValue = document.createElement('div');
+            divValue.className = 'selected-value';
+            divValue.innerHTML = localStorage.getItem('data-step-' + dataStep);
+            div.append(divValue);
         }
 
         yourOrderSection.append(div);
@@ -31,10 +31,10 @@ function selectOptionYourOrderStep() {
         value = localStorage.getItem('data-step-' + currentStep);
 
     if (value) {
-        let spanValue = document.createElement('span');
-        spanValue.className = 'selected-value';
-        spanValue.innerHTML = value;
-        yourOrderStep.append(spanValue);
+        let divValue = document.createElement('div');
+        divValue.className = 'selected-value';
+        divValue.innerHTML = value;
+        yourOrderStep.append(divValue);
         yourOrderStep.classList.add('checked');
     }
 }
@@ -42,7 +42,7 @@ function selectOptionYourOrderStep() {
 function unselectOptionYourOrderStep() {
     let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
         yourOrderStep = document.getElementById('your-order-section-step-' + currentStep),
-        yourOrderStepValue = yourOrderStep.querySelector('span.selected-value');
+        yourOrderStepValue = yourOrderStep.querySelector('div.selected-value');
 
     yourOrderStep.classList.remove('checked');
 

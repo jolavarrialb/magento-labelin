@@ -32,6 +32,7 @@
                 background-color: @color-step-transparent;
             }
         }
+
         #sticker-steps-wrapper-info {
             width: 290px;
             height: 28px;
@@ -39,7 +40,10 @@
             font-weight: normal;
             font-size: 16px;
             line-height: 28px;
-            color: #82898F
+
+            span.step-qty-info {
+                color: #82898F
+            }
         }
     }
 }
@@ -82,8 +86,10 @@
         .sticker-form-wrapper {
             width: 100%;
             display: flex;
+
             .card-wrapper {
                 cursor: pointer;
+
                 .card-text {
                     font-weight: normal;
                     font-size: @fs-header;
@@ -120,17 +126,10 @@
                     color: @color-placeholder;
                     padding-left: 40px;
                     position: relative;
+                    display: flex;
 
                     .value-text {
-                        margin-right: 40px;
-
-                        &.mini {
-                            margin-right: 51px;
-                        }
-
-                        &.quantity {
-                            margin-right: 28px;
-                        }
+                        width: 30%;
                     }
                 }
 
@@ -237,6 +236,7 @@
                 width: 100%;
             }
         }
+
         @media (max-width: 1024px) {
             flex-direction: column;
             align-items: center;
