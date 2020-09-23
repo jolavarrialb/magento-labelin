@@ -80,6 +80,30 @@
         float: inherit;
     }
 
+    .header-wrapper {
+        .checkout-page-header {
+            font-size: @fs-header-medium;
+            line-height: 38px;
+            font-weight: bold;
+            color: @color-black;
+            margin-top: 16px;
+            margin-bottom: 10px;
+        }
+
+        .checkout-page-text {
+            font-weight: normal;
+            font-size: @fs-content;
+            line-height: 28px;
+            color: @color-placeholder;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            padding-left: 20px;
+        }
+    }
+
     .checkout-main {
         display: flex;
 
