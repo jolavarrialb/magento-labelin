@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Labelin\ConfigurableProduct\Block\Product\Renderer;
 
 use Magento\Catalog\Block\Product\Context;
@@ -9,6 +11,7 @@ use Magento\ConfigurableProduct\Helper\Data;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable\Variations\Prices;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Json\EncoderInterface;
+use Magento\Framework\Pricing\PriceInfo\Base;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Magento\Swatches\Block\Product\Renderer\Configurable as MagentoSwatchesConfigurable;
 use Magento\ConfigurableProduct\Model\ConfigurableAttributeData;
@@ -23,8 +26,10 @@ class Configurable extends MagentoSwatchesConfigurable
 {
     protected const LIMIT_COLLAPSE_QUANTITY_FOR_TIER_PRICES = 4;
 
+    /** @var Format|mixed|null  */
     protected $localeFormat;
 
+    /** @var Prices|mixed|null  */
     protected $variationPrices;
 
     public function __construct(
@@ -44,11 +49,26 @@ class Configurable extends MagentoSwatchesConfigurable
         Format $localeFormat = null,
         Prices $variationPrices = null
     ) {
+
+        parent::__construct(
+            $context,
+            $arrayUtils,
+            $jsonEncoder,
+            $helper,
+            $catalogProduct,
+            $currentCustomer,
+            $priceCurrency,
+            $configurableAttributeData,
+            $swatchHelper,
+            $swatchMediaHelper,
+            $data,
+            $swatchAttributesProvider,
+            $imageUrlBuilder
+        );
         $this->localeFormat = $localeFormat ?: ObjectManager::getInstance()->get(Format::class);
         $this->variationPrices = $this->variationPrices = $variationPrices ?: ObjectManager::getInstance()->get(
             Prices::class
         );
-        parent::__construct($context, $arrayUtils, $jsonEncoder, $helper, $catalogProduct, $currentCustomer, $priceCurrency, $configurableAttributeData, $swatchHelper, $swatchMediaHelper, $data, $swatchAttributesProvider, $imageUrlBuilder);
     }
 
     protected function getOptionPrices(): array
@@ -86,7 +106,7 @@ class Configurable extends MagentoSwatchesConfigurable
         return $prices;
     }
 
-    protected function prepareProductTierPrices($priceInfo): array
+    protected function prepareProductTierPrices(Base $priceInfo): array
     {
         $tierPriceModel = $priceInfo->getPrice('tier_price');
         $tierPricesList = $tierPriceModel->getTierPriceList();
