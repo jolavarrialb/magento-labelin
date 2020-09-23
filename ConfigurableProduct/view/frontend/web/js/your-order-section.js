@@ -26,6 +26,8 @@ function processYourOrderSection() {
 }
 
 function selectOptionYourOrderStep() {
+    unselectOptionYourOrderStep();
+
     let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
         yourOrderStep = document.getElementById('your-order-section-step-' + currentStep),
         value = localStorage.getItem('data-step-' + currentStep);
