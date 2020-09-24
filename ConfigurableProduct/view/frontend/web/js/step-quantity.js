@@ -9,10 +9,9 @@ define(['jquery', 'domReady!'], function ($) {
         });
 
         $tierPriceBlock.on('click', 'input.radiobutton', function () {
-            updateOrderPanel(this.value);
             updateLocalStorageData(this.value);
+            selectOptionYourOrderStep();
         });
-
     }
 
     function toggleCheckedLabel(label) {
@@ -26,10 +25,6 @@ define(['jquery', 'domReady!'], function ($) {
         if (!checked) {
             $checkBoxElement.prop("checked", true);
         }
-    }
-
-    function updateOrderPanel(qtyValue) {
-        /**Handler for update OrderPanel**/
     }
 
     function updateLocalStorageData(selectedQty) {
