@@ -234,7 +234,8 @@ define([
                 moreClass = this.options.classes.moreButton,
                 moreText = this.options.moreButtonText,
                 countAttributes = 0,
-                html = '';
+                html = '',
+                optionClassWithCode = config.code;
 
             if (!this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
                 return '';
@@ -304,9 +305,15 @@ define([
                         '</div>';
                 } else if (type === 2) {
                     // Image
-                    html += '<div class="' + optionClass + ' image" ' + attr +
-                        ' style="background: url(' + value + ') no-repeat center; background-size: initial;width:' +
-                        swatchImageWidth + 'px; height:' + swatchImageHeight + 'px" />';
+                    let imageTemplate = `
+                        <div option-id="${id}" class="card-wrapper">
+                            <div class="${optionClass} image ${optionClassWithCode}"
+                                ${attr}
+                                style="background-image: url('${value}'); width: ${swatchImageWidth}px; height: ${swatchImageHeight}px"/>
+                            <p class="card-text">${label}</p>
+                        </div>
+                    `;
+                    html += imageTemplate;
                 } else if (type === 3) {
                     // Clear
                     html += '<div class="' + optionClass + '" ' + attr + '></div>';
