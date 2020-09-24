@@ -49,7 +49,15 @@ document.addEventListener('DOMContentLoaded', function () {
     backStep.addEventListener('click', function () {
         let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
             isAvailableSwatchOption = document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option'),
-            selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option.selected');
+            previousSelectedSwatchOption = document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option.selected'),
+            currentSelectedSwatchOption = document.querySelector('div[data-step="' + (currentStep) + '"] .swatch-option.selected'),
+            fileInput = document.querySelector('input.product-custom-option[type="file"]');
+
+        if (currentSelectedSwatchOption) {
+            currentSelectedSwatchOption.click();
+        }
+
+        unselectOptionYourOrderStep();
 
         proceedStep(currentStep - 1);
 
@@ -57,23 +65,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
         nextStep.disabled = false;
         if (isAvailableSwatchOption) {
-            nextStep.disabled = !selectedSwatchOption;
+            nextStep.disabled = !previousSelectedSwatchOption;
         }
 
         if (isFirstStep()) {
             hideBtn(this);
         }
 
-        if (document.querySelectorAll('div[data-step]').length > parseInt(localStorage.getItem('sticker_current_step'))) {
+        currentStep = parseInt(localStorage.getItem('sticker_current_step'));
+
+        if (document.querySelectorAll('div[data-step]').length > currentStep) {
             showBtn(nextStep);
             hideBtn(submitStep);
+        }
+
+        if (fileInput &&
+            parseInt(fileInput.closest('#sticker_artwork').getAttribute('data-step')) === currentStep + 1
+        ) {
+            fileInput.value = '';
         }
     });
 
     nextStep.addEventListener('click', function () {
         let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
             isAvailableSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option'),
-            selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected');
+            selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected'),
+            qtyInput = document.querySelector('input[name="qty"]');
 
         proceedStep(currentStep + 1);
 
@@ -89,8 +106,17 @@ document.addEventListener('DOMContentLoaded', function () {
             showBtn(submitStep);
         }
 
-        if (parseInt(localStorage.getItem('sticker_current_step')) > 1) {
+        currentStep = parseInt(localStorage.getItem('sticker_current_step'));
+
+        if (currentStep > 1) {
             showBtn(backStep);
+        }
+
+        if (qtyInput &&
+            parseInt(qtyInput.closest('#sticker_price').getAttribute('data-step')) === currentStep
+        ) {
+            qtyInput.setAttribute('checked', 'checked');
+            qtyInput.click();
         }
     });
 

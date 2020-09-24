@@ -43,13 +43,15 @@ function selectOptionYourOrderStep() {
 
 function unselectOptionYourOrderStep() {
     let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
-        yourOrderStep = document.getElementById('your-order-section-step-' + currentStep),
-        yourOrderStepValue = yourOrderStep.querySelector('div.selected-value');
+        yourOrderStep = document.getElementById('your-order-section-step-' + currentStep);
 
-    yourOrderStep.classList.remove('checked');
+    if (yourOrderStep) {
+        let yourOrderStepValue = yourOrderStep.querySelector('div.selected-value');
+        yourOrderStep.classList.remove('checked');
 
-    if (yourOrderStepValue) {
-        yourOrderStep.removeChild(yourOrderStepValue);
+        if (yourOrderStepValue) {
+            yourOrderStep.removeChild(yourOrderStepValue);
+        }
     }
 }
 

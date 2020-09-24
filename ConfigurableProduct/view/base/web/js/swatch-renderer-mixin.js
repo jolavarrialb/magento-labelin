@@ -104,10 +104,6 @@ define([
             // Rewind options
             $widget._Rewind(container);
 
-            //Emulate click on all swatches from Request
-            $widget._EmulateSelected($.parseQuery());
-            $widget._EmulateSelected($widget._getSelectedAttributes());
-
             localStorage.setItem('sticker_current_step', "1");
 
             let fullRender = document.createEvent('Event');
