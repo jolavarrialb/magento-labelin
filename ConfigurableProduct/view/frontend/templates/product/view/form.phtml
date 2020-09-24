@@ -5,9 +5,9 @@
 <?php $_product = $block->getProduct(); ?>
 
 <?= $block->getChildHtml('sticker_steps') ?>
-<div class="product-add-form checkout-main">
+<div class="product-add-form">
     <form data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
-          action="<?= $block->escapeUrl($block->getSubmitUrl($_product)) ?>" method="post" class="sticker-form-wrapper"
+          action="<?= $block->escapeUrl($block->getSubmitUrl($_product)) ?>" method="post" class="checkout-main"
           id="product_addtocart_form"<?php if ($_product->getOptions()) :?> enctype="multipart/form-data"<?php endif; ?>>
         <div class="sticker-form-wrapper">
             <input type="hidden" name="product" value="<?= (int)$_product->getId() ?>" />

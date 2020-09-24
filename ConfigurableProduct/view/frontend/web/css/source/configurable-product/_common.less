@@ -109,10 +109,19 @@
 
         .sticker-form-wrapper {
             width: 100%;
-            display: flex;
+            display: block;
+
+            .swatch-attribute-label {
+                display: none;
+            }
+
+            .swatch-attribute-selected-option {
+                display: none;
+            }
 
             .card-wrapper {
                 cursor: pointer;
+                display: inline-block;
 
                 .card-text {
                     font-weight: normal;
@@ -122,6 +131,17 @@
                     margin-top: 10px;
                     margin-bottom: 10px !important;
                     text-align: center;
+                }
+
+                .swatch-option {
+                    border: none;
+                    background-color: white;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+
+                .swatch-option.sticker_type {
+                    height: 200px !important;
                 }
             }
         }
