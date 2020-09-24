@@ -37,10 +37,10 @@ define([
 
                 if ($widget.options.enableControlLabel) {
                     label +=
-                        '<span id="' + controlLabelId + '" class="' + classes.attributeLabelClass + '" style="display: none">' +
+                        '<span id="' + controlLabelId + '" class="' + classes.attributeLabelClass + '">' +
                         $('<i></i>').text(item.label).html() +
                         '</span>' +
-                        '<span class="' + classes.attributeSelectedOptionLabelClass + '" style="display: none"></span>';
+                        '<span class="' + classes.attributeSelectedOptionLabelClass + '"></span>';
                 }
 
                 if ($widget.inProductList) {
