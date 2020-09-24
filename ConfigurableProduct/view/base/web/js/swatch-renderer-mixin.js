@@ -26,6 +26,7 @@ define([
                     listLabel = '',
                     label = '',
                     display = optionCount > 0 ? ' style="display:none" ' : ' style="display:block" ',
+                    controls = '',
                     step = 'data-step="' + (optionCount + 1) + '"';
 
                 optionCount++;
@@ -52,21 +53,99 @@ define([
                 }
 
                 // Create new control
-                container.append(
-                    '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
-                    'attribute-code="' + item.code + '" ' +
-                    'attribute-id="' + item.id + '"' + display + step + '>' +
-                    label +
-                    '<div aria-activedescendant="" ' +
-                    'tabindex="0" ' +
-                    'aria-invalid="false" ' +
-                    'aria-required="true" ' +
-                    'role="listbox" ' + listLabel +
-                    'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
-                    options + select +
-                    '</div>' + input +
-                    '</div>'
-                );
+                var headerTemplate = '',
+                    header = '',
+                    headerInfo = '';
+
+                switch (item.code) {
+                    case 'sticker_size':
+                        header = $widget.options.optionSizeHeader.header;
+                        headerInfo = $widget.options.optionSizeHeader.headerInfo;
+                        headerTemplate = `
+                                <div class="header-wrapper">
+                                    <h2 class="checkout-page-header">
+                                        ${header}
+                                    </h2>
+                                    <p class="checkout-page-text">
+                                        ${headerInfo}
+                                    </p>
+                                </div>
+                        `;
+                        controls = `
+                        <div class="${classes.attributeClass} ${item.code} "
+                                 attribute-code="${item.code}"
+                                 attribute-id="${item.id}" ${display} ${step}
+                        >
+                        ${headerTemplate}
+                        ${label}
+                                <div aria-activedescendant=""
+                                     tabindex="0"
+                                     aria-invalid="false"
+                                     aria-required="true"
+                                     role="listbox"
+                                     ${listLabel}
+                                     class="${classes.attributeOptionsWrapper}  radiobuttons-wrapper rclearfix"
+                                >
+                                        ${options}
+                                        ${select}
+                                </div>
+                                <div class="set-size-image-wrapper">
+                                    <img src="../../../images/source/checkouts/set-size/set-size-bg.png"/>
+                                </div>
+                                ${input}
+                        </div>
+                        `;
+                        break;
+                    case 'sticker_shape':
+                        header = $widget.options.optionShapeHeader.header;
+                        headerInfo = $widget.options.optionShapeHeader.headerInfo;
+                        headerTemplate = `
+                                <div class="header-wrapper">
+                                    <h2 class="checkout-page-header">
+                                        ${header}
+                                    </h2>
+                                    <p class="checkout-page-text">
+                                        ${headerInfo}
+                                    </p>
+                                </div>
+                        `;
+                    case 'sticker_type':
+                        header = $widget.options.optionTypeHeader.header;
+                        headerInfo = $widget.options.optionTypeHeader.headerInfo;
+                        headerTemplate = `
+                                <div class="header-wrapper">
+                                    <h2 class="checkout-page-header">
+                                        ${header}
+                                    </h2>
+                                    <p class="checkout-page-text">
+                                        ${headerInfo}
+                                    </p>
+                                </div>
+                        `;
+                    default:
+                        controls = `
+                            <div class="${classes.attributeClass} ${item.code} "
+                                 attribute-code="${item.code}"
+                                 attribute-id="${item.id}" ${display} ${step}
+                            >
+                            ${headerTemplate}
+                            ${label}
+                                <div aria-activedescendant=""
+                                     tabindex="0"
+                                     aria-invalid="false"
+                                     aria-required="true"
+                                     role="listbox"
+                                     ${listLabel}
+                                     class="${classes.attributeOptionsWrapper} clearfix">
+                                     ${options}
+                                     ${select}
+                                </div>
+                                 ${input}
+                            </div>
+                        `;
+                }
+
+                container.append(controls);
 
                 $widget.optionsMap[item.id] = {};
 
@@ -238,6 +317,7 @@ define([
             }
 
             $.each(config.options, function (index) {
+
                 var id,
                     type,
                     value,
@@ -248,6 +328,7 @@ define([
                     attr,
                     swatchImageWidth,
                     swatchImageHeight;
+
 
                 if (!optionConfig.hasOwnProperty(this.id)) {
                     return '';
@@ -291,8 +372,20 @@ define([
 
                 if (type === 0) {
                     // Text
-                    html += '<div class="' + optionClass + ' text" ' + attr + '>' + (value ? value : label) +
-                        '</div>';
+                    let valueText = value ? value : label;
+                    const sizeTypeTemplate = `
+                            <div class="radio-container ${optionClass} text" ${attr} for="radio-${id}">
+                                <input
+                                    type="radio"
+                                    id="radio-${id}"
+                                    name="sticker_size"
+                                    value="${valueText}"
+                                    class="radiobutton"
+                                >
+                                    <label for="radio-${id}">${valueText}</label>
+                            </div>
+                `;
+                    html += sizeTypeTemplate;
                 } else if (type === 1) {
                     // Color
                     html += '<div class="' + optionClass + ' color" ' + attr +

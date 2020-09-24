@@ -24,13 +24,18 @@ use Magento\Swatches\Model\SwatchAttributesProvider;
 
 class Configurable extends MagentoSwatchesConfigurable
 {
+    protected const LABELIN_SWATCH_RENDERER_TEMPLATE = 'Labelin_ConfigurableProduct::product/view/renderer.phtml';
+
     protected const LIMIT_COLLAPSE_QUANTITY_FOR_TIER_PRICES = 4;
 
-    /** @var Format|mixed|null  */
+    /** @var Format|mixed|null */
     protected $localeFormat;
 
-    /** @var Prices|mixed|null  */
+    /** @var Prices|mixed|null */
     protected $variationPrices;
+
+    /** @var EncoderInterface */
+    protected $encoderJson;
 
     public function __construct(
         Context $context,
@@ -68,6 +73,37 @@ class Configurable extends MagentoSwatchesConfigurable
         $this->localeFormat = $localeFormat ?: ObjectManager::getInstance()->get(Format::class);
         $this->variationPrices = $this->variationPrices = $variationPrices ?: ObjectManager::getInstance()->get(
             Prices::class
+        );
+        $this->encoderJson = $jsonEncoder;
+    }
+
+    public function getOptionSizeHeader(): string
+    {
+        return $this->encoderJson->encode(
+            [
+                'header' => "Set Size<span>/inch</span>",
+                'headerInfo' => "Note that size is: width by height (WxH)",
+            ]
+        );
+    }
+
+    public function getOptionShapeHeader(): string
+    {
+        return $this->encoderJson->encode(
+            [
+                'header' => "Choose Shape",
+                'headerInfo' => "Order will take 8-10 business days",
+            ]
+        );
+    }
+
+    public function getOptionTypeHeader(): string
+    {
+        return $this->encoderJson->encode(
+            [
+                'header' => "Pick Type",
+                'headerInfo' => "Click info icon to see materials characteristics",
+            ]
         );
     }
 
@@ -163,5 +199,11 @@ class Configurable extends MagentoSwatchesConfigurable
         }
 
         return $tierPrices;
+    }
+
+    protected function getRendererTemplate()
+    {
+        return $this->isProductHasSwatchAttribute() ?
+            self::LABELIN_SWATCH_RENDERER_TEMPLATE : self::CONFIGURABLE_RENDERER_TEMPLATE;
     }
 }
