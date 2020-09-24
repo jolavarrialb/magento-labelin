@@ -305,12 +305,15 @@ define([
                         '</div>';
                 } else if (type === 2) {
                     // Image
-                    html += '<div option-id="' + id + '" class="card-wrapper">';
-                    html += '<div class="' + optionClass + ' image ' + optionClassWithCode + '" ' + attr +
-                        ' style="background-image: url(' + value + '); background-size: initial;width:' +
-                        swatchImageWidth + 'px; height:' + swatchImageHeight + 'px" />';
-                    html += '<p class="card-text">' + label + '</p>';
-                    html += '</div>';
+                    let imageTemplate = `
+                        <div option-id="${id}" class="card-wrapper">
+                            <div class="${optionClass} image ${optionClassWithCode}"
+                                ${attr}
+                                style="background-image: url('${value}'); width: ${swatchImageWidth}px; height: ${swatchImageHeight}px"/>
+                            <p class="card-text">${label}</p>
+                        </div>
+                    `;
+                    html += imageTemplate;
                 } else if (type === 3) {
                     // Clear
                     html += '<div class="' + optionClass + '" ' + attr + '></div>';
