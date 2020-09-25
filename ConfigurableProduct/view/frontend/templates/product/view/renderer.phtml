@@ -19,9 +19,10 @@ $configurableViewModel = $block->getConfigurableViewModel()
                 "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct')) ?: 'replace'; ?>",
                 "jsonSwatchImageSizeConfig": <?= /* @noEscape */ $block->getJsonSwatchSizeConfig() ?>,
                 "showTooltip": <?= $block->escapeJs($configurableViewModel->getShowSwatchTooltip()) ?>,
-                "optionSizeHeader": <?= $block->getOptionSizeHeader(); ?>,
-                "optionTypeHeader": <?= $block->getOptionTypeHeader(); ?>,
-                "optionShapeHeader": <?= $block->getOptionShapeHeader(); ?>
+                "optionSizeHeader": <?= /* @noEscape */ $block->getOptionSizeHeader(); ?>,
+                "optionTypeHeader": <?= /* @noEscape */ $block->getOptionTypeHeader(); ?>,
+                "optionShapeHeader": <?= /* @noEscape */ $block->getOptionShapeHeader(); ?>,
+                "additionalSizeBlockImgUrl": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/set-size/set-size-bg.png'); ?>"
             }
         },
         "*" : {

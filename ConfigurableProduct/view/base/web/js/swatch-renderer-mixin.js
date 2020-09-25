@@ -31,6 +31,7 @@ define([
                     additionBlock = '',
                     header = '',
                     headerInfo = '',
+                    wrapper = false,
                     step = 'data-step="' + (optionCount + 1) + '"';
 
                 optionCount++;
@@ -63,9 +64,11 @@ define([
                     header = $widget.options.optionSizeHeader.header ? $widget.options.optionSizeHeader.header : '';
                     headerInfo = $widget.options.optionSizeHeader.headerInfo ? $widget.options.optionSizeHeader.headerInfo : '';
                     additionClass = 'radiobuttons-wrapper';
+                    let url = $widget.options.additionalSizeBlockImgUrl ? $widget.options.additionalSizeBlockImgUrl : '#';
+                    wrapper = true;
                     additionBlock = `
                                     <div class="set-size-image-wrapper">
-                                        <img src="../../../images/source/checkouts/set-size/set-size-bg.png"/>
+                                        <img src="${url}"/>
                                     </div>
                     `;
 
@@ -96,6 +99,7 @@ define([
                     >
                     ${headerTemplate}
                     ${label}
+                        ${wrapper ? `<div class="set-size-wrapper">` : ''}
                         <div aria-activedescendant=""
                              tabindex="0"
                              aria-invalid="false"
@@ -108,6 +112,7 @@ define([
                         </div>
                         ${additionBlock}
                         ${input}
+                        ${wrapper ? "<\div>" : ''}
                     </div>
                 `;
 
@@ -180,6 +185,8 @@ define([
                 $label.text('');
                 $this.attr('aria-checked', false);
 
+                $this.find("input[name='sticker_size']").first().prop("checked", false);
+
                 let selectSwatch = document.createEvent('Event');
                 selectSwatch.initEvent('swatch-unselect-option', true, true);
 
@@ -191,6 +198,8 @@ define([
                 $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
                 $this.addClass('selected');
                 $widget._toggleCheckedAttributes($this, $wrapper);
+
+                $this.find("input[name='sticker_size']").first().prop("checked", true);
 
                 localStorage.setItem('data-step-' + localStorage.getItem('sticker_current_step'), $label.text());
 
@@ -348,7 +357,7 @@ define([
                                 value="${valueText}"
                                 class="radiobutton"
                             >
-                                <label for="radio-${id}">${valueText}</label>
+                                <label>${valueText}</label>
                         </div>
             `;
                     html += sizeTypeTemplate;

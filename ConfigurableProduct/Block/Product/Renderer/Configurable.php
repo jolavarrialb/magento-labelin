@@ -107,6 +107,11 @@ class Configurable extends MagentoSwatchesConfigurable
         );
     }
 
+    public function getSizeBlockImgUrl(): string
+    {
+        return '';
+    }
+
     protected function getOptionPrices(): array
     {
         $prices = [];
