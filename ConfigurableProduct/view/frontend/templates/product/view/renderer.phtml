@@ -22,7 +22,9 @@ $configurableViewModel = $block->getConfigurableViewModel()
                 "optionSizeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SIZE_HEADER); ?>,
                 "optionTypeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::TYPE_HEADER); ?>,
                 "optionShapeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SHAPE_HEADER); ?>,
-                "additionalSizeBlockImgUrl": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/set-size/set-size-bg.png'); ?>"
+                "additionalSizeBlockImgUrl": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/set-size/set-size-bg.png'); ?>",
+                "infoImg": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>",
+                "optionTypeTooltips": <?= /* @noEscape */ $block->getJsonHelper()->serialize($block->getOptionTypeTooltips()) ?>
             }
         },
         "*" : {

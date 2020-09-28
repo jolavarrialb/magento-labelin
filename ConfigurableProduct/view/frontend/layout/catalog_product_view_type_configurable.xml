@@ -41,6 +41,15 @@
                     <argument name="configurable_view_model"
                               xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
                 </arguments>
+                <block class="Magento\Framework\View\Element\Template"
+                       name="paper_labels"
+                       template="Labelin_ConfigurableProduct::product/view/options/type/paper-labels.phtml" />
+                <block class="Magento\Framework\View\Element\Template"
+                       name="waterproof_labels"
+                       template="Labelin_ConfigurableProduct::product/view/options/type/waterproof-labels.phtml" />
+                <block class="Magento\Framework\View\Element\Template"
+                       name="clear_labels"
+                       template="Labelin_ConfigurableProduct::product/view/options/type/clear-labels.phtml" />
             </block>
         </referenceBlock>
         <referenceContainer name="main.content" htmlClass="main-checkout-wrapper" />
