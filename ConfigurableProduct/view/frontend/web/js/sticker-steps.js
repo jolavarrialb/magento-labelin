@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
             parseInt(fileInput.closest('#sticker_artwork').getAttribute('data-step')) === currentStep + 1
         ) {
             fileInput.value = '';
+            document.querySelector('.input-artwork-choose').value = '';
             document.querySelector('.preview-text').style.display = 'block';
             document.getElementById('preview-image').removeAttribute('src');
         }

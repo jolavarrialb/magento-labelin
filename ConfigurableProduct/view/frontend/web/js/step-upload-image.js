@@ -9,6 +9,7 @@ define([
 
         fileInput.addEventListener('change', function () {
             renderPreview(this);
+            document.querySelector('.input-artwork-choose').value = this.files[0].name;
         });
 
         function renderPreview(input) {

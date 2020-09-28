@@ -41,10 +41,14 @@
             <input type="file"
                    name="<?= /* @noEscape */ $_fileName ?>"
                    id="<?= /* @noEscape */ $_fileName ?>"
-                   class="product-custom-option<?= $_option->getIsRequire() ? ' required' : '' ?> input-choose"
+                   class="product-custom-option<?= $_option->getIsRequire() ? ' required' : '' ?>"
+                   style="display: none"
                 <?= $_fileExists ? 'disabled="disabled"' : '' ?> />
             <input type="hidden" name="<?= /* @noEscape */ $_fieldNameAction ?>" value="<?= /* @noEscape */ $_fieldValueAction ?>" />
-            <button type="button" class="input-button"><?= $block->escapeHtml(__('Choose file...')) ?></button>
+            <input class="input-choose input-artwork-choose" type="text" readonly />
+            <label for="<?= /* @noEscape */ $_fileName ?>" class="input-button">
+                <span><?= $block->escapeHtml(__('Choose file...')) ?></span>
+            </label>
         </div>
     </div>
     <p class="skip-button"><?= $block->escapeHtml(__('or, Skip and email your artwork later')) ?></p>

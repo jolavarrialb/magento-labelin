@@ -17,6 +17,11 @@
         .uploader-input-wrapper {
             display: flex;
             width: 100%;
+
+            .control {
+                display: contents;
+            }
+
             .input-choose {
                 background: @color-white;
                 border: 1px solid @color-input-border;
@@ -42,13 +47,20 @@
                 padding: 15px;
                 max-width: 155px;
                 width: 100%;
+                background-image: none;
+                cursor: pointer;
+                display: inline-block;
+                font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                box-sizing: border-box;
+                vertical-align: middle;
             }
         }
 
         .skip-button {
             box-sizing: border-box;
             border-radius: 32px;
-            padding: 15px;
+            padding: 15px 15px 0 15px;
             font-size: @fs-header;
             font-weight: bold;
             line-height: 22px;
