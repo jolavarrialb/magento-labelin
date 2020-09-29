@@ -1,0 +1,24 @@
+<?php /** @var $block Magento\Catalog\Block\Product\View */ ?>
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . $block->escapeHtmlAttr(__('* Required Fields')) . '"';
+}
+?>
+<div class="product-options-wrapper" id="product-options-wrapper"<?= /* @noEscape */ $required ?>>
+    <div class="fieldset" tabindex="0">
+        <div id="product_options">
+            <?= $block->getChildHtml('swatch_options', true) ?>
+        </div>
+        <div id="sticker_price" style="display: none">
+            <span style="display: none" class="swatch-attribute-label"><?= __('Quantity') ?></span>
+            <?= $block->getChildHtml('product.price.tier', true) ?>
+        </div>
+        <div id="sticker_artwork" style="display: none">
+            <span style="display: none" class="swatch-attribute-label"><?= __('Upload') ?></span>
+            <div class="uploader-wrapper">
+                <?= $block->getChildHtml('product_options', true) ?>
+            </div>
+        </div>
+    </div>
+</div>

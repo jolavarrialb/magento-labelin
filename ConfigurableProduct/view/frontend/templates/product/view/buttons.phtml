@@ -1,0 +1,27 @@
+<div class="sticker-buttons next-and-back-button-wrapper">
+    <button id="sticker-back-step" class="back-button" type="button" style="display: none">
+        <span>
+            <?= __('Back') ?>
+        </span>
+    </button>
+    <button id="sticker-next-step" class="next-button" type="button" disabled>
+        <span>
+            <?= __('Next') ?>
+        </span>
+    </button>
+    <button type="submit"
+            title="<?= __('Submit') ?>"
+            class="submit-button action tocart"
+            id="product-addtocart-button"
+            style="display: none"
+            disabled>
+        <span><?= __('Submit') ?></span>
+    </button>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

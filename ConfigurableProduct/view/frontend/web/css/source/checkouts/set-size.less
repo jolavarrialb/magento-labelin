@@ -1,0 +1,114 @@
+@import "../_theme";
+
+.header-wrapper {
+    .checkout-page-header {
+        span {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+}
+
+.checkout-main {
+    .set-size-wrapper {
+        display: flex;
+
+        .radiobuttons-wrapper {
+            display: flex;
+            flex-direction: column;
+            max-width: 344px;
+            width: 100%;
+
+            .swatch-option.text {
+                position: relative;
+                background: none;
+                padding: 0;
+                padding: 12px;
+                height: 36px;
+                z-index: 20;
+                &:hover {
+                    border: none;
+                }
+            }
+
+            .radio-container,
+            .swatch-option {
+                display: flex;
+                align-items: center;
+                margin-bottom: 24px;
+                padding: 12px;
+
+                &.selected {
+                    background-color: @color-buttons-hover;
+                    border:none;
+                    outline-color: @color-selected-bg;
+                    box-shadow: none;
+                }
+
+                &:checked {
+                    box-shadow: none;
+                }
+
+                .radiobutton {
+                    width: 20px;
+                    height: 20px;
+                    position: relative;
+
+                    &:checked {
+                        &::after {
+                            display: block;
+                            position: relative;
+                            top: -25px;
+                            left: -2px;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 50%;
+                            content: url("../../../images/source/checkouts/set-size/radio_button.png");
+                        }
+
+                        &::before {
+                            content: "";
+                            display: block;
+                            position: relative;
+                            top: 0;
+                            left: -1px;
+                            width: 22px;
+                            height: 22px;
+                            border-radius: 50%;
+                            background-color: @color-bg-grey;
+                        }
+                    }
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+
+                label {
+                    font-size: @fs-content;
+                    line-height: 36px;
+                    color: @color-grafite;
+                    text-align: center;
+                    margin-bottom: 0;
+                    margin-left: 21px;
+                    z-index: 10;
+                    position: relative;
+                }
+            }
+
+            .swatch-option {
+                border: none;
+                float: none;
+                background-color: #ffffff;
+            }
+        }
+    }
+
+    .set-size-image-wrapper {
+        margin-right: 170px;
+        margin-left: 170px;
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
+}

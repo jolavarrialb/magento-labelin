@@ -1,0 +1,65 @@
+.card-wrapper {
+    .tooltip-wrapper {
+        position: relative;
+
+        .info-icon {
+            margin-left: 10px;
+
+            &.blue {
+                display: none;
+            }
+        }
+
+        .custom-tooltip {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: -70px;
+            flex-direction: column;
+            color: @color-grafite;
+            min-width: 300px;
+            background-color: @color-white;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 24px;
+            z-index: 99;
+            text-align: initial;
+
+            &.center {
+                right: -51px;
+            }
+
+            .tooltip-header {
+                font-weight: normal;
+                font-size: @fs-header-large;
+                line-height: 36px;
+            }
+
+            .tooltip-text {
+                font-weight: normal;
+                font-size: @fs-content;
+                line-height: 28px;
+            }
+
+            .tooltip-list {
+                font-size: @fs-content;
+                line-height: 33px;
+                padding-left: 30px;
+            }
+        }
+
+        &:hover {
+            .custom-tooltip {
+                display: flex;
+            }
+
+            .blue {
+                display: initial;
+            }
+
+            .standart {
+                display: none;
+            }
+        }
+    }
+}
