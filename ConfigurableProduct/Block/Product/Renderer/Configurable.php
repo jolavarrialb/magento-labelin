@@ -24,9 +24,30 @@ use Magento\Swatches\Model\SwatchAttributesProvider;
 
 class Configurable extends MagentoSwatchesConfigurable
 {
+    public const SIZE_HEADER = 'size';
+
+    public const SHAPE_HEADER = 'shape';
+
+    public const TYPE_HEADER = 'type';
+
     protected const LABELIN_SWATCH_RENDERER_TEMPLATE = 'Labelin_ConfigurableProduct::product/view/renderer.phtml';
 
     protected const LIMIT_COLLAPSE_QUANTITY_FOR_TIER_PRICES = 4;
+
+    protected const SWATCHES_HEADERS = [
+        self::SIZE_HEADER => [
+            'header' => "Set Size<span>/inch</span>",
+            'headerInfo' => "Note that size is: width by height (WxH)",
+        ],
+        self::SHAPE_HEADER => [
+            'header' => "Choose Shape",
+            'headerInfo' => "Order will take 8-10 business days",
+        ],
+        self::TYPE_HEADER => [
+            'header' => "Pick Type",
+            'headerInfo' => "Click info icon to see materials characteristics",
+        ],
+    ];
 
     /** @var Format|mixed|null */
     protected $localeFormat;
@@ -77,39 +98,9 @@ class Configurable extends MagentoSwatchesConfigurable
         $this->encoderJson = $jsonEncoder;
     }
 
-    public function getOptionSizeHeader(): string
+    public function getOptionHeaderByIndex($index): string
     {
-        return $this->encoderJson->encode(
-            [
-                'header' => "Set Size<span>/inch</span>",
-                'headerInfo' => "Note that size is: width by height (WxH)",
-            ]
-        );
-    }
-
-    public function getOptionShapeHeader(): string
-    {
-        return $this->encoderJson->encode(
-            [
-                'header' => "Choose Shape",
-                'headerInfo' => "Order will take 8-10 business days",
-            ]
-        );
-    }
-
-    public function getOptionTypeHeader(): string
-    {
-        return $this->encoderJson->encode(
-            [
-                'header' => "Pick Type",
-                'headerInfo' => "Click info icon to see materials characteristics",
-            ]
-        );
-    }
-
-    public function getSizeBlockImgUrl(): string
-    {
-        return '';
+        return $this->encoderJson->encode(static::SWATCHES_HEADERS[$index]);
     }
 
     protected function getOptionPrices(): array
@@ -206,6 +197,9 @@ class Configurable extends MagentoSwatchesConfigurable
         return $tierPrices;
     }
 
+    /**
+     * @return string
+     */
     protected function getRendererTemplate()
     {
         return $this->isProductHasSwatchAttribute() ?
