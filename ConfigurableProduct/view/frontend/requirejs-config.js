@@ -12,7 +12,6 @@ var config = {
         }
     },
     shim: {
-        'Labelin_ConfigurableProduct/js/step-quantity': ['jquery'],
-        'Labelin_ConfigurableProduct/js/step-upload-image': []
+        'Labelin_ConfigurableProduct/js/step-quantity': ['jquery']
     }
 };
