@@ -53,5 +53,15 @@
             </block>
         </referenceBlock>
         <referenceContainer name="main.content" htmlClass="main-checkout-wrapper" />
+        <referenceBlock name="product.info.options.file">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/options/type/file.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.options.text">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/options/type/text.phtml</argument>
+            </action>
+        </referenceBlock>
     </body>
 </page>

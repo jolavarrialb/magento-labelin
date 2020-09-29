@@ -1,0 +1,86 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\File */ ?>
+<?php $_option = $block->getOption(); ?>
+<?php $_fileInfo = $block->getFileInfo(); ?>
+<?php $_fileExists = $_fileInfo->hasData(); ?>
+<?php $_fileName = 'options_' . $block->escapeHtmlAttr($_option->getId()) . '_file'; ?>
+<?php $_fieldNameAction = $_fileName . '_action'; ?>
+<?php $_fieldValueAction = $_fileExists ? 'save_old' : 'save_new'; ?>
+<?php $_fileNamed = $_fileName . '_name'; ?>
+<?php $class = ($_option->getIsRequire()) ? ' required' : ''; ?>
+
+<div class="header-wrapper">
+    <h2 class="checkout-page-header">
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+    </h2>
+    <p class="checkout-page-text"><?= $block->escapeHtml(__('Turnaround time starts after approval')) ?></p>
+</div>
+<div class="uploader-input-and-buttons-wrapper">
+    <div class="uploader-input-wrapper">
+        <?php if ($_fileExists) :?>
+            <div class="control">
+                <span class="<?= /* @noEscape */ $_fileNamed ?>"><?= $block->escapeHtml($_fileInfo->getTitle()) ?></span>
+                <a href="javascript:void(0)" class="label" id="change-<?= /* @noEscape */ $_fileName ?>" >
+                    <?= $block->escapeHtml(__('Change')) ?>
+                </a>
+                <?php if (!$_option->getIsRequire()) :?>
+                    <input type="checkbox" id="delete-<?= /* @noEscape */ $_fileName ?>" />
+                    <span class="label"><?= $block->escapeHtml(__('Delete')) ?></span>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <div class="control" id="input-box-<?= /* @noEscape */ $_fileName ?>"
+             data-mage-init='{"priceOptionFile":{
+                "fileName":"<?= /* @noEscape */ $_fileName ?>",
+                "fileNamed":"<?= /* @noEscape */ $_fileNamed ?>",
+                "fieldNameAction":"<?= /* @noEscape */ $_fieldNameAction ?>",
+                "changeFileSelector":"#change-<?= /* @noEscape */ $_fileName ?>",
+                "deleteFileSelector":"#delete-<?= /* @noEscape */ $_fileName ?>"}
+             }'
+            <?= $_fileExists ? 'style="display:none"' : '' ?>>
+            <input type="file"
+                   name="<?= /* @noEscape */ $_fileName ?>"
+                   id="<?= /* @noEscape */ $_fileName ?>"
+                   class="product-custom-option<?= $_option->getIsRequire() ? ' required' : '' ?>"
+                   style="display: none"
+                <?= $_fileExists ? 'disabled="disabled"' : '' ?> />
+            <input type="hidden" name="<?= /* @noEscape */ $_fieldNameAction ?>" value="<?= /* @noEscape */ $_fieldValueAction ?>" />
+            <input class="input-choose input-artwork-choose" type="text" readonly />
+            <label for="<?= /* @noEscape */ $_fileName ?>" class="input-button">
+                <span><?= $block->escapeHtml(__('Choose file...')) ?></span>
+            </label>
+        </div>
+    </div>
+    <p class="skip-button"><?= $block->escapeHtml(__('or, Skip and email your artwork later')) ?></p>
+</div>
+<?php if ($_option->getFileExtension()) :?>
+    <p class="input-note">
+        <?= $block->escapeHtml(__('Accept')) ?> <?= $block->escapeHtml(strtoupper($_option->getFileExtension())) ?> <?= $block->escapeHtml('format and Maximum is 20MB.')?>
+    </p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeX() > 0) :?>
+    <p class="input-note">
+        <?= $block->escapeHtml(__('Maximum image width')) ?>: <strong><?= (int)$_option->getImageSizeX() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
+    </p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeY() > 0) :?>
+    <p class="input-note">
+        <?= $block->escapeHtml(__('Maximum image height')) ?>: <strong><?= (int)$_option->getImageSizeY() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
+    </p>
+<?php endif; ?>
+<div class="preview-wrapper">
+    <div class="preview">
+        <p class="preview-text"><?= $block->escapeHtml(__('Preview Image')) ?></p>
+        <img id="preview-image" />
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Labelin_ConfigurableProduct/js/step-upload-image": {
+                "imageEps": "<?= /* @noEscape */ $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/eps-icon.png') ?>",
+                "imagePdf": "<?= /* @noEscape */ $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/pdf-icon.png') ?>"
+            }
+        }
+    }
+</script>

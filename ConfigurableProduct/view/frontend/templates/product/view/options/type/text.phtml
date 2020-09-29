@@ -1,0 +1,82 @@
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Text */ ?>
+<?php $_option = $block->getOption(); ?>
+<?php $class = ($_option->getIsRequire()) ? ' required' : ''; ?>
+<div class="instructions-wrapper">
+    <p class="instructions-header">
+        <?= $block->escapeHtml($_option->getTitle()) ?>
+        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+    </p>
+    <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_FIELD) :?>
+        <?php $_textValidate = null;
+        if ($_option->getIsRequire()) {
+            $_textValidate['required'] = true;
+        }
+        if ($_option->getMaxCharacters()) {
+            $_textValidate['maxlength'] = $_option->getMaxCharacters();
+        }
+        $_textValidate['validate-no-utf8mb4-characters'] = true;
+        ?>
+        <input type="text"
+               id="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text"
+               class="input-text product-custom-option instructions-note"
+            <?php if (!empty($_textValidate)) {?>
+                data-validate="<?= $block->escapeHtmlAttr(json_encode($_textValidate)) ?>"
+            <?php } ?>
+               name="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+               data-selector="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+               value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>"/>
+    <?php elseif ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_AREA) :?>
+        <?php $_textAreaValidate = null;
+        if ($_option->getIsRequire()) {
+            $_textAreaValidate['required'] = true;
+        }
+        if ($_option->getMaxCharacters()) {
+            $_textAreaValidate['maxlength'] = $_option->getMaxCharacters();
+        }
+        $_textAreaValidate['validate-no-utf8mb4-characters'] = true;
+        ?>
+        <textarea id="options_<?= $block->escapeHtmlAttr($_option->getId()) ?>_text"
+                  class="product-custom-option instructions-note"
+                    <?php if (!empty($_textAreaValidate)) {?>
+                        data-validate="<?= $block->escapeHtmlAttr(json_encode($_textAreaValidate)) ?>"
+                    <?php } ?>
+                      name="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+                  data-selector="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
+                  rows="5"
+                  placeholder="Let us know if you’d like to add text, contact information or social media icons"
+                  cols="25"><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+    <?php endif; ?>
+    <?php if ($_option->getMaxCharacters()) : ?>
+        <p class="note note_<?= $block->escapeHtmlAttr($_option->getId()) ?>">
+            <?= $block->escapeHtml(__('Maximum %1 characters', $_option->getMaxCharacters())) ?>
+            <span class="character-counter no-display"></span>
+        </p>
+    <?php endif; ?>
+    <?php if ($_option->getMaxCharacters()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-selector='options[<?= $block->escapeJs($_option->getId()) ?>]']": {
+                "Magento_Catalog/js/product/remaining-characters": {
+                    "maxLength":  "<?= (int)$_option->getMaxCharacters() ?>",
+                    "noteSelector": ".note_<?= $block->escapeJs($_option->getId()) ?>",
+                    "counterSelector": ".note_<?= $block->escapeJs($_option->getId()) ?> .character-counter"
+                }
+            }
+        }
+
+            </script>
+    <?php endif; ?>
+    <div class="instructions-info-wrapper">
+        <img
+            class="info-icon"
+            src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/info.png') ?>"
+            alt="info-icon"
+        />
+        <p class="info-text">
+            <?= $block->escapeHtml(__('You won\'t be able to visualize the added information right away')) ?>
+        </p>
+    </div>
+    <p class="instructions-text">
+        <?= $block->escapeHtml(__('We will send you a proof to the EMAIL provided at checkout in 24-48 hours /MON-FRI.')) ?>
+    </p>
+</div>

@@ -16,7 +16,9 @@ if ($block->hasRequiredOptions()) {
         </div>
         <div id="sticker_artwork" style="display: none">
             <span style="display: none" class="swatch-attribute-label"><?= __('Upload') ?></span>
-            <?= $block->getChildHtml('product_options', true) ?>
+            <div class="uploader-wrapper">
+                <?= $block->getChildHtml('product_options', true) ?>
+            </div>
         </div>
     </div>
 </div>
