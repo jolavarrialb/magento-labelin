@@ -6,12 +6,15 @@ namespace Labelin\ConfigurableProduct\Block\Product\Renderer;
 
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Helper\Product as CatalogProduct;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\Product\Image\UrlBuilder;
 use Magento\ConfigurableProduct\Helper\Data;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable\Variations\Prices;
+use Magento\Eav\Model\ResourceModel\Entity\Attribute;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Json\EncoderInterface;
 use Magento\Framework\Pricing\PriceInfo\Base;
+use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Magento\Swatches\Block\Product\Renderer\Configurable as MagentoSwatchesConfigurable;
 use Magento\ConfigurableProduct\Model\ConfigurableAttributeData;
@@ -49,6 +52,8 @@ class Configurable extends MagentoSwatchesConfigurable
         ],
     ];
 
+    protected const ATTRIBUTE_STICKER_TYPE = 'sticker_type';
+
     /** @var Format|mixed|null */
     protected $localeFormat;
 
@@ -57,6 +62,12 @@ class Configurable extends MagentoSwatchesConfigurable
 
     /** @var EncoderInterface */
     protected $encoderJson;
+
+    /** @var Attribute */
+    protected $eavAttribute;
+
+    /** @var JsonHelper */
+    protected $jsonHelper;
 
     public function __construct(
         Context $context,
@@ -69,13 +80,14 @@ class Configurable extends MagentoSwatchesConfigurable
         ConfigurableAttributeData $configurableAttributeData,
         SwatchData $swatchHelper,
         Media $swatchMediaHelper,
+        Attribute $eavAttribute,
+        JsonHelper $jsonHelper,
         array $data = [],
         SwatchAttributesProvider $swatchAttributesProvider = null,
         UrlBuilder $imageUrlBuilder = null,
         Format $localeFormat = null,
         Prices $variationPrices = null
     ) {
-
         parent::__construct(
             $context,
             $arrayUtils,
@@ -91,11 +103,15 @@ class Configurable extends MagentoSwatchesConfigurable
             $swatchAttributesProvider,
             $imageUrlBuilder
         );
+
         $this->localeFormat = $localeFormat ?: ObjectManager::getInstance()->get(Format::class);
         $this->variationPrices = $this->variationPrices = $variationPrices ?: ObjectManager::getInstance()->get(
             Prices::class
         );
         $this->encoderJson = $jsonEncoder;
+
+        $this->eavAttribute = $eavAttribute;
+        $this->jsonHelper = $jsonHelper;
     }
 
     public function getOptionHeaderByIndex($index): string
@@ -103,11 +119,43 @@ class Configurable extends MagentoSwatchesConfigurable
         return $this->encoderJson->encode(static::SWATCHES_HEADERS[$index]);
     }
 
+    public function getOptionTypeTooltips(): array
+    {
+        $typeTooltips = [];
+
+        $attributes = $this->configurableAttributeData->getAttributesData($this->getProduct());
+        $attributes = $attributes['attributes'];
+
+        if (empty($attributes)) {
+            return $typeTooltips;
+        }
+
+        $attributeStickerTypeId = $this->eavAttribute->getIdByCode(Product::ENTITY, self::ATTRIBUTE_STICKER_TYPE);
+
+        if (empty($attributeStickerTypeId) || (!array_key_exists($attributeStickerTypeId, $attributes))) {
+            return $typeTooltips;
+        }
+
+        foreach ($attributes[$attributeStickerTypeId]['options'] as $stickerTypeOption) {
+            $tooltip = $this->getChildHtml(strtolower(str_replace(' ', '_', $stickerTypeOption['label'])));
+
+            if ($tooltip) {
+                $typeTooltips[$stickerTypeOption['label']] = $tooltip;
+            }
+        }
+
+        return $typeTooltips;
+    }
+
+    public function getJsonHelper(): JsonHelper
+    {
+        return $this->jsonHelper;
+    }
+
     protected function getOptionPrices(): array
     {
         $prices = [];
         foreach ($this->getAllowProducts() as $product) {
-
             $priceInfo = $product->getPriceInfo();
             $prices[$product->getId()] =
                 [
@@ -191,7 +239,6 @@ class Configurable extends MagentoSwatchesConfigurable
                 ),
             ];
             $count++;
-
         }
 
         return $tierPrices;

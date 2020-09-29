@@ -285,7 +285,9 @@ define([
                 moreText = this.options.moreButtonText,
                 countAttributes = 0,
                 html = '',
-                optionClassWithCode = config.code;
+                optionClassWithCode = config.code,
+                optionTypeTooltipObject = this.options.optionTypeTooltips,
+                optionTypeTooltip = '';
 
             if (!this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
                 return '';
@@ -369,12 +371,19 @@ define([
                         '</div>';
                 } else if (type === 2) {
                     // Image
+                    if (typeof optionTypeTooltipObject[label] !== "undefined") {
+                        optionTypeTooltip = optionTypeTooltipObject[label];
+                    }
+
                     let imageTemplate = `
                         <div option-id="${id}" class="card-wrapper">
                             <div class="${optionClass} image ${optionClassWithCode}"
                                 ${attr}
                                 style="background-image: url('${value}'); width: ${swatchImageWidth}px; height: ${swatchImageHeight}px"/>
-                            <p class="card-text">${label}</p>
+                            <div class="card-text">
+                                <p>${label}</p>
+                                ${optionTypeTooltip}
+                            </div>
                         </div>
                     `;
                     html += imageTemplate;
