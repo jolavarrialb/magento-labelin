@@ -26,6 +26,12 @@ define([
                     listLabel = '',
                     label = '',
                     display = optionCount > 0 ? ' style="display:none" ' : ' style="display:block" ',
+                    controls = '',
+                    additionClass = '',
+                    additionBlock = '',
+                    header = '',
+                    headerInfo = '',
+                    wrapper = false,
                     step = 'data-step="' + (optionCount + 1) + '"';
 
                 optionCount++;
@@ -52,21 +58,65 @@ define([
                 }
 
                 // Create new control
-                container.append(
-                    '<div class="' + classes.attributeClass + ' ' + item.code + '" ' +
-                    'attribute-code="' + item.code + '" ' +
-                    'attribute-id="' + item.id + '"' + display + step + '>' +
-                    label +
-                    '<div aria-activedescendant="" ' +
-                    'tabindex="0" ' +
-                    'aria-invalid="false" ' +
-                    'aria-required="true" ' +
-                    'role="listbox" ' + listLabel +
-                    'class="' + classes.attributeOptionsWrapper + ' clearfix">' +
-                    options + select +
-                    '</div>' + input +
-                    '</div>'
-                );
+
+                if (item.code === 'sticker_size') {
+
+                    header = $widget.options.optionSizeHeader.header ? $widget.options.optionSizeHeader.header : '';
+                    headerInfo = $widget.options.optionSizeHeader.headerInfo ? $widget.options.optionSizeHeader.headerInfo : '';
+                    additionClass = 'radiobuttons-wrapper';
+                    let url = $widget.options.additionalSizeBlockImgUrl ? $widget.options.additionalSizeBlockImgUrl : '#';
+                    wrapper = true;
+                    additionBlock = `
+                                    <div class="set-size-image-wrapper">
+                                        <img src="${url}"/>
+                                    </div>
+                    `;
+
+                } else if (item.code === 'sticker_shape') {
+                    header = $widget.options.optionShapeHeader.header ? $widget.options.optionShapeHeader.header : '';
+                    headerInfo = $widget.options.optionShapeHeader.headerInfo ? $widget.options.optionShapeHeader.headerInfo : '';
+
+                } else if (item.code === 'sticker_type') {
+                    header = $widget.options.optionTypeHeader.header ? $widget.options.optionTypeHeader.header : '';
+                    headerInfo = $widget.options.optionTypeHeader.headerInfo ? $widget.options.optionTypeHeader.headerInfo : '';
+                }
+
+                const headerTemplate = `
+                            <div class="header-wrapper">
+                                <h2 class="checkout-page-header">
+                                    ${header}
+                                </h2>
+                                <p class="checkout-page-text">
+                                    ${headerInfo}
+                                </p>
+                            </div>
+                        `;
+
+                controls = `
+                    <div class="${classes.attributeClass} ${item.code} "
+                         attribute-code="${item.code}"
+                         attribute-id="${item.id}" ${display} ${step}
+                    >
+                    ${headerTemplate}
+                    ${label}
+                        ${wrapper ? `<div class="set-size-wrapper">` : ''}
+                        <div aria-activedescendant=""
+                             tabindex="0"
+                             aria-invalid="false"
+                             aria-required="true"
+                             role="listbox"
+                             ${listLabel}
+                             class="${classes.attributeOptionsWrapper} ${additionClass} clearfix">
+                             ${options}
+                             ${select}
+                        </div>
+                        ${additionBlock}
+                        ${input}
+                        ${wrapper ? "<\div>" : ''}
+                    </div>
+                `;
+
+                container.append(controls);
 
                 $widget.optionsMap[item.id] = {};
 
@@ -135,6 +185,8 @@ define([
                 $label.text('');
                 $this.attr('aria-checked', false);
 
+                $this.find("input[name='sticker_size']").first().prop("checked", false);
+
                 let selectSwatch = document.createEvent('Event');
                 selectSwatch.initEvent('swatch-unselect-option', true, true);
 
@@ -146,6 +198,8 @@ define([
                 $input.attr('data-attr-name', this._getAttributeCodeById(attributeId));
                 $this.addClass('selected');
                 $widget._toggleCheckedAttributes($this, $wrapper);
+
+                $this.find("input[name='sticker_size']").first().prop("checked", true);
 
                 localStorage.setItem('data-step-' + localStorage.getItem('sticker_current_step'), $label.text());
 
@@ -231,13 +285,16 @@ define([
                 moreText = this.options.moreButtonText,
                 countAttributes = 0,
                 html = '',
-                optionClassWithCode = config.code;
+                optionClassWithCode = config.code,
+                optionTypeTooltipObject = this.options.optionTypeTooltips,
+                optionTypeTooltip = '';
 
             if (!this.options.jsonSwatchConfig.hasOwnProperty(config.id)) {
                 return '';
             }
 
             $.each(config.options, function (index) {
+
                 var id,
                     type,
                     value,
@@ -248,6 +305,7 @@ define([
                     attr,
                     swatchImageWidth,
                     swatchImageHeight;
+
 
                 if (!optionConfig.hasOwnProperty(this.id)) {
                     return '';
@@ -291,8 +349,20 @@ define([
 
                 if (type === 0) {
                     // Text
-                    html += '<div class="' + optionClass + ' text" ' + attr + '>' + (value ? value : label) +
-                        '</div>';
+                    let valueText = value ? value : label;
+                    const sizeTypeTemplate = `
+                        <div class="radio-container ${optionClass} text" ${attr} for="radio-${id}">
+                            <input
+                                type="radio"
+                                id="radio-${id}"
+                                name="sticker_size"
+                                value="${valueText}"
+                                class="radiobutton"
+                            >
+                                <label>${valueText}</label>
+                        </div>
+            `;
+                    html += sizeTypeTemplate;
                 } else if (type === 1) {
                     // Color
                     html += '<div class="' + optionClass + ' color" ' + attr +
@@ -301,12 +371,19 @@ define([
                         '</div>';
                 } else if (type === 2) {
                     // Image
+                    if (typeof optionTypeTooltipObject[label] !== "undefined") {
+                        optionTypeTooltip = optionTypeTooltipObject[label];
+                    }
+
                     let imageTemplate = `
                         <div option-id="${id}" class="card-wrapper">
                             <div class="${optionClass} image ${optionClassWithCode}"
                                 ${attr}
                                 style="background-image: url('${value}'); width: ${swatchImageWidth}px; height: ${swatchImageHeight}px"/>
-                            <p class="card-text">${label}</p>
+                            <div class="card-text">
+                                <p>${label}</p>
+                                ${optionTypeTooltip}
+                            </div>
                         </div>
                     `;
                     html += imageTemplate;
