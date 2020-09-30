@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Labelin_ProductionTicket" setup_version="0.1.0">
         <sequence>
-            <module name="Magento_Sales"/>
+            <module name="Labelin_Sales"/>
         </sequence>
     </module>
 </config>

@@ -4,6 +4,7 @@
          class="product-title">
         <?= $block->escapeHtml($_item->getName()) ?>
     </div>
+    <?= $block->getChildBlock('order_item_column_name_extra_info')->setData('item', $_item)->toHtml() ?>
     <div class="product-sku-block">
         <span><?= $block->escapeHtml(__('SKU'))?>:</span> <?= /* @noEscape */ implode('<br />', $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($block->escapeHtml($block->getSku()))) ?>
     </div>

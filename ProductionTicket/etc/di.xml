@@ -3,4 +3,5 @@
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketRepositoryInterface" type="Labelin\ProductionTicket\Model\ProductionTicketRepository"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\ProductionTicket"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Labelin\Sales\Model\Order\Item" type="Labelin\ProductionTicket\Model\Order\Item"/>
 </config>
