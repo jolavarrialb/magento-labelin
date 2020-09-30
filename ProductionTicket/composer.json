@@ -1,0 +1,14 @@
+{
+    "name": "labelin/production-ticket",
+    "license": "Commercial",
+    "description": "Labelin Production Ticket",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\ProductionTicket\\": ""
+        }
+    }
+}
