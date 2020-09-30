@@ -11,11 +11,13 @@
     "files": [
       "ThemeLabelin/registration.php",
       "Sales/registration.php",
-      "ConfigurableProduct/registration.php"
+      "ConfigurableProduct/registration.php",
+      "ProductionTicket/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
-      "Labelin\\ConfigurableProduct\\": "ConfigurableProduct"
+      "Labelin\\ConfigurableProduct\\": "ConfigurableProduct",
+      "Labelin\\ProductionTicket\\": "ProductionTicket"
     }
   }
 }
