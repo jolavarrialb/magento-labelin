@@ -1,0 +1,27 @@
+{
+    "labelin_production_ticket": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "order_item_id": true,
+            "order_item_label": true,
+            "shape": true,
+            "type": true,
+            "size": true,
+            "artwork": true,
+            "approval_date": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "LABELIN_PRODUCTION_TICKET_SHAPE": true,
+            "LABELIN_PRODUCTION_TICKET_TYPE": true,
+            "LABELIN_PRODUCTION_TICKET_SIZE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "LABELIN_PRODUCTION_TICKET_ENTITY_ID_ORDER_ITEM_LABEL": true
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="labelin_production_ticket" resource="default" engine="innodb"
+           comment="Labelin Production Ticket Backend Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Id"/>
+        <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order Item Id"/>
+        <column xsi:type="varchar" name="order_item_label" nullable="true" length="255"
+                comment="Order Item Label"/>
+        <column xsi:type="varchar" name="shape" nullable="true" length="255"
+                comment="Order Item Shape"/>
+        <column xsi:type="varchar" name="type" nullable="true" length="255"
+                comment="Order Item Type"/>
+        <column xsi:type="varchar" name="size" nullable="true" length="255"
+                comment="Order Item Size"/>
+        <column xsi:type="text" name="artwork" nullable="false" comment="Artwork Src Data"/>
+        <column xsi:type="datetime" name="approval_date" on_update="false" nullable="false" comment="Approval Date"/>
+        <column xsi:type="boolean" name="status" default="false"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="LABELIN_PRODUCTION_TICKET_ENTITY_ID_ORDER_ITEM_LABEL">
+            <column name="entity_id"/>
+            <column name="order_item_label"/>
+        </constraint>
+        <index referenceId="LABELIN_PRODUCTION_TICKET_SHAPE" indexType="btree">
+            <column name="shape"/>
+        </index>
+        <index referenceId="LABELIN_PRODUCTION_TICKET_TYPE" indexType="btree">
+            <column name="type"/>
+        </index>
+        <index referenceId="LABELIN_PRODUCTION_TICKET_SIZE" indexType="btree">
+            <column name="size"/>
+        </index>
+    </table>
+</schema>
