@@ -63,6 +63,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function save(ProductionTicketInterface $productionTicket): ProductionTicketInterface
     {
         try {
+            /** @var $productionTicket ProductionTicket */
             $this->resource->save($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
@@ -120,6 +121,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function delete(ProductionTicketInterface $productionTicket): bool
     {
         try {
+            /** @var $productionTicket ProductionTicket */
             $this->resource->delete($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(

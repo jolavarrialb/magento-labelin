@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model;
 
+use DateTime;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResource;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection;
@@ -52,11 +53,6 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
     public function getIdentities(): array
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
-    }
-
-    public function setEntityId(int $entityId): self
-    {
-        return $this->setData(ProductionTicketInterface::ENTITY_ID, $entityId);
     }
 
     public function getOrderId(): int
@@ -129,12 +125,12 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
         return $this->setData(ProductionTicketInterface::ARTWORK, $artwork);
     }
 
-    public function getApprovalDate(): \DateTime
+    public function getApprovalDate(): DateTime
     {
         return $this->getData(ProductionTicketInterface::APPROVAL_DATE);
     }
 
-    public function setApprovalDate(\DateTime $approvalDate): self
+    public function setApprovalDate(DateTime $approvalDate): self
     {
         return $this->setData(ProductionTicketInterface::APPROVAL_DATE, $approvalDate);
     }
@@ -149,12 +145,12 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
         return $this->setData(ProductionTicketInterface::STATUS, $status);
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->getData(ProductionTicketInterface::CREATED_AT);
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): DateTime
     {
         return $this->getData(ProductionTicketInterface::UPDATED_AT);
     }
