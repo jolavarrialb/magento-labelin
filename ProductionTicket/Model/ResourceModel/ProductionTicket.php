@@ -7,7 +7,7 @@ namespace Labelin\ProductionTicket\Model\ResourceModel;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketResourceInterface as ResourceInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
-class ProductionTicketResource extends AbstractDb implements ResourceInterface
+class ProductionTicket extends AbstractDb implements ResourceInterface
 {
     protected const RESOURCE_MAIN_TABLE = 'labelin_production_ticket';
 

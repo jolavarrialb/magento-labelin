@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket;
 
 use Labelin\ProductionTicket\Model\ProductionTicket;
-use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicketResource;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResource;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection

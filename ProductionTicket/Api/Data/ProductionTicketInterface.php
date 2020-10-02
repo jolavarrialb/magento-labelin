@@ -4,38 +4,34 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Api\Data;
 
+use DateTime;
+
 interface ProductionTicketInterface
 {
-    const ENTITY_ID = 'entity_id';
+    public const ENTITY_ID = 'entity_id';
 
-    const ORDER_ID = 'order_id';
+    public const ORDER_ID = 'order_id';
 
-    const ORDER_ITEM_ID = 'order_item_id';
+    public const ORDER_ITEM_ID = 'order_item_id';
 
-    const ORDER_ITEM_LABEL = 'order_item_label';
+    public const ORDER_ITEM_LABEL = 'order_item_label';
 
-    const SHAPE = 'shape';
+    public const SHAPE = 'shape';
 
-    const TYPE = 'type';
+    public const TYPE = 'type';
 
-    const SIZE = 'size';
+    public const SIZE = 'size';
 
-    const ARTWORK = 'artwork';
+    public const ARTWORK = 'artwork';
 
-    const APPROVAL_DATE = 'approval_date';
+    public const APPROVAL_DATE = 'approval_date';
 
-    const STATUS = 'status';
+    public const STATUS = 'status';
 
-    const CREATED_AT = 'created_at';
+    public const CREATED_AT = 'created_at';
 
-    const UPDATED_AT = 'updated_at';
+    public const UPDATED_AT = 'updated_at';
 
-    /**
-     * Gets the ID for the productTicket
-     *
-     * @return int
-     */
-    public function getEntityId();
 
     /**
      * Sets entity ID
@@ -50,7 +46,7 @@ interface ProductionTicketInterface
      *
      * @return int
      */
-    public function getOrderId();
+    public function getOrderId(): int;
 
     /**
      * Sets order ID
@@ -65,7 +61,7 @@ interface ProductionTicketInterface
      *
      * @return int
      */
-    public function getOrderItemId();
+    public function getOrderItemId(): int;
 
     /**
      * Sets order item ID
@@ -80,7 +76,7 @@ interface ProductionTicketInterface
      *
      * @return string|null
      */
-    public function getOrderItemLabel();
+    public function getOrderItemLabel(): ?string;
 
     /**
      * Sets the order item Label for the order item
@@ -95,7 +91,7 @@ interface ProductionTicketInterface
      *
      * @return string|null
      */
-    public function getShape();
+    public function getShape(): ?string;
 
     /**
      * Sets the order item param Shape for the order item
@@ -110,7 +106,7 @@ interface ProductionTicketInterface
      *
      * @return string|null
      */
-    public function getType();
+    public function getType(): ?string;
 
     /**
      * Sets the order item param Type for the order item
@@ -125,7 +121,7 @@ interface ProductionTicketInterface
      *
      * @return string|null
      */
-    public function getSize();
+    public function getSize(): ?string;
 
     /**
      * Sets the order item param Size for the order item
@@ -140,7 +136,7 @@ interface ProductionTicketInterface
      *
      * @return string
      */
-    public function getArtwork();
+    public function getArtwork(): string;
 
     /**
      * Sets the order item Artwork
@@ -153,24 +149,24 @@ interface ProductionTicketInterface
     /**
      * Gets order item ticket Approve Date
      *
-     * @return string
+     * @return DateTime
      */
-    public function getApprovalDate();
+    public function getApprovalDate(): DateTime;
 
     /**
      * Sets order item ticket Approve Date
      *
-     * @param string $approvalDate
+     * @param DateTime $approvalDate
      * @return $this
      */
-    public function setApprovalDate(string $approvalDate);
+    public function setApprovalDate(DateTime $approvalDate);
 
     /**
      * Gets Product ticket ready status
      *
      * @return bool
      */
-    public function getStatus();
+    public function getStatus(): bool;
 
     /**
      * Sets Product ticket ready status
@@ -181,12 +177,12 @@ interface ProductionTicketInterface
     public function setStatus(bool $status);
 
     /**
-     * @return string
+     * @return DateTime
      */
-    public function getCreatedAt();
+    public function getCreatedAt(): DateTime;
 
     /**
-     * @return string
+     * @return DateTime
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): DateTime;
 }

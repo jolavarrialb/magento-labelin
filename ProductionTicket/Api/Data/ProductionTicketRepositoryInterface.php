@@ -10,60 +10,13 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 interface ProductionTicketRepositoryInterface
 {
-    /**
-     * Create or update a production ticket.
-     *
-     * @param ProductionTicketInterface $productionTicket
-     * @return ProductionTicketInterface
-     * @throws LocalizedException
-     */
-    public function save(ProductionTicketInterface $productionTicket);
+    public function save(ProductionTicketInterface $productionTicket): ProductionTicketInterface;
 
-    /**
-     * Retrieve production ticket.
-     *
-     * @param string $orderItemLabel
-     * @return  ProductionTicketInterface
-     * @throws NoSuchEntityException If production ticket with the specified order_item_label does not exist.
-     * @throws LocalizedException
-     */
-    public function get(string $orderItemLabel);
+    public function get(int $entityId): ProductionTicketInterface;
 
-    /**
-     * Get production ticket by ticket Entity ID.
-     *
-     * @param int $entityId
-     * @return ProductionTicketInterface
-     * @throws NoSuchEntityException If production ticket with the specified Entity ID does not exist.
-     * @throws LocalizedException
-     */
-    public function getById(int $entityId);
+    public function getList(SearchCriteriaInterface $searchCriteria): ProductionTicketSearchResultsInterface;
 
-    /**
-     * Retrieve production tickets which match a specified criteria.
-     *
-     * @param SearchCriteriaInterface $searchCriteria
-     * @return ProductionTicketSearchResultsInterface
-     * @throws LocalizedException
-     */
-    public function getList(SearchCriteriaInterface $searchCriteria);
+    public function delete(ProductionTicketInterface $productionTicket): bool;
 
-    /**
-     * Delete production ticket.
-     *
-     * @param ProductionTicketInterface $productionTicket
-     * @return bool true on success
-     * @throws LocalizedException
-     */
-    public function delete(ProductionTicketInterface $productionTicket);
-
-    /**
-     * Delete production ticket by Entity ID.
-     *
-     * @param int $entityId
-     * @return bool true on success
-     * @throws NoSuchEntityException
-     * @throws LocalizedException
-     */
-    public function deleteById(int $entityId);
+    public function deleteById(int $entityId): bool;
 }

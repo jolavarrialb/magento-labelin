@@ -5,181 +5,68 @@ declare(strict_types=1);
 namespace Labelin\ProductionTicket\Model;
 
 use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
-use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicketResource;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResource;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection;
+use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 
-class ProductionTicket extends AbstractModel implements IdentityInterface, ProductionTicketInterface
+class ProductionTicket extends AbstractModel implements IdentityInterface
 {
     const CACHE_TAG = 'labelin_production_ticket';
+
+    protected $dataObjectHelper;
+
+    protected $_eventPrefix = 'labelin_productionticket_productionticket';
+
+    /** @var ObjectManager */
+    protected $objectManager;
+
+    public function __construct(
+        Context $context,
+        Registry $registry,
+        DataObjectHelper $dataObjectHelper,
+        ObjectManager $objectManager,
+        ProductionTicketResource $resource,
+        Collection $resourceCollection,
+        array $data = []
+    ) {
+        $this->dataObjectHelper = $dataObjectHelper;
+        $this->objectManager = $objectManager;
+
+        parent::__construct(
+            $context,
+            $registry,
+            $resource,
+            $resourceCollection,
+            $data
+        );
+    }
 
     protected function _construct()
     {
         $this->_init(ProductionTicketResource::class);
     }
 
-    public function getIdentities()
+    public function getIdentities(): array
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getOrderId()
+    public function getDataModel(): ProductionTicketInterface
     {
-        return $this->getData(ProductTicketInterface::ORDER_ID);
-    }
+        $productionTicketData = $this->getData();
 
-    /**
-     * @inheritDoc
-     */
-    public function setOrderId(int $orderId)
-    {
-        return $this->setData(ProductTicketInterface::ORDER_ID, $orderId);
-    }
+        $productionTicketModelObject = $this->objectManager->create(ProductionTicketInterface::class);
+        $this->dataObjectHelper->populateWithArray(
+            $productionTicketModelObject,
+            $productionTicketData,
+            ProductionTicketInterface::class
+        );
 
-    /**
-     * @inheritDoc
-     */
-    public function getOrderItemId()
-    {
-        return $this->getData(ProductTicketInterface::ORDER_ITEM_ID);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setOrderItemId(int $orderItemId)
-    {
-        return $this->setData(ProductTicketInterface::ORDER_ITEM_ID, $orderItemId);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOrderItemLabel()
-    {
-        return $this->getData(ProductTicketInterface::ORDER_ITEM_LABEL);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setOrderItemLabel(string $orderItemLabel)
-    {
-        return $this->setData(ProductTicketInterface::ORDER_ITEM_LABEL, $orderItemLabel);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getShape()
-    {
-        return $this->getData(ProductTicketInterface::SHAPE);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setShape(string $shape)
-    {
-        return $this->setData(ProductTicketInterface::SHAPE, $shape);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getType()
-    {
-        return $this->getData(ProductTicketInterface::TYPE);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setType(string $type)
-    {
-        return $this->setData(ProductTicketInterface::TYPE, $type);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSize()
-    {
-        return $this->getData(ProductTicketInterface::SIZE);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setSize(string $size)
-    {
-        return $this->setData(ProductTicketInterface::SIZE, $size);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArtwork()
-    {
-        return $this->getData(ProductTicketInterface::ARTWORK);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setArtwork(string $artwork)
-    {
-        return $this->setData(ProductTicketInterface::ARTWORK, $artwork);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getApprovalDate()
-    {
-        return $this->getData(ProductTicketInterface::APPROVAL_DATE);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setApprovalDate(string $approvalDate)
-    {
-        return $this->setData(ProductTicketInterface::APPROVAL_DATE, $approvalDate);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getStatus()
-    {
-        return $this->getData(ProductTicketInterface::STATUS);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setStatus(bool $status)
-    {
-        return $this->setData(ProductTicketInterface::STATUS, $status);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCreatedAt()
-    {
-        return $this->getData(ProductTicketInterface::CREATED_AT);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getUpdatedAt()
-    {
-        return $this->getData(ProductTicketInterface::UPDATED_AT);
+        return $productionTicketModelObject;
     }
 }
