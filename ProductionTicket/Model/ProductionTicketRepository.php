@@ -23,9 +23,6 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     /** @var ProductionTicketResourceModel */
     protected $resource;
 
-    /** @var ProductionTicketFactory */
-    protected $productionTicketFactory;
-
     /** @var ObjectManager */
     protected $objectManager;
 
@@ -40,14 +37,12 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
 
     public function __construct(
         ProductionTicketResourceModel $resource,
-        ProductionTicketFactory $productionTicketFactory,
         ObjectManager $objectManager,
         CollectionProcessorInterface $collectionProcessor,
         JoinProcessorInterface $extensionAttributesJoinProcessor,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter
     ) {
         $this->resource = $resource;
-        $this->productionTicketFactory = $productionTicketFactory;
         $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
         $this->objectManager = $objectManager;
         $this->collectionProcessor = $collectionProcessor;
@@ -63,7 +58,6 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function save(ProductionTicketInterface $productionTicket): ProductionTicketInterface
     {
         try {
-            /** @var $productionTicket ProductionTicket */
             $this->resource->save($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
@@ -83,7 +77,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
      */
     public function get(int $entityId): ProductionTicketInterface
     {
-        $productionTicket = $this->productionTicketFactory->create();
+        $productionTicket = $this->objectManager->create(ProductionTicket::class);
         $this->resource->load($productionTicket, $entityId);
 
         if (!$productionTicket->getId()) {
@@ -121,11 +115,10 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function delete(ProductionTicketInterface $productionTicket): bool
     {
         try {
-            /** @var $productionTicket ProductionTicket */
             $this->resource->delete($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(
-                'Could not delete the ProductionTicket: %1',
+                'Could not delete the Production Ticket: %1',
                 $exception->getMessage()
             ));
         }

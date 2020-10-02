@@ -32,7 +32,6 @@ interface ProductionTicketInterface
 
     public const UPDATED_AT = 'updated_at';
 
-
     /**
      * Sets entity ID
      *
