@@ -8,23 +8,16 @@ use Magento\Framework\ObjectManagerInterface;
 
 class ProductionTicketFactory
 {
+    /** @var string */
+    protected $instanceName;
 
-    protected const DEFAULT_INSTANCE_NAME = '\\Labelin\\ProductionTicket\\Model\\ProductionTicket';
-
-    /** @var string|null  */
-    protected $instanceName = null;
-
-    /** @var ObjectManagerInterface  */
+    /** @var ObjectManagerInterface */
     protected $objectManager;
 
-    /**
-     * ProductionTicketFactory constructor.
-     *
-     * @param ObjectManagerInterface $objectManager
-     * @param string $instanceName
-     */
-    public function __construct(ObjectManagerInterface $objectManager, string $instanceName = self::DEFAULT_INSTANCE_NAME)
-    {
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        string $instanceName = ProductionTicket::class
+    ) {
         $this->objectManager = $objectManager;
         $this->instanceName = $instanceName;
     }

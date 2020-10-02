@@ -11,25 +11,6 @@ class ProductionTicket extends AbstractDb implements ResourceInterface
 {
     protected const RESOURCE_MAIN_TABLE = 'labelin_production_ticket';
 
-    /**
-     * Event prefix
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'labelin_production_ticket_resource';
-
-    /**
-     * Event object
-     *
-     * @var string
-     */
-    protected $_eventObject = 'resource';
-
-    /**
-     * Model Initialization
-     *
-     * @return void
-     */
     protected function _construct()
     {
         $this->_init(self::RESOURCE_MAIN_TABLE, 'entity_id');

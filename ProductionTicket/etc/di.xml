@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\Data\ProductionTicket"/>
+    <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\ProductionTicket"/>
 </config>

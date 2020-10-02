@@ -14,13 +14,11 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
 
-class ProductionTicket extends AbstractModel implements IdentityInterface
+class ProductionTicket extends AbstractModel implements IdentityInterface, ProductionTicketInterface
 {
-    const CACHE_TAG = 'labelin_production_ticket';
+    public const CACHE_TAG = 'labelin_production_ticket';
 
     protected $dataObjectHelper;
-
-    protected $_eventPrefix = 'labelin_productionticket_productionticket';
 
     /** @var ObjectManager */
     protected $objectManager;
@@ -56,17 +54,108 @@ class ProductionTicket extends AbstractModel implements IdentityInterface
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    public function getDataModel(): ProductionTicketInterface
+    public function setEntityId(int $entityId): self
     {
-        $productionTicketData = $this->getData();
+        return $this->setData(ProductionTicketInterface::ENTITY_ID, $entityId);
+    }
 
-        $productionTicketModelObject = $this->objectManager->create(ProductionTicketInterface::class);
-        $this->dataObjectHelper->populateWithArray(
-            $productionTicketModelObject,
-            $productionTicketData,
-            ProductionTicketInterface::class
-        );
+    public function getOrderId(): int
+    {
+        return $this->getData(ProductionTicketInterface::ORDER_ID);
+    }
 
-        return $productionTicketModelObject;
+    public function setOrderId(int $orderId): self
+    {
+        return $this->setData(ProductionTicketInterface::ORDER_ID, $orderId);
+    }
+
+    public function getOrderItemId(): int
+    {
+        return $this->getData(ProductionTicketInterface::ORDER_ITEM_ID);
+    }
+
+    public function setOrderItemId(int $orderItemId): self
+    {
+        return $this->setData(ProductionTicketInterface::ORDER_ITEM_ID, $orderItemId);
+    }
+
+    public function getOrderItemLabel(): ?string
+    {
+        return $this->getData(ProductionTicketInterface::ORDER_ITEM_LABEL);
+    }
+
+    public function setOrderItemLabel(string $orderItemLabel): self
+    {
+        return $this->setData(ProductionTicketInterface::ORDER_ITEM_LABEL, $orderItemLabel);
+    }
+
+    public function getShape(): ?string
+    {
+        return $this->getData(ProductionTicketInterface::SHAPE);
+    }
+
+    public function setShape(string $shape): self
+    {
+        return $this->setData(ProductionTicketInterface::SHAPE, $shape);
+    }
+
+    public function getType(): ?string
+    {
+        return $this->getData(ProductionTicketInterface::TYPE);
+    }
+
+    public function setType(string $type): self
+    {
+        return $this->setData(ProductionTicketInterface::TYPE, $type);
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->getData(ProductionTicketInterface::SIZE);
+    }
+
+    public function setSize(string $size): self
+    {
+        return $this->setData(ProductionTicketInterface::SIZE, $size);
+    }
+
+    public function getArtwork(): string
+    {
+        return $this->getData(ProductionTicketInterface::ARTWORK);
+    }
+
+    public function setArtwork(string $artwork): self
+    {
+        return $this->setData(ProductionTicketInterface::ARTWORK, $artwork);
+    }
+
+    public function getApprovalDate(): \DateTime
+    {
+        return $this->getData(ProductionTicketInterface::APPROVAL_DATE);
+    }
+
+    public function setApprovalDate(\DateTime $approvalDate): self
+    {
+        return $this->setData(ProductionTicketInterface::APPROVAL_DATE, $approvalDate);
+    }
+
+    public function getStatus(): bool
+    {
+        return $this->getData(ProductionTicketInterface::STATUS);
+    }
+
+    public function setStatus(bool $status): self
+    {
+        return $this->setData(ProductionTicketInterface::STATUS, $status);
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->getData(ProductionTicketInterface::CREATED_AT);
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->getData(ProductionTicketInterface::UPDATED_AT);
     }
 }
