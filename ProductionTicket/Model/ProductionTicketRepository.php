@@ -35,13 +35,18 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     /** @var ExtensibleDataObjectConverter */
     protected $extensibleDataObjectConverter;
 
+    /** @var ProductionTicketFactory  */
+    protected $productionTicketFactory;
+
     public function __construct(
+        ProductionTicketFactory $productionTicketFactory,
         ProductionTicketResourceModel $resource,
         ObjectManager $objectManager,
         CollectionProcessorInterface $collectionProcessor,
         JoinProcessorInterface $extensionAttributesJoinProcessor,
         ExtensibleDataObjectConverter $extensibleDataObjectConverter
     ) {
+        $this->productionTicketFactory = $productionTicketFactory;
         $this->resource = $resource;
         $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
         $this->objectManager = $objectManager;
@@ -77,7 +82,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
      */
     public function get(int $entityId): ProductionTicketInterface
     {
-        $productionTicket = $this->objectManager->create(ProductionTicket::class);
+        $productionTicket = $this->productionTicketFactory->create();
         $this->resource->load($productionTicket, $entityId);
 
         if (!$productionTicket->getId()) {

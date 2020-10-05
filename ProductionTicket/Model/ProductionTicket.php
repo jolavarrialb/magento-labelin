@@ -7,44 +7,12 @@ namespace Labelin\ProductionTicket\Model;
 use DateTime;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResource;
-use Magento\Framework\Api\DataObjectHelper;
-use Magento\Framework\App\ObjectManager;
-use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Model\ResourceModel\AbstractResource;
-use Magento\Framework\Registry;
 
 class ProductionTicket extends AbstractModel implements IdentityInterface, ProductionTicketInterface
 {
     public const CACHE_TAG = 'labelin_production_ticket';
-
-    protected $dataObjectHelper;
-
-    /** @var ObjectManager */
-    protected $objectManager;
-
-    public function __construct(
-        Context $context,
-        Registry $registry,
-        AbstractResource $resource,
-        AbstractDb $resourceCollection,
-        array $data = [],
-        DataObjectHelper $dataObjectHelper,
-        ObjectManager $objectManager
-    ) {
-        parent::__construct(
-            $context,
-            $registry,
-            $resource,
-            $resourceCollection,
-            $data
-        );
-
-        $this->dataObjectHelper = $dataObjectHelper;
-        $this->objectManager = $objectManager;
-    }
 
     protected function _construct()
     {
