@@ -102,6 +102,15 @@ class Item extends SalesOrderItem
         return $this->getProductOptionAttributeValueByCode(static::ATTRIBUTE_CODE_STICKER_SIZE);
     }
 
+    /**
+     * @return \DateTime
+     * @throws \Exception
+     */
+    public function getApprovalDate(): \DateTime
+    {
+        return new \DateTime($this->getData('artwork_approval_date'));
+    }
+
     protected function getProductOptionAttributeValueByCode(string $attributeCode): string
     {
         $attributeId = (int)$this->eavAttribute->getIdByCode(Product::ENTITY, $attributeCode);
