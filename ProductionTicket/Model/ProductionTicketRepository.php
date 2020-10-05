@@ -6,52 +6,48 @@ namespace Labelin\ProductionTicket\Model;
 
 use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketRepositoryInterface;
+use Labelin\ProductionTicket\Api\Data\ProductionTicketResourceInterface;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface;
+use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterfaceFactory;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection;
-use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\CollectionFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResourceModel;
-use Magento\Framework\App\ObjectManager;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicketFactory as ProductionTicketResourceFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Api\ExtensibleDataObjectConverter;
 
 class ProductionTicketRepository implements ProductionTicketRepositoryInterface
 {
-    /** @var ProductionTicketResourceModel */
-    protected $resource;
-
-    /** @var ObjectManager */
-    protected $objectManager;
-
-    /** @var JoinProcessorInterface */
-    protected $extensionAttributesJoinProcessor;
+    /** @var ProductionTicketResourceFactory */
+    protected $resourceFactory;
 
     /** @var CollectionProcessorInterface */
     protected $collectionProcessor;
 
-    /** @var ExtensibleDataObjectConverter */
-    protected $extensibleDataObjectConverter;
-
-    /** @var ProductionTicketFactory  */
+    /** @var ProductionTicketFactory */
     protected $productionTicketFactory;
+
+    /** @var CollectionFactory */
+    protected $collectionFactory;
+
+    /** @var ProductionTicketSearchResultsInterfaceFactory */
+    protected $searchResultsFactory;
+
 
     public function __construct(
         ProductionTicketFactory $productionTicketFactory,
-        ProductionTicketResourceModel $resource,
-        ObjectManager $objectManager,
+        ProductionTicketResourceFactory $resourceFactory,
+        CollectionFactory $collectionFactory,
         CollectionProcessorInterface $collectionProcessor,
-        JoinProcessorInterface $extensionAttributesJoinProcessor,
-        ExtensibleDataObjectConverter $extensibleDataObjectConverter
+        ProductionTicketSearchResultsInterfaceFactory $searchResultsFactory
     ) {
         $this->productionTicketFactory = $productionTicketFactory;
-        $this->resource = $resource;
-        $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
-        $this->objectManager = $objectManager;
+        $this->resourceFactory = $resourceFactory;
         $this->collectionProcessor = $collectionProcessor;
-        $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
+        $this->collectionFactory = $collectionFactory;
+        $this->searchResultsFactory = $searchResultsFactory;
     }
 
     /**
@@ -63,7 +59,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function save(ProductionTicketInterface $productionTicket): ProductionTicketInterface
     {
         try {
-            $this->resource->save($productionTicket);
+            $this->getResourceModel()->save($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
                 'Could not save the production ticket: %1',
@@ -82,8 +78,8 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
      */
     public function get(int $entityId): ProductionTicketInterface
     {
-        $productionTicket = $this->productionTicketFactory->create();
-        $this->resource->load($productionTicket, $entityId);
+        $productionTicket = $this->getModel();
+        $this->getResourceModel()->load($productionTicket, $entityId);
 
         if (!$productionTicket->getId()) {
             throw new NoSuchEntityException(__('Production ticket with id "%1" does not exist.', $entityId));
@@ -94,18 +90,13 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
 
     public function getList(SearchCriteriaInterface $searchCriteria): ProductionTicketSearchResultsInterface
     {
-        $collection = $this->objectManager->create(Collection::class);
+        $collection = $this->getCollection();
         $this->collectionProcessor->process($searchCriteria, $collection);
 
-        $searchResults = $this->objectManager->create(ProductionTicketSearchResultsInterface::class);
+        $searchResults = $this->getSearchResults();
         $searchResults->setSearchCriteria($searchCriteria);
 
-        $items = [];
-        foreach ($collection as $model) {
-            $items[] = $model;
-        }
-
-        $searchResults->setItems($items);
+        $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
 
         return $searchResults;
@@ -120,7 +111,7 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function delete(ProductionTicketInterface $productionTicket): bool
     {
         try {
-            $this->resource->delete($productionTicket);
+            $this->getResourceModel()->delete($productionTicket);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(
                 'Could not delete the Production Ticket: %1',
@@ -141,5 +132,25 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
     public function deleteById(int $entityId): bool
     {
         return $this->delete($this->get($entityId));
+    }
+
+    protected function getModel(array $data = []): ProductionTicketInterface
+    {
+        return $this->productionTicketFactory->create($data);
+    }
+
+    protected function getResourceModel(array $data = []): ProductionTicketResourceInterface
+    {
+        return $this->resourceFactory->create($data);
+    }
+
+    protected function getCollection(array $data = []): Collection
+    {
+        return $this->collectionFactory->create($data);
+    }
+
+    protected function getSearchResults(array $data = [])
+    {
+        return $this->searchResultsFactory->create($data);
     }
 }

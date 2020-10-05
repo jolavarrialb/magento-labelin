@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model\ResourceModel\Order\Grid;
 
-use Labelin\ProductionTicket\Model\ProductionTicketRepository;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy;
 use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Sales\Model\ResourceModel\Order;
 use Magento\Sales\Model\ResourceModel\Order\Grid\Collection as GridCollection;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable as Configurable;
 use Psr\Log\LoggerInterface as Logger;
 
 /**
@@ -22,13 +20,7 @@ class Collection extends GridCollection
     /** @var DesignerHelper */
     protected $designerHelper;
 
-    /**
-     * @var ProductionTicketRepository
-     */
-    protected $productionTicketRepository;
-
     public function __construct(
-        ProductionTicketRepository $productionTicketRepository,
         EntityFactory $entityFactory,
         Logger $logger,
         FetchStrategy $fetchStrategy,
@@ -38,8 +30,7 @@ class Collection extends GridCollection
         $resourceModel = Order::class
     ) {
         $this->designerHelper = $designerHelper;
-        $this->productionTicketRepository = $productionTicketRepository;
-        $this->productionTicketRepository->get(1);
+
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
 
