@@ -14,7 +14,12 @@ interface ProductionTicketRepositoryInterface
 
     public function get(int $entityId): ProductionTicketInterface;
 
-    public function getList(SearchCriteriaInterface $searchCriteria): ProductionTicketSearchResultsInterface;
+    /**
+     * @param SearchCriteriaInterface $searchCriteria
+     *
+     * @return ProductionTicketSearchResultsInterface
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria);
 
     public function delete(ProductionTicketInterface $productionTicket): bool;
 

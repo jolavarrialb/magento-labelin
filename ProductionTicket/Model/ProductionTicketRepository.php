@@ -11,6 +11,7 @@ use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterfaceFactory;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\CollectionFactory;
+use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicketFactory as ProductionTicketResourceFactory;
@@ -34,7 +35,6 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
 
     /** @var ProductionTicketSearchResultsInterfaceFactory */
     protected $searchResultsFactory;
-
 
     public function __construct(
         ProductionTicketFactory $productionTicketFactory,
@@ -88,7 +88,12 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
         return $productionTicket;
     }
 
-    public function getList(SearchCriteriaInterface $searchCriteria): ProductionTicketSearchResultsInterface
+    /**
+     * @param SearchCriteriaInterface $searchCriteria
+     *
+     * @return ProductionTicketSearchResultsInterface|SearchResults
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria)
     {
         $collection = $this->getCollection();
         $this->collectionProcessor->process($searchCriteria, $collection);
@@ -149,6 +154,11 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
         return $this->collectionFactory->create($data);
     }
 
+    /**
+     * @param array $data
+     *
+     * @return SearchResults|ProductionTicketSearchResultsInterface
+     */
     protected function getSearchResults(array $data = [])
     {
         return $this->searchResultsFactory->create($data);
