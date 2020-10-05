@@ -10,7 +10,6 @@ use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Sales\Model\ResourceModel\Order;
 use Magento\Sales\Model\ResourceModel\Order\Grid\Collection as GridCollection;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable as Configurable;
 use Psr\Log\LoggerInterface as Logger;
 
 /**
