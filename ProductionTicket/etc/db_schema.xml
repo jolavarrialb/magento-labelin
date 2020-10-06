@@ -40,6 +40,13 @@
         <index referenceId="LABELIN_PRODUCTION_TICKET_SIZE" indexType="btree">
             <column name="size"/>
         </index>
+        <index referenceId="LABELIN_PRODUCTION_TICKET_ORDER_ITEM_LABEL_SHAPE_TYPE_SIZE_ARTWORK" indexType="fulltext">
+            <column name="order_item_label" />
+            <column name="shape" />
+            <column name="type" />
+            <column name="size" />
+            <column name="artwork" />
+        </index>
     </table>
     <table name="sales_order_item">
         <column xsi:type="tinyint" name="is_in_production" unsigned="true" nullable="false" default="0" identity="false"

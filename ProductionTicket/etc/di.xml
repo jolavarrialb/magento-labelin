@@ -4,4 +4,18 @@
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\ProductionTicket"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
     <preference for="Labelin\Sales\Model\Order\Item" type="Labelin\ProductionTicket\Model\Order\Item"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="labelin_production_ticket_data_source" xsi:type="string">Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">labelin_production_ticket</argument>
+            <argument name="resourceModel" xsi:type="string">Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket</argument>
+        </arguments>
+    </virtualType>
 </config>

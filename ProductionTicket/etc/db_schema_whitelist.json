@@ -17,7 +17,8 @@
         "index": {
             "LABELIN_PRODUCTION_TICKET_SHAPE": true,
             "LABELIN_PRODUCTION_TICKET_TYPE": true,
-            "LABELIN_PRODUCTION_TICKET_SIZE": true
+            "LABELIN_PRODUCTION_TICKET_SIZE": true,
+            "LBLIN_PRDION_TICKET_ORDER_ITEM_LBL_SHAPE_TYPE_SIZE_ARTWORK": true
         },
         "constraint": {
             "PRIMARY": true,

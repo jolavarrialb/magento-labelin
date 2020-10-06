@@ -4,6 +4,8 @@
     <module name="Labelin_ProductionTicket" setup_version="0.1.0">
         <sequence>
             <module name="Labelin_Sales"/>
+            <module name="Magento_Backend"/>
+            <module name="Magento_Ui"/>
         </sequence>
     </module>
 </config>
