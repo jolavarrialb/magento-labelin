@@ -22,9 +22,9 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Item extends SalesOrderItem
 {
-    protected const ATTRIBUTE_CODE_STICKER_SHAPE = 'sticker_shape';
-    protected const ATTRIBUTE_CODE_STICKER_TYPE  = 'sticker_type';
-    protected const ATTRIBUTE_CODE_STICKER_SIZE  = 'sticker_size';
+    public const ATTRIBUTE_CODE_STICKER_SHAPE = 'sticker_shape';
+    public const ATTRIBUTE_CODE_STICKER_TYPE  = 'sticker_type';
+    public const ATTRIBUTE_CODE_STICKER_SIZE  = 'sticker_size';
 
     /** @var Attribute */
     protected $eavAttribute;

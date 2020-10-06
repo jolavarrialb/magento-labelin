@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Labelin_ProductionTicket::production_ticket"
+             title="Production Ticket"
+             module="Labelin_ProductionTicket"
+             parent="Magento_Sales::sales_operation"
+             sortOrder="10"
+             resource="Labelin_ProductionTicket::production_ticket_grid"
+             action="production_ticket/grid/index"
+        />
+    </menu>
+</config>
