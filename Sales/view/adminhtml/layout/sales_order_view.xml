@@ -8,6 +8,7 @@
             </action>
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceForm" name="artwork_acceptance_form" template="Labelin_Sales::items/column/artworkacceptanceform.phtml" />
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtWork" name="labelin.sales.adminhtml.order.item.renderers.default.artwork" as="admin.artwork" template="Labelin_Sales::order/items/renderer/default/artwork.phtml" />
+            <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_column_name_extra_info"/>
         </referenceBlock>
     </body>
 </page>

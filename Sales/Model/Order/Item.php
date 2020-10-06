@@ -104,6 +104,7 @@ class Item extends MagentoOrderItem
         }
 
         $this->setData('is_artwork_approved', 1);
+        $this->setData('artwork_approval_date', new \Zend_Db_Expr('NOW()'));
 
         $this->_eventManager->dispatch('labelin_order_item_approve_after', ['order_item' => $this]);
 

@@ -23,6 +23,7 @@
                 comment="Is Artwork Approved By Customer" />
         <column xsi:type="tinyint" name="is_designer_update_artwork" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Is Designer Update Artwork" />
+        <column xsi:type="datetime" name="artwork_approval_date" on_update="false" nullable="true" comment="Artwork Approval Date"/>
         <index referenceId="SALES_ORDER_ITEM_ARTWORK_DECLINES_COUNT" indexType="btree">
             <column name="artwork_declines_count" />
         </index>

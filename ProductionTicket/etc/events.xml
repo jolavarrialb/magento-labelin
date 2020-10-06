@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="labelin_order_production_status_after">
+        <observer name="order_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\InProductionStatusHandler" />
+    </event>
+    <event name="labelin_order_item_production_status_after">
+        <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusHandler" />
+    </event>
+</config>

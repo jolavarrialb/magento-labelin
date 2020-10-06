@@ -41,4 +41,11 @@
             <column name="size"/>
         </index>
     </table>
+    <table name="sales_order_item">
+        <column xsi:type="tinyint" name="is_in_production" unsigned="true" nullable="false" default="0" identity="false"
+                comment="Is In Production"/>
+        <index referenceId="SALES_ORDER_ITEM_IS_IN_PRODUCTION" indexType="btree">
+            <column name="is_in_production"/>
+        </index>
+    </table>
 </schema>
