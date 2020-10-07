@@ -14,6 +14,8 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 {
     public const CACHE_TAG = 'labelin_production_ticket';
 
+    protected $_eventPrefix = 'labelin_production_ticket';
+
     protected function _construct()
     {
         $this->_init(ProductionTicketResource::class);
@@ -26,7 +28,7 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 
     public function getOrderId(): int
     {
-        return $this->getData(ProductionTicketInterface::ORDER_ID);
+        return (int)$this->getData(ProductionTicketInterface::ORDER_ID);
     }
 
     public function setOrderId(int $orderId): self
@@ -36,7 +38,7 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 
     public function getOrderItemId(): int
     {
-        return $this->getData(ProductionTicketInterface::ORDER_ITEM_ID);
+        return (int)$this->getData(ProductionTicketInterface::ORDER_ITEM_ID);
     }
 
     public function setOrderItemId(int $orderItemId): self
@@ -111,7 +113,7 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 
     public function setStatus(bool $status): self
     {
-        return $this->setData(ProductionTicketInterface::STATUS, $status);
+        return $this->setData(ProductionTicketInterface::STATUS, $status ? 1 : 0);
     }
 
     public function getCreatedAt(): DateTime

@@ -58,6 +58,11 @@ class InProductionStatusHandler implements ObserverInterface
     {
         /** @var Item $orderItem */
         $orderItem = $observer->getData('item');
+
+        if (!$orderItem) {
+            return $this;
+        }
+
         /** @var Order $order */
         $order = $orderItem->getOrder();
 
