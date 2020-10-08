@@ -6,4 +6,7 @@
     <event name="labelin_order_item_production_status_after">
         <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusHandler" />
     </event>
+    <event name="labelin_production_ticket_save_after">
+        <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />
+    </event>
 </config>

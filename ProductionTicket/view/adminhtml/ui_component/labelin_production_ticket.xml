@@ -34,9 +34,25 @@
         <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
             <action name="complete">
                 <settings>
-                    <url path=""/>
+                    <url path="production_ticket/grid/complete"/>
                     <type>complete</type>
-                    <label translate="true">Complete Ticket</label>
+                    <label translate="true">Complete</label>
+                    <confirm>
+                        <title translate="true">Complete</title>
+                        <message translate="true">Are you sure to complete selected production tickets?</message>
+                    </confirm>
+                </settings>
+            </action>
+            <action name="uncomplete">
+                <settings>
+                    <actionDisable>true</actionDisable>
+                    <url path="production_ticket/grid/uncomplete"/>
+                    <type>uncomplete</type>
+                    <label translate="true">Un-Complete</label>
+                    <confirm>
+                        <title translate="true">Un-Complete</title>
+                        <message translate="true">Are you sure to mark selected production tickets as not completed?</message>
+                    </confirm>
                 </settings>
             </action>
         </massaction>

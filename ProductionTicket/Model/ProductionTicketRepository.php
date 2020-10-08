@@ -18,6 +18,7 @@ use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicketFactory as Prod
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 
 class ProductionTicketRepository implements ProductionTicketRepositoryInterface
 {
@@ -149,7 +150,12 @@ class ProductionTicketRepository implements ProductionTicketRepositoryInterface
         return $this->resourceFactory->create($data);
     }
 
-    protected function getCollection(array $data = []): Collection
+    /**
+     * @param array $data
+     *
+     * @return Collection|SearchResult
+     */
+    protected function getCollection(array $data = [])
     {
         return $this->collectionFactory->create($data);
     }
