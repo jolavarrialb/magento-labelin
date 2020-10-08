@@ -47,6 +47,8 @@ class ProductionAction extends Action
 
             $order->markAsProduction();
 
+            $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $this]);
+
             $this->orderRepository->save($order);
 
         } catch (LocalizedException $exception) {

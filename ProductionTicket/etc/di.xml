@@ -4,6 +4,8 @@
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\ProductionTicket"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
     <preference for="Labelin\Sales\Model\Order\Item" type="Labelin\ProductionTicket\Model\Order\Item"/>
+    <preference for="Magento\Framework\Mail\Template\TransportBuilder" type="Labelin\ProductionTicket\Model\Mail\Template\TransportBuilder" />
+    <preference for="Magento\Sales\Model\Order\Email\SenderBuilder" type="Labelin\ProductionTicket\Model\Order\Email\SenderBuilder"/>
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
@@ -18,4 +20,19 @@
             <argument name="resourceModel" xsi:type="string">Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket</argument>
         </arguments>
     </virtualType>
+    <virtualType name="ProductionTicketIdentity" type="Labelin\ProductionTicket\Model\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_production_ticket_email/to_programmer/enabled</item>
+                <item name="template" xsi:type="string">labelin_production_ticket_email/to_programmer/template</item>
+                <item name="identity" xsi:type="string">labelin_production_ticket_email/to_programmer/identity</item>
+                <item name="copy_method" xsi:type="string">labelin_production_ticket_email/to_programmer/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\ProductionTicket\Model\Email\Sender\ProductionTicketSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">ProductionTicketIdentity</argument>
+        </arguments>
+    </type>
 </config>

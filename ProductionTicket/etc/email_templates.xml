@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="labelin_production_ticket_email_to_programmer_template"
+              label="Production Ticket to Programmer"
+              file="production_ticket_to_programmer.html"
+              type="html"
+              module="Labelin_ProductionTicket"
+              area="frontend"
+    />
+</config>
