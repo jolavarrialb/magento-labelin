@@ -7,8 +7,16 @@ namespace Labelin\ProductionTicket\Model;
 use DateTime;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket as ProductionTicketResource;
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
+use Magento\Sales\Api\Data\OrderInterface;
+use Magento\Sales\Api\Data\OrderItemInterface;
+use Magento\Sales\Api\OrderItemRepositoryInterface;
+use Magento\Sales\Api\OrderRepositoryInterfaceFactory;
 
 class ProductionTicket extends AbstractModel implements IdentityInterface, ProductionTicketInterface
 {
@@ -16,9 +24,36 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 
     protected $_eventPrefix = 'labelin_production_ticket';
 
+    /** @var OrderRepositoryInterfaceFactory */
+    protected $orderRepository;
+
+    /** @var OrderItemRepositoryInterface */
+    protected $orderItemRepository;
+
     protected function _construct()
     {
         $this->_init(ProductionTicketResource::class);
+    }
+
+    public function __construct(
+        Context $context,
+        Registry $registry,
+        OrderRepositoryInterfaceFactory $orderRepositoryInterfaceFactory,
+        OrderItemRepositoryInterface $orderItemRepositoryInterfaceFactory,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
+        array $data = []
+    ) {
+        parent::__construct(
+            $context,
+            $registry,
+            $resource,
+            $resourceCollection,
+            $data
+        );
+
+        $this->orderRepository = $orderRepositoryInterfaceFactory;
+        $this->orderItemRepository = $orderItemRepositoryInterfaceFactory;
     }
 
     public function getIdentities(): array
@@ -124,5 +159,15 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
     public function getUpdatedAt(): DateTime
     {
         return $this->getData(ProductionTicketInterface::UPDATED_AT);
+    }
+
+    public function getOrder(): OrderInterface
+    {
+        return $this->orderRepository->create()->get($this->getOrderId());
+    }
+
+    public function getOrderItem(): OrderItemInterface
+    {
+        return $this->orderItemRepository->get($this->getOrderItemId());
     }
 }

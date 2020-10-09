@@ -8,5 +8,6 @@
     </event>
     <event name="labelin_production_ticket_save_after">
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />
+        <observer name="labelin_production_ticket_email_to_programmer" instance="Labelin\ProductionTicket\Observer\EmailHandler" />
     </event>
 </config>

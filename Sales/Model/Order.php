@@ -221,8 +221,6 @@ class Order extends MagentoOrder
             ->setStatus(static::STATUS_IN_PRODUCTION)
             ->addStatusToHistory(static::STATUS_IN_PRODUCTION, __('Order is on production'));
 
-        $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $this]);
-
         return $this;
     }
 }
