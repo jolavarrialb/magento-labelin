@@ -23,6 +23,10 @@ define(['jquery', 'domReady!'], function ($) {
         }
 
         if (!checked) {
+            $('input.ac-input').not($checkBoxElement).each(function () {
+                $(this).prop('checked', false);
+            });
+
             $checkBoxElement.prop("checked", true);
         }
     }
