@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Helper;
 
+use Exception;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Labelin\Sales\Helper\Config\ArtworkSizes;
+use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Serialize\Serializer\Json;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
 use Magento\Catalog\Model\Product\Option\UrlBuilder;
+use Magento\Sales\Model\Download;
 use Magento\Sales\Model\Order\Item;
+use Labelin\Sales\Model\Order\Item as LabelinItem;
 
 
 class ArtworkPreview extends AbstractHelper
@@ -32,16 +36,22 @@ class ArtworkPreview extends AbstractHelper
     /** @var UrlBuilder */
     protected $url;
 
+    /** @var FileFactory */
+    protected $fileFactory;
+
     public function __construct(
         ArtworkSizes $artworkSizes,
         UrlBuilder $url,
         ArtworkHelper $artworkHelper,
         Json $json = null
-    ) {
+//        FileFactory $fileFactory
+    )
+    {
         $this->json = $json ?: \Magento\Framework\App\ObjectManager::getInstance()->get(Json::class);
         $this->artworkSizesHelper = $artworkSizes;
         $this->url = $url;
         $this->artworkHelper = $artworkHelper;
+//        $this->fileFactory = $fileFactory;
     }
 
     public function initItemOptions(Item $item): bool
@@ -107,5 +117,30 @@ class ArtworkPreview extends AbstractHelper
         }
 
         return $result;
+    }
+
+    public function getArtworkOptionsPathByItem(LabelinItem $item): string
+    {
+        $value = $this->getArtworkOptionsValueByItem($item);
+
+        return $value['order_path'] ? $value['order_path'] : $value['quote_path'];
+    }
+
+    public function getArtworkFileNameByItem(LabelinItem $item): string
+    {
+        $value = $this->getArtworkOptionsValueByItem($item);
+
+        return $value['title'] ?? '';
+    }
+
+    public function getArtworkOptionsValueByItem(LabelinItem $item): array
+    {
+        $options = $this->getOrderOptions($item);
+
+        if (empty($options) || empty($options['option_value'])) {
+            return [];
+        }
+
+        return $this->json->unserialize($options['option_value']);
     }
 }
