@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Observer\Order\Item;
 
-use Labelin\ProductionTicket\Helper\ProductionTicket;
+use Labelin\ProductionTicket\Helper\ProductionTicketImage;
+use Labelin\ProductionTicket\Helper\ProductionTicketPdf;
 use Labelin\ProductionTicket\Model\Order\Item;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 class CreateInProductionOrderItemAttachedFilesHandler implements ObserverInterface
 {
-    /** @var ProductionTicket */
-    protected $productionTicketHelper;
+    /** @var ProductionTicketImage */
+    protected $ticketImageHelper;
+
+    /** @var ProductionTicketPdf  */
+    protected $ticketPdfHelper;
 
     public function __construct(
-        ProductionTicket $productionTicketHelper
+        ProductionTicketImage $ticketImageHelper,
+        ProductionTicketPdf $ticketPdfHelper
     ) {
-        $this->productionTicketHelper = $productionTicketHelper;
+        $this->ticketImageHelper = $ticketImageHelper;
+        $this->ticketPdfHelper = $ticketPdfHelper;
     }
 
     /**
@@ -34,10 +40,10 @@ class CreateInProductionOrderItemAttachedFilesHandler implements ObserverInterfa
         }
 
         /** Create Image from Item Product Options */
-        $this->productionTicketHelper->createInProductionTicketImageFile($item);
+        $this->ticketImageHelper->createInProductionTicketImage($item);
 
         /** Create Pdf from Item Product Options */
-        $this->productionTicketHelper->createInProductionTicketPdfFile($item);
+        $this->ticketPdfHelper->createInProductionTicketPdf($item);
 
         return $this;
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf;
 
-use Exception;
 use Magento\MediaStorage\Helper\File\Storage\Database;
 use Magento\Sales\Model\Order\Pdf\AbstractPdf;
 use Magento\Sales\Model\Order\Pdf\Config;
@@ -19,8 +18,6 @@ class Item extends AbstractPdf
     protected const RENDERER_TYPE_ITEM = 'productionTicketItem';
 
     protected const RENDERER_TYPE_ITEM_IMAGE = 'productionTicketItemOptionsImage';
-
-    protected const LOGO_IMAGE_PATH = '%s/base/web/images/pdf/logo-dark.png';
 
     /** @var \Magento\Store\Model\StoreManagerInterface */
     protected $storeManager;
@@ -121,54 +118,6 @@ class Item extends AbstractPdf
         $item->setProductType($type);
         $item->setOrderItem($item);
         $this->_drawItem($item, $page, $order);
-    }
-
-    protected function insertLogo(&$page, $store = null)
-    {
-        $imagePath = $this->getLogoAbsolutePath();
-
-        $image = \Zend_Pdf_Image::imageWithPath($imagePath);
-        $top = 830;
-        //top border of the page
-        $widthLimit = 270;
-        //half of the page width
-        $heightLimit = 270;
-        //assuming the image is not a "skyscraper"
-        $width = $image->getPixelWidth();
-        $height = $image->getPixelHeight();
-
-        //preserving aspect ratio (proportions)
-        $ratio = $width / $height;
-        if ($ratio > 1 && $width > $widthLimit) {
-            $width = $widthLimit;
-            $height = $width / $ratio;
-        } elseif ($ratio < 1 && $height > $heightLimit) {
-            $height = $heightLimit;
-            $width = $height * $ratio;
-        } elseif ($ratio == 1 && $height > $heightLimit) {
-            $height = $heightLimit;
-            $width = $widthLimit;
-        }
-
-        $y1 = $top - $height;
-        $y2 = $top;
-        $x1 = 25;
-        $x2 = $x1 + $width;
-
-        //coordinates after transformation are rounded by Zend
-        $page->drawImage($image, $x1, $y1, $x2, $y2);
-
-        $this->y = $y1 - 10;
-    }
-
-    protected function getLogoAbsolutePath()
-    {
-        $viewDir = $this->moduleReader->getModuleDir(
-            \Magento\Framework\Module\Dir::MODULE_VIEW_DIR,
-            'Labelin_ProductionTicket'
-        );
-
-        return sprintf(static::LOGO_IMAGE_PATH, $viewDir);
     }
 
     protected function insertItemHeader($page)

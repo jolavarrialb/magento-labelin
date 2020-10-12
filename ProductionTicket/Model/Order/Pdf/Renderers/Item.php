@@ -55,21 +55,65 @@ class Item extends AbstractItems
         $lines = [];
 
         // draw Product name
-        $lines[0] = [['text' => $this->string->split($item->getName(), 35, true, true), 'feed' => 35]];
+        $lines[0] = [
+            [
+                // phpcs:ignore Magento2.Functions.DiscouragedFunction
+                'text' => $this->string->split(html_entity_decode($item->getName()), 35, true, true),
+                'feed' => 35
+            ]
+        ];
 
         // draw SKU
         $lines[0][] = [
-            'text' => $this->string->split($this->getSku($item), 17),
-            'feed' => 255,
+            // phpcs:ignore Magento2.Functions.DiscouragedFunction
+            'text' => $this->string->split(html_entity_decode($this->getSku($item)), 17),
+            'feed' => 290,
             'align' => 'right',
         ];
 
         // draw QTY
-        $qty = $item->getQty() ?? $item->getQtyOrdered();
-        $lines[0][] = ['text' => $qty * 1, 'feed' => 445, 'font' => 'bold', 'align' => 'right'];
+        $lines[0][] = ['text' => $item->getQtyOrdered() * 1, 'feed' => 435, 'align' => 'right'];
 
-        // draw options
-        $options = $this->getItemOptions($item);
+        // draw item Prices
+        $i = 0;
+        $prices = $this->getItemPricesForDisplay();
+        $feedPrice = 395;
+        $feedSubtotal = $feedPrice + 170;
+        foreach ($prices as $priceData) {
+            if (isset($priceData['label'])) {
+                // draw Price label
+                $lines[$i][] = ['text' => $priceData['label'], 'feed' => $feedPrice, 'align' => 'right'];
+                // draw Subtotal label
+                $lines[$i][] = ['text' => $priceData['label'], 'feed' => $feedSubtotal, 'align' => 'right'];
+                $i++;
+            }
+            // draw Price
+            $lines[$i][] = [
+                'text' => $priceData['price'],
+                'feed' => $feedPrice,
+                'font' => 'bold',
+                'align' => 'right',
+            ];
+            // draw Subtotal
+            $lines[$i][] = [
+                'text' => $priceData['subtotal'],
+                'feed' => $feedSubtotal,
+                'font' => 'bold',
+                'align' => 'right',
+            ];
+            $i++;
+        }
+
+        // draw Tax
+        $lines[0][] = [
+            'text' => $order->formatPriceTxt($item->getTaxAmount()),
+            'feed' => 495,
+            'font' => 'bold',
+            'align' => 'right',
+        ];
+
+        // custom options
+        $options = $this->getItemOptions();
         if ($options) {
             foreach ($options as $option) {
                 // draw options label
@@ -79,13 +123,18 @@ class Item extends AbstractItems
                     'feed' => 35,
                 ];
 
-                // draw options value
-                $printValue = isset(
-                    $option['print_value']
-                ) ? $option['print_value'] : $this->filterManager->stripTags(
-                    $option['value']
-                );
-                $lines[][] = ['text' => $this->string->split($printValue, 30, true, true), 'feed' => 40];
+                // Checking whether option value is not null
+                if ($option['value'] !== null) {
+                    if (isset($option['print_value'])) {
+                        $printValue = $option['print_value'];
+                    } else {
+                        $printValue = $this->filterManager->stripTags($option['value']);
+                    }
+                    $values = explode(', ', $printValue);
+                    foreach ($values as $value) {
+                        $lines[][] = ['text' => $this->string->split($value, 30, true, true), 'feed' => 40];
+                    }
+                }
             }
         }
 
@@ -94,49 +143,4 @@ class Item extends AbstractItems
         $page = $pdf->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
         $this->setPage($page);
     }
-    /*
-     * $item = $this->getItem();
-        $pdf = $this->getPdf();
-        $page = $this->getPage();
-
-        $lines = [];
-
-        // draw Product name
-        $lines[0] = [['text' => $this->string->split($item->getName(), 35, true, true), 'feed' => 35]];
-
-        // draw SKU
-        $lines[0][] = [
-            'text' => $this->string->split($this->getSku($item), 17),
-            'feed' => 255,
-            'align' => 'right',
-        ];
-
-        // draw QTY
-        $lines[0][] = ['text' => $item->getQty() * 1, 'feed' => 445, 'font' => 'bold', 'align' => 'right'];
-
-        // draw options
-        $options = $this->getItemOptions($item);
-        if ($options) {
-            foreach ($options as $option) {
-                // draw options label
-                $lines[][] = [
-                    'text' => $this->string->split($this->filterManager->stripTags($option['label']), 40, true, true),
-                    'font' => 'italic',
-                    'feed' => 35,
-                ];
-
-                // draw options value
-                $printValue = isset(
-                    $option['print_value']
-                ) ? $option['print_value'] : $this->filterManager->stripTags(
-                    $option['value']
-                );
-                $lines[][] = ['text' => $this->string->split($printValue, 30, true, true), 'feed' => 40];
-            }
-        }
-
-        $lineBlock = ['lines' => $lines, 'height' => 20];
-
-        $page = $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
-     */
 }

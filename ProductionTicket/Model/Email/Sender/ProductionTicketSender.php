@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Email\Sender;
 
+use Labelin\ProductionTicket\Helper\ProductionTicketImage;
+use Labelin\ProductionTicket\Helper\ProductionTicketPdf;
 use Labelin\ProductionTicket\Helper\Programmer as ProgrammerHelper;
 use Labelin\ProductionTicket\Model\ProductionTicket;
 use Labelin\Sales\Model\Order;
@@ -24,19 +26,33 @@ class ProductionTicketSender extends Sender
     /** @var ProgrammerHelper */
     protected $programmerHelper;
 
+    /** @var ProductionTicketPdf  */
+    protected $ticketPdfHelper;
+
+    /** @var ProductionTicketImage  */
+    protected $ticketImageHelper;
+
     public function __construct(
         Template $templateContainer,
         IdentityInterface $identityContainer,
         MagentoOrder\Email\SenderBuilderFactory $senderBuilderFactory,
         LoggerInterface $logger,
         Renderer $addressRenderer,
-        ProgrammerHelper $programmerHelper
+        ProgrammerHelper $programmerHelper,
+        ProductionTicketPdf $ticketPdfHelper,
+        ProductionTicketImage $ticketImageHelper
     ) {
         parent::__construct($templateContainer, $identityContainer, $senderBuilderFactory, $logger, $addressRenderer);
 
         $this->programmerHelper = $programmerHelper;
+        $this->ticketPdfHelper = $ticketPdfHelper;
+        $this->ticketImageHelper = $ticketImageHelper;
     }
 
+    /**
+     * @param ProductionTicket $productionTicket
+     * @throws \Magento\Framework\Exception\FileSystemException
+     */
     public function send(ProductionTicket $productionTicket): void
     {
         if ($this->programmerHelper->getProgrammerCollection()->getSize() === 0) {
@@ -45,19 +61,20 @@ class ProductionTicketSender extends Sender
 
         /** @var Order */
         $order = $productionTicket->getOrder();
+        $orderItem = $productionTicket->getOrderItem();
 
         $transport = [
             'production_ticket' => $productionTicket,
             'order' => $order,
             'attachments' => [
                 'image' => [
-                    'content' => '',
-                    'filename' => '',
+                    'content' => $this->ticketImageHelper->getProductionTicketDestination($orderItem),
+                    'filename' => $this->ticketImageHelper->getFileName($orderItem),
                     'type' => Mime::TYPE_OCTETSTREAM
                 ],
                 'pdf' => [
-                    'content' => '',
-                    'filename' => '',
+                    'content' => $this->ticketPdfHelper->getTicketDestinationPdf($orderItem),
+                    'filename' => $this->ticketPdfHelper->getFileName($orderItem),
                     'type' => 'application/pdf'
                 ]
             ]

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf\Renderers;
 
-use Labelin\ProductionTicket\Helper\ProductionTicket;
+use Labelin\ProductionTicket\Helper\ProductionTicketImage;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Sales\Model\Order\Pdf\Items\AbstractItems;
 
@@ -14,12 +14,12 @@ class ItemOptionsImage extends AbstractItems
 
     protected const IMAGE_HEIGHT_MAX = 350;
 
-    /** @var ProductionTicket  */
+    /** @var ProductionTicketImage  */
     protected $productionTicketHelper;
 
 
     public function __construct(
-        ProductionTicket $productionTicketHelper,
+        ProductionTicketImage $productionTicketHelper,
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Tax\Helper\Data $taxData,
@@ -55,7 +55,7 @@ class ItemOptionsImage extends AbstractItems
 
         $image = \Zend_Pdf_Image::imageWithPath($imagePath);
 
-        $top = 830;
+        $top = $pdf->y;
         //top border of the page
         $widthLimit = static::IMAGE_WIDTH_MAX;
         //half of the page width

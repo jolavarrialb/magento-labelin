@@ -4,10 +4,8 @@
         <observer name="order_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\InProductionStatusHandler" />
     </event>
     <event name="labelin_order_item_production_status_after">
+        <observer name="create_in_production_order_item_files"  instance="Labelin\ProductionTicket\Observer\Order\Item\CreateInProductionOrderItemAttachedFilesHandler" />
         <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusHandler" />
-    </event>
-    <event name="labelin_order_item_production_status_after_test">
-        <observer name="create_in_production_order_item_files" instance="Labelin\ProductionTicket\Observer\Order\Item\CreateInProductionOrderItemAttachedFilesHandler" />
     </event>
     <event name="labelin_production_ticket_save_after">
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />

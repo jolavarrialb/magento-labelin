@@ -47,7 +47,7 @@ class ProductionAction extends Action
 
             $order->markAsProduction();
 
-            $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $this]);
+            $this->_eventManager->dispatch('labelin_order_production_status_after', ['order' => $order]);
 
             $this->orderRepository->save($order);
 
