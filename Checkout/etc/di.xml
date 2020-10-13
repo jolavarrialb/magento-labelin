@@ -6,4 +6,7 @@
     <type name="Magento\Checkout\CustomerData\DefaultItem">
         <plugin name="minicart_sticker_image" type="Labelin\Checkout\Plugin\MinicartStickerImage" sortOrder="1" />
     </type>
+    <type name="Magento\Checkout\Block\Cart">
+        <plugin name="continue_shopping_url" type="Labelin\Checkout\Plugin\CartContinueShoppingUrl" sortOrder="1" />
+    </type>
 </config>
