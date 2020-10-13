@@ -6,25 +6,31 @@ namespace Labelin\ProductionTicket\Model\Order\Pdf\Renderers;
 
 use Labelin\ProductionTicket\Helper\ProductionTicketImage;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filter\FilterManager;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 use Magento\Sales\Model\Order\Pdf\Items\AbstractItems;
+use Magento\Tax\Helper\Data;
+use Zend_Pdf_Exception;
 
 class ItemOptionsImage extends AbstractItems
 {
-    protected const IMAGE_WIDTH_MAX = 350;
+    protected const IMAGE_WIDTH_MAX = 250;
 
-    protected const IMAGE_HEIGHT_MAX = 350;
+    protected const IMAGE_HEIGHT_MAX = 250;
 
-    /** @var ProductionTicketImage  */
+    /** @var ProductionTicketImage */
     protected $productionTicketHelper;
-
 
     public function __construct(
         ProductionTicketImage $productionTicketHelper,
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Tax\Helper\Data $taxData,
-        \Magento\Framework\Filesystem $filesystem,
-        \Magento\Framework\Filter\FilterManager $filterManager,
+        Context $context,
+        Registry $registry,
+        Data $taxData,
+        Filesystem $filesystem,
+        FilterManager $filterManager,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
@@ -44,9 +50,11 @@ class ItemOptionsImage extends AbstractItems
     }
 
     /**
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws FileSystemException
+     * @throws LocalizedException
+     * @throws Zend_Pdf_Exception
      */
-    public function draw()
+    public function draw(): void
     {
         $item = $this->getItem();
         $pdf = $this->getPdf();

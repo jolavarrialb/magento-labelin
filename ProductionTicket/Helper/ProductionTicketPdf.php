@@ -4,52 +4,15 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Helper;
 
-use Labelin\ProductionTicket\Model\Order\Pdf\Item as ItemPdf;
-use Labelin\Sales\Helper\ArtworkPreview;
 use Labelin\Sales\Model\Order\Item;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\FileSystemException;
-use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Io\File;
 use Zend_Pdf_Exception;
 
-class ProductionTicketPdf extends AbstractHelper
+class ProductionTicketPdf extends ProductionTicketAbstract
 {
-    const DESTINATION_FOLDER_PDF = '%sproduction_ticket/item/pdf/%s';
+    protected const DESTINATION_FOLDER_PDF = 'production_ticket/item/pdf/';
 
-    /** @var Filesystem */
-    protected $fileSystem;
-
-    /** @var DirectoryList */
-    protected $directoryList;
-
-    /** @var ArtworkPreview */
-    protected $artworkPreviewHelper;
-
-    /** @var File */
-    protected $filesystemIo;
-
-    /** @var ItemPdf */
-    protected $itemPdf;
-
-    public function __construct(
-        Context $context,
-        Filesystem $fileSystem,
-        DirectoryList $directoryList,
-        ArtworkPreview $artworkPreviewHelper,
-        ItemPdf $itemPdf,
-        File $filesystemIo
-    ) {
-        parent::__construct($context);
-
-        $this->directoryList = $directoryList;
-        $this->fileSystem = $fileSystem;
-        $this->artworkPreviewHelper = $artworkPreviewHelper;
-        $this->filesystemIo = $filesystemIo;
-        $this->itemPdf = $itemPdf;
-    }
+    protected const ATTACHED_TYPE_PDF = 'application/pdf';
 
     /**
      * @param Item $item
@@ -57,7 +20,7 @@ class ProductionTicketPdf extends AbstractHelper
      * @throws FileSystemException
      * @throws Zend_Pdf_Exception
      */
-    public function createInProductionTicketPdf(Item $item): bool
+    public function createInProductionTicketAttachment(Item $item): bool
     {
         $result = false;
         $pdfParams = [
@@ -69,16 +32,22 @@ class ProductionTicketPdf extends AbstractHelper
         $resultPdf = $this->itemPdf->getPdf($pdfParams);
 
         try {
+            if (!$resultPdf) {
+                $message = sprintf('Incorrect params $pdfParams in ProductionTicketPdf for OrderItemId = %s', $item->getId());
+                throw new \Exception($message);
+            }
+
             if ($this->filesystemIo->checkAndCreateFolder($destinationFolder)) {
                 $result = (bool)$this->filesystemIo->write($filename, $resultPdf->render());
             }
 
             if (!$result) {
-                throw new \Exception('File not create');
+                $message = sprintf('Pdf File isn`t created for OrderItemId = %s', $item->getId());
+                throw new \Exception($message);
             }
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $this->logger->error($e->getMessage());
         }
 
         return $result;
@@ -91,21 +60,35 @@ class ProductionTicketPdf extends AbstractHelper
      */
     public function getTicketDestinationPdf($item = null)
     {
-        $media = $this->fileSystem->getDirectoryWrite($this->directoryList::MEDIA);
         $pdfName = null === $item ? '' : $this->getFileName($item);
 
-        return sprintf(static::DESTINATION_FOLDER_PDF, $media->getAbsolutePath(), $pdfName);
+        return sprintf('%s%s%s', $this->getMedia()->getAbsolutePath(), static::DESTINATION_FOLDER_PDF, $pdfName);
     }
 
     public function getFileName($item): string
     {
-        $orderId =
-            $item->getOrder()->getIncrementId() ?
-                $item->getOrder()->getIncrementId() :
-                'Order_ID_' . $item->getOrder()->getId();
-
+        $orderId = $item->getOrder()->getIncrementId() ? $item->getOrder()->getIncrementId() : 'Order_ID_' . $item->getOrder()->getId();
         $fileName = sprintf('%s.pdf', $item->getId());
 
         return sprintf('%s_%s', $orderId, $fileName);
+    }
+
+
+    /**
+     * @param Item $item
+     * @return string[]
+     * @throws FileSystemException
+     */
+    public function getEmailAttachment(Item $item): array
+    {
+        $result = static::ATTACH_FILE_DEFAULT_PARAMS;
+
+        if ($this->checkAttachFileExist($this->getTicketDestinationPdf($item))) {
+            $result['content'] = $this->getTicketDestinationPdf($item);
+            $result['filename'] = $this->getFileName($item);
+            $result['type'] = static::ATTACHED_TYPE_PDF;
+        }
+
+        return $result;
     }
 }

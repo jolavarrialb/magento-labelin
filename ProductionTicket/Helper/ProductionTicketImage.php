@@ -4,84 +4,20 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Helper;
 
-use Labelin\ProductionTicket\Model\Order\Pdf\Item as ItemPdf;
-use Labelin\Sales\Helper\ArtworkPreview;
 use Labelin\Sales\Model\Order\Item;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\Helper\Context;
+use Laminas\Mime\Mime;
 use Magento\Framework\Exception\FileSystemException;
-use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Io\File;
 
-class ProductionTicketImage extends AbstractHelper
+class ProductionTicketImage extends ProductionTicketAbstract
 {
-    const DESTINATION_FOLDER_IMAGE = '%sproduction_ticket/item/images/%s';
-
-    /** @var Filesystem */
-    protected $fileSystem;
-
-    /** @var DirectoryList */
-    protected $directoryList;
-
-    /** @var ArtworkPreview */
-    protected $artworkPreviewHelper;
-
-    /** @var File */
-    protected $filesystemIo;
-
-    /** @var ItemPdf */
-    protected $itemPdf;
-
-    public function __construct(
-        Context $context,
-        Filesystem $fileSystem,
-        DirectoryList $directoryList,
-        ArtworkPreview $artworkPreviewHelper,
-        ItemPdf $itemPdf,
-        File $filesystemIo
-    ) {
-        parent::__construct($context);
-
-        $this->directoryList = $directoryList;
-        $this->fileSystem = $fileSystem;
-        $this->artworkPreviewHelper = $artworkPreviewHelper;
-        $this->filesystemIo = $filesystemIo;
-        $this->itemPdf = $itemPdf;
-    }
-
-    /**
-     * @param null|Item $item
-     * @return string
-     * @throws FileSystemException
-     */
-    public function getProductionTicketDestination($item = null)
-    {
-        $media = $this->fileSystem->getDirectoryWrite($this->directoryList::MEDIA);
-        $imageName = null === $item ? '' : $this->getFileName($item);
-
-        return sprintf(static::DESTINATION_FOLDER_IMAGE, $media->getAbsolutePath(), $imageName);
-    }
-
-    /**
-     * @param Item $item
-     * @return string
-     * @throws FileSystemException
-     */
-    public function getProductionTicketSourceImagePath(Item $item)
-    {
-        $media = $this->fileSystem->getDirectoryWrite($this->directoryList::MEDIA);
-        $originalImagePath = $this->artworkPreviewHelper->getArtworkOptionsPathByItem($item);
-
-        return sprintf('%s%s', $media->getAbsolutePath(), $originalImagePath);
-    }
+    protected const DESTINATION_FOLDER_IMAGE = 'production_ticket/item/images/';
 
     /**
      * @param Item $item
      * @return bool
      * @throws FileSystemException
      */
-    public function createInProductionTicketImage(Item $item): bool
+    public function createInProductionTicketAttachment(Item $item): bool
     {
         $destinationFolder = $this->getProductionTicketDestination();
         $sourceImage = $this->getProductionTicketSourceImagePath($item);
@@ -95,14 +31,39 @@ class ProductionTicketImage extends AbstractHelper
             }
 
             if (!$result) {
-                throw new \Exception('File not create');
+                $message = sprintf('Artwork Image File isn`t created for OrderItemId = %s', $item->getId());
+                throw new \Exception($message);
             }
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $this->logger->error($e->getMessage());
         }
 
         return $result;
+    }
+
+    /**
+     * @param null|Item $item
+     * @return string
+     * @throws FileSystemException
+     */
+    public function getProductionTicketDestination($item = null): string
+    {
+        $imageName = null === $item ? '' : $this->getFileName($item);
+
+        return sprintf('%s%s%s', $this->getMedia()->getAbsolutePath(), static::DESTINATION_FOLDER_IMAGE, $imageName);
+    }
+
+    /**
+     * @param Item $item
+     * @return string
+     * @throws FileSystemException
+     */
+    public function getProductionTicketSourceImagePath(Item $item): string
+    {
+        $originalImagePath = $this->artworkPreviewHelper->getArtworkOptionsPathByItem($item);
+
+        return sprintf('%s%s', $this->getMedia()->getAbsolutePath(), $originalImagePath);
     }
 
     /**
@@ -120,13 +81,27 @@ class ProductionTicketImage extends AbstractHelper
 
     public function getFileName(Item $item): string
     {
-        $orderId =
-            $item->getOrder()->getIncrementId() ?
-                $item->getOrder()->getIncrementId() :
-                'Order_ID_' . $item->getOrder()->getId();
-
+        $orderId = $item->getOrder()->getIncrementId() ? $item->getOrder()->getIncrementId() : 'Order_ID_' . $item->getOrder()->getId();
         $fileName = $this->artworkPreviewHelper->getArtworkFileNameByItem($item);
 
         return sprintf('%s_%s_%s', $orderId, $item->getId(), $fileName);
+    }
+
+    /**
+     * @param Item $item
+     * @return string[]
+     * @throws FileSystemException
+     */
+    public function getEmailAttachment(Item $item): array
+    {
+        $result = static::ATTACH_FILE_DEFAULT_PARAMS;
+
+        if ($this->checkAttachFileExist($this->getProductionTicketDestination($item))) {
+            $result['content'] = $this->getProductionTicketDestination($item);
+            $result['filename'] = $this->getFileName($item);
+            $result['type'] = Mime::TYPE_OCTETSTREAM;
+        }
+
+        return $result;
     }
 }

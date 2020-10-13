@@ -10,7 +10,7 @@ use Labelin\ProductionTicket\Model\Order\Item;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
-class CreateInProductionOrderItemAttachedFilesHandler implements ObserverInterface
+class InProductionAttachedFilesHandler implements ObserverInterface
 {
     /** @var ProductionTicketImage */
     protected $ticketImageHelper;
@@ -35,17 +35,17 @@ class CreateInProductionOrderItemAttachedFilesHandler implements ObserverInterfa
     {
         /** @var Item $item */
         $item = $observer->getData('item');
+
         if (!$item) {
             return $this;
         }
 
         /** Create Image from Item Product Options */
-        $this->ticketImageHelper->createInProductionTicketImage($item);
+        $this->ticketImageHelper->createInProductionTicketAttachment($item);
 
         /** Create Pdf from Item Product Options */
-        $this->ticketPdfHelper->createInProductionTicketPdf($item);
+        $this->ticketPdfHelper->createInProductionTicketAttachment($item);
 
         return $this;
     }
-
 }

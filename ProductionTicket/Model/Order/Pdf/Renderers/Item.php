@@ -4,24 +4,33 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf\Renderers;
 
+use Labelin\ProductionTicket\Model\Order\Item as OrderItem;
+use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filter\FilterManager;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
+use Magento\Framework\Stdlib\StringUtils;
 use Magento\Sales\Model\Order\Pdf\Items\AbstractItems;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Tax\Helper\Data;
 
 class Item extends AbstractItems
 {
-    /** @var \Magento\Framework\Stdlib\StringUtils */
+    /** @var StringUtils */
     protected $string;
 
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Tax\Helper\Data $taxData,
-        \Magento\Framework\Filesystem $filesystem,
-        \Magento\Framework\Filter\FilterManager $filterManager,
-        \Magento\Framework\Stdlib\StringUtils $string,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        Context $context,
+        Registry $registry,
+        Data $taxData,
+        Filesystem $filesystem,
+        FilterManager $filterManager,
+        StringUtils $string,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         parent::__construct(
@@ -42,10 +51,10 @@ class Item extends AbstractItems
      * @return void
      * @throws LocalizedException
      */
-    public function draw()
+    public function draw(): void
     {
         $order = $this->getOrder();
-        /** @var \Labelin\Sales\Model\Order\Item $item */
+        /** @var OrderItem $item */
         $item = $this->getItem();
         $pdf = $this->getPdf();
         $page = $this->getPage();
@@ -59,8 +68,8 @@ class Item extends AbstractItems
             [
                 // phpcs:ignore Magento2.Functions.DiscouragedFunction
                 'text' => $this->string->split(html_entity_decode($item->getName()), 35, true, true),
-                'feed' => 35
-            ]
+                'feed' => 35,
+            ],
         ];
 
         // draw SKU
@@ -79,6 +88,7 @@ class Item extends AbstractItems
         $prices = $this->getItemPricesForDisplay();
         $feedPrice = 395;
         $feedSubtotal = $feedPrice + 170;
+
         foreach ($prices as $priceData) {
             if (isset($priceData['label'])) {
                 // draw Price label
@@ -87,6 +97,7 @@ class Item extends AbstractItems
                 $lines[$i][] = ['text' => $priceData['label'], 'feed' => $feedSubtotal, 'align' => 'right'];
                 $i++;
             }
+
             // draw Price
             $lines[$i][] = [
                 'text' => $priceData['price'],
@@ -114,6 +125,7 @@ class Item extends AbstractItems
 
         // custom options
         $options = $this->getItemOptions();
+
         if ($options) {
             foreach ($options as $option) {
                 // draw options label

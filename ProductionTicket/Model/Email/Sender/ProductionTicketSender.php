@@ -9,8 +9,8 @@ use Labelin\ProductionTicket\Helper\ProductionTicketPdf;
 use Labelin\ProductionTicket\Helper\Programmer as ProgrammerHelper;
 use Labelin\ProductionTicket\Model\ProductionTicket;
 use Labelin\Sales\Model\Order;
-use Laminas\Mime\Mime;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\FileSystemException;
 use Magento\Sales\Model\Order as MagentoOrder;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Email\Container\IdentityInterface;
@@ -51,7 +51,7 @@ class ProductionTicketSender extends Sender
 
     /**
      * @param ProductionTicket $productionTicket
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
     public function send(ProductionTicket $productionTicket): void
     {
@@ -67,16 +67,8 @@ class ProductionTicketSender extends Sender
             'production_ticket' => $productionTicket,
             'order' => $order,
             'attachments' => [
-                'image' => [
-                    'content' => $this->ticketImageHelper->getProductionTicketDestination($orderItem),
-                    'filename' => $this->ticketImageHelper->getFileName($orderItem),
-                    'type' => Mime::TYPE_OCTETSTREAM
-                ],
-                'pdf' => [
-                    'content' => $this->ticketPdfHelper->getTicketDestinationPdf($orderItem),
-                    'filename' => $this->ticketPdfHelper->getFileName($orderItem),
-                    'type' => 'application/pdf'
-                ]
+                'image' => $this->ticketImageHelper->getEmailAttachment($orderItem),
+                'pdf' => $this->ticketPdfHelper->getEmailAttachment($orderItem),
             ]
         ];
 

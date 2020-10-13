@@ -42,8 +42,7 @@ class ArtworkPreview extends AbstractHelper
         UrlBuilder $url,
         ArtworkHelper $artworkHelper,
         Json $json = null
-    )
-    {
+    ) {
         $this->json = $json ?: \Magento\Framework\App\ObjectManager::getInstance()->get(Json::class);
         $this->artworkSizesHelper = $artworkSizes;
         $this->url = $url;

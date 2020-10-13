@@ -10,6 +10,7 @@ use Magento\Sales\Model\Order\Pdf\Config;
 use Zend_Pdf;
 use Zend_Pdf_Exception;
 use Labelin\ProductionTicket\Model\Order\Item as OrderItem;
+use Zend_Pdf_Page;
 
 class Item extends AbstractPdf
 {
@@ -17,7 +18,7 @@ class Item extends AbstractPdf
 
     protected const RENDERER_TYPE_ITEM = 'productionTicketItem';
 
-    protected const RENDERER_TYPE_ITEM_IMAGE = 'productionTicketItemOptionsImage';
+    protected const RENDERER_TYPE_ITEM_IMAGE = 'productionTicketArtworkImage';
 
     /** @var \Magento\Store\Model\StoreManagerInterface */
     protected $storeManager;
@@ -28,9 +29,7 @@ class Item extends AbstractPdf
     /** @var \Magento\Framework\Module\Dir\Reader */
     protected $moduleReader;
 
-    /**
-     * @var \Magento\Framework\Filter\FilterManager
-     */
+    /** @var \Magento\Framework\Filter\FilterManager */
     protected $filterManager;
 
     public function __construct(
@@ -112,7 +111,7 @@ class Item extends AbstractPdf
         return $pdf;
     }
 
-    protected function drawItemByType(string $type, $item, $page)
+    protected function drawItemByType(string $type, OrderItem $item, Zend_Pdf_Page $page): void
     {
         $order = $item->getOrder();
         $item->setProductType($type);
@@ -120,9 +119,8 @@ class Item extends AbstractPdf
         $this->_drawItem($item, $page, $order);
     }
 
-    protected function insertItemHeader($page)
+    protected function insertItemHeader(Zend_Pdf_Page $page): void
     {
-
         /* Add table head */
         $this->_setFontRegular($page, 10);
         $page->setFillColor(new \Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
@@ -150,6 +148,5 @@ class Item extends AbstractPdf
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
-
     }
 }
