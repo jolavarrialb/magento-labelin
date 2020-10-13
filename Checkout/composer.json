@@ -1,0 +1,14 @@
+{
+    "name": "labelin/checkout",
+    "license": "Commercial",
+    "description": "Labelin Checkout",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\Checkout\\": ""
+        }
+    }
+}
