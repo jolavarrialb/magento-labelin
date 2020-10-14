@@ -35,4 +35,21 @@
             <argument name="identityContainer" xsi:type="object">ProductionTicketIdentity</argument>
         </arguments>
     </type>
+    <virtualType name="Labelin\ProductionTicket\Helper\ProductionTicketDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/production_ticket.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Labelin\ProductionTicket\Helper\ProductionTicketLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Labelin\ProductionTicket\Helper\ProductionTicketDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="\Labelin\ProductionTicket\Helper\ProductionTicketAbstract">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\ProductionTicket\Helper\ProductionTicketLogger</argument>
+        </arguments>
+    </type>
 </config>

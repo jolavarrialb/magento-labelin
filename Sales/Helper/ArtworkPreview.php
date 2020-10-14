@@ -6,10 +6,12 @@ namespace Labelin\Sales\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Labelin\Sales\Helper\Config\ArtworkSizes;
+use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Serialize\Serializer\Json;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
 use Magento\Catalog\Model\Product\Option\UrlBuilder;
 use Magento\Sales\Model\Order\Item;
+use Labelin\Sales\Model\Order\Item as LabelinItem;
 
 
 class ArtworkPreview extends AbstractHelper
@@ -31,6 +33,9 @@ class ArtworkPreview extends AbstractHelper
 
     /** @var UrlBuilder */
     protected $url;
+
+    /** @var FileFactory */
+    protected $fileFactory;
 
     public function __construct(
         ArtworkSizes $artworkSizes,
@@ -107,5 +112,30 @@ class ArtworkPreview extends AbstractHelper
         }
 
         return $result;
+    }
+
+    public function getArtworkOptionsPathByItem(LabelinItem $item): string
+    {
+        $value = $this->getArtworkOptionsValueByItem($item);
+
+        return !empty($value['quote_path']) ? $value['quote_path'] : $value['order_path'];
+    }
+
+    public function getArtworkFileNameByItem(LabelinItem $item): string
+    {
+        $value = $this->getArtworkOptionsValueByItem($item);
+
+        return $value['title'] ?? '';
+    }
+
+    public function getArtworkOptionsValueByItem(LabelinItem $item): array
+    {
+        $options = $this->getOrderOptions($item);
+
+        if (empty($options) || empty($options['option_value'])) {
+            return [];
+        }
+
+        return $this->json->unserialize($options['option_value']);
     }
 }

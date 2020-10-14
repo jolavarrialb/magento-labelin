@@ -103,14 +103,14 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     }
 
     /**
-     * @param int $id
+     * @param int|string $id
      *
      * @return ProductInterface
      * @throws NoSuchEntityException
      */
-    protected function getProductById(int $id): ProductInterface
+    protected function getProductById($id): ProductInterface
     {
-        return $this->productRepositoryInterface->getById($id);
+        return $this->productRepositoryInterface->getById((int)$id);
     }
 
     /**
