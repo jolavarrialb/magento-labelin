@@ -15,7 +15,7 @@ use Magento\Sales\Model\Order\Pdf\Items\AbstractItems;
 use Magento\Tax\Helper\Data;
 use Zend_Pdf_Exception;
 
-class ItemOptionsImage extends AbstractItems
+class ItemArtwork extends AbstractItems
 {
     protected const IMAGE_WIDTH_MAX = 250;
 

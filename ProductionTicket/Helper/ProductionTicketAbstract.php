@@ -70,10 +70,6 @@ abstract class ProductionTicketAbstract extends AbstractHelper
         return $this->fileSystem->getDirectoryWrite($this->directoryList::MEDIA);
     }
 
-    /**
-     * @param Item $item
-     * @return bool
-     */
     abstract public function createInProductionTicketAttachment(Item $item): bool;
 
     abstract public function getEmailAttachment(Item $item): array;
@@ -82,5 +78,4 @@ abstract class ProductionTicketAbstract extends AbstractHelper
     {
         return $this->filesystemIo->fileExists($filepath);
     }
-
 }

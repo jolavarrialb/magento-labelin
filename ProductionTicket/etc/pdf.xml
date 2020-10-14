@@ -6,7 +6,7 @@
             <renderer product_type="productionTicketItem">Labelin\ProductionTicket\Model\Order\Pdf\Renderers\Item</renderer>
         </page>
         <page type="productionTicketArtworkImage">
-            <renderer product_type="productionTicketArtworkImage">Labelin\ProductionTicket\Model\Order\Pdf\Renderers\ItemOptionsImage</renderer>
+            <renderer product_type="productionTicketArtworkImage">Labelin\ProductionTicket\Model\Order\Pdf\Renderers\ItemArtwork</renderer>
         </page>
     </renderers>
 </config>
