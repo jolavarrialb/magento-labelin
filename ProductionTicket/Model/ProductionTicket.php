@@ -151,6 +151,16 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
         return $this->setData(ProductionTicketInterface::STATUS, $status ? 1 : 0);
     }
 
+    public function getDesigner(): string
+    {
+        return $this->getData(static::DESIGNER);
+    }
+
+    public function setDesigner(string $designer): self
+    {
+        return $this->setData(static::DESIGNER, $designer);
+    }
+
     public function getCreatedAt(): DateTime
     {
         return $this->getData(ProductionTicketInterface::CREATED_AT);
