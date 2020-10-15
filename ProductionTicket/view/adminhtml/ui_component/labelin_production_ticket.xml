@@ -69,6 +69,7 @@
                 <filter>textRange</filter>
                 <sorting>asc</sorting>
                 <label translate="true">ID</label>
+                <visible>false</visible>
             </settings>
         </column>
         <column name="order_item_label">
@@ -77,7 +78,15 @@
                 <label translate="true">Order Name</label>
             </settings>
         </column>
-        <column name="shape" component="Magento_Ui/js/grid/columns/select">
+        <column name="material" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Labelin\ProductionTicket\Ui\Component\Column\Options\Material"/>
+                <dataType>select</dataType>
+                <label translate="true">Material</label>
+            </settings>
+        </column>
+        <column name="shape" component="Magento_Ui/js/grid/columns/select" sortOrder="3">
             <settings>
                 <filter>select</filter>
                 <options class="Labelin\ProductionTicket\Ui\Component\Column\Options\Shape"/>

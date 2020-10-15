@@ -59,7 +59,7 @@ class InProductionStatusHandler implements ObserverInterface
         /** @var Item $orderItem */
         $orderItem = $observer->getData('item');
 
-        if (!$orderItem) {
+        if (!$orderItem || !$orderItem->getProduct()) {
             return $this;
         }
 
@@ -88,7 +88,8 @@ class InProductionStatusHandler implements ObserverInterface
             ->setSize($orderItem->getSize())
             ->setArtwork($artwork['value'])
             ->setApprovalDate($orderItem->getApprovalDate())
-            ->setDesigner($order->getDesigner() ? $order->getDesigner()->getName() : '');
+            ->setDesigner($order->getDesigner() ? $order->getDesigner()->getName() : '')
+            ->setMaterial($orderItem->getProduct()->getName());
 
         $this->productionTicketRepository->save($this->productionTicket);
 
