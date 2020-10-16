@@ -4,5 +4,8 @@
         <job instance="Labelin\Sales\Cron\Order\OverdueStatusHandler" method="execute" name="labelin_sales_order_overdue_status">
             <schedule>0 1 * * *</schedule>
         </job>
+        <job instance="Labelin\Sales\Cron\Artwork\AwaitingCustomerApproveHandler" method="execute" name="labelin_artwork_awaiting_customer_approve">
+            <schedule>0 20,08 * * *</schedule>
+        </job>
     </group>
 </config>

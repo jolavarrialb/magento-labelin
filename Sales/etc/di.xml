@@ -80,6 +80,16 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="AwaitingApproveIdentity" type="Labelin\Sales\Model\Artwork\Email\Container\AwaitingApproveIdentity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="template" xsi:type="string">labelin_sales_email/artwork_awaiting_customer_approve/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/artwork_awaiting_customer_approve/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_awaiting_customer_approve/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_awaiting_customer_approve/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\ApproveSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">ApproveIdentity</argument>
@@ -98,6 +108,11 @@
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\UpdateByCustomerSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">UpdateByCustomerIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\AwaitingApproveSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">AwaitingApproveIdentity</argument>
         </arguments>
     </type>
 </config>

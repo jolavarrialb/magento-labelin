@@ -1,0 +1,16 @@
+<!--@subject {{trans "Artwork Awaiting Customer Approve"}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="float:left; margin-right: 10px" class="fue-abc-items">
+    <tr>
+        <td>
+            {{var customer_name}} <b>hasn't approved</b> artwork by {{var exceeded_days}} days.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Please click <a href="{{var order_url | raw}}">link</a> to process with this order.
+            Item number: <b>#{{var item_id}}</b>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

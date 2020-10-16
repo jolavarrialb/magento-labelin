@@ -122,6 +122,7 @@ class Item extends MagentoOrderItem
         }
 
         $this->setData('is_designer_update_artwork', 1);
+        $this->setData('artwork_approval_by_designer_date', new \Zend_Db_Expr('NOW()'));
 
         $this->_eventManager->dispatch('labelin_order_item_approve_by_designer_after', ['order_item' => $this]);
 

@@ -29,4 +29,11 @@
               module="Labelin_Sales"
               area="frontend"
     />
+    <template id="labelin_sales_email_artwork_awaiting_customer_approve_template"
+              label="Awaiting Customer Approve"
+              file="artwork_awaiting_customer_approve.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
 </config>
