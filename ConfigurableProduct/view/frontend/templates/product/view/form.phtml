@@ -1,7 +1,7 @@
-<?php
-/** @var $block \Magento\Catalog\Block\Product\View */
-?>
-<?php $_helper = $this->helper(Magento\Catalog\Helper\Output::class); ?>
+<?php /** @var $block \Magento\Catalog\Block\Product\View */ ?>
+<?php /** @var $viewModel \Labelin\ConfigurableProduct\ViewModel\ProductViewForm */ ?>
+<?php $viewModel = $block->getViewModel(); ?>
+<?php $_helper = $viewModel->getOutputHelper(); ?>
 <?php $_product = $block->getProduct(); ?>
 
 <?= $block->getChildHtml('sticker_steps') ?>

@@ -7,7 +7,8 @@
 <?php $_fieldValueAction = $_fileExists ? 'save_old' : 'save_new'; ?>
 <?php $_fileNamed = $_fileName . '_name'; ?>
 <?php $class = ($_option->getIsRequire()) ? ' required' : ''; ?>
-
+<?php $epsImgPath = 'Labelin_ConfigurableProduct::images/source/checkouts/upload-image/eps-icon.png'; ?>
+<?php $pdfImgPath = 'Labelin_ConfigurableProduct::images/source/checkouts/upload-image/pdf-icon.png'; ?>
 <div class="header-wrapper">
     <h2 class="checkout-page-header">
         <?= $block->escapeHtml($_option->getTitle()) ?>
@@ -92,8 +93,8 @@
     {
         "*": {
             "Labelin_ConfigurableProduct/js/step-upload-image": {
-                "imageEps": "<?= /* @noEscape */ $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/eps-icon.png') ?>",
-                "imagePdf": "<?= /* @noEscape */ $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/pdf-icon.png') ?>"
+                "imageEps": "<?= /* @noEscape */ $block->getViewFileUrl($epsImgPath) ?>",
+                "imagePdf": "<?= /* @noEscape */ $block->getViewFileUrl($pdfImgPath) ?>"
             }
         }
     }

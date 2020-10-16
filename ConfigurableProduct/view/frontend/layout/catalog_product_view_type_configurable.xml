@@ -19,6 +19,9 @@
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/form.phtml</argument>
             </action>
+            <arguments>
+                <argument name="view_model" xsi:type="object">Labelin\ConfigurableProduct\ViewModel\ProductViewForm</argument>
+            </arguments>
         </referenceBlock>
         <move element="product.price.tier" destination="product.info.options.wrapper" />
         <referenceBlock name="product.info.form.options">

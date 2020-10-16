@@ -1,6 +1,7 @@
 <?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Text */ ?>
 <?php $_option = $block->getOption(); ?>
 <?php $class = ($_option->getIsRequire()) ? ' required' : ''; ?>
+<?php $infoImgPath = 'Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png'; ?>
 <div class="instructions-wrapper">
     <p class="instructions-header">
         <?= $block->escapeHtml($_option->getTitle()) ?>
@@ -69,7 +70,7 @@
     <div class="instructions-info-wrapper">
         <img
             class="info-icon"
-            src="<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/info.png') ?>"
+            src="<?= /* @noEscape */ $block->getViewFileUrl($infoImgPath) ?>"
             alt="info-icon"
         />
         <p class="info-text">

@@ -1,13 +1,17 @@
 <?php /** @var $block Magento\Framework\View\Element\Template */ ?>
+<?php
+$infoImg = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png');
+$infoBlueImg = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png');
+?>
 <div class="tooltip-wrapper">
     <img
         class="info-icon standart"
-        src="<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>"
+        src="<?= /* @noEscape */ $infoImg ?>"
         alt="info-icon"
     />
     <img
         class="info-icon blue"
-        src="<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png') ?>"
+        src="<?= /* @noEscape */ $infoBlueImg ?>"
         alt="info-icon"
     />
     <div class="custom-tooltip">
