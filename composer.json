@@ -13,13 +13,15 @@
       "Sales/registration.php",
       "ConfigurableProduct/registration.php",
       "ProductionTicket/registration.php",
-      "Checkout/registration.php"
+      "Checkout/registration.php",
+      "ContactUs/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
       "Labelin\\ConfigurableProduct\\": "ConfigurableProduct",
       "Labelin\\ProductionTicket\\": "ProductionTicket",
-      "Labelin\\Checkout\\": "Checkout"
+      "Labelin\\Checkout\\": "Checkout",
+      "Labelin\\ContactUs\\": "ContactUs"
     }
   }
 }

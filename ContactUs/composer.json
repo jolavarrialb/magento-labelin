@@ -1,0 +1,14 @@
+{
+    "name": "labelin/contactus",
+    "license": "Commercial",
+    "description": "Labelin Contact Us",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\ContactUs\\": ""
+        }
+    }
+}
