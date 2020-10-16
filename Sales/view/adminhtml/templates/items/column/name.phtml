@@ -1,4 +1,7 @@
 <?php /* @var $block \Magento\Sales\Block\Adminhtml\Items\Column\Name */ ?>
+<?php /* @var $viewModel \Labelin\Sales\ViewModel\Adminhtml\OrderItems */ ?>
+<?php $viewModel = $block->getViewModel() ?>
+<?php $catalogHelper = $viewModel->getCatalogHelper() ?>
 <?php if ($_item = $block->getItem()): ?>
     <div id="order_item_<?= (int) $_item->getId() ?>_title"
          class="product-title">
@@ -9,7 +12,8 @@
 
     <?= $block->getChildBlock('order_item_column_name_extra_info')->setData('item', $_item)->toHtml() ?>
     <div class="product-sku-block">
-        <span><?= $block->escapeHtml(__('SKU'))?>:</span> <?= /* @noEscape */ implode('<br />', $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($block->escapeHtml($block->getSku()))) ?>
+        <span><?= $block->escapeHtml(__('SKU'))?>:</span>
+        <?= /* @noEscape */ implode('<br />', $catalogHelper->splitSku($block->escapeHtml($block->getSku()))) ?>
     </div>
 
     <?php if ($block->getOrderOptions()): ?>
@@ -26,7 +30,9 @@
                         <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?>
                         <?php if (isset($_option['remainder']) && $_option['remainder']): ?>
                             <span id="<?= /* @noEscape */ $dots; ?>"> ...</span>
-                            <span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder'], ['a']) ?></span>
+                            <span id="<?= /* @noEscape */ $id; ?>">
+                                <?= $block->escapeHtml($_option['remainder'], ['a']) ?>
+                            </span>
                         <?php endif; ?>
                     <?php endif; ?>
                 </dd>
