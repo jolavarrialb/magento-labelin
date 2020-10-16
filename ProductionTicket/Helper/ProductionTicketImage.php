@@ -7,6 +7,7 @@ namespace Labelin\ProductionTicket\Helper;
 use Labelin\Sales\Model\Order\Item;
 use Laminas\Mime\Mime;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\LocalizedException;
 
 class ProductionTicketImage extends ProductionTicketAbstract
 {
@@ -32,10 +33,9 @@ class ProductionTicketImage extends ProductionTicketAbstract
 
             if (!$result) {
                 $message = sprintf('Artwork Image File isn`t created for OrderItemId = %s', $item->getId());
-                throw new \Exception($message);
+                throw new LocalizedException(__($message));
             }
-
-        } catch (\Exception $e) {
+        } catch (LocalizedException $e) {
             $this->logger->error($e->getMessage());
         }
 
