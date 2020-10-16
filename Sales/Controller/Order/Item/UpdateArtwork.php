@@ -74,7 +74,6 @@ class UpdateArtwork extends Action
         try {
             $item->approveArtwork();
             $this->orderItemRepository->save($item);
-
         } catch (LocalizedException $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
 
@@ -99,11 +98,10 @@ class UpdateArtwork extends Action
             $this->orderItemRepository->save($item);
 
             $order->addStatusToHistory($order->getStatus(), sprintf(
-                    '%s: %s',
-                    $this->customerSession->getCustomer()->getName(),
-                    $this->getRequest()->getParam('comment')
-                )
-            );
+                '%s: %s',
+                $this->customerSession->getCustomer()->getName(),
+                $this->getRequest()->getParam('comment')
+            ));
 
             $this->_eventManager->dispatch('labelin_order_item_decline_after', [
                 'order_item' => $item,
@@ -111,7 +109,6 @@ class UpdateArtwork extends Action
             ]);
 
             $this->orderRepository->save($order);
-
         } catch (MaxArtworkDeclineAttemptsReached $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
 
@@ -122,7 +119,9 @@ class UpdateArtwork extends Action
             return $this;
         }
 
-        $this->messageManager->addNoticeMessage(__('Artwork was declined. Please wait until designer will update artwork'));
+        $this->messageManager->addNoticeMessage(
+            __('Artwork was declined. Please wait until designer will update artwork')
+        );
 
         return $this;
     }

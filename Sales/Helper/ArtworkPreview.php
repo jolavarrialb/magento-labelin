@@ -13,7 +13,6 @@ use Magento\Catalog\Model\Product\Option\UrlBuilder;
 use Magento\Sales\Model\Order\Item;
 use Labelin\Sales\Model\Order\Item as LabelinItem;
 
-
 class ArtworkPreview extends AbstractHelper
 {
     /** @var ArtworkSizes */
@@ -52,7 +51,7 @@ class ArtworkPreview extends AbstractHelper
     public function initItemOptions(Item $item): bool
     {
         if (null === $item) {
-            return (bool)false;
+            return false;
         }
 
         $options = $this->getOrderOptions($item);
@@ -61,7 +60,7 @@ class ArtworkPreview extends AbstractHelper
             $this->optionValues = $this->json->unserialize($options['option_value']);
         }
 
-        return (bool)true;
+        return true;
     }
 
     public function getArtworkType(): string
@@ -106,8 +105,10 @@ class ArtworkPreview extends AbstractHelper
         }
 
         foreach ($options['options'] as $key => $option) {
-            if (is_array($option) && !empty($option['option_type']) && $option['option_type'] === $this->artworkHelper::FILE_OPTION_TYPE) {
-                $result = array_merge($result, $option);
+            if (is_array($option) && !empty($option['option_type']) &&
+                $option['option_type'] === $this->artworkHelper::FILE_OPTION_TYPE
+            ) {
+                $result = $option;
             }
         }
 

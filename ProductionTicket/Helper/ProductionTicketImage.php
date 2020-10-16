@@ -81,7 +81,7 @@ class ProductionTicketImage extends ProductionTicketAbstract
 
     public function getFileName(Item $item): string
     {
-        $orderId = $item->getOrder()->getIncrementId() ? $item->getOrder()->getIncrementId() : 'Order_ID_' . $item->getOrder()->getId();
+        $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
         $fileName = $this->artworkPreviewHelper->getArtworkFileNameByItem($item);
 
         return sprintf('%s_%s_%s', $orderId, $item->getId(), $fileName);

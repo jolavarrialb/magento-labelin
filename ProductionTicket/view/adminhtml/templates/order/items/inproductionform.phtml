@@ -1,7 +1,7 @@
 <?php /** @var $block Labelin\ProductionTicket\Block\Adminhtml\Order\View\Column\InProductionForm */ ?>
 <?php if ($block->isAvailable()): ?>
     <br/>
-    <form action="<?= $block->getActionUrl() ?>" name="in_production_form" method="POST">
+    <form action="<?= /* @noEscape */ $block->getActionUrl() ?>" name="in_production_form" method="POST">
         <?= $block->getBlockHtml('formkey') ?>
         <button type="submit" class="action-default scalable action-secondary save">
             <span><?= $block->escapeHtml(__('To Production')) ?></span>

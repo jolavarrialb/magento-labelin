@@ -17,13 +17,15 @@
 </div>
 <div class="uploader-input-and-buttons-wrapper">
     <div class="uploader-input-wrapper">
-        <?php if ($_fileExists) :?>
+        <?php if ($_fileExists):?>
             <div class="control">
-                <span class="<?= /* @noEscape */ $_fileNamed ?>"><?= $block->escapeHtml($_fileInfo->getTitle()) ?></span>
+                <span class="<?= /* @noEscape */ $_fileNamed ?>">
+                    <?= $block->escapeHtml($_fileInfo->getTitle()) ?>
+                </span>
                 <a href="javascript:void(0)" class="label" id="change-<?= /* @noEscape */ $_fileName ?>" >
                     <?= $block->escapeHtml(__('Change')) ?>
                 </a>
-                <?php if (!$_option->getIsRequire()) :?>
+                <?php if (!$_option->getIsRequire()):?>
                     <input type="checkbox" id="delete-<?= /* @noEscape */ $_fileName ?>" />
                     <span class="label"><?= $block->escapeHtml(__('Delete')) ?></span>
                 <?php endif; ?>
@@ -44,7 +46,8 @@
                    class="product-custom-option<?= $_option->getIsRequire() ? ' required' : '' ?>"
                    style="display: none"
                 <?= $_fileExists ? 'disabled="disabled"' : '' ?> />
-            <input type="hidden" name="<?= /* @noEscape */ $_fieldNameAction ?>" value="<?= /* @noEscape */ $_fieldValueAction ?>" />
+            <input type="hidden" name="<?= /* @noEscape */ $_fieldNameAction ?>"
+                   value="<?= /* @noEscape */ $_fieldValueAction ?>" />
             <input class="input-choose input-artwork-choose" type="text" readonly />
             <label for="<?= /* @noEscape */ $_fileName ?>" class="input-button">
                 <span><?= $block->escapeHtml(__('Choose file...')) ?></span>
@@ -53,19 +56,23 @@
     </div>
     <p class="skip-button"><?= $block->escapeHtml(__('or, Skip and email your artwork later')) ?></p>
 </div>
-<?php if ($_option->getFileExtension()) :?>
+<?php if ($_option->getFileExtension()):?>
     <p class="input-note">
-        <?= $block->escapeHtml(__('Accept')) ?> <?= $block->escapeHtml(strtoupper($_option->getFileExtension())) ?> <?= $block->escapeHtml('format and Maximum is 20MB.')?>
+        <?= $block->escapeHtml(__('Accept ')) ?>
+        <?= $block->escapeHtml(strtoupper($_option->getFileExtension())) ?>
+        <?= $block->escapeHtml(__(' format and Maximum is 20MB.'))?>
     </p>
 <?php endif; ?>
-<?php if ($_option->getImageSizeX() > 0) :?>
+<?php if ($_option->getImageSizeX() > 0):?>
     <p class="input-note">
-        <?= $block->escapeHtml(__('Maximum image width')) ?>: <strong><?= (int)$_option->getImageSizeX() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
+        <?= $block->escapeHtml(__('Maximum image width')) ?>:
+        <strong><?= (int)$_option->getImageSizeX() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
     </p>
 <?php endif; ?>
-<?php if ($_option->getImageSizeY() > 0) :?>
+<?php if ($_option->getImageSizeY() > 0):?>
     <p class="input-note">
-        <?= $block->escapeHtml(__('Maximum image height')) ?>: <strong><?= (int)$_option->getImageSizeY() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
+        <?= $block->escapeHtml(__('Maximum image height')) ?>:
+        <strong><?= (int)$_option->getImageSizeY() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
     </p>
 <?php endif; ?>
 <div class="preview-notification-wrapper">

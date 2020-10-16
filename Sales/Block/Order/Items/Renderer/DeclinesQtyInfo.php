@@ -35,7 +35,7 @@ class DeclinesQtyInfo extends Template
 
     public function getAvailableDeclinesQty(): int
     {
-        if(!$this->getOrderItem()) {
+        if (!$this->getOrderItem()) {
             return 0;
         }
 

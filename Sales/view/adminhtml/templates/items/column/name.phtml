@@ -12,18 +12,21 @@
         <span><?= $block->escapeHtml(__('SKU'))?>:</span> <?= /* @noEscape */ implode('<br />', $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($block->escapeHtml($block->getSku()))) ?>
     </div>
 
-    <?php if ($block->getOrderOptions()) : ?>
+    <?php if ($block->getOrderOptions()): ?>
         <dl class="item-options">
-            <?php foreach ($block->getOrderOptions() as $_option) : ?>
+            <?php foreach ($block->getOrderOptions() as $_option): ?>
                 <dt><?= $block->escapeHtml($_option['label']) ?>:</dt>
                 <dd>
-                    <?php if (isset($_option['custom_view']) && $_option['custom_view']) : ?>
+                    <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
                         <?= $block->getChildBlock('admin.artwork')->setData(['item' => $_item])->toHtml(); ?>
-                    <?php else : ?>
+                    <?php else: ?>
                         <?php $_option = $block->getFormattedOption($_option['value']); ?>
                         <?php $dots = 'dots' . uniqid(); ?>
                         <?php $id = 'id' . uniqid(); ?>
-                        <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?><?php if (isset($_option['remainder']) && $_option['remainder']) : ?><span id="<?= /* @noEscape */ $dots; ?>"> ...</span><span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder'], ['a']) ?></span>
+                        <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?>
+                        <?php if (isset($_option['remainder']) && $_option['remainder']): ?>
+                            <span id="<?= /* @noEscape */ $dots; ?>"> ...</span>
+                            <span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder'], ['a']) ?></span>
                         <?php endif; ?>
                     <?php endif; ?>
                 </dd>

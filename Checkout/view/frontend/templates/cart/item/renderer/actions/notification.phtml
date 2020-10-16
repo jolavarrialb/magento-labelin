@@ -3,6 +3,6 @@
 
 <?php if ($block->getItem()->getProduct()->getTypeId() === Configurable::TYPE_CODE): ?>
     <span>
-        <b><?= __('This image is not approved and will be edited by the designer') ?></b>
+        <b><?= $block->escapeHtml(__('This image is not approved and will be edited by the designer')) ?></b>
     </span>
 <?php endif; ?>

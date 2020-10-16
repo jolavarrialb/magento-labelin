@@ -33,7 +33,11 @@ class ProductionTicketPdf extends ProductionTicketAbstract
 
         try {
             if (!$resultPdf) {
-                $message = sprintf('Incorrect params $pdfParams in ProductionTicketPdf for OrderItemId = %s', $item->getId());
+                $message = sprintf(
+                    'Incorrect params $pdfParams in ProductionTicketPdf for OrderItemId = %s',
+                    $item->getId()
+                );
+
                 throw new \Exception($message);
             }
 
@@ -45,7 +49,6 @@ class ProductionTicketPdf extends ProductionTicketAbstract
                 $message = sprintf('Pdf File isn`t created for OrderItemId = %s', $item->getId());
                 throw new \Exception($message);
             }
-
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
         }
@@ -67,7 +70,7 @@ class ProductionTicketPdf extends ProductionTicketAbstract
 
     public function getFileName($item): string
     {
-        $orderId = $item->getOrder()->getIncrementId() ? $item->getOrder()->getIncrementId() : 'Order_ID_' . $item->getOrder()->getId();
+        $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
         $fileName = sprintf('%s.pdf', $item->getId());
 
         return sprintf('%s_%s', $orderId, $fileName);

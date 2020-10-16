@@ -1,5 +1,7 @@
 <?php /**  @var $block \Magento\Checkout\Block\Cart\Grid */ ?>
-<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+<?php /**  @var $viewModel Labelin\Checkout\ViewModel\CheckoutCartForm */ ?>
+<?php $viewModel = $block->getViewModel(); ?>
+<?php $mergedCells = ($viewModel->getTaxHelper()->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
 <form action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
       method="post"
@@ -11,7 +13,7 @@
       class="form form-cart">
     <?= $block->getBlockHtml('formkey') ?>
     <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
-        <?php if ($block->getPagerHtml()) : ?>
+        <?php if ($block->getPagerHtml()): ?>
             <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
                  data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
             </div>
@@ -29,18 +31,18 @@
                 <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
             </tr>
             </thead>
-            <?php foreach ($block->getItems() as $_item) : ?>
+            <?php foreach ($block->getItems() as $_item): ?>
                 <?= $block->getItemHtml($_item) ?>
             <?php endforeach ?>
         </table>
-        <?php if ($block->getPagerHtml()) : ?>
+        <?php if ($block->getPagerHtml()): ?>
             <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
                  data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?>
             </div>
         <?php endif ?>
     </div>
     <div class="cart main actions">
-        <?php if ($block->getContinueShoppingUrl()) : ?>
+        <?php if ($block->getContinueShoppingUrl()): ?>
             <button type="button"
                     class="action"
                     onclick="window.location.href = '<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>'"

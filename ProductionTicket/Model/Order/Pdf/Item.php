@@ -4,9 +4,21 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf;
 
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filter\FilterManager;
+use Magento\Framework\Module\Dir\Reader;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Magento\Framework\Stdlib\StringUtils;
+use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\MediaStorage\Helper\File\Storage\Database;
+use Magento\Payment\Helper\Data;
+use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\AbstractPdf;
 use Magento\Sales\Model\Order\Pdf\Config;
+use Magento\Sales\Model\Order\Pdf\ItemsFactory;
+use Magento\Sales\Model\Order\Pdf\Total\Factory;
+use Magento\Store\Model\StoreManagerInterface;
 use Zend_Pdf;
 use Zend_Pdf_Exception;
 use Labelin\ProductionTicket\Model\Order\Item as OrderItem;
@@ -20,34 +32,34 @@ class Item extends AbstractPdf
 
     protected const RENDERER_TYPE_ITEM_IMAGE = 'productionTicketArtworkImage';
 
-    /** @var \Magento\Store\Model\StoreManagerInterface */
+    /** @var StoreManagerInterface */
     protected $storeManager;
 
     /** @var Database|null */
     protected $fileStorageDatabase;
 
-    /** @var \Magento\Framework\Module\Dir\Reader */
+    /** @var Reader */
     protected $moduleReader;
 
-    /** @var \Magento\Framework\Filter\FilterManager */
+    /** @var FilterManager */
     protected $filterManager;
 
     public function __construct(
-        \Magento\Payment\Helper\Data $paymentData,
-        \Magento\Framework\Stdlib\StringUtils $string,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Filesystem $filesystem,
+        Data $paymentData,
+        StringUtils $string,
+        ScopeConfigInterface $scopeConfig,
+        Filesystem $filesystem,
         Config $pdfConfig,
-        \Magento\Sales\Model\Order\Pdf\Total\Factory $pdfTotalFactory,
-        \Magento\Sales\Model\Order\Pdf\ItemsFactory $pdfItemsFactory,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
-        \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
-        \Magento\Sales\Model\Order\Address\Renderer $addressRenderer,
-        array $data = [],
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        Factory $pdfTotalFactory,
+        ItemsFactory $pdfItemsFactory,
+        TimezoneInterface $localeDate,
+        StateInterface $inlineTranslation,
+        Renderer $addressRenderer,
+        StoreManagerInterface $storeManager,
+        Reader $moduleReader,
+        FilterManager $filterManager,
         Database $fileStorageDatabase = null,
-        \Magento\Framework\Module\Dir\Reader $moduleReader,
-        \Magento\Framework\Filter\FilterManager $filterManager
+        array $data = []
     ) {
         parent::__construct(
             $paymentData,

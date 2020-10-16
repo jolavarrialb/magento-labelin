@@ -1,29 +1,30 @@
+<?php /** @var $block Magento\Framework\View\Element\Template */ ?>
 <div class="tooltip-wrapper">
     <img
         class="info-icon standart"
-        src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>"
+        src="<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>"
         alt="info-icon"
     />
     <img
         class="info-icon blue"
-        src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png') ?>"
+        src="<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png') ?>"
         alt="info-icon"
     />
     <div class="custom-tooltip">
         <h3 class="tooltip-header">
-            <?= $this->escapeHtml(__('Paper Labels')) ?>
+            <?= $block->escapeHtml(__('Paper Labels')) ?>
         </h3>
         <p class="tooltip-text">
-            <?= $this->escapeHtml(__('Full color labels printed on paper with an opaque finish.')) ?>
+            <?= $block->escapeHtml(__('Full color labels printed on paper with an opaque finish.')) ?>
         </p>
         <ul class="tooltip-list">
-            <li><?= $this->escapeHtml(__('the label is flat and feels soft')) ?></li>
-            <li><?= $this->escapeHtml(__('cost effective choice')) ?></li>
-            <li><?= $this->escapeHtml(__('colors have a dull finish')) ?></li>
-            <li><?= $this->escapeHtml(__('easy to write on')) ?></li>
+            <li><?= $block->escapeHtml(__('the label is flat and feels soft')) ?></li>
+            <li><?= $block->escapeHtml(__('cost effective choice')) ?></li>
+            <li><?= $block->escapeHtml(__('colors have a dull finish')) ?></li>
+            <li><?= $block->escapeHtml(__('easy to write on')) ?></li>
         </ul>
         <p class="tooltip-text">
-            <?= $this->escapeHtml(__('Prints may looks better, especially black and whites. Best for package decorations.')) ?>
+            <?= $block->escapeHtml(__('Prints may looks better, especially black and whites. Best for package decorations.')) ?>
         </p>
     </div>
 </div>
