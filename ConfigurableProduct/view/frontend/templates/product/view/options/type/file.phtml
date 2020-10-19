@@ -68,10 +68,17 @@
         <?= $block->escapeHtml(__('Maximum image height')) ?>: <strong><?= (int)$_option->getImageSizeY() ?> <?= $block->escapeHtml(__('px.')) ?></strong>
     </p>
 <?php endif; ?>
-<div class="preview-wrapper">
-    <div class="preview">
-        <p class="preview-text"><?= $block->escapeHtml(__('Preview Image')) ?></p>
-        <img id="preview-image" />
+<div class="preview-notification-wrapper">
+    <div class="preview-wrapper">
+        <div class="preview">
+            <p class="preview-text"><?= $block->escapeHtml(__('Preview Image')) ?></p>
+            <img id="preview-image" />
+        </div>
+    </div>
+    <div class="notification">
+        <span>
+            <b><?= __('This image is not approved and will be edited by the designer') ?></b>
+        </span>
     </div>
 </div>
 <script type="text/x-magento-init">
