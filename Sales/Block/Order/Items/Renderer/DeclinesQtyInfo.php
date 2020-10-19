@@ -14,7 +14,7 @@ class DeclinesQtyInfo extends Template
     /** @var ArtworkDeclineHelper */
     protected $artworkDeclineHelper;
 
-    /** @var Artwork  */
+    /** @var Artwork */
     protected $artworkHelper;
 
     public function __construct(
