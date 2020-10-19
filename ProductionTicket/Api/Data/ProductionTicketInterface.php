@@ -30,6 +30,8 @@ interface ProductionTicketInterface
 
     public const DESIGNER = 'designer';
 
+    public const MATERIAL = 'material';
+
     public const CREATED_AT = 'created_at';
 
     public const UPDATED_AT = 'updated_at';
@@ -185,6 +187,15 @@ interface ProductionTicketInterface
      * @return mixed
      */
     public function setDesigner(string $designer);
+
+    public function getMaterial(): string;
+
+    /**
+     * @param string $material
+     *
+     * @return mixed
+     */
+    public function setMaterial(string $material);
 
     /**
      * @return DateTime

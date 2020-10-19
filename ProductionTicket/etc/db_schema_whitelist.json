@@ -13,7 +13,8 @@
             "status": true,
             "created_at": true,
             "updated_at": true,
-            "designer": true
+            "designer": true,
+            "material": true
         },
         "index": {
             "LABELIN_PRODUCTION_TICKET_SHAPE": true,

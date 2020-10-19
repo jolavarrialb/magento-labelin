@@ -21,6 +21,7 @@
         <column xsi:type="datetime" name="approval_date" on_update="false" nullable="false" comment="Approval Date"/>
         <column xsi:type="boolean" name="status" default="false"/>
         <column xsi:type="varchar" name="designer" nullable="true" length="255" comment="Designer"/>
+        <column xsi:type="varchar" name="material" nullable="true" length="255" comment="Material"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Created At"/>
         <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
