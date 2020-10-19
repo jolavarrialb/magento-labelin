@@ -5,7 +5,11 @@
 <?php if ($_item = $block->getItem()): ?>
     <div id="order_item_<?= (int) $_item->getId() ?>_title"
          class="product-title">
-        <?= sprintf('%s (<b>Item number: #%s</b>)', $block->escapeHtml($_item->getName()), $_item->getId()) ?>
+        <?= $block->escapeHtml(sprintf(
+            '%s (<b>Item number: #%s</b>)',
+            $block->escapeHtml($_item->getName()),
+            $_item->getId()
+        )) ?>
     </div>
     <br/>
     <?= $block->getChildBlock('artwork_customer_approve_exceeded_notification')->setData('item', $_item)->toHtml() ?>

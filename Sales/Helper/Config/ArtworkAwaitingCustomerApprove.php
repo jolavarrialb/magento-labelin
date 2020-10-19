@@ -12,12 +12,12 @@ class ArtworkAwaitingCustomerApprove extends AbstractHelper
 {
     public const DATE_TIME_FORMAT = 'Y-m-d H:s:i';
 
-    protected const XML_PATH_ENABLED       = 'labelin_sales/artwork_awaiting_customer_approve_notification/enabled';
-    protected const XML_PATH_EXCEEDED_DAYS = 'labelin_sales/artwork_awaiting_customer_approve_notification/exceeded_days';
+    protected const XML_ENABLED       = 'labelin_sales/artwork_awaiting_customer_approve_notification/enabled';
+    protected const XML_EXCEEDED_DAYS = 'labelin_sales/artwork_awaiting_customer_approve_notification/exceeded_days';
 
     public function isEnabled($storeId = null): bool
     {
-        return $this->scopeConfig->isSetFlag(static::XML_PATH_ENABLED, ScopeInterface::SCOPE_STORE, $storeId);
+        return $this->scopeConfig->isSetFlag(static::XML_ENABLED, ScopeInterface::SCOPE_STORE, $storeId);
     }
 
     public function isAwaitingCustomerApproveExceeded(OrderItemInterface $orderItem): bool
@@ -36,6 +36,6 @@ class ArtworkAwaitingCustomerApprove extends AbstractHelper
 
     public function getExceededDays($storeId = null): int
     {
-        return (int)$this->scopeConfig->getValue(static::XML_PATH_EXCEEDED_DAYS, ScopeInterface::SCOPE_STORE, $storeId);
+        return (int)$this->scopeConfig->getValue(static::XML_EXCEEDED_DAYS, ScopeInterface::SCOPE_STORE, $storeId);
     }
 }
