@@ -23,7 +23,7 @@ class Media extends MagentoMedia
         $absoluteImagePath = $this->mediaDirectory
             ->getAbsolutePath($this->getSwatchMediaPath() . '/' . $generationPath);
 
-        if (!file_exists($absoluteImagePath)) {
+        if (!$this->getFileValidator()->isValid($absoluteImagePath)) {
             try {
                 $this->generateSwatchVariations($file);
             } catch (\Exception $e) {
@@ -32,5 +32,10 @@ class Media extends MagentoMedia
         }
 
         return $this->getSwatchMediaUrl() . '/' . $generationPath;
+    }
+
+    protected function getFileValidator(): \Zend_Validate_File_Exists
+    {
+        return new \Zend_Validate_File_Exists();
     }
 }

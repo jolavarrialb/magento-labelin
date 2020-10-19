@@ -1,7 +1,7 @@
 <?php
 /** @var $block Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork */
 $artworkPreviewHelper = $block->getHelper();
-$initOptions = $artworkPreviewHelper->initItemOptions($this->getData('item'));
+$initOptions = $artworkPreviewHelper->initItemOptions($block->getData('item'));
 ?>
 <?php if ($initOptions): ?>
     <a href="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
@@ -13,6 +13,6 @@ $initOptions = $artworkPreviewHelper->initItemOptions($this->getData('item'));
             height="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkHeight() ?>"
         >
         <br>
-        <?php echo __('Download file:');?>  <?php echo /* @noEscape */ $artworkPreviewHelper->getArtworkLabel(); ?>
+        <?= $block->escapeHtml(__('Download file:')) ?>  <?= /* @noEscape */ $artworkPreviewHelper->getArtworkLabel() ?>
     </a>
 <?php endif; ?>

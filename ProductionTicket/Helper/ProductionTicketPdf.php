@@ -6,6 +6,7 @@ namespace Labelin\ProductionTicket\Helper;
 
 use Labelin\Sales\Model\Order\Item;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\LocalizedException;
 use Zend_Pdf_Exception;
 
 class ProductionTicketPdf extends ProductionTicketAbstract
@@ -33,8 +34,12 @@ class ProductionTicketPdf extends ProductionTicketAbstract
 
         try {
             if (!$resultPdf) {
-                $message = sprintf('Incorrect params $pdfParams in ProductionTicketPdf for OrderItemId = %s', $item->getId());
-                throw new \Exception($message);
+                $message = sprintf(
+                    'Incorrect params $pdfParams in ProductionTicketPdf for OrderItemId = %s',
+                    $item->getId()
+                );
+
+                throw new LocalizedException(__($message));
             }
 
             if ($this->filesystemIo->checkAndCreateFolder($destinationFolder)) {
@@ -43,10 +48,9 @@ class ProductionTicketPdf extends ProductionTicketAbstract
 
             if (!$result) {
                 $message = sprintf('Pdf File isn`t created for OrderItemId = %s', $item->getId());
-                throw new \Exception($message);
+                throw new LocalizedException(__($message));
             }
-
-        } catch (\Exception $e) {
+        } catch (LocalizedException $e) {
             $this->logger->error($e->getMessage());
         }
 
@@ -67,12 +71,11 @@ class ProductionTicketPdf extends ProductionTicketAbstract
 
     public function getFileName($item): string
     {
-        $orderId = $item->getOrder()->getIncrementId() ? $item->getOrder()->getIncrementId() : 'Order_ID_' . $item->getOrder()->getId();
+        $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
         $fileName = sprintf('%s.pdf', $item->getId());
 
         return sprintf('%s_%s', $orderId, $fileName);
     }
-
 
     /**
      * @param Item $item

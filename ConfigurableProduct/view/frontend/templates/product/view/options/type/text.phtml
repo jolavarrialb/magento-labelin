@@ -1,12 +1,13 @@
 <?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Text */ ?>
 <?php $_option = $block->getOption(); ?>
 <?php $class = ($_option->getIsRequire()) ? ' required' : ''; ?>
+<?php $infoImgPath = 'Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png'; ?>
 <div class="instructions-wrapper">
     <p class="instructions-header">
         <?= $block->escapeHtml($_option->getTitle()) ?>
         <?= /* @noEscape */ $block->getFormattedPrice() ?>
     </p>
-    <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_FIELD) :?>
+    <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_FIELD):?>
         <?php $_textValidate = null;
         if ($_option->getIsRequire()) {
             $_textValidate['required'] = true;
@@ -25,7 +26,7 @@
                name="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
                data-selector="options[<?= $block->escapeHtmlAttr($_option->getId()) ?>]"
                value="<?= $block->escapeHtmlAttr($block->getDefaultValue()) ?>"/>
-    <?php elseif ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_AREA) :?>
+    <?php elseif ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_AREA):?>
         <?php $_textAreaValidate = null;
         if ($_option->getIsRequire()) {
             $_textAreaValidate['required'] = true;
@@ -46,13 +47,13 @@
                   placeholder="Let us know if you’d like to add text, contact information or social media icons"
                   cols="25"><?= $block->escapeHtml($block->getDefaultValue()) ?></textarea>
     <?php endif; ?>
-    <?php if ($_option->getMaxCharacters()) : ?>
+    <?php if ($_option->getMaxCharacters()): ?>
         <p class="note note_<?= $block->escapeHtmlAttr($_option->getId()) ?>">
             <?= $block->escapeHtml(__('Maximum %1 characters', $_option->getMaxCharacters())) ?>
             <span class="character-counter no-display"></span>
         </p>
     <?php endif; ?>
-    <?php if ($_option->getMaxCharacters()) : ?>
+    <?php if ($_option->getMaxCharacters()): ?>
         <script type="text/x-magento-init">
         {
             "[data-selector='options[<?= $block->escapeJs($_option->getId()) ?>]']": {
@@ -69,7 +70,7 @@
     <div class="instructions-info-wrapper">
         <img
             class="info-icon"
-            src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/upload-image/info.png') ?>"
+            src="<?= /* @noEscape */ $block->getViewFileUrl($infoImgPath) ?>"
             alt="info-icon"
         />
         <p class="info-text">

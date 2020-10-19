@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Controller\Download;
 
 use Labelin\Sales\Helper\Artwork;
+use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Action\Context;
@@ -13,7 +14,7 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Sales\Model\Download;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
 
-class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action implements HttpGetActionInterface
+class DownloadCustomOptionFile extends Action implements HttpGetActionInterface
 {
     /** @var ForwardFactory */
     protected $resultForwardFactory;
@@ -66,7 +67,8 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
             return $resultForward->forward('noroute');
         }
 
-        $productCustomOption = $this->artworkHelper->getArtworkProductOptionByItem($this->itemRepository->get($orderId));
+        $productCustomOption = $this->artworkHelper
+            ->getArtworkProductOptionByItem($this->itemRepository->get($orderId));
 
         if (empty($productCustomOption)) {
             return $resultForward->forward('noroute');
@@ -92,4 +94,3 @@ class DownloadCustomOptionFile extends \Magento\Framework\App\Action\Action impl
         exit(0);
     }
 }
-

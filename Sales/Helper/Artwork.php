@@ -123,7 +123,9 @@ class Artwork extends AbstractHelper
             return static::ARTWORK_STATUS_APPROVE;
         }
 
-        return $this->isOrderItemArtworkDeclined($item) ? static::ARTWORK_STATUS_DECLINE : static::ARTWORK_STATUS_NO_ACTION;
+        return $this->isOrderItemArtworkDeclined($item) ?
+            static::ARTWORK_STATUS_DECLINE :
+            static::ARTWORK_STATUS_NO_ACTION;
     }
 
     public function getArtworkProductOptionByItem(Item $item): array
@@ -136,7 +138,9 @@ class Artwork extends AbstractHelper
         }
 
         foreach ($productOptions['options'] as $productOption) {
-            if (array_key_exists('option_type', $productOption) && $productOption['option_type'] === static::FILE_OPTION_TYPE) {
+            if (array_key_exists('option_type', $productOption) &&
+                $productOption['option_type'] === static::FILE_OPTION_TYPE
+            ) {
                 return $productOption;
             }
         }

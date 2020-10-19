@@ -14,7 +14,9 @@
                 <button title="Approve" type="submit" name="approve" value="1" class="action primary">
                     <?= $block->escapeHtml(__('Approve')) ?>
                 </button>
-                <button title="Decline" type="button" data-order-item-id="<?= /* @noEscape */ $block->getOrderItem()->getId() ?>" class="acceptance-form-decline action primary">
+                <button title="Decline" type="button"
+                        data-order-item-id="<?= /* @noEscape */ $block->getOrderItem()->getId() ?>"
+                        class="acceptance-form-decline action primary">
                     <?= $block->escapeHtml(__('Decline')) ?>
                 </button>
             </div>
@@ -29,7 +31,8 @@
                     <?= $block->escapeHtml(__('Notes')) ?>
                 </label>
                 <div class="control">
-                    <textarea name="comment" rows="3" cols="5" id="comment" class="input-text required-entry"></textarea>
+                    <textarea name="comment" rows="3" cols="5" id="comment"
+                              class="input-text required-entry"></textarea>
                 </div>
 
             </div>

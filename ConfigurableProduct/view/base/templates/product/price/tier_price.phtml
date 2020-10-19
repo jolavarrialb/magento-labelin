@@ -1,8 +1,9 @@
+<?php /** @var $block Magento\Framework\View\Element\Template */ ?>
 <script type="text/x-magento-template" id="tier-prices-template">
     <div class="header-wrapper">
-        <h2 class="checkout-page-header"><?= __('Select Quantity'); ?></h2>
+        <h2 class="checkout-page-header"><?= $block->escapeHtml(__('Select Quantity')) ?></h2>
         <p class="checkout-page-text">
-            <?= __('The larger quantity gives the lower cost per sticker'); ?>
+            <?= $block->escapeHtml(__('The larger quantity gives the lower cost per sticker')) ?>
         </p>
     </div>
     <div class="ac-container">
@@ -19,9 +20,9 @@
             <label class="ac-label" for="<%= (key+1) %>"><%= item.label %></label>
             <div class="accordion-content">
                 <ul class="accordion-header">
-                    <li><?= __('Amount'); ?></li>
-                    <li><?= __('Price'); ?></li>
-                    <li><?= __('Price per sticker'); ?></li>
+                    <li><?= $block->escapeHtml(__('Amount')) ?></li>
+                    <li><?= $block->escapeHtml(__('Price')) ?></li>
+                    <li><?= $block->escapeHtml(__('Price per sticker')) ?></li>
                 </ul>
                 <div class="radiobuttons-wrapper">
                     <% _.each(item.groupData, function(item, key) { %>

@@ -212,10 +212,13 @@ class Configurable extends MagentoSwatchesConfigurable
 
             if ($count === $pricesQtyForSubGroup - 1 || $tierPricesListCount === $tierPricesListQty) {
                 $maxGroupQty = $this->localeFormat->getNumber($tierPrice['price_qty']);
+                $bulkPrice = $this->localeFormat
+                    ->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']);
+
                 $groupPrices[] = [
                     'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
                     'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
-                    'bulkPrice' => $this->localeFormat->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']),
+                    'bulkPrice' => $bulkPrice,
                     'percentage' => $this->localeFormat->getNumber(
                         $tierPriceModel->getSavePercent($tierPrice['price'])
                     ),
@@ -230,10 +233,11 @@ class Configurable extends MagentoSwatchesConfigurable
                 continue;
             }
 
+            $bulkPrice = $this->localeFormat->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']);
             $groupPrices[] = [
                 'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
                 'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
-                'bulkPrice' => $this->localeFormat->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']),
+                'bulkPrice' => $bulkPrice,
                 'percentage' => $this->localeFormat->getNumber(
                     $tierPriceModel->getSavePercent($tierPrice['price'])
                 ),

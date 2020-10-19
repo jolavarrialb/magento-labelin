@@ -3,6 +3,9 @@
     <body>
         <referenceBlock name="checkout.cart.item.renderers">
             <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.cart.item.renderers.configurable" as="configurable" template="Labelin_Checkout::cart/item/default.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Labelin\Checkout\ViewModel\CheckoutCartForm</argument>
+                </arguments>
                 <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.configurable.actions" as="actions">
                     <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic" name="checkout.cart.item.renderers.configurable.actions.notification" template="Labelin_Checkout::cart/item/renderer/actions/notification.phtml"/>
                     <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.configurable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>

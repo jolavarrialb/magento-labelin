@@ -7,11 +7,18 @@ namespace Labelin\Sales\Model\Product\Option\Type\Artwork;
 use Magento\Catalog\Model\Product\Exception as ProductException;
 use Magento\Catalog\Model\Product\Option;
 use Magento\Catalog\Model\Product\Option\Type\File\ValidatorFile;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\File\Size;
+use Magento\Framework\Filesystem;
+use Magento\Framework\HTTP\Adapter\FileTransferFactory;
 use Magento\Framework\Math\Random;
+use Magento\Framework\Validator\Exception;
+use Magento\Framework\Validator\File\IsImage;
+use Magento\MediaStorage\Model\File\Uploader;
 
 class ArtworkUploadValidator extends ValidatorFile
 {
@@ -21,11 +28,11 @@ class ArtworkUploadValidator extends ValidatorFile
     protected $random;
 
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Filesystem $filesystem,
-        \Magento\Framework\File\Size $fileSize,
-        \Magento\Framework\HTTP\Adapter\FileTransferFactory $httpFactory,
-        \Magento\Framework\Validator\File\IsImage $isImageValidator,
+        ScopeConfigInterface $scopeConfig,
+        Filesystem $filesystem,
+        Size $fileSize,
+        FileTransferFactory $httpFactory,
+        IsImage $isImageValidator,
         Random $random = null
     ) {
         $this->random = $random
@@ -46,17 +53,18 @@ class ArtworkUploadValidator extends ValidatorFile
         try {
             $runValidation = $option->getIsRequire() || $upload->isUploaded($file);
             if (!$runValidation) {
-                throw new \Magento\Framework\Validator\Exception(
-                    __(
-                        'The validation failed. '
-                        . 'Make sure the required options are entered and the file is uploaded, then try again.'
-                    )
+                $message = sprintf(
+                    '%s %s',
+                    __('The validation failed.'),
+                    __('Make sure the required options are entered and the file is uploaded, then try again.')
                 );
+
+                throw new LocalizedException(__($message));
             }
 
             $fileInfo = $upload->getFileInfo($file)[$file];
             $fileInfo['title'] = $fileInfo['name'];
-        } catch (\Magento\Framework\Validator\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         } catch (\Exception $e) {
             // when file exceeds the upload_max_filesize, $_FILES is empty
@@ -86,13 +94,13 @@ class ArtworkUploadValidator extends ValidatorFile
         $userValue = [];
 
         if ($upload->isUploaded($file) && $upload->isValid($file)) {
-            $fileName = \Magento\MediaStorage\Model\File\Uploader::getCorrectFileName($fileInfo['name']);
-            $dispersion = \Magento\MediaStorage\Model\File\Uploader::getDispersionPath($fileName);
+            $fileName = Uploader::getCorrectFileName($fileInfo['name']);
+            $dispersion = Uploader::getDispersionPath($fileName);
 
             $filePath = $dispersion;
 
             $tmpDirectory = $this->filesystem->getDirectoryRead(DirectoryList::SYS_TMP);
-            $fileHash = md5($tmpDirectory->readFile($tmpDirectory->getRelativePath($fileInfo['tmp_name'])));
+            $fileHash = hash('md5', $tmpDirectory->readFile($tmpDirectory->getRelativePath($fileInfo['tmp_name'])));
             $fileRandomName = $this->random->getRandomString(32);
             $filePath .= '/' . $fileRandomName;
             $fileFullPath = $this->mediaDirectory->getAbsolutePath($this->quotePath . $filePath);

@@ -1,29 +1,42 @@
 <?php /* @var $block \Magento\Sales\Block\Adminhtml\Items\Column\Name */ ?>
+<?php /* @var $viewModel \Labelin\Sales\ViewModel\Adminhtml\OrderItems */ ?>
+<?php $viewModel = $block->getViewModel() ?>
+<?php $catalogHelper = $viewModel->getCatalogHelper() ?>
 <?php if ($_item = $block->getItem()): ?>
     <div id="order_item_<?= (int) $_item->getId() ?>_title"
          class="product-title">
-        <?= sprintf('%s (<b>Item number: #%s</b>)', $block->escapeHtml($_item->getName()), $_item->getId()) ?>
+        <?= $block->escapeHtml(sprintf(
+            '%s (<b>Item number: #%s</b>)',
+            $block->escapeHtml($_item->getName()),
+            $_item->getId()
+        )) ?>
     </div>
     <br/>
     <?= $block->getChildBlock('artwork_customer_approve_exceeded_notification')->setData('item', $_item)->toHtml() ?>
 
     <?= $block->getChildBlock('order_item_column_name_extra_info')->setData('item', $_item)->toHtml() ?>
     <div class="product-sku-block">
-        <span><?= $block->escapeHtml(__('SKU'))?>:</span> <?= /* @noEscape */ implode('<br />', $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($block->escapeHtml($block->getSku()))) ?>
+        <span><?= $block->escapeHtml(__('SKU'))?>:</span>
+        <?= /* @noEscape */ implode('<br />', $catalogHelper->splitSku($block->escapeHtml($block->getSku()))) ?>
     </div>
 
-    <?php if ($block->getOrderOptions()) : ?>
+    <?php if ($block->getOrderOptions()): ?>
         <dl class="item-options">
-            <?php foreach ($block->getOrderOptions() as $_option) : ?>
+            <?php foreach ($block->getOrderOptions() as $_option): ?>
                 <dt><?= $block->escapeHtml($_option['label']) ?>:</dt>
                 <dd>
-                    <?php if (isset($_option['custom_view']) && $_option['custom_view']) : ?>
+                    <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
                         <?= $block->getChildBlock('admin.artwork')->setData(['item' => $_item])->toHtml(); ?>
-                    <?php else : ?>
+                    <?php else: ?>
                         <?php $_option = $block->getFormattedOption($_option['value']); ?>
                         <?php $dots = 'dots' . uniqid(); ?>
                         <?php $id = 'id' . uniqid(); ?>
-                        <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?><?php if (isset($_option['remainder']) && $_option['remainder']) : ?><span id="<?= /* @noEscape */ $dots; ?>"> ...</span><span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder'], ['a']) ?></span>
+                        <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?>
+                        <?php if (isset($_option['remainder']) && $_option['remainder']): ?>
+                            <span id="<?= /* @noEscape */ $dots; ?>"> ...</span>
+                            <span id="<?= /* @noEscape */ $id; ?>">
+                                <?= $block->escapeHtml($_option['remainder'], ['a']) ?>
+                            </span>
                         <?php endif; ?>
                     <?php endif; ?>
                 </dd>

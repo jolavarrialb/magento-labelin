@@ -336,7 +336,7 @@ class TransportBuilder extends MagentoTransportBuilder
         $this->messageData['encoding'] = $mimePart->getCharset();
         $this->messageData['body'] = $this->mimeMessageInterfaceFactory->create(['parts' => $parts]);
 
-        $this->messageData['subject'] = html_entity_decode((string)$template->getSubject(), ENT_QUOTES);
+        $this->messageData['subject'] = (string)$template->getSubject();
 
         $this->message = $this->emailMessageInterfaceFactory->create($this->messageData);
 

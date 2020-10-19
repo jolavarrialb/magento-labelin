@@ -2,10 +2,15 @@
 
 use Labelin\ConfigurableProduct\Block\Product\Renderer\Configurable;
 use Magento\Swatches\ViewModel\Product\Renderer\Configurable as ConfigurableViewModel;
+
 /** @var $block Configurable */
 /** @var $configurableViewModel ConfigurableViewModel */
 
-$configurableViewModel = $block->getConfigurableViewModel()
+$configurableViewModel = $block->getConfigurableViewModel();
+$sizeBgImage = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/set-size/set-size-bg.png');
+$infoImg = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png');
+$typeTooltips = $block->getOptionTypeTooltips();
+$gallerySwitchStrategy = $block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct');
 ?>
 <div class="swatch-opt" data-role="swatch-options"></div>
 
@@ -16,15 +21,15 @@ $configurableViewModel = $block->getConfigurableViewModel()
                 "jsonConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonConfig() ?>,
                 "jsonSwatchConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonSwatchConfig() ?>,
                 "mediaCallback": "<?= $block->escapeJs($block->escapeUrl($block->getMediaCallback())) ?>",
-                "gallerySwitchStrategy": "<?= $block->escapeJs($block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct')) ?: 'replace'; ?>",
+                "gallerySwitchStrategy": "<?= $block->escapeJs($gallerySwitchStrategy) ?: 'replace' ?>",
                 "jsonSwatchImageSizeConfig": <?= /* @noEscape */ $block->getJsonSwatchSizeConfig() ?>,
                 "showTooltip": <?= $block->escapeJs($configurableViewModel->getShowSwatchTooltip()) ?>,
-                "optionSizeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SIZE_HEADER); ?>,
-                "optionTypeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::TYPE_HEADER); ?>,
-                "optionShapeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SHAPE_HEADER); ?>,
-                "additionalSizeBlockImgUrl": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/set-size/set-size-bg.png'); ?>",
-                "infoImg": "<?= $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>",
-                "optionTypeTooltips": <?= /* @noEscape */ $block->getJsonHelper()->serialize($block->getOptionTypeTooltips()) ?>
+                "optionSizeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SIZE_HEADER) ?>,
+                "optionTypeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::TYPE_HEADER) ?>,
+                "optionShapeHeader": <?= /* @noEscape */ $block->getOptionHeaderByIndex($block::SHAPE_HEADER) ?>,
+                "additionalSizeBlockImgUrl": "<?= /* @noEscape */ $sizeBgImage ?>",
+                "infoImg": "<?= /* @noEscape */ $infoImg ?>",
+                "optionTypeTooltips": <?= /* @noEscape */ $block->getJsonHelper()->serialize($typeTooltips) ?>
             }
         },
         "*" : {

@@ -1,28 +1,35 @@
+<?php /** @var $block Magento\Framework\View\Element\Template */ ?>
+<?php
+$infoImg = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png');
+$infoBlueImg = $block->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png');
+?>
 <div class="tooltip-wrapper">
     <img
         class="info-icon standart"
-        src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info.png') ?>"
+        src="<?= /* @noEscape */ $infoImg ?>"
         alt="info-icon"
     />
     <img
         class="info-icon blue"
-        src="<?= $this->getViewFileUrl('Labelin_ConfigurableProduct::images/source/checkouts/pick-type/info-blue.png') ?>"
+        src="<?= /* @noEscape */ $infoBlueImg ?>"
         alt="info-icon"
     />
     <div class="custom-tooltip center">
         <h3 class="tooltip-header">
-            <?= $this->escapeHtml(__('Waterproof Labels')) ?>
+            <?= $block->escapeHtml(__('Waterproof Labels')) ?>
         </h3>
         <p class="tooltip-text">
-            <?= $this->escapeHtml(__('Full color labels printed on a white plastic material with a waterproof seal, giving a glossy finish.')) ?>
+            <?= $block->escapeHtml(__(
+                'Full color labels printed on a white plastic material with a waterproof seal, giving a glossy finish.'
+            )) ?>
         </p>
         <ul class="tooltip-list">
-            <li><?= $this->escapeHtml(__('the label is satiny and feels polished')) ?></li>
-            <li><?= $this->escapeHtml(__('most resistant')) ?></li>
-            <li><?= $this->escapeHtml(__('more expensive')) ?></li>
+            <li><?= $block->escapeHtml(__('the label is satiny and feels polished')) ?></li>
+            <li><?= $block->escapeHtml(__('most resistant')) ?></li>
+            <li><?= $block->escapeHtml(__('more expensive')) ?></li>
         </ul>
         <p class="tooltip-text">
-            <?= $this->escapeHtml(__('Best for cold temperatures, humid environments and liquids.')) ?>
+            <?= $block->escapeHtml(__('Best for cold temperatures, humid environments and liquids.')) ?>
         </p>
     </div>
 </div>
