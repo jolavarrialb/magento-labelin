@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Block\Adminhtml\Order\View\Column;
 
 use Labelin\Sales\Helper\Config\ArtworkAwaitingCustomerApprove;
+use Labelin\Sales\Model\Order;
 use Labelin\Sales\Model\Order\Item;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\View\Element\Template;
@@ -27,6 +28,16 @@ class ArtworkAcceptanceExceeded extends Template
     public function isAvailableNotification(): bool
     {
         $orderItem = $this->getOrderItem();
+
+        if (!$orderItem) {
+            return false;
+        }
+
+        $order = $orderItem->getOrder();
+
+        if ($order && $order->getStatus() !== Order::STATUS_REVIEW) {
+            return false;
+        }
 
         if (!$orderItem || !$orderItem->getOrder() || $orderItem->getProductType() !== Configurable::TYPE_CODE) {
             return false;
