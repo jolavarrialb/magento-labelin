@@ -122,6 +122,14 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
+        <column name="designer" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Labelin\ProductionTicket\Ui\Component\Column\Options\Designer"/>
+                <dataType>select</dataType>
+                <label translate="true">Designer</label>
+            </settings>
+        </column>
     </columns>
 </listing>
 

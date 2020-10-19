@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model;
 
+use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product\Visibility;
@@ -39,6 +40,7 @@ use Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory as Shipme
 use Magento\Sales\Model\ResourceModel\Order\Shipment\Track\CollectionFactory as TrackingCollectionFactory;
 use Magento\Sales\Model\ResourceModel\Order\Status\History\CollectionFactory as HistoryCollectionFactory;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\User\Model\User;
 
 class Order extends MagentoOrder
 {
@@ -49,6 +51,9 @@ class Order extends MagentoOrder
 
     /** @var array */
     protected $overdueAvailableStatuses;
+
+    /** @var DesignerHelper */
+    protected $designerHelper;
 
     public function __construct(
         Context $context,
@@ -75,6 +80,7 @@ class Order extends MagentoOrder
         OrderCollectionFactory $salesOrderCollectionFactory,
         PriceCurrencyInterface $priceCurrency,
         ProductCollectionFactory $productListFactory,
+        DesignerHelper $designerHelper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = [],
@@ -85,8 +91,6 @@ class Order extends MagentoOrder
         ScopeConfigInterface $scopeConfig = null,
         array $overdueAvailableStatuses = []
     ) {
-        $this->overdueAvailableStatuses = $overdueAvailableStatuses;
-
         parent::__construct(
             $context,
             $registry,
@@ -121,6 +125,9 @@ class Order extends MagentoOrder
             $searchCriteriaBuilder,
             $scopeConfig
         );
+
+        $this->overdueAvailableStatuses = $overdueAvailableStatuses;
+        $this->designerHelper = $designerHelper;
     }
 
     public function canReview(): bool
@@ -222,5 +229,14 @@ class Order extends MagentoOrder
             ->addStatusToHistory(static::STATUS_IN_PRODUCTION, __('Order is on production'));
 
         return $this;
+    }
+
+    public function getDesigner(): ?User
+    {
+        if (!$this->getData('assigned_designer_id')) {
+            return null;
+        }
+
+        return $this->designerHelper->getDesignerById((int)$this->getData('assigned_designer_id'));
     }
 }

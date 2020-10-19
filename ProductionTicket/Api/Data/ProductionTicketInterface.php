@@ -28,6 +28,8 @@ interface ProductionTicketInterface
 
     public const STATUS = 'status';
 
+    public const DESIGNER = 'designer';
+
     public const CREATED_AT = 'created_at';
 
     public const UPDATED_AT = 'updated_at';
@@ -174,6 +176,15 @@ interface ProductionTicketInterface
      * @return $this
      */
     public function setStatus(bool $status);
+
+    public function getDesigner(): string;
+
+    /**
+     * @param string $designer
+     *
+     * @return mixed
+     */
+    public function setDesigner(string $designer);
 
     /**
      * @return DateTime

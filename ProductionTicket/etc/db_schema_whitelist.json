@@ -12,7 +12,8 @@
             "approval_date": true,
             "status": true,
             "created_at": true,
-            "updated_at": true
+            "updated_at": true,
+            "designer": true
         },
         "index": {
             "LABELIN_PRODUCTION_TICKET_SHAPE": true,
