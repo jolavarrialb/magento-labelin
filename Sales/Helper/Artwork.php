@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Helper;
 
+use Labelin\Sales\Model\Order as LabelinOrder;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
@@ -146,5 +147,10 @@ class Artwork extends AbstractHelper
         }
 
         return [];
+    }
+
+    public function isArtworkInReview(Item $item): bool
+    {
+        return $item->getOrder()->getStatus() === LabelinOrder::STATUS_REVIEW;
     }
 }
