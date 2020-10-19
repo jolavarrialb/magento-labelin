@@ -1,0 +1,6 @@
+<?php /** @var $block \Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceExceeded */ ?>
+<?php if ($block->isAvailableNotification()): ?>
+    <div class="message-notice notice message">
+        <?= __('Customer hasn\'t approved artwork by %1 days.', $block->getAwaitingCustomerApprove()->getExceededDays()) ?>
+    </div>
+<?php endif; ?>
