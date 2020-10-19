@@ -32,5 +32,11 @@
     <?php endif; ?>
     <?= $block->escapeHtml($_item->getDescription()) ?>
     <br/>
-    <?= $block->getChildBlock('artwork_acceptance_form')->setData('item', $_item)->toHtml() ?>
+    <?php if ($_item->getOrder()->getCustomerIsGuest()): ?>
+        <?= $block->getChildBlock('guest_checkout_artwork_acceptance_form')->setData('item', $_item)->toHtml() ?>
+        <br/>
+        <?= $block->getChildBlock('guest_decline_info')->setData('item', $_item)->toHtml() ?>
+    <?php else: ?>
+        <?= $block->getChildBlock('artwork_acceptance_form')->setData('item', $_item)->toHtml() ?>
+    <?php endif; ?>
 <?php endif; ?>

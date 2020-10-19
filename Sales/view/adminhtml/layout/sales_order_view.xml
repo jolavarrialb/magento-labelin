@@ -7,6 +7,8 @@
                 <argument name="template" xsi:type="string">Labelin_Sales::items/column/name.phtml</argument>
             </action>
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceForm" name="artwork_acceptance_form" template="Labelin_Sales::items/column/artworkacceptanceform.phtml" />
+            <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\GuestCheckout\ArtworkAcceptanceForm" name="guest_checkout_artwork_acceptance_form" template="Labelin_Sales::items/column/guest_checkout/artworkacceptanceform.phtml" />
+            <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\GuestCheckout\DeclinesQtyInfo" name="guest_artwork_decline_qty_info" as="guest_decline_info" template="Labelin_Sales::items/column/guest_checkout/declineqtyinfo.phtml" />
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\ArtworkAcceptanceExceeded" name="artwork_customer_approve_exceeded_notification" template="Labelin_Sales::items/column/artworkacceptanceexceeded.phtml" />
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtWork" name="labelin.sales.adminhtml.order.item.renderers.default.artwork" as="admin.artwork" template="Labelin_Sales::order/items/renderer/default/artwork.phtml" />
             <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_column_name_extra_info"/>

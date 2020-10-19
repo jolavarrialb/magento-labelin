@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Observer\Order\Item;
 
+use Labelin\ProductionTicket\Helper\ProductionTicketImage as ProductionTicketImageHelper;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
 use Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\Welcome\WithArtworkSender;
 use Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\Welcome\WithoutArtworkSender;
@@ -23,15 +24,20 @@ class GuestCheckoutReviewStatusHandler implements ObserverInterface
     /** @var ArtworkHelper */
     protected $artworkHelper;
 
+    /** @var ProductionTicketImageHelper */
+    protected $productionTicketImageHelper;
+
     public function __construct(
         WithArtworkSender $withArtworkSender,
         WithoutArtworkSender $withoutArtworkSender,
-        ArtworkHelper $artworkHelper
+        ArtworkHelper $artworkHelper,
+        ProductionTicketImageHelper $productionTicketImageHelper
     ) {
         $this->withArtworkSender = $withArtworkSender;
         $this->withoutArtworkSender = $withoutArtworkSender;
 
         $this->artworkHelper = $artworkHelper;
+        $this->productionTicketImageHelper = $productionTicketImageHelper;
     }
 
     public function execute(Observer $observer): self
@@ -51,6 +57,7 @@ class GuestCheckoutReviewStatusHandler implements ObserverInterface
 
             if ($this->artworkHelper->isArtworkAttachedToOrderItem($item)) {
                 $this->withArtworkSender->send($item);
+                $this->productionTicketImageHelper->createInProductionTicketAttachment($item);
             } else {
                 $this->withoutArtworkSender->send($item);
             }
