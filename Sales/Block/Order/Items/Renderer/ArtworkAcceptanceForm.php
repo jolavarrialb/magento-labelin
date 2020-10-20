@@ -16,6 +16,14 @@ class ArtworkAcceptanceForm extends ArtworkFormAbstract
             return false;
         }
 
+        if ($orderItem->isArtworkApproved()) {
+            return false;
+        }
+
+        if (!$this->artworkHelper->isArtworkInReview($orderItem)) {
+            return false;
+        }
+
         if (!$orderItem->isArtworkApprovedByDesigner() && $orderItem->getArtworkDeclinesCount() === 0) {
             return true;
         }
