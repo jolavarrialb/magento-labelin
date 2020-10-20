@@ -36,4 +36,25 @@
               module="Labelin_Sales"
               area="frontend"
     />
+    <template id="labelin_guest_checkout_email_welcome_email_with_artwork_template"
+              label="Guest Checkout Welcome Email With Attach"
+              file="guest_checkout/welcome_email_with_attach.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+    <template id="labelin_guest_checkout_email_welcome_email_without_artwork_template"
+              label="Guest Checkout Welcome Email Without Attach"
+              file="guest_checkout/welcome_email_without_attach.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
+    <template id="labelin_guest_checkout_email_approve_artwork_template"
+              label="Guest Checkout Approve Artwork Email To Customer"
+              file="guest_checkout/approve_email.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
 </config>

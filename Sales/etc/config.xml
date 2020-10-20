@@ -50,5 +50,22 @@
                 <copy_method>bcc</copy_method>
             </artwork_awaiting_customer_approve>
         </labelin_sales_email>
+        <labelin_guest_checkout_email>
+            <welcome_email_with_artwork>
+                <enabled>1</enabled>
+                <template>labelin_guest_checkout_email_welcome_email_with_artwork_template</template>
+                <copy_method>bcc</copy_method>
+            </welcome_email_with_artwork>
+            <welcome_email_without_artwork>
+                <enabled>1</enabled>
+                <template>labelin_guest_checkout_email_welcome_email_without_artwork_template</template>
+                <copy_method>bcc</copy_method>
+            </welcome_email_without_artwork>
+            <approve_artwork>
+                <enabled>1</enabled>
+                <template>labelin_guest_checkout_email_approve_artwork_template</template>
+                <copy_method>bcc</copy_method>
+            </approve_artwork>
+        </labelin_guest_checkout_email>
     </default>
 </config>

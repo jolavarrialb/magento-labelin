@@ -31,6 +31,10 @@ class OnHoldStatusHandler implements ObserverInterface
         /** @var Order $order */
         $order = $observer->getOrder();
 
+        if ($order->getCustomerIsGuest()) {
+            return $this;
+        }
+
         if ($this->artworkHelper->isArtworkAttachedToOrder($order)) {
             return $this;
         }

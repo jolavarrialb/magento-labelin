@@ -54,7 +54,10 @@ class Identity extends Container
         return (string)$this->getConfigValue($this->xmlPathSettings['template'], $this->getStore()->getStoreId());
     }
 
-    public function getEmailIdentity(): string
+    /**
+     * @return mixed|string
+     */
+    public function getEmailIdentity()
     {
         return (string)$this->getConfigValue($this->xmlPathSettings['identity'], $this->getStore()->getStoreId());
     }
