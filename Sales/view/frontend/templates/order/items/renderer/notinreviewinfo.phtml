@@ -1,6 +1,6 @@
 <?php /** @var $block \Labelin\Sales\Block\Order\Items\Renderer\NotInReviewInfo */ ?>
 <?php if ($block->isAvailable()): ?>
     <div class="message-notice notice message">
-        <?= __('Please wait until order status will be Review') ?>
+        <?= $block->escapeHtml(__('Please wait until order status will be Review')) ?>
     </div>
 <?php endif; ?>
