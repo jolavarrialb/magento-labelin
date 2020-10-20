@@ -18,7 +18,9 @@ class Artwork extends AbstractHelper
 
     public const ARTWORK_STATUS_DECLINE = 'decline';
     public const ARTWORK_STATUS_APPROVE = 'approve';
-    public const ARTWORK_STATUS_NO_ACTION = 'no_action';
+    public const ARTWORK_STATUS_AWAITING_DESIGNER = 'awaiting_designer_action';
+    public const ARTWORK_STATUS_AWAITING_CUSTOMER = 'awaiting_customer_approve';
+
 
     /** @var OrderItemRepositoryInterface */
     protected $itemRepository;
@@ -108,25 +110,9 @@ class Artwork extends AbstractHelper
         return $isArtworkAttached;
     }
 
-    public function isOrderItemArtworkApproved(Item $item): bool
-    {
-        return $item->isArtworkApproved();
-    }
-
-    public function isOrderItemArtworkDeclined(Item $item): bool
-    {
-        return !$item->isArtworkApproved() && $item->getArtworkDeclinesCount() > 0;
-    }
-
     protected function getArtworkStatus(Item $item): string
     {
-        if ($this->isOrderItemArtworkApproved($item)) {
-            return static::ARTWORK_STATUS_APPROVE;
-        }
-
-        return $this->isOrderItemArtworkDeclined($item) ?
-            static::ARTWORK_STATUS_DECLINE :
-            static::ARTWORK_STATUS_NO_ACTION;
+        return $item->getArtworkStatus();
     }
 
     public function getArtworkProductOptionByItem(Item $item): array

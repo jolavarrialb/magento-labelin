@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Controller\Adminhtml\Order\Item;
 
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Backend\App\Action;
@@ -75,6 +76,11 @@ class UpdateArtwork extends Action
             'order_item' => $orderItem,
             'comment' => $this->getRequest()->getParam('comment'),
         ]);
+
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+            'item' => $orderItem,
+            'status' => Artwork::ARTWORK_STATUS_AWAITING_CUSTOMER]
+        );
 
         $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));
 

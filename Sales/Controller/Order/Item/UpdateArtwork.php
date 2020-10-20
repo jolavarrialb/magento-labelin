@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Controller\Order\Item;
 
 use Labelin\Sales\Exception\MaxArtworkDeclineAttemptsReached;
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
@@ -80,6 +81,11 @@ class UpdateArtwork extends Action
             return $this;
         }
 
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $item,
+                'status' => Artwork::ARTWORK_STATUS_APPROVE]
+        );
+
         $this->messageManager->addSuccessMessage(__('Artwork was successfully approved.'));
 
         return $this;
@@ -118,6 +124,11 @@ class UpdateArtwork extends Action
 
             return $this;
         }
+
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $item,
+                'status' => Artwork::ARTWORK_STATUS_DECLINE]
+        );
 
         $this->messageManager->addNoticeMessage(
             __('Artwork was declined. Please wait until designer will update artwork')

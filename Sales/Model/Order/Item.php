@@ -24,6 +24,8 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Item extends MagentoOrderItem
 {
+    public const ARTWORK_STATUS = 'artwork_status';
+
     /** @var ArtworkDeclineHelper */
     protected $artworkDeclineHelper;
 
@@ -158,5 +160,10 @@ class Item extends MagentoOrderItem
 
         return $this->getProductType() === Configurable::TYPE_CODE &&
             $this->getOrder()->getStatus() === Order::STATUS_REVIEW;
+    }
+
+    public function getArtworkStatus():? string
+    {
+        return $this->getData(static::ARTWORK_STATUS);
     }
 }

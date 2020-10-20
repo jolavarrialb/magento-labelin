@@ -1,13 +1,16 @@
 <div class="data-grid-cell-content">
     <!-- ko foreach: $col.getArtwork($row()) -->
     <!-- ko if: ($data['status'] === 'approve') -->
-    <b><span style="color: green" data-bind="i18n: 'Approved'"></span></b>:
+    <b><span style="color: #00CC00" data-bind="i18n: 'Approved'"></span></b>:
     <!-- /ko -->
     <!-- ko if: ($data['status'] === 'decline') -->
-    <b><span style="color: red" data-bind="i18n: 'Declined'"></span></b>:
+    <b><span style="color: #FF0000" data-bind="i18n: 'Declined'"></span></b>:
     <!-- /ko -->
-    <!-- ko if: ($data['status'] === 'no_action') -->
-    <b><span style="color: grey" data-bind="i18n: 'No Action'"></span></b>:
+    <!-- ko if: ($data['status'] === 'awaiting_designer_action') -->
+    <b><span style="color: #FF7400" data-bind="i18n: 'Awaiting Designer Action'"></span></b>:
+    <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'awaiting_customer_approve') -->
+    <b><span style="color: #009999" data-bind="i18n: 'Awaiting Customer Approve'"></span></b>:
     <!-- /ko -->
     <span data-bind="html: $data['link']"></span>
     <br/>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <dataSource name="sales_order_grid_data_source" component="Magento_Ui/js/grid/provider">
+        <dataProvider class="Labelin\Sales\Ui\DataProvider" name="sales_order_grid_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>main_table.entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
     <listingToolbar name="listing_top">
         <massaction name="listing_massaction" class="Labelin\Sales\Ui\Component\MassAction">
             <action name="assign_designer">
@@ -22,6 +30,17 @@
                 </settings>
             </action>
         </massaction>
+        <filters name="listing_filters">
+            <filterSelect name="artwork_status" provider="${ $.parentName }">
+                <settings>
+                    <options class="Labelin\Sales\Ui\Component\Filters\FilterSelect\Options\ArtworkStatus"/>
+                    <caption translate="true">Select Artwork Status</caption>
+                    <label translate="true">Artwork Status</label>
+                    <dataType>select</dataType>
+                    <dataScope>artwork_status</dataScope>
+                </settings>
+            </filterSelect>
+        </filters>
     </listingToolbar>
     <columns name="sales_order_columns">
         <column name="assigned_designer_id" component="Magento_Ui/js/grid/columns/select">
