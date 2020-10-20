@@ -50,4 +50,11 @@
               module="Labelin_Sales"
               area="frontend"
     />
+    <template id="labelin_guest_checkout_email_approve_artwork_template"
+              label="Guest Checkout Approve Artwork Email To Customer"
+              file="guest_checkout/approve_email.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
 </config>

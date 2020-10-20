@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Observer\Artwork\GuestCheckout;
 
+use Labelin\ProductionTicket\Helper\ProductionTicketImage as ProductionTicketImageHelper;
+use Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\ApproveSender;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Event\Observer;
@@ -19,10 +21,22 @@ class UploadHandler implements ObserverInterface
     /** @var MessageManager */
     protected $messageManager;
 
-    public function __construct(EventManager $eventManager, MessageManager $messageManager)
-    {
+    /** @var ProductionTicketImageHelper */
+    protected $productionTicketImageHelper;
+
+    /** @var ApproveSender */
+    protected $sender;
+
+    public function __construct(
+        EventManager $eventManager,
+        MessageManager $messageManager,
+        ProductionTicketImageHelper $productionTicketImageHelper,
+        ApproveSender $sender
+    ) {
         $this->eventManager = $eventManager;
         $this->messageManager = $messageManager;
+        $this->productionTicketImageHelper = $productionTicketImageHelper;
+        $this->sender = $sender;
     }
 
     public function execute(Observer $observer): self
@@ -34,6 +48,10 @@ class UploadHandler implements ObserverInterface
             $this->eventManager->dispatch('labelin_sales_order_item_artwork_update', ['item' => $item]);
 
             $item->approveArtworkByDesigner();
+
+            $this->productionTicketImageHelper->createInProductionTicketAttachment($item);
+
+            $this->sender->send($item);
 
             $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));
         } catch (LocalizedException $exception) {

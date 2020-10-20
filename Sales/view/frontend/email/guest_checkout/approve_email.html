@@ -1,0 +1,29 @@
+<!--@subject {{var template_subject}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="float:left; margin-right: 10px" class="fue-abc-items">
+    <tr>
+        <td>
+            <div class="greeting">Hi, {{var customer_name}}.</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="greeting">
+                The designer has updated your artwork, please check attached file and send an answer to the designer.
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="greeting">
+                <b>Please send "Approve" or "Decline" with some comment what the designer need to improve.</b>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="greeting"><b>Please always reply about current artwork to the mail from this e-mail letter.</b></div>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

@@ -61,6 +61,11 @@
                 <template>labelin_guest_checkout_email_welcome_email_without_artwork_template</template>
                 <copy_method>bcc</copy_method>
             </welcome_email_without_artwork>
+            <approve_artwork>
+                <enabled>1</enabled>
+                <template>labelin_guest_checkout_email_approve_artwork_template</template>
+                <copy_method>bcc</copy_method>
+            </approve_artwork>
         </labelin_guest_checkout_email>
     </default>
 </config>
