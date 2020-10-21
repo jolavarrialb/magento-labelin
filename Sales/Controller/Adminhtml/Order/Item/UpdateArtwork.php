@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Controller\Adminhtml\Order\Item;
 
-use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Backend\App\Action;
