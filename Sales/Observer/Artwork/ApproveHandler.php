@@ -24,6 +24,10 @@ class ApproveHandler implements ObserverInterface
         /** @var Item $item */
         $item = $observer->getData('order_item');
 
+        if (!$item->getOrder() || $item->getOrder()->getCustomerIsGuest()) {
+            return $this;
+        }
+
         $this->approveSender->send($item);
 
         return $this;
