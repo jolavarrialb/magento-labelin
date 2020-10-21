@@ -80,9 +80,9 @@ class Item extends MagentoOrderItem
         $this->unApproveArtworkByDesigner();
 
         $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                'item' => $this,
-                'status' => Artwork::ARTWORK_STATUS_DECLINE]
-        );
+            'item' => $this,
+            'status' => Artwork::ARTWORK_STATUS_DECLINE,
+        ]);
 
         return $this;
     }
@@ -117,9 +117,9 @@ class Item extends MagentoOrderItem
         $this->_eventManager->dispatch('labelin_order_item_approve_after', ['order_item' => $this]);
 
         $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                'item' => $this,
-                'status' => Artwork::ARTWORK_STATUS_APPROVE]
-        );
+            'item' => $this,
+            'status' => Artwork::ARTWORK_STATUS_APPROVE,
+        ]);
 
         return $this;
     }
@@ -140,9 +140,9 @@ class Item extends MagentoOrderItem
         $this->_eventManager->dispatch('labelin_order_item_approve_by_designer_after', ['order_item' => $this]);
 
         $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                'item' => $this,
-                'status' => Artwork::ARTWORK_STATUS_AWAITING_CUSTOMER]
-        );
+            'item' => $this,
+            'status' => Artwork::ARTWORK_STATUS_AWAITING_CUSTOMER,
+        ]);
 
         return $this;
     }

@@ -31,7 +31,7 @@ class MassDesignerUnAssign extends MassDesignerAbstract
 
         foreach ($orders as $order) {
             /** @var $order Order */
-            $order->setItemsArtworkStatus($this->artworkHelper::ARTWORK_STATUS_DESIGNER_UN_ASSIGNED);
+            $order->setItemsArtworkStatus($this->artworkHelper::ARTWORK_STATUS_NO_ACTION);
 
             $order->setData('assigned_designer_id', null);
             $this->orderRepository->save($order);

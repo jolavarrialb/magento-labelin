@@ -248,9 +248,9 @@ class Order extends MagentoOrder
             }
 
             $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                    'item' => $item,
-                    'status' => $status]
-            );
+                'item' => $item,
+                'status' => $status,
+            ]);
         }
     }
 }
