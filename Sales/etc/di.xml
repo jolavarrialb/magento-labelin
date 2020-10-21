@@ -160,4 +160,28 @@
             <argument name="identityContainer" xsi:type="object">GuestCheckoutApproveArtwork</argument>
         </arguments>
     </type>
+    <virtualType name="Labelin\Sales\Order\Item\ArtworkStatusDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/labelin_artwork_status.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Labelin\Sales\Order\Item\ArtworkStatusLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Labelin\Sales\Order\Item\ArtworkStatusDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\Sales\Observer\Artwork\UpdateStatusHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\Sales\Order\Item\ArtworkStatusLogger</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Ui\DataProvider">
+        <arguments>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="artwork_status" xsi:type="object">Labelin\Sales\Ui\DataProvider\Artwork\AddArtworkStatusCustomFilter</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

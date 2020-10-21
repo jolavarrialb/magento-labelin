@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Controller\Adminhtml\Order;
 
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Backend\App\Action;
@@ -26,15 +27,20 @@ abstract class MassDesignerAbstract extends Action
     /** @var SearchCriteriaBuilder */
     protected $searchCriteriaBuilder;
 
+    /** @var Artwork */
+    protected $artworkHelper;
+
     public function __construct(
         Context $context,
         DesignerHelper $designerHelper,
         OrderRepositoryInterface $orderRepository,
+        Artwork $artworkHelper,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->designerHelper = $designerHelper;
         $this->orderRepository = $orderRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->artworkHelper = $artworkHelper;
 
         parent::__construct($context);
     }

@@ -239,4 +239,18 @@ class Order extends MagentoOrder
 
         return $this->designerHelper->getDesignerById((int)$this->getData('assigned_designer_id'));
     }
+
+    public function setItemsArtworkStatus(string $status): void
+    {
+        foreach ($this->getAllItems() as $item) {
+            if (Configurable::TYPE_CODE !== $item->getProductType()) {
+                continue;
+            }
+
+            $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $item,
+                'status' => $status,
+            ]);
+        }
+    }
 }

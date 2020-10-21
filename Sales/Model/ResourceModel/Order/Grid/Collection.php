@@ -52,6 +52,15 @@ class Collection extends GridCollection
                 'sales_order.assigned_designer_id = users_table.user_id',
                 ['assigned_designer_name' => $this->getConnection()->getConcatSql(['firstname', 'lastname'], ' ')]
             );
+        $this
+            ->getSelect()
+            ->joinLeft(
+                ['order_item' => 'sales_order_item'],
+                'main_table.entity_id = order_item.order_id',
+                ['artwork_status' => 'group_concat( distinct artwork_status)']
+            )
+            ->where('order_item.product_type = "configurable" AND order_item.parent_item_id IS NULL')
+            ->group('main_table.entity_id');
 
         if ($this->designerHelper->isCurrentAuthUserDesigner()) {
             $this->addFieldToFilter('assigned_designer_id', $this->designerHelper->getCurrentAuthUser()->getId());

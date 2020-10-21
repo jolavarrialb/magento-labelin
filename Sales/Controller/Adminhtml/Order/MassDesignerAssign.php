@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Controller\Adminhtml\Order;
 
+use Labelin\Sales\Model\Order;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
 
@@ -30,6 +31,9 @@ class MassDesignerAssign extends MassDesignerAbstract
         $orders = $this->orderRepository->getList($searchCriteria)->getItems();
 
         foreach ($orders as $order) {
+            /** @var $order Order */
+            $order->setItemsArtworkStatus($this->artworkHelper::ARTWORK_STATUS_AWAITING_DESIGNER);
+
             $order->setData('assigned_designer_id', $designerId);
             $this->orderRepository->save($order);
         }

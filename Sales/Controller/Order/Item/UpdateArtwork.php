@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Controller\Order\Item;
 
 use Labelin\Sales\Exception\MaxArtworkDeclineAttemptsReached;
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
@@ -105,7 +106,7 @@ class UpdateArtwork extends Action
 
             $this->_eventManager->dispatch('labelin_order_item_decline_after', [
                 'order_item' => $item,
-                'comment'    => $this->getRequest()->getParam('comment'),
+                'comment' => $this->getRequest()->getParam('comment'),
             ]);
 
             $this->orderRepository->save($order);
