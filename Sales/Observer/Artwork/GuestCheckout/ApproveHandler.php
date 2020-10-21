@@ -26,8 +26,7 @@ class ApproveHandler implements ObserverInterface
         $item = $observer->getData('item');
 
         try {
-            $item->setData('is_artwork_approved', 1);
-            $item->setData('artwork_approval_date', new \Zend_Db_Expr('NOW()'));
+            $item->approveArtwork();
             $item->approveArtworkByDesigner();
 
             $this->messageManager->addSuccessMessage(__('Artwork was successfully approved.'));
