@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Ui\Component\Filters\FilterSelect\Options;
 
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Data\OptionSourceInterface;
@@ -13,51 +14,28 @@ use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory;
 
 class ArtworkStatus implements OptionSourceInterface
 {
+    /** @var array */
     protected $options = [];
 
-    /** @var Filter */
-    protected $filter;
-
-    /** @var CollectionFactory */
-    protected $collectionFactory;
+    /** @var Artwork */
+    protected $artworkHelper;
 
     public function __construct(
-        CollectionFactory $collectionFactory,
-        Filter $filter
+        Artwork $artworkHelper
     ) {
-        $this->filter = $filter;
-        $this->collectionFactory = $collectionFactory;
+        $this->artworkHelper = $artworkHelper;
     }
 
     public function toOptionArray(): array
     {
-        $collection = $this
-            ->initCollection()
-            ->addFieldToSelect(Item::ARTWORK_STATUS)
-            ->addFieldToFilter(Item::ARTWORK_STATUS, ['notnull' => true]);
-
-        $collection->distinct(true);
-
-        foreach ($collection as $item) {
+        foreach ($this->artworkHelper::FILTER_STATUSES as $status) {
             $this->options[] = [
-                'value' => $item->getData(Item::ARTWORK_STATUS),
-                'label' => $this->getLabel($item->getData(Item::ARTWORK_STATUS)),
+                'value' => $status,
+                'label' => $this->getLabel($status),
             ];
         }
 
-        $this->filter->setField(Item::ARTWORK_STATUS)->setConditionType('notnull');
-
         return $this->options;
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return Collection|SearchResult
-     */
-    protected function initCollection(array $data = [])
-    {
-        return $this->collectionFactory->create($data);
     }
 
     protected function getLabel(string $status): string

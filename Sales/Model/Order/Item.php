@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Model\Order;
 
 use Labelin\Sales\Exception\MaxArtworkDeclineAttemptsReached;
+use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Helper\Config\ArtworkDecline as ArtworkDeclineHelper;
 use Labelin\Sales\Model\Order;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -78,6 +79,11 @@ class Item extends MagentoOrderItem
         $this->setData('artwork_declines_count', $qty);
         $this->unApproveArtworkByDesigner();
 
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $this,
+                'status' => Artwork::ARTWORK_STATUS_DECLINE]
+        );
+
         return $this;
     }
 
@@ -110,6 +116,11 @@ class Item extends MagentoOrderItem
 
         $this->_eventManager->dispatch('labelin_order_item_approve_after', ['order_item' => $this]);
 
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $this,
+                'status' => Artwork::ARTWORK_STATUS_APPROVE]
+        );
+
         return $this;
     }
 
@@ -127,6 +138,11 @@ class Item extends MagentoOrderItem
         $this->setData('artwork_approval_by_designer_date', new \Zend_Db_Expr('NOW()'));
 
         $this->_eventManager->dispatch('labelin_order_item_approve_by_designer_after', ['order_item' => $this]);
+
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+                'item' => $this,
+                'status' => Artwork::ARTWORK_STATUS_AWAITING_CUSTOMER]
+        );
 
         return $this;
     }
@@ -162,7 +178,7 @@ class Item extends MagentoOrderItem
             $this->getOrder()->getStatus() === Order::STATUS_REVIEW;
     }
 
-    public function getArtworkStatus():? string
+    public function getArtworkStatus(): ?string
     {
         return $this->getData(static::ARTWORK_STATUS);
     }

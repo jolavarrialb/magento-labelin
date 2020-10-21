@@ -19,7 +19,7 @@
     <table name="sales_order_item">
         <column xsi:type="tinyint" name="artwork_declines_count" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Declined By Customer Artwork Count" />
-        <column xsi:type="varchar" name="artwork_status" nullable="true" length="50" comment="Artwork Status" default="awaiting_designer_action" />
+        <column xsi:type="varchar" name="artwork_status" nullable="true" length="50" comment="Artwork Status" default="no_action" />
         <column xsi:type="tinyint" name="is_artwork_approved" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Is Artwork Approved By Customer" />
         <column xsi:type="tinyint" name="is_designer_update_artwork" unsigned="true" nullable="false" default="0" identity="false"

@@ -7,6 +7,7 @@ namespace Labelin\Sales\Ui\DataProvider\Artwork;
 use Labelin\Sales\Ui\DataProvider\AddCustomFilterInterface;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\SearchCriteriaBuilder;
+use Magento\Framework\Api\Filter;
 
 class AddArtworkStatusCustomFilter implements AddCustomFilterInterface
 {
@@ -21,9 +22,8 @@ class AddArtworkStatusCustomFilter implements AddCustomFilterInterface
         $this->filterBuilder = $filterBuilder;
     }
 
-    public function addFilter(SearchCriteriaBuilder $searchCriteriaBuilder, $field, $value): void
+    public function addFilter(SearchCriteriaBuilder $searchCriteriaBuilder, Filter $filter): void
     {
-        $filter = $this->filterBuilder->setField($field)->setValue($value)->setConditionType(static::FILTER_COND_VALUE)->create();
-        $searchCriteriaBuilder->addFilter($filter);
+        $searchCriteriaBuilder->addFilter($filter->setConditionType(static::FILTER_COND_VALUE));
     }
 }

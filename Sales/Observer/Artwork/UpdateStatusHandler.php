@@ -16,7 +16,7 @@ class UpdateStatusHandler implements ObserverInterface
     protected $orderItemRepository;
 
     /** @var LoggerInterface */
-    private $logger;
+    protected $logger;
 
     public function __construct(
         LoggerInterface $logger,
@@ -31,7 +31,7 @@ class UpdateStatusHandler implements ObserverInterface
         $item = $observer->getData('item');
         $status = $observer->getData('status');
 
-        if (empty($item) || empty($status)) {
+        if (!$item || !$status) {
             return $this;
         }
 

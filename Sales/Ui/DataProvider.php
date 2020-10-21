@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Ui;
 
+use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\ReportingInterface;
 use Magento\Framework\Api\Search\SearchCriteriaBuilder;
@@ -12,10 +13,6 @@ use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider as Mage
 
 class DataProvider extends MagentoDataProvider
 {
-    protected const CUSTOM_FILTERS = [
-        'artwork_status',
-    ];
-
     /** @var array */
     protected $addFilterStrategies;
 
@@ -44,31 +41,17 @@ class DataProvider extends MagentoDataProvider
         );
 
         $this->addFilterStrategies = $addFilterStrategies;
-
-        $this->initCustomFilters();
     }
 
-    protected function initCustomFilters(): void
+    /**
+     * @inheritdoc
+     */
+    public function addFilter(Filter $filter)
     {
-        $requestParams = $this->request->getParams();
-
-        if (!array_key_exists('filters', $requestParams)) {
-            return;
-        };
-
-        $filters = $requestParams['filters'];
-
-        if (!is_array($filters) && !empty($filters)) {
-            return;
-        }
-
-        foreach ($filters as $filterField => $value) {
-
-            if (!in_array($filterField, static::CUSTOM_FILTERS)) {
-                continue;
-            }
-
-            $this->addFilterStrategies[$filterField]->addFilter($this->searchCriteriaBuilder, $filterField, $value);
+        if (!empty($this->addFilterStrategies[$filter->getField()])) {
+            $this->addFilterStrategies[$filter->getField()]->addFilter($this->searchCriteriaBuilder, $filter);
+        } else {
+            parent::addFilter($filter);
         }
     }
 }

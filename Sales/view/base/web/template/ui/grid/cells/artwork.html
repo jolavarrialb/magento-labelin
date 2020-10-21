@@ -3,11 +3,17 @@
     <!-- ko if: ($data['status'] === 'approve') -->
     <b><span style="color: #00CC00" data-bind="i18n: 'Approved'"></span></b>:
     <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'no_action') -->
+    <b><span style="color: #4C4C4C" data-bind="i18n: 'No Action'"></span></b>:
+    <!-- /ko -->
     <!-- ko if: ($data['status'] === 'decline') -->
     <b><span style="color: #FF0000" data-bind="i18n: 'Declined'"></span></b>:
     <!-- /ko -->
     <!-- ko if: ($data['status'] === 'awaiting_designer_action') -->
     <b><span style="color: #FF7400" data-bind="i18n: 'Awaiting Designer Action'"></span></b>:
+    <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'designer_is_unassigned') -->
+    <b><span style="color: #323232" data-bind="i18n: 'Designer Is Unassigned'"></span></b>:
     <!-- /ko -->
     <!-- ko if: ($data['status'] === 'awaiting_customer_approve') -->
     <b><span style="color: #009999" data-bind="i18n: 'Awaiting Customer Approve'"></span></b>:

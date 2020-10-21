@@ -77,11 +77,6 @@ class UpdateArtwork extends Action
             'comment' => $this->getRequest()->getParam('comment'),
         ]);
 
-        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-            'item' => $orderItem,
-            'status' => Artwork::ARTWORK_STATUS_AWAITING_CUSTOMER]
-        );
-
         $this->messageManager->addSuccessMessage(__('Artwork was successfully updated.'));
 
         return $this->_redirect($this->_redirect->getRefererUrl());

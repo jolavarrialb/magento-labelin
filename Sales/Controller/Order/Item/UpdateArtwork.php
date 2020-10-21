@@ -81,11 +81,6 @@ class UpdateArtwork extends Action
             return $this;
         }
 
-        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                'item' => $item,
-                'status' => Artwork::ARTWORK_STATUS_APPROVE]
-        );
-
         $this->messageManager->addSuccessMessage(__('Artwork was successfully approved.'));
 
         return $this;
@@ -111,7 +106,7 @@ class UpdateArtwork extends Action
 
             $this->_eventManager->dispatch('labelin_order_item_decline_after', [
                 'order_item' => $item,
-                'comment'    => $this->getRequest()->getParam('comment'),
+                'comment' => $this->getRequest()->getParam('comment'),
             ]);
 
             $this->orderRepository->save($order);
@@ -124,11 +119,6 @@ class UpdateArtwork extends Action
 
             return $this;
         }
-
-        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
-                'item' => $item,
-                'status' => Artwork::ARTWORK_STATUS_DECLINE]
-        );
 
         $this->messageManager->addNoticeMessage(
             __('Artwork was declined. Please wait until designer will update artwork')
