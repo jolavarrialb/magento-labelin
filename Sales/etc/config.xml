@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <labelin_sales>
             <order_configuration>
@@ -67,5 +68,19 @@
                 <copy_method>bcc</copy_method>
             </approve_artwork>
         </labelin_guest_checkout_email>
+        <labelin_order_access>
+            <shipment>
+                <user_role>1</user_role>
+            </shipment>
+            <invoice>
+                <user_role>1</user_role>
+            </invoice>
+            <reorder>
+                <user_role>1</user_role>
+            </reorder>
+            <cancel>
+                <user_role>1</user_role>
+            </cancel>
+        </labelin_order_access>
     </default>
 </config>

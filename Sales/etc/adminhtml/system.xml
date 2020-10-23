@@ -254,5 +254,43 @@
                 </field>
             </group>
         </section>
+        <section id="labelin_order_access" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Order Access</label>
+            <tab>labelin</tab>
+            <resource>Labelin_Sales::order_access_config</resource>
+            <group id="shipment" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Shipment</label>
+                <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>User Role</label>
+                    <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
+                    <comment>Selected user roles will have access to ship order</comment>
+                </field>
+            </group>
+            <group id="invoice" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Invoice</label>
+                <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>User Role</label>
+                    <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
+                    <comment>Selected user roles will have access to invoice</comment>
+                </field>
+            </group>
+            <group id="reorder" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Reorder</label>
+                <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>User Role</label>
+                    <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
+                    <comment>Selected user roles will have access to reorder</comment>
+                </field>
+            </group>
+            <group id="cancel" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Reorder</label>
+                <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>User Role</label>
+                    <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
+                    <comment>Selected user roles will have access to order cancellation</comment>
+                </field>
+            </group>
+        </section>
     </system>
 </config>

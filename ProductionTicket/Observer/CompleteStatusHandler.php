@@ -10,6 +10,7 @@ use Labelin\Sales\Model\Order;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\OrderRepositoryInterface;
 
 class CompleteStatusHandler implements ObserverInterface
@@ -50,9 +51,7 @@ class CompleteStatusHandler implements ObserverInterface
         if (!$this->productionTicketRepository->getList($searchCriteria)->getTotalCount()) {
             /** @var Order $order */
             $order = $this->orderRepository->get($productionTicket->getOrderId());
-            $order
-                ->setState(Order::STATE_COMPLETE)
-                ->setStatus($order->getConfig()->getStateDefaultStatus(Order::STATE_COMPLETE));
+            $order->markAsReadyToShip();
             $this->orderRepository->save($order);
         }
 

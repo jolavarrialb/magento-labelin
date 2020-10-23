@@ -25,10 +25,7 @@ $_item = $block->getItem();
         <?php endif; ?>
 
         <br/>
-        <?= $block->getChildBlock('customer_acceptance')->setData('item', $_item)->toHtml() ?>
-        <?= $block->getChildBlock('artwork_upload_form')->setData('item', $_item)->toHtml() ?>
-        <?= $block->getChildBlock('decline_info')->setData('item', $_item)->toHtml() ?>
-        <?= $block->getChildBlock('not_in_review_info')->setData('item', $_item)->toHtml() ?>
+        <?= $block->getChildBlock('artwork_forms_wrapper')->setData('item', $_item)->toHtml() ?>
 
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
         <?php if ($addtInfoBlock): ?>

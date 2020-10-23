@@ -1,0 +1,7 @@
+<?php /** @var $block \Labelin\Sales\Block\Order\Items\Wrapper */ ?>
+
+<?php if ($block->isAvailable()): ?>
+    <?= $block->getChildBlock('customer_acceptance')->setData('item', $block->getOrderItem())->toHtml() ?>
+    <?= $block->getChildBlock('artwork_upload_form')->setData('item', $block->getOrderItem())->toHtml() ?>
+    <?= $block->getChildBlock('decline_info')->setData('item', $block->getOrderItem())->toHtml() ?>
+<?php endif; ?>
