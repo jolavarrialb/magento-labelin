@@ -26,8 +26,8 @@ class ApproveHandler implements ObserverInterface
         $item = $observer->getData('item');
 
         try {
-            $item->approveArtwork();
             $item->approveArtworkByDesigner();
+            $item->approveArtwork();
 
             $this->messageManager->addSuccessMessage(__('Artwork was successfully approved.'));
         } catch (LocalizedException $exception) {

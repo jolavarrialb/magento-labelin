@@ -37,6 +37,10 @@ class Material implements OptionSourceInterface
             ->getSelect()
             ->group('material');
 
+        if ($collection->getSize() === 0) {
+            return [];
+        }
+
         foreach ($collection as $item) {
             /** @var ProductionTicket $item */
             $this->options[] = [
