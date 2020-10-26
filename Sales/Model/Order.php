@@ -45,10 +45,10 @@ use Magento\User\Model\User;
 
 class Order extends MagentoOrder
 {
-    public const STATUS_REVIEW        = 'designer_review';
+    public const STATUS_REVIEW = 'designer_review';
     public const STATUS_IN_PRODUCTION = 'in_production';
-    public const STATUS_OVERDUE       = 'overdue';
-    public const STATUS_PENDING       = 'pending';
+    public const STATUS_OVERDUE = 'overdue';
+    public const STATUS_PENDING = 'pending';
     public const STATUS_READY_TO_SHIP = 'ready_to_ship';
 
     /** @var array */
@@ -145,7 +145,11 @@ class Order extends MagentoOrder
 
         return !in_array(
             $this->getStatus(),
-            [static::STATUS_REVIEW, static::STATUS_IN_PRODUCTION, static::STATUS_READY_TO_SHIP,],
+            [
+                static::STATUS_REVIEW,
+                static::STATUS_IN_PRODUCTION,
+                static::STATUS_READY_TO_SHIP,
+            ],
             false
         );
     }
