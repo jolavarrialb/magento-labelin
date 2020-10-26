@@ -37,6 +37,10 @@ class Designer implements OptionSourceInterface
             ->getSelect()
             ->group('designer');
 
+        if ($collection->getSize() === 0) {
+            return [];
+        }
+
         foreach ($collection as $item) {
             /** @var ProductionTicket $item */
             $this->options[] = [
