@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Labelin\Quote\Observer\Order\Item;
 
+use Labelin\Quote\Helper\Reorder;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Session\SessionManagerInterface;
 
 class ReorderHandler implements ObserverInterface
 {
-    /** @var SessionManagerInterface */
-    protected $sessionManager;
+    /** @var Reorder */
+    protected $reorderHelper;
 
     public function __construct(
-        SessionManagerInterface $sessionManager
+        Reorder $reorderHelper
     ) {
-        $this->sessionManager = $sessionManager;
+        $this->reorderHelper = $reorderHelper;
     }
 
     public function execute(Observer $observer): self
     {
-        if (!$this->isReordered()) {
+        if (!$this->reorderHelper->isReordered()) {
             return $this;
         }
 
@@ -45,10 +45,5 @@ class ReorderHandler implements ObserverInterface
         $quote->save();
 
         return $this;
-    }
-
-    protected function isReordered(): bool
-    {
-        return (bool)$this->sessionManager->getItemsIsReordered();
     }
 }
