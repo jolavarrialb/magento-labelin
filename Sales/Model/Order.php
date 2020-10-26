@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model;
 
+use Labelin\Sales\Helper\Config\OrderAccess as OrderAccessHelper;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -48,12 +49,16 @@ class Order extends MagentoOrder
     public const STATUS_IN_PRODUCTION = 'in_production';
     public const STATUS_OVERDUE = 'overdue';
     public const STATUS_PENDING = 'pending';
+    public const STATUS_READY_TO_SHIP = 'ready_to_ship';
 
     /** @var array */
     protected $overdueAvailableStatuses;
 
     /** @var DesignerHelper */
     protected $designerHelper;
+
+    /** @var OrderAccessHelper */
+    protected $orderAccessHelper;
 
     public function __construct(
         Context $context,
@@ -80,6 +85,7 @@ class Order extends MagentoOrder
         OrderCollectionFactory $salesOrderCollectionFactory,
         PriceCurrencyInterface $priceCurrency,
         ProductCollectionFactory $productListFactory,
+        OrderAccessHelper $orderAccessHelper,
         DesignerHelper $designerHelper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
@@ -128,6 +134,7 @@ class Order extends MagentoOrder
 
         $this->overdueAvailableStatuses = $overdueAvailableStatuses;
         $this->designerHelper = $designerHelper;
+        $this->orderAccessHelper = $orderAccessHelper;
     }
 
     public function canReview(): bool
@@ -136,7 +143,15 @@ class Order extends MagentoOrder
             return false;
         }
 
-        return !in_array($this->getStatus(), [static::STATUS_REVIEW, static::STATUS_IN_PRODUCTION], false);
+        return !in_array(
+            $this->getStatus(),
+            [
+                static::STATUS_REVIEW,
+                static::STATUS_IN_PRODUCTION,
+                static::STATUS_READY_TO_SHIP,
+            ],
+            false
+        );
     }
 
     public function canOverdue(): bool
@@ -150,12 +165,53 @@ class Order extends MagentoOrder
 
     public function canReorder(): bool
     {
-        return $this->getState() === static::STATE_COMPLETE;
+        return $this->_canReorder(true) &&
+            $this->getState() === static::STATE_COMPLETE &&
+            $this->orderAccessHelper->isAllowedReorder();
+    }
+
+    public function canReorderIgnoreSalable(): bool
+    {
+        return $this->_canReorder(true) &&
+            $this->getState() === static::STATE_COMPLETE &&
+            $this->orderAccessHelper->isAllowedReorder();
+    }
+
+    public function canShip(): bool
+    {
+        $canShip = parent::canShip();
+
+        if (!$canShip) {
+            return false;
+        }
+
+        $canShip = true;
+        foreach ($this->getAllItems() as $item) {
+            if ($item->getProductType() === Configurable::TYPE_CODE) {
+                $canShip = false;
+            }
+        }
+
+        if ($canShip) {
+            return true;
+        }
+
+        return $this->orderAccessHelper->isAllowedShipment() && $this->getStatus() === static::STATUS_READY_TO_SHIP;
+    }
+
+    public function canInvoice(): bool
+    {
+        return parent::canInvoice() && $this->orderAccessHelper->isAllowedInvoicing();
+    }
+
+    public function canCancel(): bool
+    {
+        return parent::canCancel() && $this->orderAccessHelper->isAllowedCancellation();
     }
 
     public function isReadyForProduction(): bool
     {
-        if ($this->getStatus() === static::STATUS_IN_PRODUCTION) {
+        if (in_array($this->getStatus(), [static::STATUS_IN_PRODUCTION, static::STATUS_READY_TO_SHIP], false)) {
             return false;
         }
 
@@ -227,6 +283,17 @@ class Order extends MagentoOrder
         $this
             ->setStatus(static::STATUS_IN_PRODUCTION)
             ->addStatusToHistory(static::STATUS_IN_PRODUCTION, __('Order is on production'));
+
+        return $this;
+    }
+
+    public function markAsReadyToShip(): self
+    {
+        $this
+            ->setStatus(static::STATUS_READY_TO_SHIP)
+            ->addStatusToHistory(static::STATUS_READY_TO_SHIP, __('Order is ready to ship.'));
+
+        $this->_eventManager->dispatch('labelin_order_ready_to_ship_status_after', ['order' => $this]);
 
         return $this;
     }
