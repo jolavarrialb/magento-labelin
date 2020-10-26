@@ -20,13 +20,15 @@
             "artwork_approval_date": true,
             "artwork_approval_by_designer_date": true,
             "is_designer_notified_on_awaiting_customer_approve": true,
-            "artwork_status": true
+            "artwork_status": true,
+            "is_reordered": true
         },
         "index": {
             "SALES_ORDER_ITEM_ARTWORK_DECLINES_COUNT": true,
             "SALES_ORDER_ITEM_IS_ARTWORK_APPROVED": true,
             "SALES_ORDER_ITEM_IS_DESIGNER_UPDATE_ARTWORK": true,
-            "SALES_ORDER_ITEM_ARTWORK_STATUS": true
+            "SALES_ORDER_ITEM_ARTWORK_STATUS": true,
+            "SALES_ORDER_ITEM_IS_REORDERED": true
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+    "quote_item": {
+        "column": {
+            "is_reordered": true
+        },
+        "index": {
+            "QUOTE_ITEM_IS_REORDERED": true
+        }
+    }
+}
