@@ -1,7 +1,8 @@
 <?php
 
-namespace Labelin\Quote\Model\Plugin\Quote;
+declare(strict_types=1);
 
+namespace Labelin\Quote\Model\Plugin\Quote;
 
 use Magento\Quote\Model\Quote\Item\AbstractItem;
 use Magento\Quote\Model\Quote\Item\ToOrderItem;
