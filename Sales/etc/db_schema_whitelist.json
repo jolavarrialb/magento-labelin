@@ -1,10 +1,12 @@
 {
     "sales_order": {
         "column": {
-            "assigned_designer_id": true
+            "assigned_designer_id": true,
+            "is_favourite": true
         },
         "index": {
-            "SALES_ORDER_ASSIGNED_DESIGNER_ID": true
+            "SALES_ORDER_ASSIGNED_DESIGNER_ID": true,
+            "SALES_ORDER_IS_FAVOURITE": true
         },
         "constraint": {
             "SALES_ORDER_ASSIGNED_DESIGNER_ID_ADMIN_USER_USER_ID": true
