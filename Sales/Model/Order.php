@@ -209,6 +209,11 @@ class Order extends MagentoOrder
         return parent::canCancel() && $this->orderAccessHelper->isAllowedCancellation();
     }
 
+    public function canAddToFavourites(): bool
+    {
+        return true;
+    }
+
     public function isReadyForProduction(): bool
     {
         if (in_array($this->getStatus(), [static::STATUS_IN_PRODUCTION, static::STATUS_READY_TO_SHIP], false)) {
@@ -319,5 +324,32 @@ class Order extends MagentoOrder
                 'status' => $status,
             ]);
         }
+    }
+
+    public function isFavourite(): bool
+    {
+        return (bool)$this->getData('is_favourite');
+    }
+
+    /**
+     * @return $this
+     * @throws LocalizedException
+     */
+    public function markAsFavourite(): self
+    {
+        if (!$this->canAddToFavourites()) {
+            throw new LocalizedException(__('Order can\'t be added to favourites.'));
+        }
+
+        $this->setData('is_favourite', 1);
+
+        return $this;
+    }
+
+    public function removeFromFavourites(): self
+    {
+        $this->setData('is_favourite', 0);
+
+        return $this;
     }
 }

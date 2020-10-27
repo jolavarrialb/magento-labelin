@@ -12,8 +12,13 @@
                 comment="Assigned Designer"/>
         <constraint xsi:type="foreign" referenceId="ADMIN_USER_USER_ID_SALES_ORDER_ASSIGNED_DESIGNER_ID" table="sales_order"
                     column="assigned_designer_id" referenceTable="admin_user" referenceColumn="user_id" onDelete="SET NULL" />
+        <column xsi:type="tinyint" name="is_favourite" unsigned="true" nullable="false" default="0" identity="false"
+                comment="Is Order In Favourites For User"/>
         <index referenceId="ADMIN_USER_USER_ID" indexType="btree">
             <column name="assigned_designer_id"/>
+        </index>
+        <index referenceId="SALES_ORDER_IS_FAVOURITE" indexType="btree">
+            <column name="is_favourite"/>
         </index>
     </table>
     <table name="sales_order_item">
