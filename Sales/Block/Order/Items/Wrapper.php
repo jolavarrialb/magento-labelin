@@ -37,7 +37,8 @@ class Wrapper extends Template
             return false;
         }
 
-        return $order->getState() === Order::STATE_NEW && $order->getStatus() === Order::STATUS_REVIEW;
+        return ($order->getState() === Order::STATE_NEW || $order->getState() === Order::STATE_HOLDED) &&
+            ($order->getStatus() === Order::STATUS_REVIEW || $order->getStatus() === Order::STATE_HOLDED);
     }
 
     public function getOrderItem(): ?Item
