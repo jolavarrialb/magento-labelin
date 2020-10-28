@@ -1,0 +1,14 @@
+{
+    "name": "labelin/quote",
+    "license": "Commercial",
+    "description": "Labelin Quote",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\Quote\\": ""
+        }
+    }
+}
