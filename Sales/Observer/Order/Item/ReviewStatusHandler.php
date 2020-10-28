@@ -21,14 +21,14 @@ class ReviewStatusHandler implements ObserverInterface
     /** @var LoggerInterface */
     protected $logger;
 
-    /** @var Artwork  */
+    /** @var Artwork */
     protected $artworkHelper;
 
     public function __construct(
         OrderItemRepositoryInterface $orderItemRepository,
         Artwork $artworkHelper,
-        LoggerInterface $logger)
-    {
+        LoggerInterface $logger
+    ) {
         $this->orderItemRepository = $orderItemRepository;
         $this->logger = $logger;
         $this->artworkHelper = $artworkHelper;

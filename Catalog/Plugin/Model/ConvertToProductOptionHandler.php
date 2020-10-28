@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Labelin\Catalog\Plugin\Model;
-
 
 use Magento\Catalog\Model\CustomOptions\CustomOptionFactory;
 use Magento\Catalog\Model\ProductOptionProcessor;
@@ -13,9 +13,8 @@ class ConvertToProductOptionHandler
     /** @var CustomOptionFactory */
     protected $customOptionFactory;
 
-    public function __construct(
-        CustomOptionFactory $customOptionFactory
-    ) {
+    public function __construct(CustomOptionFactory $customOptionFactory)
+    {
         $this->customOptionFactory = $customOptionFactory;
     }
 

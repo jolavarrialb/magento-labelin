@@ -12,10 +12,8 @@ class Reorder
     /** @var SessionManagerInterface */
     protected $sessionManager;
 
-    public function __construct(
-        SessionManagerInterface $sessionManager
-
-    ) {
+    public function __construct(SessionManagerInterface $sessionManager)
+    {
         $this->sessionManager = $sessionManager;
     }
 
