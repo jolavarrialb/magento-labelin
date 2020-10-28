@@ -16,5 +16,9 @@
             <block class="Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtWork" name="labelin.sales.adminhtml.order.item.renderers.default.artwork" as="admin.artwork" template="Labelin_Sales::order/items/renderer/default/artwork.phtml" />
             <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_column_name_extra_info"/>
         </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Labelin\Sales\Block\Adminhtml\Order\View" name="sales_order_edit"/>
+            <block class="Labelin\Sales\Block\Adminhtml\Order\View" name="paypal_order_view"/>
+        </referenceContainer>
     </body>
 </page>

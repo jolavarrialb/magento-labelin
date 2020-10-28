@@ -75,9 +75,6 @@
             <invoice>
                 <user_role>1</user_role>
             </invoice>
-            <reorder>
-                <user_role>1</user_role>
-            </reorder>
             <cancel>
                 <user_role>1</user_role>
             </cancel>
