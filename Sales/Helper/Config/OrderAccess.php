@@ -14,7 +14,6 @@ class OrderAccess extends AbstractHelper
 {
     protected const XML_PATH_SHIPMENT_ACCESS_GROUP_ROLE = 'labelin_order_access/shipment/user_role';
     protected const XML_PATH_INVOICE_ACCESS_GROUP_ROLE  = 'labelin_order_access/invoice/user_role';
-    protected const XML_PATH_REORDER_ACCESS_GROUP_ROLE  = 'labelin_order_access/reorder/user_role';
     protected const XML_PATH_CANCEL_ACCESS_GROUP_ROLE   = 'labelin_order_access/cancel/user_role';
 
     /** @var Session */
@@ -49,19 +48,6 @@ class OrderAccess extends AbstractHelper
         return in_array(
             $this->getCurrentAuthUser()->getAclRole(),
             $this->getRolesByPath(static::XML_PATH_INVOICE_ACCESS_GROUP_ROLE),
-            false
-        );
-    }
-
-    public function isAllowedReorder(): bool
-    {
-        if (!$this->getCurrentAuthUser()) {
-            return false;
-        }
-
-        return in_array(
-            $this->getCurrentAuthUser()->getAclRole(),
-            $this->getRolesByPath(static::XML_PATH_REORDER_ACCESS_GROUP_ROLE),
             false
         );
     }

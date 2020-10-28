@@ -165,47 +165,12 @@ class Order extends MagentoOrder
 
     public function canReorder(): bool
     {
-        return $this->_canReorder(true) &&
-            $this->getState() === static::STATE_COMPLETE;
+        return $this->_canReorder(true) && $this->getState() === static::STATE_COMPLETE;
     }
 
     public function canReorderIgnoreSalable(): bool
     {
-        return $this->_canReorder(true) &&
-            $this->getState() === static::STATE_COMPLETE &&
-            $this->orderAccessHelper->isAllowedReorder();
-    }
-
-    public function canShip(): bool
-    {
-        $canShip = parent::canShip();
-
-        if (!$canShip) {
-            return false;
-        }
-
-        $canShip = true;
-        foreach ($this->getAllItems() as $item) {
-            if ($item->getProductType() === Configurable::TYPE_CODE) {
-                $canShip = false;
-            }
-        }
-
-        if ($canShip) {
-            return true;
-        }
-
-        return $this->orderAccessHelper->isAllowedShipment() && $this->getStatus() === static::STATUS_READY_TO_SHIP;
-    }
-
-    public function canInvoice(): bool
-    {
-        return parent::canInvoice() && $this->orderAccessHelper->isAllowedInvoicing();
-    }
-
-    public function canCancel(): bool
-    {
-        return parent::canCancel() && $this->orderAccessHelper->isAllowedCancellation();
+        return $this->_canReorder(true) && $this->getState() === static::STATE_COMPLETE;
     }
 
     public function canAddToFavourites(): bool
@@ -350,5 +315,10 @@ class Order extends MagentoOrder
         $this->setData('is_favourite', 0);
 
         return $this;
+    }
+
+    public function getAccessor(): OrderAccessHelper
+    {
+        return $this->orderAccessHelper;
     }
 }

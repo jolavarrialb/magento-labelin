@@ -275,16 +275,8 @@
                     <comment>Selected user roles will have access to invoice</comment>
                 </field>
             </group>
-            <group id="reorder" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>Reorder</label>
-                <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>User Role</label>
-                    <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
-                    <comment>Selected user roles will have access to reorder</comment>
-                </field>
-            </group>
             <group id="cancel" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>Reorder</label>
+                <label>Cancel</label>
                 <field id="user_role" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>User Role</label>
                     <source_model>Labelin\Sales\Model\Config\Source\RoleAccessOptions</source_model>
