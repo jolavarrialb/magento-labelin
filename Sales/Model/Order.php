@@ -166,8 +166,7 @@ class Order extends MagentoOrder
     public function canReorder(): bool
     {
         return $this->_canReorder(true) &&
-            $this->getState() === static::STATE_COMPLETE &&
-            $this->orderAccessHelper->isAllowedReorder();
+            $this->getState() === static::STATE_COMPLETE;
     }
 
     public function canReorderIgnoreSalable(): bool
