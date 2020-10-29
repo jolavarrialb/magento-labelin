@@ -15,7 +15,8 @@
       "ProductionTicket/registration.php",
       "Checkout/registration.php",
       "ContactUs/registration.php",
-      "Catalog/registration.php"
+      "Catalog/registration.php",
+      "Quote/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
@@ -23,7 +24,8 @@
       "Labelin\\ProductionTicket\\": "ProductionTicket",
       "Labelin\\Checkout\\": "Checkout",
       "Labelin\\ContactUs\\": "ContactUs",
-      "Labelin\\Catalog\\": "Catalog"
+      "Labelin\\Catalog\\": "Catalog",
+      "Labelin\\Quote\\": "Quote"
     }
   }
 }
