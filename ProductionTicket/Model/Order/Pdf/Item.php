@@ -126,9 +126,11 @@ class Item extends AbstractPdf
     protected function drawItemByType(string $type, OrderItem $item, Zend_Pdf_Page $page): void
     {
         $order = $item->getOrder();
+        $productType = $item->getProductType();
         $item->setProductType($type);
         $item->setOrderItem($item);
         $this->_drawItem($item, $page, $order);
+        $item->setProductType($productType);
     }
 
     protected function insertItemHeader(Zend_Pdf_Page $page): void

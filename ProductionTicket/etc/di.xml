@@ -3,6 +3,7 @@
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketRepositoryInterface" type="Labelin\ProductionTicket\Model\ProductionTicketRepository"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketInterface" type="Labelin\ProductionTicket\Model\ProductionTicket"/>
     <preference for="Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Labelin\Sales\Model\Order" type="Labelin\ProductionTicket\Model\Order"/>
     <preference for="Labelin\Sales\Model\Order\Item" type="Labelin\ProductionTicket\Model\Order\Item"/>
     <preference for="Magento\Framework\Mail\Template\TransportBuilder" type="Labelin\ProductionTicket\Model\Mail\Template\TransportBuilder" />
     <preference for="Magento\Sales\Model\Order\Email\SenderBuilder" type="Labelin\ProductionTicket\Model\Order\Email\SenderBuilder"/>

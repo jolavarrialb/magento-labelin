@@ -53,7 +53,7 @@ class InProduction extends Action
             $item->markAsInProduction();
             $this->orderItemRepository->save($item);
 
-            if ($order->isReadyForProduction()) {
+            if ($order->isAllItemsReadyForProduction()) {
                 $order->markAsProduction();
                 $this->orderRepository->save($order);
             }
