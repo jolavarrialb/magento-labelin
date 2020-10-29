@@ -24,7 +24,7 @@ class ProductionButton
 
     public function beforeSetLayout(MageView $subject): void
     {
-        if (!$subject->getOrder()->isReadyForProduction()) {
+        if (!$subject->getOrder()->isAllItemsReadyForProduction() || $subject->getOrder()->isAllItemsInProduction()) {
             return;
         }
 

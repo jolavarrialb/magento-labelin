@@ -143,6 +143,10 @@ class Order extends MagentoOrder
             return false;
         }
 
+        if (!$this->getData('assigned_designer_id')) {
+            return false;
+        }
+
         return !in_array(
             $this->getStatus(),
             [
@@ -176,24 +180,6 @@ class Order extends MagentoOrder
     public function canAddToFavourites(): bool
     {
         return true;
-    }
-
-    public function isReadyForProduction(): bool
-    {
-        if (in_array($this->getStatus(), [static::STATUS_IN_PRODUCTION, static::STATUS_READY_TO_SHIP], false)) {
-            return false;
-        }
-
-        $isReadyForProduction = true;
-
-        foreach ($this->getAllItems() as $item) {
-            /** @var Item $item */
-            if ($item->getProductType() === Configurable::TYPE_CODE && !$item->isArtworkApproved()) {
-                $isReadyForProduction = false;
-            }
-        }
-
-        return $isReadyForProduction;
     }
 
     public function getOverdueAvailableStatuses(): array
@@ -235,23 +221,6 @@ class Order extends MagentoOrder
             ->addStatusToHistory(static::STATUS_OVERDUE, __('Order putted on overdue'));
 
         $this->_eventManager->dispatch('labelin_order_overdue_status_after', ['order' => $this]);
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     * @throws LocalizedException
-     */
-    public function markAsProduction(): self
-    {
-        if (!$this->isReadyForProduction()) {
-            throw new LocalizedException(__('An production action is not available.'));
-        }
-
-        $this
-            ->setStatus(static::STATUS_IN_PRODUCTION)
-            ->addStatusToHistory(static::STATUS_IN_PRODUCTION, __('Order is on production'));
 
         return $this;
     }
