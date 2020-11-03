@@ -60,7 +60,12 @@ class ArtworkInProductionSender extends Sender
 
     protected function prepareTemplate(\Magento\Sales\Model\Order $order)
     {
+        $this->templateContainer->setTemplateOptions($this->getTemplateOptions());
+        $templateId = $this->identityContainer->getTemplateId();
+
         $this->identityContainer->setCustomerEmail($order->getCustomerEmail());
         $this->identityContainer->setCustomerName($order->getCustomerName());
+
+        $this->templateContainer->setTemplateId($templateId);
     }
 }

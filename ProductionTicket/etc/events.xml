@@ -6,7 +6,7 @@
     <event name="labelin_order_item_production_status_after">
         <observer name="order_item_attached_files_creation_handler"  instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionAttachedFilesHandler" />
         <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusHandler" />
-        <observer name="order_item_in_production_email_sender" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusEmailHandler.php"/>
+        <observer name="order_item_in_production_email_sender" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusEmailHandler"/>
     </event>
     <event name="labelin_production_ticket_save_after">
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />

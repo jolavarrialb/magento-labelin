@@ -25,6 +25,10 @@ class InProductionStatusEmailHandler implements ObserverInterface
         /** @var Item $item */
         $item = $observer->getData('item');
 
+        if (!$item) {
+            return $this;
+        }
+
         $this->inProductionSender->send($item);
 
         return $this;

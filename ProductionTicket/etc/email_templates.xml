@@ -12,7 +12,7 @@
               label="Move Item In Production"
               file="artwork_in_production.html"
               type="html"
-              module="Labelin_Sales"
+              module="Labelin_ProductionTicket"
               area="frontend"
     />
 </config>

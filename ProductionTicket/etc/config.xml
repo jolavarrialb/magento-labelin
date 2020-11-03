@@ -10,7 +10,7 @@
             </to_programmer>
             <artwork_item_in_production>
                 <enabled>1</enabled>
-                <template>labelin_sales_email_artwork_item_in_production_template</template>
+                <template>labelin_production_ticket_email_artwork_item_in_production_template</template>
                 <identity>sales</identity>
                 <copy_method>bcc</copy_method>
             </artwork_item_in_production>

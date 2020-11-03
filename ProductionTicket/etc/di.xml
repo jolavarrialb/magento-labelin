@@ -56,6 +56,7 @@
     <virtualType name="ArtworkItemInProduction" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
         <arguments>
             <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_production_ticket_email/artwork_item_in_production/enabled</item>
                 <item name="template" xsi:type="string">labelin_production_ticket_email/artwork_item_in_production/template</item>
                 <item name="identity" xsi:type="string">labelin_production_ticket_email/artwork_item_in_production/identity</item>
                 <item name="copy_to" xsi:type="string">labelin_production_ticket_email/artwork_item_in_production/copy_to</item>
