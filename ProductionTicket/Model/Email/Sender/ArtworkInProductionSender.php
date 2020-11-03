@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Labelin\Sales\Model\Artwork\Email\Sender;
+namespace Labelin\ProductionTicket\Model\Email\Sender;
 
 use Labelin\Sales\Model\Artwork\Email\Container\Identity;
 use Labelin\Sales\Model\Order;
@@ -56,5 +56,11 @@ class ArtworkInProductionSender extends Sender
         $this->templateContainer->setTemplateVars($transportObject->getData());
 
         $this->checkAndSend($order);
+    }
+
+    protected function prepareTemplate(\Magento\Sales\Model\Order $order)
+    {
+        $this->identityContainer->setCustomerEmail($order->getCustomerEmail());
+        $this->identityContainer->setCustomerName($order->getCustomerName());
     }
 }

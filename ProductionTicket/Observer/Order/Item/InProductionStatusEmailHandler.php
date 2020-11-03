@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Labelin\Sales\Observer\Order\Item;
+namespace Labelin\ProductionTicket\Observer\Order\Item;
 
 use Labelin\Sales\Model\Order\Item;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Labelin\Sales\Model\Artwork\Email\Sender\ArtworkInProductionSender;
+use Labelin\ProductionTicket\Model\Email\Sender\ArtworkInProductionSender;
 
-class InProductionStatusHandler implements ObserverInterface
+class InProductionStatusEmailHandler implements ObserverInterface
 {
     /** @var ArtworkInProductionSender */
     protected $inProductionSender;

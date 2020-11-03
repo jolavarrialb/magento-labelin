@@ -50,12 +50,6 @@
                 <identity>sales</identity>
                 <copy_method>bcc</copy_method>
             </artwork_awaiting_customer_approve>
-            <artwork_item_in_production>
-                <enabled>1</enabled>
-                <template>labelin_sales_email_artwork_item_in_production_template</template>
-                <identity>sales</identity>
-                <copy_method>bcc</copy_method>
-            </artwork_item_in_production>
         </labelin_sales_email>
         <labelin_guest_checkout_email>
             <welcome_email_with_artwork>

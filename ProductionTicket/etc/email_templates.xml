@@ -8,4 +8,11 @@
               module="Labelin_ProductionTicket"
               area="frontend"
     />
+    <template id="labelin_production_ticket_email_artwork_item_in_production_template"
+              label="Move Item In Production"
+              file="artwork_in_production.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
 </config>

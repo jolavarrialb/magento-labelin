@@ -35,7 +35,4 @@
     <event name="labelin_sales_order_item_guest_artwork_decline">
         <observer name="order_item_guest_artwork_decline" instance="Labelin\Sales\Observer\Artwork\GuestCheckout\DeclineHandler"/>
     </event>
-    <event name="labelin_order_item_production_status_after">
-        <observer name="order_item_in_production_email_sender" instance="Labelin\Sales\Observer\Order\Item\InProductionStatusHandler.php"/>
-    </event>
 </config>

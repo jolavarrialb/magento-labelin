@@ -90,16 +90,6 @@
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="ArtworkItemInProduction" type="Labelin\Sales\Model\Artwork\Email\Container\Identity">
-        <arguments>
-            <argument name="xmlPathSettings" xsi:type="array">
-                <item name="template" xsi:type="string">labelin_sales_email/artwork_item_in_production/template</item>
-                <item name="identity" xsi:type="string">labelin_sales_email/artwork_item_in_production/identity</item>
-                <item name="copy_to" xsi:type="string">labelin_sales_email/artwork_item_in_production/copy_to</item>
-                <item name="copy_method" xsi:type="string">labelin_sales_email/artwork_item_in_production/copy_method</item>
-            </argument>
-        </arguments>
-    </virtualType>
     <virtualType name="GuestCheckoutWelcomeWithArtwork" type="Labelin\Sales\Model\Artwork\Email\Container\GuestCheckout\Welcome\WithArtworkIdentity">
         <arguments>
             <argument name="xmlPathSettings" xsi:type="array">
@@ -133,11 +123,6 @@
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\ApproveSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">ApproveIdentity</argument>
-        </arguments>
-    </type>
-    <type name="Labelin\Sales\Model\Artwork\Email\Sender\ArtworkInProductionSender">
-        <arguments>
-            <argument name="identityContainer" xsi:type="object">ArtworkItemInProduction</argument>
         </arguments>
     </type>
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\DeclineSender">
