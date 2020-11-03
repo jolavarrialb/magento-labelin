@@ -1,0 +1,14 @@
+{
+    "name": "labelin/designer-report",
+    "license": "Commercial",
+    "description": "Labelin Designer Report",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\DesignerReport\\": ""
+        }
+    }
+}

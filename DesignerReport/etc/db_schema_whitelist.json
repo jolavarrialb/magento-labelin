@@ -1,0 +1,50 @@
+{
+    "labelin_designer_report_aggregated_daily": {
+        "column": {
+            "entity_id": true,
+            "period": true,
+            "store_id": true,
+            "designer_name": true,
+            "production_ticket_qty": true
+        },
+        "index": {
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_DAILY_PERIOD_STORE_ID": true,
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_DAILY_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "labelin_designer_report_aggregated_monthly": {
+        "column": {
+            "entity_id": true,
+            "period": true,
+            "store_id": true,
+            "designer_name": true,
+            "production_ticket_qty": true
+        },
+        "index": {
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_MONTHLY_PERIOD_STORE_ID": true,
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_MONTHLY_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "labelin_designer_report_aggregated_yearly": {
+        "column": {
+            "entity_id": true,
+            "period": true,
+            "store_id": true,
+            "designer_name": true,
+            "production_ticket_qty": true
+        },
+        "index": {
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_YEARLY_PERIOD_STORE_ID": true,
+            "LABELIN_DESIGNER_REPORT_AGGREGATED_YEARLY_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

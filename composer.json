@@ -16,7 +16,8 @@
       "Checkout/registration.php",
       "ContactUs/registration.php",
       "Catalog/registration.php",
-      "Quote/registration.php"
+      "Quote/registration.php",
+      "DesignerReport/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
@@ -25,7 +26,8 @@
       "Labelin\\Checkout\\": "Checkout",
       "Labelin\\ContactUs\\": "ContactUs",
       "Labelin\\Catalog\\": "Catalog",
-      "Labelin\\Quote\\": "Quote"
+      "Labelin\\Quote\\": "Quote",
+      "Labelin\\DesignerReport\\": "DesignerReport"
     }
   }
 }
