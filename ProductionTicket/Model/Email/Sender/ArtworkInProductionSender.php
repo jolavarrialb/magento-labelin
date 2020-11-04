@@ -47,9 +47,9 @@ class ArtworkInProductionSender extends Sender
         }
 
         $transport = [
-            'item'          => $item,
+            'itemId' => $item->getId(),
             'customer_name' => $order->getCustomerName(),
-            'order_url'     => $this->urlBuilder->getUrl('sales/order/view', ['order_id' => $order->getId()]),
+            'order_url' => $this->urlBuilder->getUrl('sales/order/view', ['order_id' => $order->getId()]),
         ];
 
         $transportObject = new DataObject($transport);
@@ -60,12 +60,9 @@ class ArtworkInProductionSender extends Sender
 
     protected function prepareTemplate(\Magento\Sales\Model\Order $order)
     {
-        $this->templateContainer->setTemplateOptions($this->getTemplateOptions());
-        $templateId = $this->identityContainer->getTemplateId();
+        parent::prepareTemplate($order);
 
         $this->identityContainer->setCustomerEmail($order->getCustomerEmail());
         $this->identityContainer->setCustomerName($order->getCustomerName());
-
-        $this->templateContainer->setTemplateId($templateId);
     }
 }

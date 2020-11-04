@@ -1,4 +1,4 @@
-<!--@subject {{trans "Artwork In Production"}} @-->
+<!--@subject {{trans "Artwork Item %Id Now Is In Production" Id=$itemId}} @-->
 {{template config_path="design/email/header_template"}}
 <table style="float:left; margin-right: 10px" class="fue-abc-items">
     <tr>
@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td>
-            One of your order item has been accepted <b>in production</b>.
+            "Artwork item <b>{{var $itemId}}</b>  has been accepted <b>in production</b>.
         </td>
     </tr>
     <tr>
