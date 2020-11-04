@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Labelin\DesignerReport\Model\ResourceModel\Report\DesignerReport;
 
@@ -16,6 +17,8 @@ use Psr\Log\LoggerInterface;
 
 class Collection extends BestsellersCollection
 {
+    protected const ORDERED_FIELD = 'production_ticket_qty';
+
     /** @var array */
     protected $_selectedColumns = [];
 
@@ -48,13 +51,11 @@ class Collection extends BestsellersCollection
 
     protected function getOrderedField(): string
     {
-        return 'production_ticket_qty';
+        return static::ORDERED_FIELD;
     }
 
     protected function _getSelectedColumns(): array
     {
-        $connection = $this->getConnection();
-
         if ($this->_selectedColumns) {
             return $this->_selectedColumns;
         }
@@ -63,10 +64,12 @@ class Collection extends BestsellersCollection
             return $this->getAggregatedColumns();
         }
 
+        $connection = $this->getConnection();
+
         $this->_selectedColumns = [
             'period' => sprintf('MAX(%s)', $connection->getDateFormatSql('period', '%Y-%m-%d')),
             $this->getOrderedField() => 'SUM(' . $this->getOrderedField() . ')',
-            'designer_name' => 'MAX(designer_name)',
+            'designer_name' => 'designer_name',
         ];
 
         if (DesignerReport::TYPE_YEAR === $this->_period) {
@@ -133,15 +136,25 @@ class Collection extends BestsellersCollection
             return $this;
         }
 
-        if (DesignerReport::TYPE_YEAR === $this->_period) {
-            $mainTable = $this->getTable($this->getTableByAggregationPeriod('yearly'));
-            $select->from($mainTable, $this->_getSelectedColumns());
-        } elseif (DesignerReport::TYPE_MONTH === $this->_period) {
-            $mainTable = $this->getTable($this->getTableByAggregationPeriod('monthly'));
-            $select->from($mainTable, $this->_getSelectedColumns());
-        } else {
-            $mainTable = $this->getTable($this->getTableByAggregationPeriod('daily'));
-            $select->from($mainTable, $this->_getSelectedColumns());
+        switch ($this->_period) {
+            case DesignerReport::TYPE_YEAR:
+                $select->from(
+                    $this->getTable($this->getTableByAggregationPeriod('yearly')),
+                    $this->_getSelectedColumns()
+                );
+                break;
+            case DesignerReport::TYPE_MONTH:
+                $select->from(
+                    $this->getTable($this->getTableByAggregationPeriod('monthly')),
+                    $this->_getSelectedColumns()
+                );
+                break;
+            default:
+                $select->from(
+                    $this->getTable($this->getTableByAggregationPeriod('daily')),
+                    $this->_getSelectedColumns()
+                );
+                break;
         }
 
         if (!$this->isTotals()) {
