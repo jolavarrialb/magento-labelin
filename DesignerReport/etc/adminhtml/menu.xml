@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Labelin_DesignerReport::report_designerreport"
+             title="Designer Report"
+             module="Labelin_DesignerReport"
+             sortOrder="30"
+             parent="Magento_Reports::report_salesroot"
+             action="labelin_designerreport/report_sales/designerReport"
+             resource="Magento_Reports::salesroot"/>
+    </menu>
+</config>
