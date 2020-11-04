@@ -1,0 +1,20 @@
+<!--@subject {{trans "Artwork Item %Id Now Is In Production" Id=$itemId}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="float:left; margin-right: 10px" class="fue-abc-items">
+    <tr>
+        <td>
+            <div class="greeting">Hi, {{var customer_name}}.</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            "Artwork item <b>{{var $itemId}}</b>  has been accepted <b>in production</b>.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Please click <a href="{{var order_url | raw}}">link</a> if you want to see the details in your account.
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

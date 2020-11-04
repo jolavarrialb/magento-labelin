@@ -3,4 +3,13 @@
     <head>
         <link src="Labelin_Sales::js/artworkacceptance.js" />
     </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="order_items">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Labelin_Sales::order/items.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
 </page>

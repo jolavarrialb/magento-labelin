@@ -3,6 +3,9 @@
 $_item = $block->getItem();
 ?>
 <tr id="order-item-row-<?= (int)$_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtml(__('ID')) ?>">
+        <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getId()) ?></strong>
+    </td>
     <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
         <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
         <?php if ($_options = $block->getItemOptions()): ?>
