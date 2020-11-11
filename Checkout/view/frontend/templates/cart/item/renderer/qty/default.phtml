@@ -1,0 +1,14 @@
+<?php /** @var $block \Labelin\Checkout\Block\Cart\Item\Renderer\Qty\DefaultRenderer */ ?>
+<?php $item = $block->getItem(); ?>
+
+<input id="cart-<?= $block->escapeHtmlAttr($item->getId()) ?>-qty"
+       name="cart[<?= $block->escapeHtmlAttr($item->getId()) ?>][qty]"
+       data-cart-item-id="<?= $block->escapeHtmlAttr($item->getSku()) ?>"
+       value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+       type="number"
+       size="4"
+       step="any"
+       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+       class="input-text qty"
+       data-validate="{required:true,'validate-greater-than-zero':true}"
+       data-role="cart-item-qty"/>
