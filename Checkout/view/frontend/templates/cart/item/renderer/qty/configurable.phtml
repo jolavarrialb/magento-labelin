@@ -1,0 +1,23 @@
+<?php /** @var $block \Labelin\Checkout\Block\Cart\Item\Renderer\Qty\Configurable */ ?>
+<?php $item = $block->getItem(); ?>
+
+<?php if ($block->isAvailableAdvancedQty()): ?>
+    <select id="cart-<?= $block->escapeHtmlAttr($item->getId()) ?>-qty"
+            name="cart[<?= $block->escapeHtmlAttr($item->getId()) ?>][qty]"
+            data-cart-item-id="<?= $block->escapeHtmlAttr($item->getSku()) ?>"
+            title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+            class="input-text qty"
+            data-validate="{required:true,'validate-greater-than-zero':true}"
+            data-role="cart-item-qty"
+    >
+        <?php foreach ($block->getAdvancedQty() as $advancedQty): ?>
+            <option
+                value="<?= (int)$advancedQty->getQty() ?>"
+                <?php if ((int)$advancedQty->getQty() === $block->getQty()): ?> selected <?php endif; ?>>
+                <?= (int)$advancedQty->getQty() ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+<?php else: ?>
+    <?= $block->getLayout()->getBlock('checkout.cart.item.renderers.qty.default')->setData('item', $item)->toHtml() ?>
+<?php endif; ?>

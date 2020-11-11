@@ -2,6 +2,8 @@
 /** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
 /**  @var $viewModel Labelin\Checkout\ViewModel\CheckoutCartForm */
 
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
 $_item = $block->getItem();
 $product = $_item->getProduct();
 $isVisibleProduct = $product->isVisibleInSiteVisibility();
@@ -91,14 +93,20 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <?= $block->getUnitPriceHtml($_item) ?>
         </td>
     <?php endif; ?>
-    <td class="col qty price" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
-        <span class="price-excluding-tax">
-            <span class="cart-price">
-                <span class="price"><?= $block->escapeHtmlAttr($block->getQty()) ?></span>
-            </span>
-        </span>
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+        <div class="field qty">
+            <div class="control qty">
+                <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty">
+                    <span class="label"><?= $block->escapeHtml(__('Qty')) ?></span>
+                    <?php if ($_item->getProduct()->getTypeId() === Configurable::TYPE_CODE): ?>
+                        <?= $block->getChildBlock('renderer_qty_configurable')->setData('item', $_item)->toHtml() ?>
+                    <?php else: ?>
+                        <?= $block->getChildBlock('renderer_qty_default')->setData('item', $_item)->toHtml() ?>
+                    <?php endif; ?>
+                </label>
+            </div>
+        </div>
     </td>
-
     <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
         <?php if ($canApplyMsrp):?>
             <span class="cart msrp subtotal">--</span>
