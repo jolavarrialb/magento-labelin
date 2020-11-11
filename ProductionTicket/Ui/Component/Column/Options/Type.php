@@ -4,19 +4,61 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Ui\Component\Column\Options;
 
-use Labelin\ProductionTicket\Model\Order\Item;
-use Magento\Catalog\Model\Product;
-use Magento\Eav\Model\Entity\Attribute\AttributeInterface;
-use Magento\Framework\Exception\LocalizedException;
+use Labelin\ProductionTicket\Model\ProductionTicket;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\Collection;
+use Labelin\ProductionTicket\Model\ResourceModel\ProductionTicket\CollectionFactory;
+use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 
-class Type extends AbstractAttributeOption
+class Type implements OptionSourceInterface
 {
-    /**
-     * @return AttributeInterface|null
-     * @throws LocalizedException
-     */
-    public function getAttribute(): ?AttributeInterface
+    /** @var array */
+    protected $options;
+
+    /** @var CollectionFactory */
+    protected $collectionFactory;
+
+    public function __construct(CollectionFactory $collectionFactory)
     {
-        return $this->eavConfig->getAttribute(Product::ENTITY, Item::ATTRIBUTE_CODE_STICKER_TYPE);
+        $this->collectionFactory = $collectionFactory;
+    }
+
+    public function toOptionArray(): array
+    {
+        if ($this->options) {
+            return $this->options;
+        }
+
+        $collection = $this
+            ->initCollection()
+            ->addFieldToFilter('type', ['notnull' => true]);
+
+        $collection
+            ->getSelect()
+            ->group('type');
+
+        if ($collection->getSize() === 0) {
+            return [];
+        }
+
+        foreach ($collection as $item) {
+            /** @var ProductionTicket $item */
+            $this->options[] = [
+                'value' => $item->getType(),
+                'label' => $item->getType(),
+            ];
+        }
+
+        return $this->options;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return Collection|SearchResult
+     */
+    protected function initCollection(array $data = [])
+    {
+        return $this->collectionFactory->create($data);
     }
 }
