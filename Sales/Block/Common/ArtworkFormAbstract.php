@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Block\Common;
 
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
+use Labelin\Sales\Helper\Instructions as InstructionsHelper;
 use Labelin\Sales\Model\Order;
 use Labelin\Sales\Model\Order\Item;
 use Magento\Framework\View\Element\Template;
@@ -15,9 +16,17 @@ abstract class ArtworkFormAbstract extends Template
     /** @var ArtworkHelper */
     protected $artworkHelper;
 
-    public function __construct(Template\Context $context, ArtworkHelper $artworkHelper, array $data = [])
-    {
+    /** @var InstructionsHelper */
+    protected $instructionsHelper;
+
+    public function __construct(
+        Template\Context $context,
+        ArtworkHelper $artworkHelper,
+        InstructionsHelper $instructionsHelper,
+        array $data = []
+    ) {
         $this->artworkHelper = $artworkHelper;
+        $this->instructionsHelper = $instructionsHelper;
 
         parent::__construct($context, $data);
     }
@@ -34,7 +43,8 @@ abstract class ArtworkFormAbstract extends Template
             return false;
         }
 
-        return $this->artworkHelper->isArtworkAttachedToOrderItem($this->getOrderItem()) &&
+        return ($this->artworkHelper->isArtworkAttachedToOrderItem($this->getOrderItem()) ||
+                $this->instructionsHelper->isInstructionsAttachedToOrderItem($orderItem)) &&
             !$orderItem->isArtworkApproved() &&
             $orderItem->getOrder()->getStatus() === Order::STATUS_REVIEW;
     }
