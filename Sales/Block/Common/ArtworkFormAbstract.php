@@ -25,10 +25,10 @@ abstract class ArtworkFormAbstract extends Template
         InstructionsHelper $instructionsHelper,
         array $data = []
     ) {
+        parent::__construct($context, $data);
+
         $this->artworkHelper = $artworkHelper;
         $this->instructionsHelper = $instructionsHelper;
-
-        parent::__construct($context, $data);
     }
 
     public function isFormAvailable(): bool
