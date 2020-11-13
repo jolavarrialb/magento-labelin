@@ -37,7 +37,15 @@ class Wrapper extends Template
             return false;
         }
 
-        return $order->isAvailableCustomerReview();
+        if ($order->getState() === Order::STATE_HOLDED &&
+            $order->getStatus() === Order::STATE_HOLDED &&
+            !$this->artworkHelper->isArtworkAttachedToOrderItem($this->getOrderItem())
+        ) {
+            return true;
+        }
+
+        return $order->isAvailableCustomerReview() &&
+            $this->artworkHelper->isArtworkAttachedToOrderItem($this->getOrderItem());
     }
 
     public function getOrderItem(): ?Item

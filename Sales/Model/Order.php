@@ -294,8 +294,7 @@ class Order extends MagentoOrder
     public function isAvailableCustomerReview(): bool
     {
         return ($this->getState() === static::STATE_NEW ||
-                $this->getState() === static::STATE_HOLDED ||
                 $this->getState() === static::STATE_PROCESSING) &&
-            ($this->getStatus() === static::STATUS_REVIEW || $this->getStatus() === static::STATE_HOLDED);
+            $this->getStatus() === static::STATUS_REVIEW;
     }
 }
