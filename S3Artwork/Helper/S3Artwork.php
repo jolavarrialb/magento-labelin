@@ -169,7 +169,6 @@ class S3Artwork extends AbstractHelper
         return $this->fileSystem->getDirectoryWrite($this->directoryList::PUB);
     }
 
-
     /**
      * @param Item|null $item
      * @return string
@@ -178,6 +177,4 @@ class S3Artwork extends AbstractHelper
     {
         return sprintf('/orderId_%s/itemId_%s/', $item->getOrderId(), $item->getId());
     }
-
-
 }
