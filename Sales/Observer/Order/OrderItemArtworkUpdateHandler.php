@@ -12,6 +12,7 @@ use Magento\Catalog\Model\CustomOptions\CustomOption;
 use Magento\Catalog\Model\Product\Option;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject;
+use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -59,17 +60,22 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
     /** @var UrlBuilder */
     protected $urlBuilder;
 
+    /** @var ManagerInterface */
+    protected $eventManager;
+
     public function __construct(
         ArtworkUploadValidator $fileUploadValidator,
         OrderItemRepositoryInterface $orderItemRepository,
         ProductRepositoryInterface $productRepositoryInterface,
         UrlBuilder $urlBuilder,
+        ManagerInterface $eventManager,
         SerializerInterface $json = null
     ) {
         $this->fileUploadValidator = $fileUploadValidator;
         $this->orderItemRepository = $orderItemRepository;
         $this->json = $json ?: ObjectManager::getInstance()->get(Json::class);
         $this->productRepositoryInterface = $productRepositoryInterface;
+        $this->eventManager = $eventManager;
         $this->urlBuilder = $urlBuilder;
     }
 
@@ -98,6 +104,8 @@ class OrderItemArtworkUpdateHandler implements ObserverInterface
         $this->customOptionUrlParams = $this->getCustomOptionsParams();
         $this->updateItemProductOption();
         $this->updateItemExtensionAttributesOption();
+
+        $this->eventManager->dispatch('labelin_order_item_artwork_update_after', ['item' => $this->item]);
 
         return $this;
     }

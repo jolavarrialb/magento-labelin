@@ -1,0 +1,14 @@
+{
+    "name": "labelin/s3Artwork",
+    "license": "Commercial",
+    "description": "Labelin S3Artwork",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\S3Artwork\\": ""
+        }
+    }
+}
