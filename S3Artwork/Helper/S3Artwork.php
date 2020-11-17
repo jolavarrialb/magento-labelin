@@ -76,7 +76,7 @@ class S3Artwork extends AbstractHelper
             $result = false;
 
             if ($this->filesystemIo->checkAndCreateFolder($destination)) {
-                $result = $this->filesystemIo->write($resultImage, $sourceImage);
+                $result = (bool)$this->filesystemIo->write($resultImage, $sourceImage);
             }
 
             if (!$result) {
