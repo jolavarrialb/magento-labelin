@@ -1,4 +1,20 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Labelin\S3Artwork\Helper\S3ArtworkDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/s3Artwork.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Labelin\S3Artwork\Helper\S3ArtworkLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Labelin\S3Artwork\Helper\S3ArtworkDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\S3Artwork\Helper\S3Artwork">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\S3Artwork\Helper\S3ArtworkLogger</argument>
+        </arguments>
+    </type>
 </config>
