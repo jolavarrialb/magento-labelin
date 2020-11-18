@@ -14,6 +14,7 @@
                 <field id="save_path" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>S3 Artwork Path</label>
                     <validate>validate-no-empty</validate>
+                    <comment>Path will be pub/media/your_path</comment>
                 </field>
             </group>
         </section>

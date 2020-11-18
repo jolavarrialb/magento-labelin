@@ -106,11 +106,13 @@ class S3Artwork extends AbstractHelper
      */
     protected function getS3Path(): string
     {
-        return $this->scopeConfig->getValue(
+        $configValue =  $this->scopeConfig->getValue(
             static::S3_ARTWORK_OPTIONS_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
+
+        return DIRECTORY_SEPARATOR . $configValue . DIRECTORY_SEPARATOR ;
     }
 
     /**
