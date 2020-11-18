@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <labelin_s3_artwork>
+            <options>
+                <save_path>/S3/</save_path>
+            </options>
+        </labelin_s3_artwork>
+    </default>
+</config>

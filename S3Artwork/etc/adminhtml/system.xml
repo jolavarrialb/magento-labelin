@@ -13,6 +13,7 @@
                 <label>S3 Artwork Options</label>
                 <field id="save_path" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>S3 Artwork Path</label>
+                    <validate>validate-no-empty</validate>
                 </field>
             </group>
         </section>

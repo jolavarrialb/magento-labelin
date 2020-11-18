@@ -21,7 +21,6 @@ use Psr\Log\LoggerInterface;
 
 class S3Artwork extends AbstractHelper
 {
-    protected const S3_ARTWORK_DEFAULT_PATH = '/S3/';
     protected const S3_ARTWORK_OPTIONS_PATH = 'labelin_s3_artwork/options/save_path';
 
     /** @var Filesystem */
@@ -107,13 +106,11 @@ class S3Artwork extends AbstractHelper
      */
     protected function getS3Path(): string
     {
-        $configPath = $this->scopeConfig->getValue(
+        return $this->scopeConfig->getValue(
             static::S3_ARTWORK_OPTIONS_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
-
-        return $configPath ? $configPath : static::S3_ARTWORK_DEFAULT_PATH;
     }
 
     /**
@@ -166,7 +163,7 @@ class S3Artwork extends AbstractHelper
      */
     public function getPubMedia(): WriteInterface
     {
-        return $this->fileSystem->getDirectoryWrite($this->directoryList::PUB);
+        return $this->fileSystem->getDirectoryWrite($this->directoryList::MEDIA);
     }
 
     /**
