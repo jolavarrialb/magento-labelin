@@ -1,0 +1,14 @@
+{
+    "name": "labelin/pitney-bowes-official-api",
+    "license": "Commercial",
+    "description": "Pitney Bowes Official API",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\PitneyBowesOfficialApi\\": ""
+        }
+    }
+}
