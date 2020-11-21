@@ -35,26 +35,26 @@ abstract class AbstractConfig extends AbstractHelper
 
     public function getApiKey(): string
     {
-        $value = $this->scopeConfig->getValue($this->xmlPathSettings['api_key']);
+        $value = (string)$this->scopeConfig->getValue($this->xmlPathSettings['api_key']);
 
         return $this->encryptor->decrypt($value);
     }
 
     public function getApiSecret(): string
     {
-        $value = $this->scopeConfig->getValue($this->xmlPathSettings['api_secret']);
+        $value = (string)$this->scopeConfig->getValue($this->xmlPathSettings['api_secret']);
 
         return $this->encryptor->decrypt($value);
     }
 
     public function getApiUrl(): string
     {
-        return $this->scopeConfig->getValue($this->xmlPathSettings['api_url']);
+        return (string)$this->scopeConfig->getValue($this->xmlPathSettings['api_url']);
     }
 
     public function getApiAccessToken(): string
     {
-        return $this->scopeConfig->getValue($this->xmlPathSettings['api_token']);
+        return (string)$this->scopeConfig->getValue($this->xmlPathSettings['api_token']);
     }
 
     public function saveApiAccessToken(string $token): self
