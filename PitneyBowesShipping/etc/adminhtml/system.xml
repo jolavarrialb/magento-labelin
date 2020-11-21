@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="pitneybowesfreeshipping" translate="label" type="text" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pitney Bowes Free Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Method Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field>
+                <field id="api_url" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Mode</label>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Mode</source_model>
+                </field>
+                <field id="api_key" translate="label" type="obscure" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Key</label>
+                    <validate>required-entry no-whitespace</validate>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="api_secret" translate="label" type="obscure" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Secret</label>
+                    <validate>required-entry no-whitespace</validate>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="merchant_id" translate="label" type="text" sortOrder="37" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant ID</label>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="container" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Container</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Container</source_model>
+                </field>
+                <field id="unit_of_measure" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Weight Unit</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Unitofmeasure</source_model>
+                </field>
+                <field id="allowed_methods" translate="label" type="multiselect" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Allowed Methods</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Method</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                </field>
+                <field id="max_package_weight" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+            <group id="pitneybowesfixedpriceshipping" translate="label" type="text" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pitney Bowes Fixed Price Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Method Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field>
+                <field id="shipping_cost" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Shipping Cost</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="api_url" translate="label" type="select" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Mode</label>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Mode</source_model>
+                </field>
+                <field id="api_key" translate="label" type="obscure" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Key</label>
+                    <validate>required-entry no-whitespace</validate>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="api_secret" translate="label" type="obscure" sortOrder="46" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Secret</label>
+                    <validate>required-entry no-whitespace</validate>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="merchant_id" translate="label" type="text" sortOrder="47" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant ID</label>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="container" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Container</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Container</source_model>
+                </field>
+                <field id="unit_of_measure" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Weight Unit</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Unitofmeasure</source_model>
+                </field>
+                <field id="allowed_methods" translate="label" type="multiselect" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Allowed Methods</label>
+                    <source_model>Labelin\PitneyBowesShipping\Model\Source\Method</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="carriers/pitneybowesfreeshipping/active">1</field>
+                    </depends>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                </field>
+                <field id="max_package_weight" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

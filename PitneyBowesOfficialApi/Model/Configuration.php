@@ -431,20 +431,22 @@ class Configuration
     /**
      * Returns an array of host settings
      *
-     * @return an array of host settings
+     * @return array
      */
-    public function getHostSettings()
+    public function getHostSettings(): array
     {
-        return array(
-          array(
-            "url" => "https://api-sandbox.pitneybowes.com/shippingservices",
-            "description" => "The sandbox environment is a free test environment that is intended for all your development and testing work.",
-          ),
-          array(
-            "url" => "https://api.pitneybowes.com/shippingservices",
-            "description" => "Production uses real money and prints labels used for real shipments. Never use the production environment for testing.",
-          )
-        );
+        return [
+            [
+                'url' => 'https://api-sandbox.pitneybowes.com/shippingservices',
+                'label' => __('Sandbox'),
+                'description' => __('The sandbox environment is a free test environment that is intended for all your development and testing work.'),
+            ],
+            [
+                'url' => 'https://api.pitneybowes.com/shippingservices',
+                'label' => __('Production'),
+                'description' => 'Production uses real money and prints labels used for real shipments. Never use the production environment for testing.',
+            ],
+        ];
     }
 
     /**
