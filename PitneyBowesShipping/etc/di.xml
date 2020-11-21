@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="api_key" xsi:type="string">carriers/pitneybowesfreeshipping/api_key</item>
+                <item name="api_secret" xsi:type="string">carriers/pitneybowesfreeshipping/api_secret</item>
+                <item name="api_url" xsi:type="string">carriers/pitneybowesfreeshipping/api_url</item>
+                <item name="api_token" xsi:type="string">carriers/pitneybowesfreeshipping/api_token</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Labelin\PitneyBowesShipping\Helper\Config\FixedPriceShippingConfig">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="api_key" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_key</item>
+                <item name="api_secret" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_secret</item>
+                <item name="api_url" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_url</item>
+                <item name="api_token" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_token</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

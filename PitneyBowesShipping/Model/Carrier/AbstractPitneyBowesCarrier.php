@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
-use Labelin\PitneyBowesShipping\Helper\Config;
+use Labelin\PitneyBowesShipping\Helper\GeneralConfig;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\Directory\Helper\Data;
 use Magento\Directory\Model\CountryFactory;
@@ -32,7 +32,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
      */
     protected $rateMethodFactory;
 
-    /** @var Config */
+    /** @var GeneralConfig */
     protected $carrierConfig;
 
     public function __construct(
@@ -51,7 +51,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         CurrencyFactory $currencyFactory,
         Data $directoryData,
         StockRegistryInterface $stockRegistry,
-        Config $carrierConfig,
+        GeneralConfig $carrierConfig,
         array $data = []
     ) {
         parent::__construct(

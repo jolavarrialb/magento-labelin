@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Source;
 
-use Labelin\PitneyBowesShipping\Helper\Config;
+use Labelin\PitneyBowesShipping\Helper\GeneralConfig;
 use Magento\Framework\Data\OptionSourceInterface;
 
 class Generic implements OptionSourceInterface
 {
-    /** @var Config */
+    /** @var GeneralConfig */
     protected $carrierConfig;
 
     /** @var string */
@@ -18,7 +18,7 @@ class Generic implements OptionSourceInterface
     /** @var array */
     protected $options = [];
 
-    public function __construct(Config $carrierConfig)
+    public function __construct(GeneralConfig $carrierConfig)
     {
         $this->carrierConfig = $carrierConfig;
     }
