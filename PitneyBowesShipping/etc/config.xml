@@ -7,7 +7,7 @@
                 <name>Free Shipping</name>
                 <title>10-days delivery</title>
                 <shipping_cost>0</shipping_cost>
-                <api_url>https://api-sandbox.pitneybowes.com/shippingservices</api_url>
+                <api_url>https://api-sandbox.pitneybowes.com</api_url>
                 <max_package_weight>70</max_package_weight>
                 <container>PKG</container>
                 <unit_of_measure>LBS</unit_of_measure>
@@ -20,7 +20,7 @@
                 <name>Fixed Price</name>
                 <title>Pitney Bowes</title>
                 <shipping_cost>10</shipping_cost>
-                <api_url>https://api-sandbox.pitneybowes.com/shippingservices</api_url>
+                <api_url>https://api-sandbox.pitneybowes.com</api_url>
                 <max_package_weight>70</max_package_weight>
                 <container>PKG</container>
                 <unit_of_measure>LBS</unit_of_measure>
