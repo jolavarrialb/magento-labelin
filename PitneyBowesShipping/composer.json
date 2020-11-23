@@ -1,0 +1,14 @@
+{
+    "name": "labelin/pitney-bowes-shipping",
+    "license": "Commercial",
+    "description": "Pitney Bowes Shipping",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\PitneyBowesShipping\\": ""
+        }
+    }
+}
