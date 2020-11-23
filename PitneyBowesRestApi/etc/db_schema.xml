@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="labelin_shipment_pitney" resource="default" engine="innodb"
+           comment="Labelin Pitney Bowes Service Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order Id"/>
+        <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order Item Id"/>
+        <column xsi:type="longtext" name="response" nullable="true" comment="JSON Pitney Bowes Response"/>
+        <column xsi:type="varchar" name="tracking_id" nullable="true" length="255" comment="Tracking Id"/>
+        <column xsi:type="text" name="label_link" nullable="true" comment="Shipment Pitney Label Link"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="boolean" name="is_canceled" default="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="LABELIN_SHIPMENT_PITNEY_ENTITY_ID">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="LABELIN_SHIPMENT_PITNEY_TRACKING_ID" indexType="btree">
+            <column name="tracking_id"/>
+        </index>
+    </table>
+</schema>
