@@ -11,7 +11,6 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         "Magento_Shipping/order/packaging",
         "Magento_Ui/js/modal/modal"
     ], function(jQuery){
-
         window.packaging = new Packaging(<?= /* @noEscape */ $block->getConfigDataJson() ?>);
         packaging.changeContainerType($$('select[name=package_container]')[0]);
         packaging.checkSizeAndGirthParameter(

@@ -18,7 +18,7 @@ abstract class AbstractConfig extends AbstractHelper
     protected $config;
 
     /** @var array */
-    protected $xmlPathSettings = [];
+    protected $xmlPathSettings;
 
     public function __construct(
         Context $context,

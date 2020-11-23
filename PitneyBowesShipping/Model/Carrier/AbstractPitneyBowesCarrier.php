@@ -27,9 +27,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implements CarrierInterface
 {
-    /**
-     * @var MethodFactory
-     */
+    /** @var MethodFactory */
     protected $rateMethodFactory;
 
     /** @var GeneralConfig */
@@ -77,6 +75,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         $this->carrierConfig = $carrierConfig;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function collectRates(RateRequest $request)
     {
         $method = $this->rateMethodFactory->create();
