@@ -122,12 +122,12 @@ class ParcelProtectionApi
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
      * @param  string $parcel_protection_reference_id Required. The identifier for the PB Parcel Protection policy that is being voided. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function cancelParcelProtection($x_pb_transaction_id, $parcel_protection_reference_id, $void_parcel_protection_request, $x_pb_unified_error_structure = true)
     {
@@ -142,12 +142,12 @@ class ParcelProtectionApi
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
      * @param  string $parcel_protection_reference_id Required. The identifier for the PB Parcel Protection policy that is being voided. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelParcelProtectionWithHttpInfo($x_pb_transaction_id, $parcel_protection_reference_id, $void_parcel_protection_request, $x_pb_unified_error_structure = true)
     {
@@ -184,32 +184,32 @@ class ParcelProtectionApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -228,7 +228,7 @@ class ParcelProtectionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -236,7 +236,7 @@ class ParcelProtectionApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -253,7 +253,7 @@ class ParcelProtectionApi
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
      * @param  string $parcel_protection_reference_id Required. The identifier for the PB Parcel Protection policy that is being voided. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -276,7 +276,7 @@ class ParcelProtectionApi
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
      * @param  string $parcel_protection_reference_id Required. The identifier for the PB Parcel Protection policy that is being voided. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -284,7 +284,7 @@ class ParcelProtectionApi
      */
     public function cancelParcelProtectionAsyncWithHttpInfo($x_pb_transaction_id, $parcel_protection_reference_id, $void_parcel_protection_request, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionResponse';
         $request = $this->cancelParcelProtectionRequest($x_pb_transaction_id, $parcel_protection_reference_id, $void_parcel_protection_request, $x_pb_unified_error_structure);
 
         return $this->client
@@ -326,7 +326,7 @@ class ParcelProtectionApi
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
      * @param  string $parcel_protection_reference_id Required. The identifier for the PB Parcel Protection policy that is being voided. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\VoidParcelProtectionRequest $void_parcel_protection_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -459,12 +459,12 @@ class ParcelProtectionApi
      * Parcel Protection Coverage
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getParcelProtectionCoverage($x_pb_transaction_id, $parcel_protection_create_request, $x_pb_unified_error_structure = true)
     {
@@ -478,12 +478,12 @@ class ParcelProtectionApi
      * Parcel Protection Coverage
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getParcelProtectionCoverageWithHttpInfo($x_pb_transaction_id, $parcel_protection_create_request, $x_pb_unified_error_structure = true)
     {
@@ -520,32 +520,32 @@ class ParcelProtectionApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -564,7 +564,7 @@ class ParcelProtectionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -572,7 +572,7 @@ class ParcelProtectionApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -588,7 +588,7 @@ class ParcelProtectionApi
      * Parcel Protection Coverage
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -610,7 +610,7 @@ class ParcelProtectionApi
      * Parcel Protection Coverage
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -618,7 +618,7 @@ class ParcelProtectionApi
      */
     public function getParcelProtectionCoverageAsyncWithHttpInfo($x_pb_transaction_id, $parcel_protection_create_request, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateResponse';
         $request = $this->getParcelProtectionCoverageRequest($x_pb_transaction_id, $parcel_protection_create_request, $x_pb_unified_error_structure);
 
         return $this->client
@@ -659,7 +659,7 @@ class ParcelProtectionApi
      * Create request for operation 'getParcelProtectionCoverage'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionCreateRequest $parcel_protection_create_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -775,12 +775,12 @@ class ParcelProtectionApi
      * Parcel Protection Quote
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getParcelProtectionQuote($x_pb_transaction_id, $parcel_protection_quote_request, $x_pb_unified_error_structure = true)
     {
@@ -794,12 +794,12 @@ class ParcelProtectionApi
      * Parcel Protection Quote
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getParcelProtectionQuoteWithHttpInfo($x_pb_transaction_id, $parcel_protection_quote_request, $x_pb_unified_error_structure = true)
     {
@@ -836,32 +836,32 @@ class ParcelProtectionApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -880,7 +880,7 @@ class ParcelProtectionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -888,7 +888,7 @@ class ParcelProtectionApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -904,7 +904,7 @@ class ParcelProtectionApi
      * Parcel Protection Quote
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -926,7 +926,7 @@ class ParcelProtectionApi
      * Parcel Protection Quote
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -934,7 +934,7 @@ class ParcelProtectionApi
      */
     public function getParcelProtectionQuoteAsyncWithHttpInfo($x_pb_transaction_id, $parcel_protection_quote_request, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteResponse';
         $request = $this->getParcelProtectionQuoteRequest($x_pb_transaction_id, $parcel_protection_quote_request, $x_pb_unified_error_structure);
 
         return $this->client
@@ -975,7 +975,7 @@ class ParcelProtectionApi
      * Create request for operation 'getParcelProtectionQuote'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionQuoteRequest $parcel_protection_quote_request manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -1105,7 +1105,7 @@ class ParcelProtectionApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getParcelProtectionReports($x_pb_transaction_id, $developer_id, $policy_created_from_date, $x_pb_unified_error_structure = true, $policy_created_to_date = null, $policy_reference_id = null, $parcel_tracking_number = null, $merchant_id = null, $policy_status = null, $size = null, $page = null, $sort = null)
     {
@@ -1133,7 +1133,7 @@ class ParcelProtectionApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getParcelProtectionReportsWithHttpInfo($x_pb_transaction_id, $developer_id, $policy_created_from_date, $x_pb_unified_error_structure = true, $policy_created_to_date = null, $policy_reference_id = null, $parcel_tracking_number = null, $merchant_id = null, $policy_status = null, $size = null, $page = null, $sort = null)
     {
@@ -1170,32 +1170,32 @@ class ParcelProtectionApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -1214,7 +1214,7 @@ class ParcelProtectionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1222,7 +1222,7 @@ class ParcelProtectionApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1286,7 +1286,7 @@ class ParcelProtectionApi
      */
     public function getParcelProtectionReportsAsyncWithHttpInfo($x_pb_transaction_id, $developer_id, $policy_created_from_date, $x_pb_unified_error_structure = true, $policy_created_to_date = null, $policy_reference_id = null, $parcel_tracking_number = null, $merchant_id = null, $policy_status = null, $size = null, $page = null, $sort = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse';
         $request = $this->getParcelProtectionReportsRequest($x_pb_transaction_id, $developer_id, $policy_created_from_date, $x_pb_unified_error_structure, $policy_created_to_date, $policy_reference_id, $parcel_tracking_number, $merchant_id, $policy_status, $size, $page, $sort);
 
         return $this->client

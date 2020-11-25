@@ -120,12 +120,12 @@ class CarrierInfoApi
      *
      * Find Carrier Facilities
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityRequest $carrier_facility_request carrier_facility_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityRequest $carrier_facility_request carrier_facility_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors
      */
     public function getCarrierFacilities($carrier_facility_request, $x_pb_unified_error_structure = true)
     {
@@ -138,12 +138,12 @@ class CarrierInfoApi
      *
      * Find Carrier Facilities
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityRequest $carrier_facility_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityRequest $carrier_facility_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCarrierFacilitiesWithHttpInfo($carrier_facility_request, $x_pb_unified_error_structure = true)
     {
@@ -180,32 +180,32 @@ class CarrierInfoApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -224,7 +224,7 @@ class CarrierInfoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -232,7 +232,7 @@ class CarrierInfoApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -247,7 +247,7 @@ class CarrierInfoApi
      *
      * Find Carrier Facilities
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityRequest $carrier_facility_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityRequest $carrier_facility_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -268,7 +268,7 @@ class CarrierInfoApi
      *
      * Find Carrier Facilities
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityRequest $carrier_facility_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityRequest $carrier_facility_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -276,7 +276,7 @@ class CarrierInfoApi
      */
     public function getCarrierFacilitiesAsyncWithHttpInfo($carrier_facility_request, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityResponse';
         $request = $this->getCarrierFacilitiesRequest($carrier_facility_request, $x_pb_unified_error_structure);
 
         return $this->client
@@ -316,7 +316,7 @@ class CarrierInfoApi
     /**
      * Create request for operation 'getCarrierFacilities'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierFacilityRequest $carrier_facility_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierFacilityRequest $carrier_facility_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -422,12 +422,12 @@ class CarrierInfoApi
      * This operation retrieves a carrier's license agreement.
      *
      * @param  string $carrier The carrier name. Currently this must be set to: UPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getCarrierLicenseAgreement($carrier, $origin_country_code, $x_pb_unified_error_structure = true)
     {
@@ -441,12 +441,12 @@ class CarrierInfoApi
      * This operation retrieves a carrier's license agreement.
      *
      * @param  string $carrier The carrier name. Currently this must be set to: UPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCarrierLicenseAgreementWithHttpInfo($carrier, $origin_country_code, $x_pb_unified_error_structure = true)
     {
@@ -483,32 +483,32 @@ class CarrierInfoApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -527,7 +527,7 @@ class CarrierInfoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -535,7 +535,7 @@ class CarrierInfoApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -551,7 +551,7 @@ class CarrierInfoApi
      * This operation retrieves a carrier's license agreement.
      *
      * @param  string $carrier The carrier name. Currently this must be set to: UPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -573,7 +573,7 @@ class CarrierInfoApi
      * This operation retrieves a carrier's license agreement.
      *
      * @param  string $carrier The carrier name. Currently this must be set to: UPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -581,7 +581,7 @@ class CarrierInfoApi
      */
     public function getCarrierLicenseAgreementAsyncWithHttpInfo($carrier, $origin_country_code, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse200';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse200';
         $request = $this->getCarrierLicenseAgreementRequest($carrier, $origin_country_code, $x_pb_unified_error_structure);
 
         return $this->client
@@ -622,7 +622,7 @@ class CarrierInfoApi
      * Create request for operation 'getCarrierLicenseAgreement'
      *
      * @param  string $carrier The carrier name. Currently this must be set to: UPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -752,9 +752,9 @@ class CarrierInfoApi
      *
      * Retrieves the rules governing the carrier's services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $rate_type_id The type of rate requested, such as COMMERCIAL_BASE. If a rate type is not specified, all eligible rate types are returned. (optional)
      * @param  string $future_shipment_date If the shipment is for a future date, and if a rate change is expected before the shipment date, use this field to ensure you get the correct rates and correct rate rules. Note that a rate change can affect the structure of the rate rules as well as the actual rates.Specify this value in UTC/GMT, not in local time. Formats allowed are   * **YYYY-MM-DD**   * **YYYY-MM-DD HH:mm:ss** * **YYYY-MM-DD HH:mm:ss.SSS** (optional)
@@ -763,7 +763,7 @@ class CarrierInfoApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getCarrierServiceRules($carrier, $origin_country_code, $destination_country_code, $x_pb_unified_error_structure = true, $rate_type_id = null, $future_shipment_date = null, $return_shipment = null, $compact_response = null)
     {
@@ -776,9 +776,9 @@ class CarrierInfoApi
      *
      * Retrieves the rules governing the carrier's services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $rate_type_id The type of rate requested, such as COMMERCIAL_BASE. If a rate type is not specified, all eligible rate types are returned. (optional)
      * @param  string $future_shipment_date If the shipment is for a future date, and if a rate change is expected before the shipment date, use this field to ensure you get the correct rates and correct rate rules. Note that a rate change can affect the structure of the rate rules as well as the actual rates.Specify this value in UTC/GMT, not in local time. Formats allowed are   * **YYYY-MM-DD**   * **YYYY-MM-DD HH:mm:ss** * **YYYY-MM-DD HH:mm:ss.SSS** (optional)
@@ -787,7 +787,7 @@ class CarrierInfoApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCarrierServiceRulesWithHttpInfo($carrier, $origin_country_code, $destination_country_code, $x_pb_unified_error_structure = true, $rate_type_id = null, $future_shipment_date = null, $return_shipment = null, $compact_response = null)
     {
@@ -824,32 +824,32 @@ class CarrierInfoApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -868,7 +868,7 @@ class CarrierInfoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -876,7 +876,7 @@ class CarrierInfoApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -891,9 +891,9 @@ class CarrierInfoApi
      *
      * Retrieves the rules governing the carrier's services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $rate_type_id The type of rate requested, such as COMMERCIAL_BASE. If a rate type is not specified, all eligible rate types are returned. (optional)
      * @param  string $future_shipment_date If the shipment is for a future date, and if a rate change is expected before the shipment date, use this field to ensure you get the correct rates and correct rate rules. Note that a rate change can affect the structure of the rate rules as well as the actual rates.Specify this value in UTC/GMT, not in local time. Formats allowed are   * **YYYY-MM-DD**   * **YYYY-MM-DD HH:mm:ss** * **YYYY-MM-DD HH:mm:ss.SSS** (optional)
@@ -918,9 +918,9 @@ class CarrierInfoApi
      *
      * Retrieves the rules governing the carrier's services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $rate_type_id The type of rate requested, such as COMMERCIAL_BASE. If a rate type is not specified, all eligible rate types are returned. (optional)
      * @param  string $future_shipment_date If the shipment is for a future date, and if a rate change is expected before the shipment date, use this field to ensure you get the correct rates and correct rate rules. Note that a rate change can affect the structure of the rate rules as well as the actual rates.Specify this value in UTC/GMT, not in local time. Formats allowed are   * **YYYY-MM-DD**   * **YYYY-MM-DD HH:mm:ss** * **YYYY-MM-DD HH:mm:ss.SSS** (optional)
@@ -932,7 +932,7 @@ class CarrierInfoApi
      */
     public function getCarrierServiceRulesAsyncWithHttpInfo($carrier, $origin_country_code, $destination_country_code, $x_pb_unified_error_structure = true, $rate_type_id = null, $future_shipment_date = null, $return_shipment = null, $compact_response = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CarrierRule';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CarrierRule';
         $request = $this->getCarrierServiceRulesRequest($carrier, $origin_country_code, $destination_country_code, $x_pb_unified_error_structure, $rate_type_id, $future_shipment_date, $return_shipment, $compact_response);
 
         return $this->client
@@ -972,9 +972,9 @@ class CarrierInfoApi
     /**
      * Create request for operation 'getCarrierServiceRules'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. **Currently this must be set to: USPS** (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $destination_country_code The [two-character ISO country code](https://www.iso.org/obp/ui/#search) for the country of the shipment&#39;s destination address. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $rate_type_id The type of rate requested, such as COMMERCIAL_BASE. If a rate type is not specified, all eligible rate types are returned. (optional)
      * @param  string $future_shipment_date If the shipment is for a future date, and if a rate change is expected before the shipment date, use this field to ensure you get the correct rates and correct rate rules. Note that a rate change can affect the structure of the rate rules as well as the actual rates.Specify this value in UTC/GMT, not in local time. Formats allowed are   * **YYYY-MM-DD**   * **YYYY-MM-DD HH:mm:ss** * **YYYY-MM-DD HH:mm:ss.SSS** (optional)
@@ -1169,13 +1169,13 @@ class CarrierInfoApi
      *
      * This operation returns a list of supported destination countries to which the carrier offers international shipping services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return object[]|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return object[]|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getCarrierSupportedDestination($carrier, $origin_country_code, $x_pb_unified_error_structure = true)
     {
@@ -1188,13 +1188,13 @@ class CarrierInfoApi
      *
      * This operation returns a list of supported destination countries to which the carrier offers international shipping services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of object[]|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object[]|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCarrierSupportedDestinationWithHttpInfo($carrier, $origin_country_code, $x_pb_unified_error_structure = true)
     {
@@ -1243,14 +1243,14 @@ class CarrierInfoApi
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1283,7 +1283,7 @@ class CarrierInfoApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1298,8 +1298,8 @@ class CarrierInfoApi
      *
      * This operation returns a list of supported destination countries to which the carrier offers international shipping services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -1320,8 +1320,8 @@ class CarrierInfoApi
      *
      * This operation returns a list of supported destination countries to which the carrier offers international shipping services.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -1369,8 +1369,8 @@ class CarrierInfoApi
     /**
      * Create request for operation 'getCarrierSupportedDestination'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier The carrier name. Currently this must be set to: USPS (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ISOCountryCode $origin_country_code The two-character ISO country code for the country where the shipment originates. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException

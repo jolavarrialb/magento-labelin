@@ -126,7 +126,7 @@ class PickupApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001
      */
     public function cancelPickup($x_pb_transaction_id, $pickup_id, $x_pb_unified_error_structure = true)
     {
@@ -145,7 +145,7 @@ class PickupApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelPickupWithHttpInfo($x_pb_transaction_id, $pickup_id, $x_pb_unified_error_structure = true)
     {
@@ -182,20 +182,20 @@ class PickupApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -214,7 +214,7 @@ class PickupApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -260,7 +260,7 @@ class PickupApi
      */
     public function cancelPickupAsyncWithHttpInfo($x_pb_transaction_id, $pickup_id, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2001';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2001';
         $request = $this->cancelPickupRequest($x_pb_transaction_id, $pickup_id, $x_pb_unified_error_structure);
 
         return $this->client
@@ -422,12 +422,12 @@ class PickupApi
      * Address validation
      *
      * @param  string $x_pb_transaction_id A unique identifier for the transaction, up to 25 characters (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse
      */
     public function getPickupschedule($x_pb_transaction_id, $schedule_pickup, $x_pb_unified_error_structure = true)
     {
@@ -441,12 +441,12 @@ class PickupApi
      * Address validation
      *
      * @param  string $x_pb_transaction_id A unique identifier for the transaction, up to 25 characters (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPickupscheduleWithHttpInfo($x_pb_transaction_id, $schedule_pickup, $x_pb_unified_error_structure = true)
     {
@@ -483,20 +483,20 @@ class PickupApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -515,7 +515,7 @@ class PickupApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -531,7 +531,7 @@ class PickupApi
      * Address validation
      *
      * @param  string $x_pb_transaction_id A unique identifier for the transaction, up to 25 characters (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -553,7 +553,7 @@ class PickupApi
      * Address validation
      *
      * @param  string $x_pb_transaction_id A unique identifier for the transaction, up to 25 characters (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -561,7 +561,7 @@ class PickupApi
      */
     public function getPickupscheduleAsyncWithHttpInfo($x_pb_transaction_id, $schedule_pickup, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickupResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickupResponse';
         $request = $this->getPickupscheduleRequest($x_pb_transaction_id, $schedule_pickup, $x_pb_unified_error_structure);
 
         return $this->client
@@ -602,7 +602,7 @@ class PickupApi
      * Create request for operation 'getPickupschedule'
      *
      * @param  string $x_pb_transaction_id A unique identifier for the transaction, up to 25 characters (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\SchedulePickup $schedule_pickup Schedule Pickup request. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException

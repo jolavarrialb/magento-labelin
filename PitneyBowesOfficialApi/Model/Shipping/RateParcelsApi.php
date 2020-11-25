@@ -120,7 +120,7 @@ class RateParcelsApi
      *
      * Use this operation to rate a parcel before you print and purchase a shipment label. You can rate a parcel for multiple services and multiple parcel types with a single API request.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment Shipment request for Rates (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment Shipment request for Rates (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq) (optional)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
@@ -130,7 +130,7 @@ class RateParcelsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function rateParcel($shipment, $x_pb_unified_error_structure = true, $x_pb_shipper_rate_plan = null, $x_pb_integrator_carrier_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null, $carrier = null)
     {
@@ -143,7 +143,7 @@ class RateParcelsApi
      *
      * Use this operation to rate a parcel before you print and purchase a shipment label. You can rate a parcel for multiple services and multiple parcel types with a single API request.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment Shipment request for Rates (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment Shipment request for Rates (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq) (optional)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
@@ -153,7 +153,7 @@ class RateParcelsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function rateParcelWithHttpInfo($shipment, $x_pb_unified_error_structure = true, $x_pb_shipper_rate_plan = null, $x_pb_integrator_carrier_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null, $carrier = null)
     {
@@ -190,32 +190,32 @@ class RateParcelsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -234,7 +234,7 @@ class RateParcelsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -242,7 +242,7 @@ class RateParcelsApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -257,7 +257,7 @@ class RateParcelsApi
      *
      * Use this operation to rate a parcel before you print and purchase a shipment label. You can rate a parcel for multiple services and multiple parcel types with a single API request.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment Shipment request for Rates (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment Shipment request for Rates (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq) (optional)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
@@ -283,7 +283,7 @@ class RateParcelsApi
      *
      * Use this operation to rate a parcel before you print and purchase a shipment label. You can rate a parcel for multiple services and multiple parcel types with a single API request.
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment Shipment request for Rates (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment Shipment request for Rates (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq) (optional)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
@@ -296,7 +296,7 @@ class RateParcelsApi
      */
     public function rateParcelAsyncWithHttpInfo($shipment, $x_pb_unified_error_structure = true, $x_pb_shipper_rate_plan = null, $x_pb_integrator_carrier_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null, $carrier = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
         $request = $this->rateParcelRequest($shipment, $x_pb_unified_error_structure, $x_pb_shipper_rate_plan, $x_pb_integrator_carrier_id, $x_pb_shipper_carrier_account_id, $include_delivery_commitment, $carrier);
 
         return $this->client
@@ -336,7 +336,7 @@ class RateParcelsApi
     /**
      * Create request for operation 'rateParcel'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment Shipment request for Rates (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment Shipment request for Rates (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq) (optional)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)

@@ -121,12 +121,12 @@ class ManifestsApi
      * This operation creates an end-of-day manifest
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function createManifest($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -140,12 +140,12 @@ class ManifestsApi
      * This operation creates an end-of-day manifest
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function createManifestWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -182,32 +182,32 @@ class ManifestsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 201:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -226,7 +226,7 @@ class ManifestsApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -234,7 +234,7 @@ class ManifestsApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -250,7 +250,7 @@ class ManifestsApi
      * This operation creates an end-of-day manifest
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -272,7 +272,7 @@ class ManifestsApi
      * This operation creates an end-of-day manifest
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -280,7 +280,7 @@ class ManifestsApi
      */
     public function createManifestAsyncWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
         $request = $this->createManifestRequest($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure);
 
         return $this->client
@@ -321,7 +321,7 @@ class ManifestsApi
      * Create request for operation 'createManifest'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -441,7 +441,7 @@ class ManifestsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function reprintManifest($manifest_id, $x_pb_unified_error_structure = true)
     {
@@ -459,7 +459,7 @@ class ManifestsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function reprintManifestWithHttpInfo($manifest_id, $x_pb_unified_error_structure = true)
     {
@@ -496,32 +496,32 @@ class ManifestsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -540,7 +540,7 @@ class ManifestsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -548,7 +548,7 @@ class ManifestsApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -592,7 +592,7 @@ class ManifestsApi
      */
     public function reprintManifestAsyncWithHttpInfo($manifest_id, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
         $request = $this->reprintManifestRequest($manifest_id, $x_pb_unified_error_structure);
 
         return $this->client
@@ -747,7 +747,7 @@ class ManifestsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function retryManifest($original_transaction_id, $x_pb_unified_error_structure = true)
     {
@@ -765,7 +765,7 @@ class ManifestsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function retryManifestWithHttpInfo($original_transaction_id, $x_pb_unified_error_structure = true)
     {
@@ -802,32 +802,32 @@ class ManifestsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -846,7 +846,7 @@ class ManifestsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -854,7 +854,7 @@ class ManifestsApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -898,7 +898,7 @@ class ManifestsApi
      */
     public function retryManifestAsyncWithHttpInfo($original_transaction_id, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest';
         $request = $this->retryManifestRequest($original_transaction_id, $x_pb_unified_error_structure);
 
         return $this->client
