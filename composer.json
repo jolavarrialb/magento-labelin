@@ -20,7 +20,8 @@
       "DesignerReport/registration.php",
       "S3Artwork/registration.php",
       "PitneyBowesOfficialApi/registration.php",
-      "PitneyBowesShipping/registration.php"
+      "PitneyBowesShipping/registration.php",
+      "PitneyBowesRestApi/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
@@ -33,7 +34,8 @@
       "Labelin\\DesignerReport\\": "DesignerReport",
       "Labelin\\S3Artwork\\": "S3Artwork",
       "Labelin\\PitneyBowesOfficialApi\\": "PitneyBowesOfficialApi",
-      "Labelin\\PitneyBowesShipping\\": "PitneyBowesShipping"
+      "Labelin\\PitneyBowesShipping\\": "PitneyBowesShipping",
+      "Labelin\\PitneyBowesRestApi\\": "PitneyBowesRestApi"
     }
   }
 }
