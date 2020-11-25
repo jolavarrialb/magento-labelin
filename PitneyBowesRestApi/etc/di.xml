@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Labelin\PitneyBowesRestApi\Api\OauthInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Oauth"/>
+    <virtualType name="Labelin\PitneyBowesRestApi\Debug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/pitney_bowes_api_debug.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Labelin\PitneyBowesRestApi\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Labelin\PitneyBowesRestApi\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\PitneyBowesRestApi\Model\Api\Oauth">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
+        </arguments>
+    </type>
+</config>
