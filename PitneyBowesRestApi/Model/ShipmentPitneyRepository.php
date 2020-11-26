@@ -56,7 +56,7 @@ class ShipmentPitneyRepository implements ShipmentPitneyRepositoryInterface
             $this->getResourceModel()->save($shipmentPitney);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
-                'Could not save the production ticket: %1',
+                'Could not save the Shipment Pitney: %1',
                 $exception->getMessage()
             ));
         }
