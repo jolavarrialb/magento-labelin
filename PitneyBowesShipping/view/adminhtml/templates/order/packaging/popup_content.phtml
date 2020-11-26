@@ -23,6 +23,12 @@
                         onclick="packaging.getItemsForPack(this);">
                     <span><?= $block->escapeHtml(__('Add Products to Package')) ?></span>
                 </button>
+                <button type="button"
+                        class="action-secondary"
+                        data-action="package-request-rates"
+                        onclick="packagingRates.requestRates(this);">
+                    <span><?= $block->escapeHtml(__('Request Rates for Package')) ?></span>
+                </button>
             </div>
         </div>
         <div class="admin__control-table-wrapper admin__page-subsection">
@@ -154,8 +160,8 @@
                         <select name="container_dimension_units"
                                 class="options-units-dimensions measures admin__control-select"
                                 onchange="packaging.changeMeasures(this);">
-                            <option value="<?= /* @noEscape */ Zend_Measure_Length::INCH ?>" selected="selected" ><?= $block->escapeHtml(__('in')) ?></option>
-                            <option value="<?= /* @noEscape */ Zend_Measure_Length::CENTIMETER ?>" ><?= $block->escapeHtml(__('cm')) ?></option>
+                            <option value="<?= $block->escapeHtml(__('IN')) ?>" selected="selected" ><?= $block->escapeHtml(__('in')) ?></option>
+                            <option value="<?= $block->escapeHtml(__('CM')) ?>" ><?= $block->escapeHtml(__('cm')) ?></option>
                         </select>
                     </td>
                     <?php if ($block->getDeliveryConfirmationTypes()) : ?>

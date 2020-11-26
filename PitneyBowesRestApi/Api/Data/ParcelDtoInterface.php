@@ -14,6 +14,7 @@ interface ParcelDtoInterface
 
     public const OUNCES_POUND = 16;
     public const OUNCES_KG = 35.274;
+
     /**
      * @param int|float $weight
      *
