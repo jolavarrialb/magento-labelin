@@ -49,12 +49,12 @@ class ShipmentPitney extends AbstractModel implements ShipmentPitneyInterface, I
         return $this->setData(ShipmentPitneyInterface::RESPONSE, $response);
     }
 
-    public function getTrackingId(): int
+    public function getTrackingId(): string
     {
         return $this->getData(ShipmentPitneyInterface::TRACKING_ID);
     }
 
-    public function setTrackingId(int $trackingId): ShipmentPitneyInterface
+    public function setTrackingId(string $trackingId): ShipmentPitneyInterface
     {
         return $this->setData(ShipmentPitneyInterface::TRACKING_ID, $trackingId);
     }
@@ -71,7 +71,7 @@ class ShipmentPitney extends AbstractModel implements ShipmentPitneyInterface, I
 
     public function getIdentities()
     {
-        return [self::CACHE_TAG . '_' . $this->getEntityId()];
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
     public function getLabelLink(): string

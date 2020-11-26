@@ -38,9 +38,9 @@ interface ShipmentPitneyInterface
 
     public function setResponse(string $response): self;
 
-    public function getTrackingId(): int;
+    public function getTrackingId(): string;
 
-    public function setTrackingId(int $trackingId): self;
+    public function setTrackingId(string $trackingId): self;
 
     public function getLabelLink(): string;
 

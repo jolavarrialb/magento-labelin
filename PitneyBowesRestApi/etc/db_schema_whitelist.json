@@ -1,0 +1,22 @@
+{
+    "labelin_shipment_pitney": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "order_item_id": true,
+            "response": true,
+            "tracking_id": true,
+            "label_link": true,
+            "created_at": true,
+            "updated_at": true,
+            "is_canceled": true
+        },
+        "index": {
+            "LABELIN_SHIPMENT_PITNEY_TRACKING_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "LABELIN_SHIPMENT_PITNEY_ENTITY_ID": true
+        }
+    }
+}
