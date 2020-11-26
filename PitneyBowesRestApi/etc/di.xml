@@ -18,4 +18,7 @@
             <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
         </arguments>
     </type>
+    <preference for="Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneyInterface" type="Labelin\PitneyBowesRestApi\Model\ShipmentPitney"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneyRepositoryInterface" type="Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneySearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
 </config>
