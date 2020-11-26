@@ -29,6 +29,16 @@ class ShipmentPitney extends AbstractModel implements ShipmentPitneyInterface, I
         return $this->setData(ShipmentPitneyInterface::ORDER_ITEM_ID, $orderId);
     }
 
+    public function getShipmentId(): int
+    {
+        return $this->getData(ShipmentPitneyInterface::SHIPMENT_ID);
+    }
+
+    public function setShipmentId(int $shipmentId): ShipmentPitneyInterface
+    {
+        return $this->setData(ShipmentPitneyInterface::SHIPMENT_ID, $shipmentId);
+    }
+
     public function getOrderItemId(): int
     {
         return $this->getData(ShipmentPitneyInterface::ORDER_ITEM_ID);

@@ -9,10 +9,12 @@
             "label_link": true,
             "created_at": true,
             "updated_at": true,
-            "is_canceled": true
+            "is_canceled": true,
+            "shipment_id": true
         },
         "index": {
-            "LABELIN_SHIPMENT_PITNEY_TRACKING_ID": true
+            "LABELIN_SHIPMENT_PITNEY_TRACKING_ID": true,
+            "LABELIN_SHIPMENT_PITNEY_TRACKING_ID_SHIPMENT_ID": true
         },
         "constraint": {
             "PRIMARY": true,
