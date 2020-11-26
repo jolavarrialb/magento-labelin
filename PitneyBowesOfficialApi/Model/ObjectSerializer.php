@@ -29,7 +29,7 @@
 
 namespace Labelin\PitneyBowesOfficialApi\Model;
 
-use Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ModelInterface;
+use Labelin\PitneyBowesOfficialApi\Model\Api\Model\ModelInterface;
 
 /**
  * ObjectSerializer Class Doc Comment
@@ -328,7 +328,7 @@ class ObjectSerializer
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\pitneybowesShipping\Model\\' . $data->{$discriminator};
+                $subclass = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\\' . $data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }

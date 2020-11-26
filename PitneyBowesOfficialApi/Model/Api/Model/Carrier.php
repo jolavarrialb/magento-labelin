@@ -45,6 +45,7 @@ class Carrier
      * Possible values of this enum
      */
     const USPS = 'USPS';
+    const USPS_LOWERCASE = 'usps';
     const PBPRESORT = 'PBPRESORT';
     const NEWGISTICS = 'NEWGISTICS';
     const PBI = 'PBI';
@@ -59,6 +60,7 @@ class Carrier
     {
         return [
             self::USPS,
+            self::USPS_LOWERCASE,
             self::PBPRESORT,
             self::NEWGISTICS,
             self::PBI,

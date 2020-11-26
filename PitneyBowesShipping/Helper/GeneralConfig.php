@@ -29,7 +29,7 @@ class GeneralConfig extends AbstractHelper
                 'PKG' => __('Customer Packaging'),
             ],
             'unit_of_measure' => [
-                'LBS' => __('Pounds'),
+                'LB' => __('Pounds'),
                 'KGS' => __('Kilograms'),
                 'OZ' => __('Ounces'),
             ],
