@@ -121,12 +121,12 @@ class ContainerApi
      * Create Container Manifest Label
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse
      */
     public function getContainerizedParcelsLabels($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -140,12 +140,12 @@ class ContainerApi
      * Create Container Manifest Label
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getContainerizedParcelsLabelsWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -182,20 +182,20 @@ class ContainerApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -214,7 +214,7 @@ class ContainerApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -230,7 +230,7 @@ class ContainerApi
      * Create Container Manifest Label
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -252,7 +252,7 @@ class ContainerApi
      * Create Container Manifest Label
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -260,7 +260,7 @@ class ContainerApi
      */
     public function getContainerizedParcelsLabelsAsyncWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ContainerManifestResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ContainerManifestResponse';
         $request = $this->getContainerizedParcelsLabelsRequest($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure);
 
         return $this->client
@@ -301,7 +301,7 @@ class ContainerApi
      * Create request for operation 'getContainerizedParcelsLabels'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException

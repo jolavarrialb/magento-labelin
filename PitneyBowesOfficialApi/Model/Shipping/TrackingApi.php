@@ -120,12 +120,12 @@ class TrackingApi
      *
      * getTrackingDetails
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddTrackingEvents $add_tracking_events add track event (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddTrackingEvents $add_tracking_events add track event (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function addTrackingEvents($add_tracking_events, $x_pb_unified_error_structure = true)
     {
@@ -138,12 +138,12 @@ class TrackingApi
      *
      * getTrackingDetails
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddTrackingEvents $add_tracking_events add track event (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddTrackingEvents $add_tracking_events add track event (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function addTrackingEventsWithHttpInfo($add_tracking_events, $x_pb_unified_error_structure = true)
     {
@@ -180,32 +180,32 @@ class TrackingApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -224,7 +224,7 @@ class TrackingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -232,7 +232,7 @@ class TrackingApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -247,7 +247,7 @@ class TrackingApi
      *
      * getTrackingDetails
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddTrackingEvents $add_tracking_events add track event (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddTrackingEvents $add_tracking_events add track event (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -268,7 +268,7 @@ class TrackingApi
      *
      * getTrackingDetails
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddTrackingEvents $add_tracking_events add track event (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddTrackingEvents $add_tracking_events add track event (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -276,7 +276,7 @@ class TrackingApi
      */
     public function addTrackingEventsAsyncWithHttpInfo($add_tracking_events, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\InlineResponse2002';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\InlineResponse2002';
         $request = $this->addTrackingEventsRequest($add_tracking_events, $x_pb_unified_error_structure);
 
         return $this->client
@@ -316,7 +316,7 @@ class TrackingApi
     /**
      * Create request for operation 'addTrackingEvents'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddTrackingEvents $add_tracking_events add track event (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddTrackingEvents $add_tracking_events add track event (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -428,7 +428,7 @@ class TrackingApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getTrackingDetails($tracking_number, $package_identifier_type, $carrier, $x_pb_unified_error_structure = true)
     {
@@ -448,7 +448,7 @@ class TrackingApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrackingDetailsWithHttpInfo($tracking_number, $package_identifier_type, $carrier, $x_pb_unified_error_structure = true)
     {
@@ -485,32 +485,32 @@ class TrackingApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -529,7 +529,7 @@ class TrackingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -537,7 +537,7 @@ class TrackingApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -585,7 +585,7 @@ class TrackingApi
      */
     public function getTrackingDetailsAsyncWithHttpInfo($tracking_number, $package_identifier_type, $carrier, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\TrackingResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\TrackingResponse';
         $request = $this->getTrackingDetailsRequest($tracking_number, $package_identifier_type, $carrier, $x_pb_unified_error_structure);
 
         return $this->client

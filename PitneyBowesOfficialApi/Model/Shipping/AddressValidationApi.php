@@ -120,13 +120,13 @@ class AddressValidationApi
      *
      * Address validation
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address $address Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address $address Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  bool $minimal_address_validation When set to true, the complete address (delivery line and last line) is validated but only the last line (city, state, and postal code) would be changed by the validation check. (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address
      */
     public function verifyAddress($address, $x_pb_unified_error_structure = true, $minimal_address_validation = null)
     {
@@ -139,13 +139,13 @@ class AddressValidationApi
      *
      * Address validation
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address $address Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address $address Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  bool $minimal_address_validation When set to true, the complete address (delivery line and last line) is validated but only the last line (city, state, and postal code) would be changed by the validation check. (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address, HTTP status code, HTTP response headers (array of strings)
      */
     public function verifyAddressWithHttpInfo($address, $x_pb_unified_error_structure = true, $minimal_address_validation = null)
     {
@@ -182,20 +182,20 @@ class AddressValidationApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -214,7 +214,7 @@ class AddressValidationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -229,7 +229,7 @@ class AddressValidationApi
      *
      * Address validation
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address $address Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address $address Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  bool $minimal_address_validation When set to true, the complete address (delivery line and last line) is validated but only the last line (city, state, and postal code) would be changed by the validation check. (optional)
      *
@@ -251,7 +251,7 @@ class AddressValidationApi
      *
      * Address validation
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address $address Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address $address Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  bool $minimal_address_validation When set to true, the complete address (delivery line and last line) is validated but only the last line (city, state, and postal code) would be changed by the validation check. (optional)
      *
@@ -260,7 +260,7 @@ class AddressValidationApi
      */
     public function verifyAddressAsyncWithHttpInfo($address, $x_pb_unified_error_structure = true, $minimal_address_validation = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address';
         $request = $this->verifyAddressRequest($address, $x_pb_unified_error_structure, $minimal_address_validation);
 
         return $this->client
@@ -300,7 +300,7 @@ class AddressValidationApi
     /**
      * Create request for operation 'verifyAddress'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Address $address Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address $address Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  bool $minimal_address_validation When set to true, the complete address (delivery line and last line) is validated but only the last line (city, state, and postal code) would be changed by the validation check. (optional)
      *
@@ -418,12 +418,12 @@ class AddressValidationApi
      * Address Suggestion
      *
      * @param  string $return_suggestions To return suggested addresses, set this to true. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse
      */
     public function verifyAndSuggestAddress($return_suggestions, $address_verify_suggest, $x_pb_unified_error_structure = true)
     {
@@ -437,12 +437,12 @@ class AddressValidationApi
      * Address Suggestion
      *
      * @param  string $return_suggestions To return suggested addresses, set this to true. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function verifyAndSuggestAddressWithHttpInfo($return_suggestions, $address_verify_suggest, $x_pb_unified_error_structure = true)
     {
@@ -479,20 +479,20 @@ class AddressValidationApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -511,7 +511,7 @@ class AddressValidationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -527,7 +527,7 @@ class AddressValidationApi
      * Address Suggestion
      *
      * @param  string $return_suggestions To return suggested addresses, set this to true. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -549,7 +549,7 @@ class AddressValidationApi
      * Address Suggestion
      *
      * @param  string $return_suggestions To return suggested addresses, set this to true. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -557,7 +557,7 @@ class AddressValidationApi
      */
     public function verifyAndSuggestAddressAsyncWithHttpInfo($return_suggestions, $address_verify_suggest, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressSuggestionResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressSuggestionResponse';
         $request = $this->verifyAndSuggestAddressRequest($return_suggestions, $address_verify_suggest, $x_pb_unified_error_structure);
 
         return $this->client
@@ -598,7 +598,7 @@ class AddressValidationApi
      * Create request for operation 'verifyAndSuggestAddress'
      *
      * @param  string $return_suggestions To return suggested addresses, set this to true. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\AddressVerifySuggest $address_verify_suggest Address object that needs to be validated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException

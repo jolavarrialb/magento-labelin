@@ -136,7 +136,7 @@ class TransactionReportsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function getTransactionReport($developer_id, $x_pb_unified_error_structure = true, $from_date = null, $ship_details = 0, $page = null, $size = 20, $print_status = null, $to_date = null, $transaction_type = null, $merchant_id = null, $sort = null, $parcel_tracking_number = null, $transaction_id = null)
     {
@@ -165,7 +165,7 @@ class TransactionReportsApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTransactionReportWithHttpInfo($developer_id, $x_pb_unified_error_structure = true, $from_date = null, $ship_details = 0, $page = null, $size = 20, $print_status = null, $to_date = null, $transaction_type = null, $merchant_id = null, $sort = null, $parcel_tracking_number = null, $transaction_id = null)
     {
@@ -202,32 +202,32 @@ class TransactionReportsApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -246,7 +246,7 @@ class TransactionReportsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -254,7 +254,7 @@ class TransactionReportsApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -320,7 +320,7 @@ class TransactionReportsApi
      */
     public function getTransactionReportAsyncWithHttpInfo($developer_id, $x_pb_unified_error_structure = true, $from_date = null, $ship_details = 0, $page = null, $size = 20, $print_status = null, $to_date = null, $transaction_type = null, $merchant_id = null, $sort = null, $parcel_tracking_number = null, $transaction_id = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\PageRealTransactionDetailReport';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\PageRealTransactionDetailReport';
         $request = $this->getTransactionReportRequest($developer_id, $x_pb_unified_error_structure, $from_date, $ship_details, $page, $size, $print_status, $to_date, $transaction_type, $merchant_id, $sort, $parcel_tracking_number, $transaction_id);
 
         return $this->client

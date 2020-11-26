@@ -125,11 +125,11 @@ class ShipmentApi
      * @param  string $x_pb_unified_error_structure Recommended. Set this to true to use the standard error object if an error occurs. (optional, default to 'true')
      * @param  string $x_pb_shipper_carrier_account_id UPS Only. The unique identifier returned in the shipperCarrierAccountId field by the [Register an Existing Carrier Account API.(https://shipping.pitneybowes.com/api/post-carrier-accounts-register.html) (optional)
      * @param  string $cancel_initiator Indicates that this refund request is initiated by the shipper. Set this to: SHIPPER (optional)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function cancelShipment($x_pb_transaction_id, $shipment_id, $x_pb_unified_error_structure = 'true', $x_pb_shipper_carrier_account_id = null, $cancel_initiator = null, $carrier = null)
     {
@@ -147,11 +147,11 @@ class ShipmentApi
      * @param  string $x_pb_unified_error_structure Recommended. Set this to true to use the standard error object if an error occurs. (optional, default to 'true')
      * @param  string $x_pb_shipper_carrier_account_id UPS Only. The unique identifier returned in the shipperCarrierAccountId field by the [Register an Existing Carrier Account API.(https://shipping.pitneybowes.com/api/post-carrier-accounts-register.html) (optional)
      * @param  string $cancel_initiator Indicates that this refund request is initiated by the shipper. Set this to: SHIPPER (optional)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function cancelShipmentWithHttpInfo($x_pb_transaction_id, $shipment_id, $x_pb_unified_error_structure = 'true', $x_pb_shipper_carrier_account_id = null, $cancel_initiator = null, $carrier = null)
     {
@@ -188,32 +188,32 @@ class ShipmentApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -232,7 +232,7 @@ class ShipmentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -240,7 +240,7 @@ class ShipmentApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -260,7 +260,7 @@ class ShipmentApi
      * @param  string $x_pb_unified_error_structure Recommended. Set this to true to use the standard error object if an error occurs. (optional, default to 'true')
      * @param  string $x_pb_shipper_carrier_account_id UPS Only. The unique identifier returned in the shipperCarrierAccountId field by the [Register an Existing Carrier Account API.(https://shipping.pitneybowes.com/api/post-carrier-accounts-register.html) (optional)
      * @param  string $cancel_initiator Indicates that this refund request is initiated by the shipper. Set this to: SHIPPER (optional)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -285,14 +285,14 @@ class ShipmentApi
      * @param  string $x_pb_unified_error_structure Recommended. Set this to true to use the standard error object if an error occurs. (optional, default to 'true')
      * @param  string $x_pb_shipper_carrier_account_id UPS Only. The unique identifier returned in the shipperCarrierAccountId field by the [Register an Existing Carrier Account API.(https://shipping.pitneybowes.com/api/post-carrier-accounts-register.html) (optional)
      * @param  string $cancel_initiator Indicates that this refund request is initiated by the shipper. Set this to: SHIPPER (optional)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function cancelShipmentAsyncWithHttpInfo($x_pb_transaction_id, $shipment_id, $x_pb_unified_error_structure = 'true', $x_pb_shipper_carrier_account_id = null, $cancel_initiator = null, $carrier = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CancelShipment';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CancelShipment';
         $request = $this->cancelShipmentRequest($x_pb_transaction_id, $shipment_id, $x_pb_unified_error_structure, $x_pb_shipper_carrier_account_id, $cancel_initiator, $carrier);
 
         return $this->client
@@ -337,7 +337,7 @@ class ShipmentApi
      * @param  string $x_pb_unified_error_structure Recommended. Set this to true to use the standard error object if an error occurs. (optional, default to 'true')
      * @param  string $x_pb_shipper_carrier_account_id UPS Only. The unique identifier returned in the shipperCarrierAccountId field by the [Register an Existing Carrier Account API.(https://shipping.pitneybowes.com/api/post-carrier-accounts-register.html) (optional)
      * @param  string $cancel_initiator Indicates that this refund request is initiated by the shipper. Set this to: SHIPPER (optional)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier Conditional. The carrier. This is required if the carrier is not USPS (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -483,7 +483,7 @@ class ShipmentApi
      * This operation creates a shipment and purchases a shipment label.
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq). (optional)
@@ -493,7 +493,7 @@ class ShipmentApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function createShipmentLabel($x_pb_transaction_id, $shipment, $x_pb_unified_error_structure = true, $x_pb_integrator_carrier_id = null, $x_pb_shipper_rate_plan = null, $x_pb_shipment_group_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null)
     {
@@ -507,7 +507,7 @@ class ShipmentApi
      * This operation creates a shipment and purchases a shipment label.
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq). (optional)
@@ -517,7 +517,7 @@ class ShipmentApi
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function createShipmentLabelWithHttpInfo($x_pb_transaction_id, $shipment, $x_pb_unified_error_structure = true, $x_pb_integrator_carrier_id = null, $x_pb_shipper_rate_plan = null, $x_pb_shipment_group_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null)
     {
@@ -554,32 +554,32 @@ class ShipmentApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 201:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -598,7 +598,7 @@ class ShipmentApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -606,7 +606,7 @@ class ShipmentApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -622,7 +622,7 @@ class ShipmentApi
      * This operation creates a shipment and purchases a shipment label.
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq). (optional)
@@ -649,7 +649,7 @@ class ShipmentApi
      * This operation creates a shipment and purchases a shipment label.
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq). (optional)
@@ -662,7 +662,7 @@ class ShipmentApi
      */
     public function createShipmentLabelAsyncWithHttpInfo($x_pb_transaction_id, $shipment, $x_pb_unified_error_structure = true, $x_pb_integrator_carrier_id = null, $x_pb_shipper_rate_plan = null, $x_pb_shipment_group_id = null, $x_pb_shipper_carrier_account_id = null, $include_delivery_commitment = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
         $request = $this->createShipmentLabelRequest($x_pb_transaction_id, $shipment, $x_pb_unified_error_structure, $x_pb_integrator_carrier_id, $x_pb_shipper_rate_plan, $x_pb_shipment_group_id, $x_pb_shipper_carrier_account_id, $include_delivery_commitment);
 
         return $this->client
@@ -703,7 +703,7 @@ class ShipmentApi
      * Create request for operation 'createShipmentLabel'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment $shipment request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment $shipment request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      * @param  string $x_pb_integrator_carrier_id USPS Only. Negotiated services rate, if applicable. (optional)
      * @param  string $x_pb_shipper_rate_plan USPS Only. Shipper rate plan, if applicable. For more information, see [this FAQ](https://shipping.pitneybowes.com/faqs/rates.html#rate-plans-faq). (optional)
@@ -852,11 +852,11 @@ class ShipmentApi
      *
      * @param  string $shipment_id Required. The shipment ID that was issued when shipment label was generated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier carrier (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function reprintShipment($shipment_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
@@ -871,11 +871,11 @@ class ShipmentApi
      *
      * @param  string $shipment_id Required. The shipment ID that was issued when shipment label was generated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function reprintShipmentWithHttpInfo($shipment_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
@@ -912,32 +912,32 @@ class ShipmentApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -956,7 +956,7 @@ class ShipmentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -964,7 +964,7 @@ class ShipmentApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -981,7 +981,7 @@ class ShipmentApi
      *
      * @param  string $shipment_id Required. The shipment ID that was issued when shipment label was generated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1003,14 +1003,14 @@ class ShipmentApi
      *
      * @param  string $shipment_id Required. The shipment ID that was issued when shipment label was generated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function reprintShipmentAsyncWithHttpInfo($shipment_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
         $request = $this->reprintShipmentRequest($shipment_id, $x_pb_unified_error_structure, $carrier);
 
         return $this->client
@@ -1052,7 +1052,7 @@ class ShipmentApi
      *
      * @param  string $shipment_id Required. The shipment ID that was issued when shipment label was generated. (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -1167,11 +1167,11 @@ class ShipmentApi
      *
      * @param  string $original_transaction_id original_transaction_id (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier carrier (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors
      */
     public function retryShipment($original_transaction_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
@@ -1186,11 +1186,11 @@ class ShipmentApi
      *
      * @param  string $original_transaction_id (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors, HTTP status code, HTTP response headers (array of strings)
      */
     public function retryShipmentWithHttpInfo($original_transaction_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
@@ -1227,32 +1227,32 @@ class ShipmentApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -1271,7 +1271,7 @@ class ShipmentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1279,7 +1279,7 @@ class ShipmentApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Errors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1296,7 +1296,7 @@ class ShipmentApi
      *
      * @param  string $original_transaction_id (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1318,14 +1318,14 @@ class ShipmentApi
      *
      * @param  string $original_transaction_id (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function retryShipmentAsyncWithHttpInfo($original_transaction_id, $x_pb_unified_error_structure = true, $carrier = null)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Shipment';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment';
         $request = $this->retryShipmentRequest($original_transaction_id, $x_pb_unified_error_structure, $carrier);
 
         return $this->client
@@ -1367,7 +1367,7 @@ class ShipmentApi
      *
      * @param  string $original_transaction_id (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Carrier $carrier (optional)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Carrier $carrier (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request

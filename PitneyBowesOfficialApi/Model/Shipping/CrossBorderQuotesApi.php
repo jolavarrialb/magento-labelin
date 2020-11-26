@@ -120,12 +120,12 @@ class CrossBorderQuotesApi
      *
      * Cross-Border Quotes
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesRequest $cross_border_quotes_request cross_border_quotes_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesRequest $cross_border_quotes_request cross_border_quotes_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors
      */
     public function getCrossBorderQuotes($cross_border_quotes_request, $x_pb_unified_error_structure = true)
     {
@@ -138,12 +138,12 @@ class CrossBorderQuotesApi
      *
      * Cross-Border Quotes
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse|\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse|\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCrossBorderQuotesWithHttpInfo($cross_border_quotes_request, $x_pb_unified_error_structure = true)
     {
@@ -180,32 +180,32 @@ class CrossBorderQuotesApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 default:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -224,7 +224,7 @@ class CrossBorderQuotesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -232,7 +232,7 @@ class CrossBorderQuotesApi
                 default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesErrors',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesErrors',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -247,7 +247,7 @@ class CrossBorderQuotesApi
      *
      * Cross-Border Quotes
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -268,7 +268,7 @@ class CrossBorderQuotesApi
      *
      * Cross-Border Quotes
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -276,7 +276,7 @@ class CrossBorderQuotesApi
      */
     public function getCrossBorderQuotesAsyncWithHttpInfo($cross_border_quotes_request, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesResponse';
         $request = $this->getCrossBorderQuotesRequest($cross_border_quotes_request, $x_pb_unified_error_structure);
 
         return $this->client
@@ -316,7 +316,7 @@ class CrossBorderQuotesApi
     /**
      * Create request for operation 'getCrossBorderQuotes'
      *
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\CrossBorderQuotesRequest $cross_border_quotes_request (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -422,12 +422,12 @@ class CrossBorderQuotesApi
      * Predicts the HS Code for a parcel
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse
+     * @return \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse
      */
     public function predictedHSCode($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -441,12 +441,12 @@ class CrossBorderQuotesApi
      * Predicts the HS Code for a parcel
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \Labelin\PitneyBowesOfficialApi\Model\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function predictedHSCodeWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
@@ -483,20 +483,20 @@ class CrossBorderQuotesApi
             $responseBody = $response->getBody();
             switch($statusCode) {
                 case 200:
-                    if ('\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse' === '\SplFileObject') {
+                    if ('\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse' === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
                         $content = (string) $responseBody;
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse', []),
+                        ObjectSerializer::deserialize($content, '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
             }
 
-            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse';
+            $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse';
             $responseBody = $response->getBody();
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
@@ -515,7 +515,7 @@ class CrossBorderQuotesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse',
+                        '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -531,7 +531,7 @@ class CrossBorderQuotesApi
      * Predicts the HS Code for a parcel
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -553,7 +553,7 @@ class CrossBorderQuotesApi
      * Predicts the HS Code for a parcel
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
@@ -561,7 +561,7 @@ class CrossBorderQuotesApi
      */
     public function predictedHSCodeAsyncWithHttpInfo($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure = true)
     {
-        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\ParcelProtectionPolicyResponse';
+        $returnType = '\Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelProtectionPolicyResponse';
         $request = $this->predictedHSCodeRequest($x_pb_transaction_id, $manifest, $x_pb_unified_error_structure);
 
         return $this->client
@@ -602,7 +602,7 @@ class CrossBorderQuotesApi
      * Create request for operation 'predictedHSCode'
      *
      * @param  string $x_pb_transaction_id Required. A unique identifier for the transaction, up to 25 characters. (required)
-     * @param  \Labelin\PitneyBowesOfficialApi\Model\shippingApi\model\Manifest $manifest manifest (required)
+     * @param  \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Manifest $manifest manifest (required)
      * @param  bool $x_pb_unified_error_structure Set this to true to use the standard [error object](https://shipping.pitneybowes.com/reference/error-object.html#standard-error-object) if an error occurs. (optional, default to true)
      *
      * @throws \InvalidArgumentException
