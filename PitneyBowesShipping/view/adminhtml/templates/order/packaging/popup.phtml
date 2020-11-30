@@ -1,17 +1,27 @@
-<?php /** @var $block \Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging */ ?>
+<?php /** @var $block Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging */ ?>
 <?php
 $shippingMethod = $block->getShipment()->getOrder()->getShippingMethod();
 $sizeSource = $block->getSourceSizeModel()->toOptionArray();
 $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 0;
 ?>
+<?php /* @var $viewModel \Labelin\PitneyBowesShipping\ViewModel\Shipment */ ?>
+<?php $viewModel = $block->getViewModel() ?>
+<?php $shippingHelper = $viewModel->getShippingHelper() ?>
 <script>
     require([
         "jquery",
         "prototype",
         "Magento_Shipping/order/packaging",
+        "Labelin_PitneyBowesShipping/order/packaging-rates",
         "Magento_Ui/js/modal/modal"
     ], function(jQuery){
         window.packaging = new Packaging(<?= /* @noEscape */ $block->getConfigDataJson() ?>);
+
+        window.packagingRates = new PackagingRates(
+            <?= /* @noEscape */ $block->getFromAddressJson() ?>,
+            <?= /* @noEscape */ $block->getToAddressJson() ?>,
+        );
+
         packaging.changeContainerType($$('select[name=package_container]')[0]);
         packaging.checkSizeAndGirthParameter(
             $$('select[name=package_container]')[0],
@@ -70,7 +80,7 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         jQuery(document).data('packagingInited', true);
     });
 </script>
-<?php if($block->getShippingHelper()->isPitneyBowesShipping($block->getCarrier())): ?>
+<?php if($shippingHelper->isPitneyBowesShippingByShipment($block->getShipment())): ?>
     <?php include ($block->getTemplateFile('Labelin_PitneyBowesShipping::order/packaging/popup_content.phtml')) ?>
 <?php else: ?>
     <?php include ($block->getTemplateFile('Magento_Shipping::order/packaging/popup_content.phtml')) ?>

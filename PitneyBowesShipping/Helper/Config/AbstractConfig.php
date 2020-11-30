@@ -63,4 +63,19 @@ abstract class AbstractConfig extends AbstractHelper
 
         return $this;
     }
+
+    public function getAllowedMethods(): array
+    {
+        return explode(',', $this->scopeConfig->getValue($this->xmlPathSettings['allowed_methods']));
+    }
+
+    public function getContainer(): string
+    {
+        return (string)$this->scopeConfig->getValue($this->xmlPathSettings['container']);
+    }
+
+    public function getMerchantId(): string
+    {
+        return (string)$this->scopeConfig->getValue($this->xmlPathSettings['merchant_id']);
+    }
 }

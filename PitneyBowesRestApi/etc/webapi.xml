@@ -6,4 +6,10 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+    <route url="/V1/pitney-bowes-rest-api/rates" method="POST">
+        <service class="Labelin\PitneyBowesRestApi\Api\RatesInterface" method="requestRates"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
 </routes>
