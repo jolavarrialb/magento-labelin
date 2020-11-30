@@ -19,14 +19,26 @@ interface RateDtoInterface
     public function getServiceId(): string;
 
     /**
-     * @param int|float $charge
+     * @param string $service
+     *
+     * @return $this
+     */
+    public function setService(string $service);
+
+    /**
+     * @return string
+     */
+    public function getService(): string;
+
+    /**
+     * @param float $charge
      *
      * @return $this
      */
     public function setBaseCharge($charge);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getBaseCharge();
 
@@ -43,14 +55,14 @@ interface RateDtoInterface
     public function getRateTypeId(): string;
 
     /**
-     * @param int|float $charge
+     * @param float $charge
      *
      * @return $this
      */
     public function setTotalCarrierCharge($charge);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getTotalCarrierCharge();
 }

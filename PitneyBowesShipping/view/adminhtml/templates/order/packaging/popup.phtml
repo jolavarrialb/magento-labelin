@@ -1,4 +1,4 @@
-<?php /** @var $block Magento\Shipping\Block\Adminhtml\Order\Packaging */ ?>
+<?php /** @var $block Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging */ ?>
 <?php
 $shippingMethod = $block->getShipment()->getOrder()->getShippingMethod();
 $sizeSource = $block->getSourceSizeModel()->toOptionArray();
@@ -17,7 +17,10 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
     ], function(jQuery){
         window.packaging = new Packaging(<?= /* @noEscape */ $block->getConfigDataJson() ?>);
 
-        window.packagingRates = new PackagingRates(<?= /* @noEscape */ $block->getConfigDataJson() ?>);
+        window.packagingRates = new PackagingRates(
+            <?= /* @noEscape */ $block->getFromAddressJson() ?>,
+            <?= /* @noEscape */ $block->getToAddressJson() ?>,
+        );
 
         packaging.changeContainerType($$('select[name=package_container]')[0]);
         packaging.checkSizeAndGirthParameter(

@@ -151,7 +151,7 @@ class AddressDto implements AddressDtoInterface
         return $this->country;
     }
 
-    public function toArray(): array
+    public function toShippingOptionsArray(): array
     {
         return [
             'company' => $this->getCompany(),
@@ -164,6 +164,21 @@ class AddressDto implements AddressDtoInterface
             'state_province' => $this->getState(),
             'postal_code' => $this->getPostcode(),
             'country_code' => $this->getCountry(),
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'company' => $this->getCompany(),
+            'name' => $this->getName(),
+            'phone' => $this->getPhone(),
+            'email' => $this->getEmail(),
+            'addressLines' => $this->getAddressLines(),
+            'city' => $this->getCity(),
+            'state' => $this->getState(),
+            'postcode' => $this->getPostcode(),
+            'country' => $this->getCountry(),
         ];
     }
 

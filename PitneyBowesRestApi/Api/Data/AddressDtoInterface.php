@@ -117,5 +117,10 @@ interface AddressDtoInterface
     /**
      * @return array
      */
+    public function toShippingOptionsArray(): array;
+
+    /**
+     * @return array
+     */
     public function toArray(): array;
 }

@@ -3,7 +3,7 @@
     <body>
         <referenceBlock name="sales_shipment_create">
             <referenceBlock name="form">
-                <block class="Magento\Shipping\Block\Adminhtml\Order\Packaging" name="shipment_packaging" template="Labelin_PitneyBowesShipping::order/packaging/popup.phtml">
+                <block class="Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging" name="shipment_packaging" template="Labelin_PitneyBowesShipping::order/packaging/popup.phtml">
                     <arguments>
                         <argument name="view_model" xsi:type="object">Labelin\PitneyBowesShipping\ViewModel\Shipment</argument>
                     </arguments>

@@ -5,9 +5,11 @@ define([
     window.PackagingRates = Class.create();
 
     PackagingRates.prototype = {
-        initialize: function (params) {
+        initialize: function (fromAddress, toAddress) {
             this.packagingWindow = document.querySelector('#packaging_window');
             this.formData = {};
+            this.fromAddress = fromAddress;
+            this.toAddress = toAddress;
         },
 
         validate: function (section) {
@@ -40,38 +42,28 @@ define([
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.send(JSON.stringify({
-                "fromAddress": {
-                    "company": "Itransition",
-                    "name": "Aleksandr Shimovolos",
-                    "phone": "2032032033",
-                    "email": "a.shimovolos@itransition.com",
-                    "addressLines": [
-                        "250 Route 59"
-                    ],
-                    "city": "Airmont",
-                    "state": "NY",
-                    "postcode": "10901-5315",
-                    "country": "US"
-                },
-                "toAddress": {
-                    "company": "Glorias Co.",
-                    "name": "Peter",
-                    "phone": "2222222222",
-                    "email": "receiver@email.com",
-                    "addressLines": [
-                        "1 Sullivan SQ"
-                    ],
-                    "city": "Berwick",
-                    "postcode": "03901",
-                    "country": "US"
-                },
+                "fromAddress": this.fromAddress,
+                "toAddress": this.toAddress,
                 "parcel": this.formData
             }));
 
             xhr.onreadystatechange = function () {
                 if (this.status === 200) {
                     let data = JSON.parse(this.responseText);
-                    console.log(data);
+
+                    if (data) {
+                        let select = section.querySelector('select[name=package_service]');
+                        select.innerHTML = '';
+
+                        data.forEach(function (element) {
+                            let option = document.createElement('option');
+
+                            option.appendChild(document.createTextNode(element.service + ' - $' + element.total_carrier_charge));
+                            option.value = element.service_id;
+
+                            select.appendChild(option)
+                        });
+                    }
                 }
             };
         },

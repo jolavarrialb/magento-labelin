@@ -11,13 +11,16 @@ class RateDto implements RateDtoInterface
     /** @var string */
     protected $serviceId = '';
 
-    /** @var int|float */
+    /** @var string */
+    protected $service = '';
+
+    /** @var float */
     protected $baseCharge;
 
     /** @var string */
     protected $typeId = '';
 
-    /** @var int|float */
+    /** @var float */
     protected $carrierCharge;
 
     public function setServiceId(string $serviceId): self
@@ -29,11 +32,23 @@ class RateDto implements RateDtoInterface
 
     public function getServiceId(): string
     {
-        return (string)__($this->serviceId);
+        return $this->serviceId;
+    }
+
+    public function setService(string $service): self
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    public function getService(): string
+    {
+        return (string)__($this->service);
     }
 
     /**
-     * @param int|float $charge
+     * @param float $charge
      *
      * @return $this
      */
@@ -45,7 +60,7 @@ class RateDto implements RateDtoInterface
     }
 
     /**
-     * @return float|int
+     * @return float
      */
     public function getBaseCharge()
     {
@@ -65,7 +80,7 @@ class RateDto implements RateDtoInterface
     }
 
     /**
-     * @param float|int $charge
+     * @param float $charge
      *
      * @return $this
      */
@@ -77,7 +92,7 @@ class RateDto implements RateDtoInterface
     }
 
     /**
-     * @return float|int
+     * @return float
      */
     public function getTotalCarrierCharge()
     {

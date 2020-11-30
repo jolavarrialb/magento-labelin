@@ -1,4 +1,4 @@
-<?php /** @var $block Magento\Shipping\Block\Adminhtml\Order\Packaging */ ?>
+<?php /** @var $block Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging */ ?>
 <?php /* @var $viewModel \Labelin\PitneyBowesShipping\ViewModel\Shipment */ ?>
 <?php $viewModel = $block->getViewModel() ?>
 <?php $shippingHelper = $viewModel->getShippingHelper() ?>
@@ -35,6 +35,7 @@
             <table class="data-table admin__control-table">
                 <thead>
                 <tr>
+                    <th class="col-service"><?= $block->escapeHtml(__('Service')) ?></th>
                     <th class="col-type"><?= $block->escapeHtml(__('Type')) ?></th>
                     <?php if ($girthEnabled == 1) : ?>
                         <th class="col-size"><?= $block->escapeHtml(__('Size')) ?></th>
@@ -57,6 +58,9 @@
                 </thead>
                 <tbody>
                 <tr>
+                    <td class="col-type">
+                        <select name="package_service" class="admin__control-select" />
+                    </td>
                     <td class="col-type">
                         <?php $containers = $block->getContainers(); ?>
                         <select name="package_container"

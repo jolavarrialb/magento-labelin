@@ -59,8 +59,8 @@ class Rates implements RatesInterface
         ParcelDtoInterface $parcel
     ) {
         $shipment = new Shipment([
-            'from_address' => new Address($fromAddress->toArray()),
-            'to_address' => new Address($toAddress->toArray()),
+            'from_address' => new Address($fromAddress->toShippingOptionsArray()),
+            'to_address' => new Address($toAddress->toShippingOptionsArray()),
             'parcel' => new Parcel([
                 'weight' => new ParcelWeight($parcel->toWeightArray()),
                 'dimension' => new ParcelDimension($parcel->toDimensionsArray()),
@@ -98,6 +98,7 @@ class Rates implements RatesInterface
 
         foreach ($response->getRates() as $rate) {
             $this->rates[] = (new RateDto())
+                ->setService((string)$rate->getServiceId())
                 ->setServiceId((string)$rate->getServiceId())
                 ->setBaseCharge($rate->getBaseCharge())
                 ->setRateTypeId($rate->getRateTypeId())
