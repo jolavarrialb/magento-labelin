@@ -40,7 +40,7 @@ class VerifyAddress implements VerifyAddressInterface
         $this->logger = $logger;
     }
 
-    public function verifyAddress(AddressDtoInterface $address): ?Data\VerifiedAddressDtoInterface
+    public function verifyAddress(AddressDtoInterface $address)
     {
         $addressApi = new Address($address->toShippingOptionsArray());
 
@@ -50,11 +50,14 @@ class VerifyAddress implements VerifyAddressInterface
         $this->logger->info(json_encode($address->toShippingOptionsArray()));
 
         try {
-            $response = (new AddressValidationApi($this->oauthConfiguration))->verifyAddress($addressApi);
+            $response = (new AddressValidationApi($this->oauthConfiguration))
+                ->verifyAddress($addressApi, true, false);
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
+            $error = json_decode($exception->getResponseBody(), true);
+            $error = current($error['errors']);
 
-            return null;
+            return $error['errorDescription'] . '. ' . $error['additionalInfo'];
         }
 
         $this->logger->info('RESPONSE:');

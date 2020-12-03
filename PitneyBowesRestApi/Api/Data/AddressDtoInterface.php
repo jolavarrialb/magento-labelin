@@ -7,11 +7,11 @@ namespace Labelin\PitneyBowesRestApi\Api\Data;
 interface AddressDtoInterface
 {
     /**
-     * @param string $company
+     * @param string|null $company
      *
      * @return $this
      */
-    public function setCompany(string $company);
+    public function setCompany(?string $company);
 
     /**
      * @return string
@@ -19,11 +19,11 @@ interface AddressDtoInterface
     public function getCompany(): string;
 
     /**
-     * @param string $name
+     * @param string|null $name
      *
      * @return $this
      */
-    public function setName(string $name);
+    public function setName(?string $name);
 
     /**
      * @return string
@@ -31,11 +31,11 @@ interface AddressDtoInterface
     public function getName(): string;
 
     /**
-     * @param string $phone
+     * @param string|null $phone
      *
      * @return $this
      */
-    public function setPhone(string $phone);
+    public function setPhone(?string $phone);
 
     /**
      * @return string
@@ -43,11 +43,11 @@ interface AddressDtoInterface
     public function getPhone(): string;
 
     /**
-     * @param string $email
+     * @param string|null $email
      *
      * @return $this
      */
-    public function setEmail(string $email);
+    public function setEmail(?string $email);
 
     /**
      * @return string
@@ -67,11 +67,11 @@ interface AddressDtoInterface
     public function getAddressLines();
 
     /**
-     * @param string $city
+     * @param string|null $city
      *
      * @return $this
      */
-    public function setCity(string $city);
+    public function setCity(?string $city);
 
     /**
      * @return string
@@ -79,11 +79,11 @@ interface AddressDtoInterface
     public function getCity(): string;
 
     /**
-     * @param string $state
+     * @param string|null $state
      *
      * @return $this
      */
-    public function setState(string $state);
+    public function setState(?string $state);
 
     /**
      * @return string
@@ -91,11 +91,11 @@ interface AddressDtoInterface
     public function getState(): string;
 
     /**
-     * @param string $postcode
+     * @param string|null $postcode
      *
      * @return $this
      */
-    public function setPostcode(string $postcode);
+    public function setPostcode(?string $postcode);
 
     /**
      * @return string
@@ -103,11 +103,11 @@ interface AddressDtoInterface
     public function getPostcode(): string;
 
     /**
-     * @param string $country
+     * @param string|null $country
      *
      * @return $this
      */
-    public function setCountry(string $country);
+    public function setCountry(?string $country);
 
     /**
      * @return string

@@ -11,7 +11,7 @@ interface VerifyAddressInterface
     /**
      * @param AddressDtoInterface $address
      *
-     * @return \Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface|null
+     * @return \Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface|string
      */
     public function verifyAddress(AddressDtoInterface $address);
 }
