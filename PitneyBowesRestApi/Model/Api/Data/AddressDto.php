@@ -35,9 +35,9 @@ class AddressDto implements AddressDtoInterface
     /** @var string */
     protected $country = '';
 
-    public function setCompany(string $company): self
+    public function setCompany(?string $company): self
     {
-        $this->company = $company;
+        $this->company = $company ?? '';
 
         return $this;
     }
@@ -47,9 +47,9 @@ class AddressDto implements AddressDtoInterface
         return $this->company;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->name = $name ?? '';
 
         return $this;
     }
@@ -59,9 +59,9 @@ class AddressDto implements AddressDtoInterface
         return $this->name;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
-        $this->phone = $phone;
+        $this->phone = $phone ?? '';
 
         return $this;
     }
@@ -71,9 +71,9 @@ class AddressDto implements AddressDtoInterface
         return $this->phone;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
-        $this->email = $email;
+        $this->email = $email ?? '';
 
         return $this;
     }
@@ -103,9 +103,9 @@ class AddressDto implements AddressDtoInterface
         return $this->addressLines;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
-        $this->city = $city;
+        $this->city = $city ?? '';
 
         return $this;
     }
@@ -115,9 +115,9 @@ class AddressDto implements AddressDtoInterface
         return $this->city;
     }
 
-    public function setState(string $state): self
+    public function setState(?string $state): self
     {
-        $this->state = $state;
+        $this->state = $state ?? '';
 
         return $this;
     }
@@ -127,9 +127,9 @@ class AddressDto implements AddressDtoInterface
         return $this->state;
     }
 
-    public function setPostcode(string $postcode): self
+    public function setPostcode(?string $postcode): self
     {
-        $this->postcode = $postcode;
+        $this->postcode = $postcode ?? '';
 
         return $this;
     }
@@ -139,9 +139,9 @@ class AddressDto implements AddressDtoInterface
         return $this->postcode;
     }
 
-    public function setCountry(string $country): self
+    public function setCountry(?string $country): self
     {
-        $this->country = $country;
+        $this->country = $country ?? '';
 
         return $this;
     }

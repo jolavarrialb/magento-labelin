@@ -13,6 +13,7 @@
                 <unit_of_measure>LBS</unit_of_measure>
                 <allowed_methods>USPS</allowed_methods>
                 <sort_order>1</sort_order>
+                <showmethod>1</showmethod>
                 <model>Labelin\PitneyBowesShipping\Model\Carrier\FreeShipping</model>
             </pitneybowesfreeshipping>
             <pitneybowesfixedpriceshipping>
@@ -26,6 +27,7 @@
                 <unit_of_measure>LBS</unit_of_measure>
                 <allowed_methods>USPS</allowed_methods>
                 <sort_order>2</sort_order>
+                <showmethod>1</showmethod>
                 <model>Labelin\PitneyBowesShipping\Model\Carrier\FixedPrice</model>
             </pitneybowesfixedpriceshipping>
         </carriers>

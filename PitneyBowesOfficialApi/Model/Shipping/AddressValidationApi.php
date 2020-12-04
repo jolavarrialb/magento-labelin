@@ -70,19 +70,19 @@ class AddressValidationApi
     protected $hostIndex;
 
     /**
-     * @param ClientInterface $client
      * @param Configuration   $config
+     * @param ClientInterface $client
      * @param HeaderSelector  $selector
      * @param int             $host_index (Optional) host index to select the list of hosts if defined in the OpenAPI spec
      */
     public function __construct(
-        ClientInterface $client = null,
         Configuration $config = null,
+        ClientInterface $client = null,
         HeaderSelector $selector = null,
         $host_index = 0
     ) {
-        $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
+        $this->client = $client ?: new Client();
         $this->headerSelector = $selector ?: new HeaderSelector();
         $this->hostIndex = $host_index;
     }

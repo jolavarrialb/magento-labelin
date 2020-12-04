@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
+use Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
+use Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress;
 use Labelin\PitneyBowesShipping\Helper\GeneralConfig;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
+use Magento\Checkout\Model\Session;
 use Magento\Directory\Helper\Data;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Directory\Model\CurrencyFactory;
 use Magento\Directory\Model\RegionFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Xml\Security;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
@@ -33,6 +39,12 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
     /** @var GeneralConfig */
     protected $carrierConfig;
 
+    /** @var VerifyAddress */
+    protected $addressVerifier;
+
+    /** @var Session */
+    protected $checkoutSession;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
@@ -50,6 +62,8 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         Data $directoryData,
         StockRegistryInterface $stockRegistry,
         GeneralConfig $carrierConfig,
+        VerifyAddress $addressVerifier,
+        Session $checkoutSession,
         array $data = []
     ) {
         parent::__construct(
@@ -73,6 +87,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
 
         $this->rateMethodFactory = $rateMethodFactory;
         $this->carrierConfig = $carrierConfig;
+
+        $this->addressVerifier = $addressVerifier;
+        $this->checkoutSession = $checkoutSession;
     }
 
     /**
@@ -114,6 +131,46 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return [
             $this->_code => $this->getConfigData('name'),
         ];
+    }
+
+    /**
+     * @param DataObject $request
+     *
+     * @return $this|bool|AbstractPitneyBowesCarrier|DataObject
+     * @throws NoSuchEntityException
+     * @throws LocalizedException
+     */
+    public function processAdditionalValidation(DataObject $request)
+    {
+        $quoteShippingAddress = $this->checkoutSession->getQuote()->getShippingAddress();
+
+        $address = (new AddressDto())
+            ->setAddressLines($quoteShippingAddress->getStreet())
+            ->setCity($request->getDestCity())
+            ->setState($request->getDestRegionCode())
+            ->setPostcode($request->getDestPostcode())
+            ->setCountry($request->getDestCountryId());
+
+        $response = $this->addressVerifier->verifyAddress($address);
+
+        if ($response instanceof VerifiedAddressDtoInterface && $response->isValid()) {
+            $quoteShippingAddress
+                ->setPostcode($response->getPostcode())
+                ->setStreet($response->getAddressLines());
+
+            return $this;
+        }
+
+        if ($this->getConfigData('showmethod')) {
+            $error = $this->_rateErrorFactory->create();
+            $error->setCarrier($this->_code);
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setErrorMessage($response);
+
+            return $error;
+        }
+
+        return false;
     }
 
     protected function _doShipmentRequest(DataObject $request): array
