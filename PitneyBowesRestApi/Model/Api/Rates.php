@@ -22,8 +22,6 @@ use Psr\Log\LoggerInterface;
 
 class Rates implements RatesInterface
 {
-    protected const URI = '/shippingservices/v1/rates';
-
     /** @var ConfigHelper */
     protected $configHelper;
 
