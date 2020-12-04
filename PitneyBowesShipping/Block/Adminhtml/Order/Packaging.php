@@ -63,9 +63,9 @@ class Packaging extends MagentoPackaging
         $shippingAddress = $this->getShipment()->getShippingAddress();
 
         $address = (new AddressDto())
-            ->setCompany($shippingAddress->getCompany())
+            ->setCompany($shippingAddress->getCompany() ?? '')
             ->setName($shippingAddress->getName())
-            ->setPhone($shippingAddress->getTelephone())
+            ->setPhone($shippingAddress->getTelephone() ?? '')
             ->setEmail($shippingAddress->getEmail())
             ->setAddressLines($shippingAddress->getStreet())
             ->setCity($shippingAddress->getCity())

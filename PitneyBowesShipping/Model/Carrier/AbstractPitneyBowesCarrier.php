@@ -26,6 +26,7 @@ use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Model\Carrier\AbstractCarrierOnline;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Shipping\Model\Rate\ResultFactory;
+use Magento\Shipping\Model\Shipment\Request;
 use Magento\Shipping\Model\Simplexml\ElementFactory;
 use Magento\Shipping\Model\Tracking\Result\ErrorFactory as TrackingErrorFactory;
 use Magento\Shipping\Model\Tracking\Result\StatusFactory;
@@ -120,9 +121,45 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return $method;
     }
 
-    public function requestToShipment($request): DataObject
+    public function requestToShipment($request)
     {
-        return new DataObject(['info' => []]);
+        $packages = $request->getPackages();
+        if (!is_array($packages) || !$packages) {
+            throw new LocalizedException(__('No packages for request'));
+        }
+        if ($request->getStoreId() != null) {
+            $this->setStore($request->getStoreId());
+        }
+        $data = [];
+        foreach ($packages as $packageId => $package) {
+            $request->setPackageId($packageId);
+            $request->setPackagingType($package['params']['container']);
+            $request->setPackageWeight($package['params']['weight']);
+            $request->setPackageParams(new \Magento\Framework\DataObject($package['params']));
+            $request->setPackageItems($package['items']);
+            $result = $this->_doShipmentRequest($request);
+
+            if ($result->hasErrors()) {
+                $this->rollBack($data);
+                break;
+            } else {
+                $data[] = [
+                    'tracking_number' => $result->getTrackingNumber(),
+                    'label_content' => $result->getShippingLabelContent(),
+                ];
+            }
+            if (!isset($isFirstRequest)) {
+                $request->setMasterTrackingId($result->getTrackingNumber());
+                $isFirstRequest = false;
+            }
+        }
+
+        $response = new \Magento\Framework\DataObject(['info' => $data]);
+        if ($result->getErrors()) {
+            $response->setErrors($result->getErrors());
+        }
+
+        return $response;
     }
 
     public function getContainerTypes(DataObject $params = null): array
@@ -196,8 +233,86 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return $response;
     }
 
-    protected function _doShipmentRequest(DataObject $request): array
+    protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
     {
-        return [];
+        $this->_prepareShipmentRequest($request);
+        $result = new \Magento\Framework\DataObject();
+        $service = $this->getCode('service_to_code', $request->getShippingMethod());
+        $recipientUSCountry = $this->_isUSCountry($request->getRecipientAddressCountryCode());
+
+        if ($recipientUSCountry && $service == 'Priority Express') {
+            $requestXml = $this->_formUsExpressShipmentRequest($request);
+            $api = 'ExpressMailLabel';
+        } else {
+            if ($recipientUSCountry) {
+                $requestXml = $this->_formUsSignatureConfirmationShipmentRequest($request, $service);
+                if ($this->getConfigData('mode')) {
+                    $api = 'SignatureConfirmationV3';
+                } else {
+                    $api = 'SignatureConfirmationCertifyV3';
+                }
+            } else {
+                if ($service == 'First Class') {
+                    $requestXml = $this->_formIntlShipmentRequest($request);
+                    $api = 'FirstClassMailIntl';
+                } else {
+                    if ($service == 'Priority') {
+                        $requestXml = $this->_formIntlShipmentRequest($request);
+                        $api = 'PriorityMailIntl';
+                    } else {
+                        $requestXml = $this->_formIntlShipmentRequest($request);
+                        $api = 'ExpressMailIntl';
+                    }
+                }
+            }
+        }
+
+        $debugData = ['request' => $this->filterDebugData($requestXml)];
+        $url = $this->getConfigData('gateway_secure_url');
+        if (!$url) {
+            $url = $this->_defaultGatewayUrl;
+        }
+        $client = $this->_httpClientFactory->create();
+        $client->setUri($url);
+        $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
+        $client->setParameterGet('API', $api);
+        $client->setParameterGet('XML', $requestXml);
+        $response = $client->request()->getBody();
+
+        $response = $this->parseXml($response);
+
+        if ($response !== false) {
+            if ($response->getName() == 'Error') {
+                $debugData['result'] = [
+                    'error' => $response->Description,
+                    'code' => $response->Number,
+                    'xml' => $response->asXML(),
+                ];
+                $this->_debug($debugData);
+                $result->setErrors($debugData['result']['error']);
+            } else {
+                if ($recipientUSCountry && $service == 'Priority Express') {
+                    // phpcs:ignore Magento2.Functions.DiscouragedFunction
+                    $labelContent = base64_decode((string)$response->EMLabel);
+                    $trackingNumber = (string)$response->EMConfirmationNumber;
+                } elseif ($recipientUSCountry) {
+                    // phpcs:ignore Magento2.Functions.DiscouragedFunction
+                    $labelContent = base64_decode((string)$response->SignatureConfirmationLabel);
+                    $trackingNumber = (string)$response->SignatureConfirmationNumber;
+                } else {
+                    // phpcs:ignore Magento2.Functions.DiscouragedFunction
+                    $labelContent = base64_decode((string)$response->LabelImage);
+                    $trackingNumber = (string)$response->BarcodeNumber;
+                }
+                $result->setShippingLabelContent($labelContent);
+                $result->setTrackingNumber($trackingNumber);
+            }
+        }
+
+        $result->setGatewayResponse($response);
+        $debugData['result'] = $response;
+        $this->_debug($debugData);
+
+        return $result;
     }
 }
