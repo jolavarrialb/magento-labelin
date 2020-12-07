@@ -39,6 +39,9 @@ class View extends MagentoView
 
     public function getCancelUrl(): string
     {
-        return $this->getUrl('sales/shipment/cancel', ['shipment_id' => $this->getShipment()->getId()]);
+        return $this->getUrl('sales/shipment/cancel', [
+            'shipment_id' => $this->getShipment()->getId(),
+            'order_id' => $this->getShipment()->getOrderId(),
+        ]);
     }
 }

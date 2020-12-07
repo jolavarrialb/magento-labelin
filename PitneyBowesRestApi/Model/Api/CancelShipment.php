@@ -94,10 +94,6 @@ class CancelShipment implements CancelShipmentInterface
         /** @var ShipmentPitney $shipment */
         $shipment = current($shipments);
 
-        if ($shipment->getIsCanceled()) {
-            return null;
-        }
-
         try {
             $pitneyBowesShipmentId = json_decode($shipment->getResponse(), true);
             $pitneyBowesShipmentId = $pitneyBowesShipmentId['shipmentId'];
@@ -125,8 +121,7 @@ class CancelShipment implements CancelShipmentInterface
         $this->logger->info('RESPONSE:');
         $this->logger->info($response);
 
-        $shipment->setIsCanceled(true);
-        $this->shipmentPitneyBowesRepository->save($shipment);
+        $this->shipmentPitneyBowesRepository->delete($shipment);
 
         $this->deleteShipment($shipmentId);
 
