@@ -7,7 +7,6 @@ namespace Labelin\PitneyBowesRestApi\Model\Api;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address;
 use Labelin\PitneyBowesOfficialApi\Model\Configuration as OauthConfiguration;
 use Labelin\PitneyBowesOfficialApi\Model\Shipping\AddressValidationApi;
-use Labelin\PitneyBowesRestApi\Api\Data;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\VerifyAddressInterface;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\VerifiedAddressDto;
@@ -16,8 +15,6 @@ use Psr\Log\LoggerInterface;
 
 class VerifyAddress implements VerifyAddressInterface
 {
-    protected const URI = '/shippingservices/v1/addresses/verify';
-
     /** @var ConfigHelper */
     protected $configHelper;
 

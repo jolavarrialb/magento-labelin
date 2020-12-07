@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
+use Labelin\PitneyBowesRestApi\Api\CancelShipmentInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
 use Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress;
@@ -45,6 +46,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
     /** @var Session */
     protected $checkoutSession;
 
+    /** @var CancelShipmentInterface */
+    protected $cancelShipmentRestApi;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         ErrorFactory $rateErrorFactory,
@@ -64,6 +68,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         GeneralConfig $carrierConfig,
         VerifyAddress $addressVerifier,
         Session $checkoutSession,
+        CancelShipmentInterface $cancelShipmentRestApi,
         array $data = []
     ) {
         parent::__construct(
@@ -90,6 +95,8 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
 
         $this->addressVerifier = $addressVerifier;
         $this->checkoutSession = $checkoutSession;
+
+        $this->cancelShipmentRestApi = $cancelShipmentRestApi;
     }
 
     /**
@@ -171,6 +178,20 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         }
 
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function returnOfShipment($request)
+    {
+        $response = $this->cancelShipmentRestApi->cancelShipment((int)$request->getOrderShipment()->getId());
+
+        if (!$response) {
+            return new DataObject([]);
+        }
+
+        return $response;
     }
 
     protected function _doShipmentRequest(DataObject $request): array

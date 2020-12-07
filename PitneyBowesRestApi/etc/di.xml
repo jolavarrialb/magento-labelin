@@ -3,10 +3,12 @@
     <preference for="Labelin\PitneyBowesRestApi\Api\OauthInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Oauth"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\RatesInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Rates"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\VerifyAddressInterface" type="Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\CancelShipmentInterface" type="Labelin\PitneyBowesRestApi\Model\Api\CancelShipment"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\RateDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\RateDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\ParcelDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\VerifiedAddressDto"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\Data\CancelShipmentDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\CancelShipmentDto"/>
 
     <virtualType name="Labelin\PitneyBowesRestApi\Debug" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
@@ -32,6 +34,11 @@
         </arguments>
     </type>
     <type name="Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\PitneyBowesRestApi\Model\Api\CancelShipment">
         <arguments>
             <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
         </arguments>
