@@ -39,4 +39,15 @@ interface ShipmentsRatesDtoInterface
      * @return string
      */
     public function getParcelType(): string;
+
+    /**
+     * @param string $postalCode
+     * @return mixed
+     */
+    public function setInductionPostalCode(string $postalCode);
+
+    /**
+     * @return string
+     */
+    public function getInductionPostalCode(): string;
 }

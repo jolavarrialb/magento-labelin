@@ -12,6 +12,12 @@
             <resource ref="anonymous" />
         </resources>
     </route>
+    <route url="/V1/pitney-bowes-rest-api/shipmentLabel" method="POST">
+        <service class="Labelin\PitneyBowesRestApi\Api\ShipmentInterface" method="requestShipmentLabel"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
     <route url="/V1/pitney-bowes-rest-api/verifyAddress" method="POST">
         <service class="Labelin\PitneyBowesRestApi\Api\VerifyAddressInterface" method="verifyAddress"/>
         <resources>

@@ -14,6 +14,8 @@ class ShipmentsRatesDto implements ShipmentsRatesDtoInterface
 
     protected $parcelType = '';
 
+    protected $inductionPostalCode = '';
+
     public function setCarrier(string $carrier): self
     {
         $this->carrier = $carrier;
@@ -48,5 +50,17 @@ class ShipmentsRatesDto implements ShipmentsRatesDtoInterface
     public function getParcelType(): string
     {
         return $this->parcelType;
+    }
+
+    public function setInductionPostalCode(string $postalCode): self
+    {
+        $this->inductionPostalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getInductionPostalCode(): string
+    {
+        return $this->inductionPostalCode;
     }
 }
