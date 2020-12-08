@@ -18,6 +18,7 @@ use Labelin\PitneyBowesOfficialApi\Model\Shipping\ShipmentApi;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\ShipmentInterface;
+use Labelin\PitneyBowesRestApi\Helper\Rates as RatesHelper;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
 
@@ -29,11 +30,16 @@ class Shipment implements ShipmentInterface
     /** @var OauthConfiguration */
     protected $oauthConfiguration;
 
+    /** @var RatesHelper */
+    protected $ratesHelper;
+
     public function __construct(
         ConfigHelper $configHelper,
+        RatesHelper $ratesHelper,
         OauthConfiguration $oauthConfiguration
     ) {
         $this->configHelper = $configHelper;
+        $this->ratesHelper = $ratesHelper;
         $this->oauthConfiguration = $oauthConfiguration;
     }
 
@@ -65,8 +71,9 @@ class Shipment implements ShipmentInterface
                 new Rate([
                     'carrier' => $rates->getCarrier(),
                     'parcel_type' => $rates->getParcelType(),
-                    'serviceId' => $rates->getServiceId(),
+                    'service_id' => $rates->getServiceId(),
                     'induction_postal_code' => $rates->getInductionPostalCode(),
+                    'special_services' => $this->ratesHelper->getAllSpecialServices($rates),
                 ]),
             ],
             'shipment_options' => [

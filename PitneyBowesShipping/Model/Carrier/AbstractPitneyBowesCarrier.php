@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
+use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialServiceCodes;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ParcelDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\SpecialServiceDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Shipment;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository;
@@ -300,10 +302,41 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             ->setParcelType($this->configHelper->getContainer())
             ->setInductionPostalCode($fromAddress->getPostcode());
 
+        $this->prepareSpecialServices($packageParams->getService(), $rates);
+
         $transactionId = $request->getOrderShipment()->getIncrementId();
 
         $result = $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $transactionId);
 
         return $result;
+    }
+
+    /**
+     * @param string $serviceId
+     * @param \Magento\Framework\DataObject $request
+     * @param ShipmentsRatesDto $rates
+     */
+    protected function prepareSpecialServices($serviceId, $rates)
+    {
+        switch ($serviceId) {
+            case 'EM':
+                $rates->addSpecialService(
+                    (new SpecialServiceDto())
+                        ->setInputParameters([
+                            'name' => 'INPUT_VALUE',
+                            'value' => 100,
+                        ])
+                        ->setSpecialServiceId(SpecialServiceCodes::INS)
+                );
+            default:
+                $rates->addSpecialService(
+                    (new SpecialServiceDto())
+                        ->setInputParameters([
+                            'name' => 'INPUT_VALUE',
+                            'value' => 0,
+                        ])
+                        ->setSpecialServiceId(SpecialServiceCodes::DEL_CON)
+                );
+        }
     }
 }

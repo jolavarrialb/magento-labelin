@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\PitneyBowesRestApi\Model\Api\Data;
 
 use Labelin\PitneyBowesRestApi\Api\Data\ShipmentsRatesDtoInterface;
+use Labelin\PitneyBowesRestApi\Api\Data\SpecialServiceDtoInterface;
 
 class ShipmentsRatesDto implements ShipmentsRatesDtoInterface
 {
@@ -15,6 +16,8 @@ class ShipmentsRatesDto implements ShipmentsRatesDtoInterface
     protected $parcelType = '';
 
     protected $inductionPostalCode = '';
+
+    protected $specialService = [];
 
     public function setCarrier(string $carrier): self
     {
@@ -62,5 +65,17 @@ class ShipmentsRatesDto implements ShipmentsRatesDtoInterface
     public function getInductionPostalCode(): string
     {
         return $this->inductionPostalCode;
+    }
+
+    public function addSpecialService(SpecialServiceDtoInterface $specialServiceDto)
+    {
+        $this->specialService[] = $specialServiceDto;
+
+        return $this;
+    }
+
+    public function getSpecialService(): array
+    {
+        return $this->specialService;
     }
 }
