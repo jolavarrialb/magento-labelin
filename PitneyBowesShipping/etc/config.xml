@@ -31,5 +31,13 @@
                 <model>Labelin\PitneyBowesShipping\Model\Carrier\FixedPrice</model>
             </pitneybowesfixedpriceshipping>
         </carriers>
+        <labelin_sales_email>
+            <tracking_number>
+                <enabled>1</enabled>
+                <template>labelin_sales_email_tracking_number_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </tracking_number>
+        </labelin_sales_email>
     </default>
 </config>

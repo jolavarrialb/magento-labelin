@@ -26,4 +26,20 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="TrackingIdentity" type="Labelin\PitneyBowesShipping\Model\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/tracking_number/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/tracking_number/template</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/tracking_number/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/tracking_number/copy_method</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/tracking_number/identity</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\PitneyBowesShipping\Model\Email\Sender\TrackInfoSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">TrackingIdentity</argument>
+        </arguments>
+    </type>
 </config>

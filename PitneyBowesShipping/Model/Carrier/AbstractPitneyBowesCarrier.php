@@ -34,6 +34,8 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implements CarrierInterface
 {
+    public const TRACKING_URL = 'https://tracking.pb.com/';
+
     /** @var MethodFactory */
     protected $rateMethodFactory;
 
