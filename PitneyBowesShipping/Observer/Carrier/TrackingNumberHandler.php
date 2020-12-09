@@ -6,6 +6,7 @@ namespace Labelin\PitneyBowesShipping\Observer\Carrier;
 
 use Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneyRepositoryInterface;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
+use Labelin\PitneyBowesShipping\Helper\Shipping as ShippingHelper;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Event\Observer;
@@ -28,16 +29,21 @@ class TrackingNumberHandler implements ObserverInterface
     /** @var EventManager */
     protected $eventManager;
 
+    /** @var ShippingHelper */
+    protected $shippingHelper;
+
     public function __construct(
         TrackFactory $trackFactory,
         ShipmentPitneyRepositoryInterface $shipmentPitneyBowesRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        EventManager $eventManager
+        EventManager $eventManager,
+        ShippingHelper $shippingHelper
     ) {
         $this->trackFactory = $trackFactory;
         $this->shipmentPitneyBowesRepository = $shipmentPitneyBowesRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->eventManager = $eventManager;
+        $this->shippingHelper = $shippingHelper;
     }
 
     public function execute(Observer $observer): self
@@ -46,6 +52,10 @@ class TrackingNumberHandler implements ObserverInterface
         $shipment = $observer->getEvent()->getShipment();
 
         if (!$shipment->getId()) {
+            return $this;
+        }
+
+        if (!$this->shippingHelper->isPitneyBowesShippingByShipment($shipment)) {
             return $this;
         }
 
