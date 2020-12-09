@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="labelin_sales_email_tracking_number_template"
+              label="Tracking Number Notification"
+              file="tracking_number_notification.html"
+              type="html"
+              module="Labelin_PitneyBowesShipping"
+              area="frontend"
+    />
+</config>
