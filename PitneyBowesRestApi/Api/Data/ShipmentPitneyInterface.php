@@ -14,8 +14,6 @@ interface ShipmentPitneyInterface
 
     public const SHIPMENT_ID = 'shipment_id';
 
-    public const ORDER_ITEM_ID = 'order_item_id';
-
     public const RESPONSE = 'response';
 
     public const TRACKING_ID = 'tracking_id';
@@ -28,17 +26,13 @@ interface ShipmentPitneyInterface
 
     public const UPDATED_AT = 'updated_at';
 
-    public function getOrderId(): int;
+    public function getOrderId(): string;
 
-    public function setOrderId(int $orderId): self;
+    public function setOrderId(string $orderId): self;
 
-    public function getShipmentId(): int;
+    public function getShipmentId(): string;
 
-    public function setShipmentId(int $shipmentId): self;
-
-    public function getOrderItemId(): int;
-
-    public function setOrderItemId(int $itemId): self;
+    public function setShipmentId(string $shipmentId): self;
 
     public function getResponse(): string;
 

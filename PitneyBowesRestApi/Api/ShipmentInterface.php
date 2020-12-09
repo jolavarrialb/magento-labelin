@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace Labelin\PitneyBowesRestApi\Api;
 
 use InvalidArgumentException;
-use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Errors;
-use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment;
 use Labelin\PitneyBowesOfficialApi\Model\ApiException;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
+use Magento\Framework\DataObject;
 
 interface ShipmentInterface
 {
+    /** @var string */
+    public const SERVICE_DEL_CON = 'DelCon';
+    /** @var string */
+    public const SERVICE_INS = 'Ins';
+
     /**
      * @param AddressDtoInterface $fromAddress
      * @param AddressDtoInterface $toAddress
      * @param ParcelDtoInterface $parcel
      * @param ShipmentsRatesDto $rates
-     * @param string $x_pb_transaction_id
-     * @return Shipment|Errors
+     * @param DataObject $request
+     * @return DataObject
      *
      * @throws ApiException on non-2xx response
      * @throws InvalidArgumentException
@@ -30,6 +34,6 @@ interface ShipmentInterface
         AddressDtoInterface $toAddress,
         ParcelDtoInterface $parcel,
         ShipmentsRatesDto $rates,
-        string $x_pb_transaction_id
+        DataObject $request
     );
 }

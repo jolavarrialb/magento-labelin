@@ -6,7 +6,6 @@ namespace Labelin\PitneyBowesRestApi\Api\Data;
 
 interface ShipmentsRatesDtoInterface
 {
-
     /**
      * @param string $carrier
      * @return mixed
@@ -50,15 +49,4 @@ interface ShipmentsRatesDtoInterface
      * @return string
      */
     public function getInductionPostalCode(): string;
-
-    /**
-     * @param SpecialServiceDtoInterface $specialServiceDto
-     * @return mixed
-     */
-    public function addSpecialService(SpecialServiceDtoInterface $specialServiceDto);
-
-    /**
-     * @return array
-     */
-    public function getSpecialService(): array;
 }

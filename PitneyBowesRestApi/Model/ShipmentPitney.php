@@ -19,34 +19,24 @@ class ShipmentPitney extends AbstractModel implements ShipmentPitneyInterface, I
         $this->_init(ShipmentPitneyResource::class);
     }
 
-    public function getOrderId(): int
+    public function getOrderId(): string
     {
         return $this->getData(ShipmentPitneyInterface::ORDER_ID);
     }
 
-    public function setOrderId(int $orderId): ShipmentPitneyInterface
+    public function setOrderId(string $orderId): ShipmentPitneyInterface
     {
-        return $this->setData(ShipmentPitneyInterface::ORDER_ITEM_ID, $orderId);
+        return $this->setData(ShipmentPitneyInterface::ORDER_ID, $orderId);
     }
 
-    public function getShipmentId(): int
+    public function getShipmentId(): string
     {
         return $this->getData(ShipmentPitneyInterface::SHIPMENT_ID);
     }
 
-    public function setShipmentId(int $shipmentId): ShipmentPitneyInterface
+    public function setShipmentId(string $shipmentId): ShipmentPitneyInterface
     {
         return $this->setData(ShipmentPitneyInterface::SHIPMENT_ID, $shipmentId);
-    }
-
-    public function getOrderItemId(): int
-    {
-        return $this->getData(ShipmentPitneyInterface::ORDER_ITEM_ID);
-    }
-
-    public function setOrderItemId(int $itemId): ShipmentPitneyInterface
-    {
-        return $this->setData(ShipmentPitneyInterface::ORDER_ITEM_ID, $itemId);
     }
 
     public function getResponse(): string

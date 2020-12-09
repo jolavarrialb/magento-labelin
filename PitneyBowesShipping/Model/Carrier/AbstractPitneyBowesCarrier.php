@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
-use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialServiceCodes;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ParcelDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\SpecialServiceDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Shipment;
-use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
-use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository;
 use Labelin\PitneyBowesShipping\Helper\Address;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
 use Labelin\PitneyBowesRestApi\Api\CancelShipmentInterface;
@@ -27,7 +24,6 @@ use Magento\Directory\Model\RegionFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Xml\Security;
 use Magento\Quote\Model\Quote\Address\RateRequest;
@@ -54,15 +50,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
 
     /** @var Shipment */
     protected $shipment;
-
-    /** @var ShipmentPitneyRepository */
-    protected $shipmentPitneyRepository;
-
-    /** @var ShipmentPitney */
-    protected $shipmentPitney;
-
-    /** @var SerializerInterface */
-    protected $serializer;
 
     /** @var Address */
     protected $addressHelper;
@@ -100,9 +87,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         Session $checkoutSession,
         CancelShipmentInterface $cancelShipmentRestApi,
         Shipment $shipment,
-        ShipmentPitneyRepository $shipmentPitneyRepository,
-        ShipmentPitney $shipmentPitney,
-        SerializerInterface $serializer,
         ConfigHelper $configHelper,
         Address $addressHelper,
         array $data = []
@@ -130,10 +114,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         $this->carrierConfig = $carrierConfig;
 
         $this->shipment = $shipment;
-        $this->shipmentPitneyRepository = $shipmentPitneyRepository;
-        $this->shipmentPitney = $shipmentPitney;
-
-        $this->serializer = $serializer;
 
         $this->addressHelper = $addressHelper;
         $this->configHelper = $configHelper;
@@ -178,7 +158,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             $request->setPackageParams(new \Magento\Framework\DataObject($package['params']));
             $request->setPackageItems($package['items']);
             $result = $this->_doShipmentRequest($request);
-
             if ($result->hasErrors()) {
                 $this->rollBack($data);
                 break;
@@ -187,13 +166,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
                     'tracking_number' => $result->getTrackingNumber(),
                     'label_content' => $result->getShippingLabelContent(),
                 ];
-                $this->shipmentPitney
-                    ->setLabelLink($result->getLabelLink())
-                    ->setOrderId(1)
-                    ->setOrderItemId(1)
-                    ->setTrackingId('')
-                    ->setResponse($result->convertToJson($result));
-                $this->shipmentPitneyRepository->save($this->shipmentPitney);
             }
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
@@ -283,7 +255,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
     protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
     {
         $this->_prepareShipmentRequest($request);
-        $result = new \Magento\Framework\DataObject();
         $packageParams = $request->getPackageParams();
         $fromAddress = $this->addressHelper->getAddressDtoModel($packageParams->getData('fromAddress'));
         $toAddress = $this->addressHelper->getAddressDtoModel($packageParams->getData('toAddress'));
@@ -302,41 +273,6 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             ->setParcelType($this->configHelper->getContainer())
             ->setInductionPostalCode($fromAddress->getPostcode());
 
-        $this->prepareSpecialServices($packageParams->getService(), $rates);
-
-        $transactionId = $request->getOrderShipment()->getIncrementId();
-
-        $result = $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $transactionId);
-
-        return $result;
-    }
-
-    /**
-     * @param string $serviceId
-     * @param \Magento\Framework\DataObject $request
-     * @param ShipmentsRatesDto $rates
-     */
-    protected function prepareSpecialServices($serviceId, $rates)
-    {
-        switch ($serviceId) {
-            case 'EM':
-                $rates->addSpecialService(
-                    (new SpecialServiceDto())
-                        ->setInputParameters([
-                            'name' => 'INPUT_VALUE',
-                            'value' => 100,
-                        ])
-                        ->setSpecialServiceId(SpecialServiceCodes::INS)
-                );
-            default:
-                $rates->addSpecialService(
-                    (new SpecialServiceDto())
-                        ->setInputParameters([
-                            'name' => 'INPUT_VALUE',
-                            'value' => 0,
-                        ])
-                        ->setSpecialServiceId(SpecialServiceCodes::DEL_CON)
-                );
-        }
+        return $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $request);;
     }
 }
