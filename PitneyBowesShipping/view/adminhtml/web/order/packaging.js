@@ -160,39 +160,6 @@ define([
                 }
             };
         })(Packaging.prototype.sendCreateLabelRequest);
-        // (function (initialize) {
-        //     Packaging.prototype.initialize = function (params, fromAddress, toAddress) {
-        //         this.packageIncrement = 0;
-        //         this.packages = [];
-        //         this.itemsAll = [];
-        //         this.createLabelUrl = params.createLabelUrl ? params.createLabelUrl : null;
-        //         this.itemsGridUrl = params.itemsGridUrl ? params.itemsGridUrl : null;
-        //         this.errorQtyOverLimit = params.errorQtyOverLimit;
-        //         this.titleDisabledSaveBtn = params.titleDisabledSaveBtn;
-        //         this.window = $('packaging_window');
-        //         this.messages = this.window.select('.message-warning')[0];
-        //         this.packagesContent = $('packages_content');
-        //         this.template = $('package_template');
-        //         this.paramsCreateLabelRequest = {};
-        //         this.validationErrorMsg = params.validationErrorMsg;
-        //
-        //         this.defaultItemsQty            = params.shipmentItemsQty ? params.shipmentItemsQty : null;
-        //         this.defaultItemsPrice          = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
-        //         this.defaultItemsName           = params.shipmentItemsName ? params.shipmentItemsName : null;
-        //         this.defaultItemsWeight         = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
-        //         this.defaultItemsProductId      = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
-        //         this.defaultItemsOrderItemId    = params.shipmentItemsOrderItemId ? params.shipmentItemsOrderItemId : null;
-        //
-        //         this.fromAddress = fromAddress;
-        //         this.toAddress = toAddress;
-        //
-        //         this.shippingInformation = params.shippingInformation ? params.shippingInformation : null;
-        //         this.thisPage           = params.thisPage ? params.thisPage : null;
-        //         this.customizableContainers = params.customizable ? params.customizable : [];
-        //
-        //         this.eps = 0.000001;
-        //     };
-        // })(Packaging.prototype.initialize);
     }
 });
 
