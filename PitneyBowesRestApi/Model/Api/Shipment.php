@@ -11,15 +11,16 @@ use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Parcel;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelDimension;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\ParcelWeight;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Rate;
+use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Services;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment as ShipmentApiResponse;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialService;
+use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialServiceCodes;
 use Labelin\PitneyBowesOfficialApi\Model\ApiException;
 use Labelin\PitneyBowesOfficialApi\Model\Configuration as OauthConfiguration;
 use Labelin\PitneyBowesOfficialApi\Model\Shipping\ShipmentApi;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\ShipmentInterface;
-use Labelin\PitneyBowesRestApi\Helper\Rates as RatesHelper;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository;
@@ -36,9 +37,6 @@ class Shipment implements ShipmentInterface
     /** @var OauthConfiguration */
     protected $oauthConfiguration;
 
-    /** @var RatesHelper */
-    protected $ratesHelper;
-
     /** @var ShipmentPitneyRepository */
     protected $shipmentPitneyRepository;
 
@@ -53,7 +51,6 @@ class Shipment implements ShipmentInterface
 
     public function __construct(
         ConfigHelper $configHelper,
-        RatesHelper $ratesHelper,
         OauthConfiguration $oauthConfiguration,
         ShipmentPitneyRepository $shipmentPitneyRepository,
         ShipmentPitney $shipmentPitney,
@@ -61,7 +58,6 @@ class Shipment implements ShipmentInterface
         LoggerInterface $logger
     ) {
         $this->configHelper = $configHelper;
-        $this->ratesHelper = $ratesHelper;
         $this->oauthConfiguration = $oauthConfiguration;
 
         $this->shipmentPitney = $shipmentPitney;
@@ -89,7 +85,7 @@ class Shipment implements ShipmentInterface
         DataObject $request
     ) {
         $result = new DataObject();
-        $x_pb_transaction_id = sprintf('%s_PKG_%s',$request->getOrderShipment()->getIncrementId(), $request->getPackageId());
+        $xPbTransactionId = sprintf('%s_PKG_%s',$request->getOrderShipment()->getIncrementId(), $request->getPackageId());
 
         $shipment = new ShipmentApiResponse([
             'from_address' => new Address($fromAddress->toShippingOptionsArray()),
@@ -135,7 +131,7 @@ class Shipment implements ShipmentInterface
         $this->logger->info($shipment);
 
         try {
-            $shipmentRequest = (new ShipmentApi($this->oauthConfiguration))->createShipmentLabel($x_pb_transaction_id, $shipment);
+            $shipmentRequest = (new ShipmentApi($this->oauthConfiguration))->createShipmentLabel($xPbTransactionId, $shipment);
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
 
@@ -163,9 +159,9 @@ class Shipment implements ShipmentInterface
     {
         $specialServices = [];
         switch ($serviceId) {
-            case 'EM':
+            case Services::EM :
                 $specialServices[] = new SpecialService([
-                    'special_service_id' => static::SERVICE_INS,
+                    'special_service_id' => SpecialServiceCodes::SERVICE_INS,
                     'input_parameters' => [new Parameter(
                         [
                             'name' => 'INPUT_VALUE',
@@ -177,7 +173,7 @@ class Shipment implements ShipmentInterface
                 break;
             default:
                 $specialServices[] = new SpecialService([
-                    'special_service_id' => static::SERVICE_DEL_CON,
+                    'special_service_id' => SpecialServiceCodes::SERVICE_DEL_CON,
                     'input_parameters' => [new Parameter(
                         [
                             'name' => 'INPUT_VALUE',
@@ -215,7 +211,7 @@ class Shipment implements ShipmentInterface
     {
         /** @var \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Document $document */
         foreach ($result->getDocuments() as $document) {
-            if ($document->getType() === 'SHIPPING_LABEL' && $document->getContentType() === 'URL') {
+            if ($document->getType() === 'SHIPPING_LABEL' && $document->getContentType() === Document::CONTENT_TYPE_URL) {
                 return $document->getContents();
             }
         }

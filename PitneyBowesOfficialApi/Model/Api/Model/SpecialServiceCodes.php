@@ -102,6 +102,12 @@ class SpecialServiceCodes
     const SHP_RELEASE = 'SHP_RELEASE';
     const VERBAL = 'VERBAL';
 
+    /** @var string */
+    public const SERVICE_DEL_CON = 'DelCon';
+
+    /** @var string */
+    public const SERVICE_INS = 'Ins';
+
     /**
      * Gets allowable values of the enum
      * @return string[]

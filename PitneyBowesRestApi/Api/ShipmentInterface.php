@@ -13,11 +13,6 @@ use Magento\Framework\DataObject;
 
 interface ShipmentInterface
 {
-    /** @var string */
-    public const SERVICE_DEL_CON = 'DelCon';
-    /** @var string */
-    public const SERVICE_INS = 'Ins';
-
     /**
      * @param AddressDtoInterface $fromAddress
      * @param AddressDtoInterface $toAddress
