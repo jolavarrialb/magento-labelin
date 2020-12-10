@@ -11,11 +11,14 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
     require([
         "jquery",
         "prototype",
-        "Magento_Shipping/order/packaging",
+        "Labelin_PitneyBowesShipping/order/packaging",
         "Labelin_PitneyBowesShipping/order/packaging-rates",
         "Magento_Ui/js/modal/modal"
     ], function(jQuery){
         window.packaging = new Packaging(<?= /* @noEscape */ $block->getConfigDataJson() ?>);
+
+        window.packaging.fromAddress = <?= /* @noEscape */ $block->getFromAddressJson() ?>;
+        window.packaging.toAddress = <?= /* @noEscape */ $block->getToAddressJson() ?>;
 
         window.packagingRates = new PackagingRates(
             <?= /* @noEscape */ $block->getFromAddressJson() ?>,

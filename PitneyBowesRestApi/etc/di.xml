@@ -2,9 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Labelin\PitneyBowesRestApi\Api\OauthInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Oauth"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\RatesInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Rates"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\ShipmentInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Shipment"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\VerifyAddressInterface" type="Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\CancelShipmentInterface" type="Labelin\PitneyBowesRestApi\Model\Api\CancelShipment"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\RateDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\RateDto"/>
+    <preference for="Labelin\PitneyBowesRestApi\Api\Data\ShipmentsRatesDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\ParcelDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto"/>
     <preference for="Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface" type="Labelin\PitneyBowesRestApi\Model\Api\Data\VerifiedAddressDto"/>
@@ -39,6 +41,11 @@
         </arguments>
     </type>
     <type name="Labelin\PitneyBowesRestApi\Model\Api\CancelShipment">
+        <arguments>
+            <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\PitneyBowesRestApi\Model\Api\Shipment">
         <arguments>
             <argument name="logger" xsi:type="object">Labelin\PitneyBowesRestApi\Logger</argument>
         </arguments>

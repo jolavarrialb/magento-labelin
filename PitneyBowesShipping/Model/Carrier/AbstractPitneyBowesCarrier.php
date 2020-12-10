@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesShipping\Model\Carrier;
 
+use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\ParcelDto;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\SpecialServiceDto;
+use Labelin\PitneyBowesRestApi\Model\Api\Shipment;
+use Labelin\PitneyBowesShipping\Helper\Address;
+use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
 use Labelin\PitneyBowesRestApi\Api\CancelShipmentInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\VerifiedAddressDtoInterface;
-use Labelin\PitneyBowesRestApi\Model\Api\Data\AddressDto;
 use Labelin\PitneyBowesRestApi\Model\Api\VerifyAddress;
 use Labelin\PitneyBowesShipping\Helper\GeneralConfig;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
@@ -42,6 +48,15 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
     /** @var GeneralConfig */
     protected $carrierConfig;
 
+    /** @var Shipment */
+    protected $shipment;
+
+    /** @var Address */
+    protected $addressHelper;
+
+    /** @var ConfigHelper */
+    protected $configHelper;
+
     /** @var VerifyAddress */
     protected $addressVerifier;
 
@@ -71,6 +86,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         VerifyAddress $addressVerifier,
         Session $checkoutSession,
         CancelShipmentInterface $cancelShipmentRestApi,
+        Shipment $shipment,
+        ConfigHelper $configHelper,
+        Address $addressHelper,
         array $data = []
     ) {
         parent::__construct(
@@ -94,6 +112,11 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
 
         $this->rateMethodFactory = $rateMethodFactory;
         $this->carrierConfig = $carrierConfig;
+
+        $this->shipment = $shipment;
+
+        $this->addressHelper = $addressHelper;
+        $this->configHelper = $configHelper;
 
         $this->addressVerifier = $addressVerifier;
         $this->checkoutSession = $checkoutSession;
@@ -120,9 +143,42 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return $method;
     }
 
-    public function requestToShipment($request): DataObject
+    public function requestToShipment($request)
     {
-        return new DataObject(['info' => []]);
+        $packages = $request->getPackages();
+        if (!is_array($packages) || !$packages) {
+            throw new LocalizedException(__('No packages for request'));
+        }
+        if ($request->getStoreId() != null) {
+            $this->setStore($request->getStoreId());
+        }
+        $data = [];
+        foreach ($packages as $packageId => $package) {
+            $request->setPackageId($packageId);
+            $request->setPackageParams(new \Magento\Framework\DataObject($package['params']));
+            $request->setPackageItems($package['items']);
+            $result = $this->_doShipmentRequest($request);
+            if ($result->hasErrors()) {
+                $this->rollBack($data);
+                break;
+            } else {
+                $data[] = [
+                    'tracking_number' => $result->getTrackingNumber(),
+                    'label_content' => $result->getShippingLabelContent(),
+                ];
+            }
+            if (!isset($isFirstRequest)) {
+                $request->setMasterTrackingId($result->getTrackingNumber());
+                $isFirstRequest = false;
+            }
+        }
+
+        $response = new \Magento\Framework\DataObject(['info' => $data]);
+        if ($result->getErrors()) {
+            $response->setErrors($result->getErrors());
+        }
+
+        return $response;
     }
 
     public function getContainerTypes(DataObject $params = null): array
@@ -196,8 +252,27 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return $response;
     }
 
-    protected function _doShipmentRequest(DataObject $request): array
+    protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
     {
-        return [];
+        $this->_prepareShipmentRequest($request);
+        $packageParams = $request->getPackageParams();
+        $fromAddress = $this->addressHelper->getAddressDtoModel($packageParams->getData('fromAddress'));
+        $toAddress = $this->addressHelper->getAddressDtoModel($packageParams->getData('toAddress'));
+
+        $parcel = (new ParcelDto())
+            ->setHeight($packageParams->getHeight())
+            ->setLength($packageParams->getLength())
+            ->setWidth($packageParams->getWidth())
+            ->setDimensionsUnitOfMeasurement($packageParams->getDimensionUnits())
+            ->setWeight($packageParams->getWeight())
+            ->setWeightUnitOfMeasurement($packageParams->getWeightUnits());
+
+        $rates = (new ShipmentsRatesDto())
+            ->setServiceId($packageParams->getService())
+            ->setCarrier(current($this->configHelper->getAllowedMethods()))
+            ->setParcelType($this->configHelper->getContainer())
+            ->setInductionPostalCode($fromAddress->getPostcode());
+
+        return $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $request);;
     }
 }

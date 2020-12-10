@@ -16,7 +16,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getCompany(): string;
+    public function getCompany(): ?string;
 
     /**
      * @param string|null $name
@@ -28,7 +28,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getName(): string;
+    public function getName(): ?string;
 
     /**
      * @param string|null $phone
@@ -40,7 +40,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getPhone(): string;
+    public function getPhone(): ?string;
 
     /**
      * @param string|null $email
@@ -52,7 +52,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getEmail(): string;
+    public function getEmail(): ?string;
 
     /**
      * @param string[] $addressLines
@@ -76,7 +76,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getCity(): string;
+    public function getCity(): ?string;
 
     /**
      * @param string|null $state
@@ -88,7 +88,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getState(): string;
+    public function getState(): ?string;
 
     /**
      * @param string|null $postcode
@@ -100,7 +100,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getPostcode(): string;
+    public function getPostcode(): ?string;
 
     /**
      * @param string|null $country
@@ -112,7 +112,7 @@ interface AddressDtoInterface
     /**
      * @return string
      */
-    public function getCountry(): string;
+    public function getCountry(): ?string;
 
     /**
      * @return array
