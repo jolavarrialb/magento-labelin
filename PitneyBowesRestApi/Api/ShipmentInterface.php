@@ -16,19 +16,22 @@ interface ShipmentInterface
     /**
      * @param AddressDtoInterface $fromAddress
      * @param AddressDtoInterface $toAddress
-     * @param ParcelDtoInterface $parcel
-     * @param ShipmentsRatesDto $rates
-     * @param DataObject $request
-     * @return DataObject
+     * @param ParcelDtoInterface  $parcel
+     * @param ShipmentsRatesDto   $rates
+     * @param int                 $orderId
+     * @param int                 $packageId
      *
-     * @throws ApiException on non-2xx response
+     * @return \Labelin\PitneyBowesRestApi\Api\Data\ShipmentResponseDtoInterface
+     *
      * @throws InvalidArgumentException
+     * @throws ApiException on non-2xx response
      */
     public function requestShipmentLabel(
         AddressDtoInterface $fromAddress,
         AddressDtoInterface $toAddress,
         ParcelDtoInterface $parcel,
         ShipmentsRatesDto $rates,
-        DataObject $request
+        int $orderId,
+        int $packageId
     );
 }

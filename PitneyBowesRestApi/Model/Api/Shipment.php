@@ -15,19 +15,18 @@ use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Services;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment as ShipmentApiResponse;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialService;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialServiceCodes;
-use Labelin\PitneyBowesOfficialApi\Model\ApiException;
 use Labelin\PitneyBowesOfficialApi\Model\Configuration as OauthConfiguration;
 use Labelin\PitneyBowesOfficialApi\Model\Shipping\ShipmentApi;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneyInterface;
 use Labelin\PitneyBowesRestApi\Api\ShipmentInterface;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentResponseDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyFactory;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
-use Magento\Framework\DataObject;
 use Magento\Framework\Math\Random;
 use Psr\Log\LoggerInterface;
 
@@ -74,26 +73,23 @@ class Shipment implements ShipmentInterface
      * @param AddressDtoInterface $toAddress
      * @param ParcelDtoInterface  $parcel
      * @param ShipmentsRatesDto   $rates
-     * @param DataObject          $request
+     * @param int                 $orderId
+     * @param int                 $packageId
      *
-     * @return DataObject
+     * @return \Labelin\PitneyBowesRestApi\Api\Data\ShipmentResponseDtoInterface
      *
-     * @throws ApiException on non-2xx response
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function requestShipmentLabel(
         AddressDtoInterface $fromAddress,
         AddressDtoInterface $toAddress,
         ParcelDtoInterface $parcel,
         ShipmentsRatesDto $rates,
-        DataObject $request
+        int $orderId,
+        int $packageId
     ) {
-        $result = new DataObject();
-        $xPbTransactionId = sprintf(
-            '%s_PKG_%s_%s',
-            $request->getOrderShipment()->getOrderId(),
-            $request->getPackageId(),
-            $this->mathRandom->getRandomString(10)
-        );
+        $result = new ShipmentResponseDto();
+        $xPbTransactionId = sprintf('%s_PKG_%s_%s', $orderId, $packageId, $this->mathRandom->getRandomString(10));
 
         $shipment = new ShipmentApiResponse([
             'from_address' => new Address($fromAddress->toShippingOptionsArray()),
@@ -151,9 +147,8 @@ class Shipment implements ShipmentInterface
         $this->logger->info($shipmentRequest);
 
 
-        $shipmentPitneyBowes = $this->saveShipmentRequest($request, $shipmentRequest);
+        $shipmentPitneyBowes = $this->saveShipmentRequest($orderId, $shipmentRequest);
 
-        $result->setShipmentRequest($shipmentRequest);
         $result->setShippingLabelContent($shipmentPitneyBowes->getLabelLink());
         $result->setTrackingNumber($shipmentPitneyBowes->getTrackingId());
 
@@ -201,16 +196,16 @@ class Shipment implements ShipmentInterface
     }
 
     /**
-     * @param DataObject          $request
+     * @param mixed               $orderId
      * @param ShipmentApiResponse $result
      *
      * @return ShipmentPitneyInterface
      */
-    protected function saveShipmentRequest(DataObject $request, ShipmentApiResponse $result): ShipmentPitneyInterface
+    protected function saveShipmentRequest($orderId, ShipmentApiResponse $result): ShipmentPitneyInterface
     {
         $shipmentPitneyBowes = $this->initShipmentPitneyBowes()
-            ->setOrderId($request->getOrderShipment()->getOrderId())
-            ->setShipmentId($request->getOrderShipment()->getOrderId())
+            ->setOrderId($orderId)
+            ->setShipmentId($orderId)
             ->setResponse($result->__toString())
             ->setTrackingId($result->getParcelTrackingNumber())
             ->setLabelLink($this->getShippingLabelContent($result));

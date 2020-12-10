@@ -60,7 +60,7 @@ class PitneyBowesUpdateShipmentHandler implements ObserverInterface
 
         foreach ($shipments as $pitneyBowesShipment) {
             /** @var ShipmentPitney $pitneyBowesShipment */
-            $pitneyBowesShipment->setShipmentId($shipment->getId());
+            $pitneyBowesShipment->setShipmentId((int)$shipment->getId());
 
             try {
                 $this->shipmentPitneyBowesRepository->save($pitneyBowesShipment);

@@ -286,6 +286,13 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             ->setParcelType($this->configHelper->getContainer())
             ->setInductionPostalCode($fromAddress->getPostcode());
 
-        return $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $request);
+        return $this->shipment->requestShipmentLabel(
+            $fromAddress,
+            $toAddress,
+            $parcel,
+            $rates,
+            (int)$request->getOrderShipment()->getOrderId(),
+            (int)$request->getPackageId()
+        );
     }
 }
