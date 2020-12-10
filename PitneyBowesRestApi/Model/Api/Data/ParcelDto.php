@@ -8,16 +8,16 @@ use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
 
 class ParcelDto implements ParcelDtoInterface
 {
-    /** @var int|float */
+    /** @var float */
     protected $weight;
 
-    /** @var int|float */
+    /** @var float */
     protected $length;
 
-    /** @var int|float */
+    /** @var float */
     protected $width;
 
-    /** @var int|float */
+    /** @var float */
     protected $height;
 
     /** @var string */
@@ -26,22 +26,14 @@ class ParcelDto implements ParcelDtoInterface
     /** @var string */
     protected $dimensionsUnitOfMeasurement;
 
-    /**
-     * @param float|int $weight
-     *
-     * @return $this
-     */
-    public function setWeight($weight = 0.1): self
+    public function setWeight(float $weight = 0.1): self
     {
         $this->weight = $weight;
 
         return $this;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getWeight()
+    public function getWeight(): float
     {
         switch ($this->weightUnitOfMeasurement) {
             case self::WEIGHT_UNIT_OF_MEASURE_LBS:
@@ -58,11 +50,6 @@ class ParcelDto implements ParcelDtoInterface
         return $this->weight;
     }
 
-    /**
-     * @param string $unitOfMeasurement
-     *
-     * @return $this
-     */
     public function setWeightUnitOfMeasurement(string $unitOfMeasurement = self::DEFAULT_WEIGHT_UNIT_OF_MEASURE): self
     {
         $this->weightUnitOfMeasurement = $unitOfMeasurement;
@@ -75,62 +62,38 @@ class ParcelDto implements ParcelDtoInterface
         return self::DEFAULT_WEIGHT_UNIT_OF_MEASURE;
     }
 
-    /**
-     * @param float|int $length
-     *
-     * @return $this
-     */
-    public function setLength($length = 0.1): self
+    public function setLength(float $length = 0.1): self
     {
         $this->length = $length;
 
         return $this;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getLength()
+    public function getLength(): float
     {
         return $this->length;
     }
 
-    /**
-     * @param float|int $width
-     *
-     * @return $this
-     */
-    public function setWidth($width = 0.1): self
+    public function setWidth(float $width = 0.1): self
     {
         $this->width = $width;
 
         return $this;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getWidth()
+    public function getWidth(): float
     {
         return $this->width;
     }
 
-    /**
-     * @param float|int $height
-     *
-     * @return $this
-     */
-    public function setHeight($height = 0.1): self
+    public function setHeight(float $height = 0.1): self
     {
         $this->height = $height;
 
         return $this;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getHeight()
+    public function getHeight(): float
     {
         return $this->height;
     }
@@ -167,10 +130,7 @@ class ParcelDto implements ParcelDtoInterface
         ];
     }
 
-    /**
-     * @return float|int
-     */
-    protected function getIrregularParcelGirth()
+    protected function getIrregularParcelGirth(): float
     {
         return 2 * ($this->getHeight() + $this->getWidth());
     }
