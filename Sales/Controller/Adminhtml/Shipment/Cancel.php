@@ -23,7 +23,6 @@ class Cancel extends Action
     /** @var SearchCriteriaBuilder */
     protected $searchCriteriaBuilder;
 
-
     public function __construct(
         Action\Context $context,
         CancelShipment $cancelShipment,
@@ -64,8 +63,8 @@ class Cancel extends Action
 
         foreach ($shipments as $shipment) {
             /** @var ShipmentPitney $shipment */
-            $pitneyBowesShipmentId = json_decode($shipment->getResponse(), true);
-            $pitneyBowesShipmentId = $pitneyBowesShipmentId['shipmentId'];
+            $pitneyBowesShipmentId = json_decode($shipment->getResponse());
+            $pitneyBowesShipmentId = $pitneyBowesShipmentId->shipmentId;
 
             $response = $this->cancelShipment->cancelShipment($pitneyBowesShipmentId, $shipmentId);
 
