@@ -238,21 +238,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return false;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function returnOfShipment($request)
-    {
-        $response = $this->cancelShipmentRestApi->cancelShipment((int)$request->getOrderShipment()->getId());
-
-        if (!$response) {
-            return new DataObject([]);
-        }
-
-        return $response;
-    }
-
-    protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
+    protected function _doShipmentRequest(DataObject $request)
     {
         $this->_prepareShipmentRequest($request);
         $packageParams = $request->getPackageParams();

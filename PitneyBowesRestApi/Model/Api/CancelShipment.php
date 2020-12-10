@@ -28,9 +28,6 @@ class CancelShipment implements CancelShipmentInterface
     /** @var OauthConfiguration */
     protected $oauthConfiguration;
 
-    /** @var ShipmentPitneyRepositoryInterface */
-    protected $shipmentPitneyBowesRepository;
-
     /** @var ShipmentRepositoryInterface */
     protected $shipmentRepository;
 
@@ -39,9 +36,6 @@ class CancelShipment implements CancelShipmentInterface
 
     /** @var OrderItemRepositoryInterface */
     protected $orderItemRepository;
-
-    /** @var SearchCriteriaBuilder */
-    protected $searchCriteriaBuilder;
 
     /** @var LoggerInterface */
     protected $logger;
@@ -52,54 +46,35 @@ class CancelShipment implements CancelShipmentInterface
     public function __construct(
         ConfigHelper $configHelper,
         OauthConfiguration $oauthConfiguration,
-        ShipmentPitneyRepositoryInterface $shipmentPitneyRepository,
         ShipmentRepositoryInterface $shipmentRepository,
         OrderRepositoryInterface $orderRepository,
         OrderItemRepositoryInterface $orderItemRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
         LoggerInterface $logger
     ) {
         $this->configHelper = $configHelper;
         $this->oauthConfiguration = $oauthConfiguration;
-        $this->shipmentPitneyBowesRepository = $shipmentPitneyRepository;
         $this->shipmentRepository = $shipmentRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->orderRepository = $orderRepository;
         $this->orderItemRepository = $orderItemRepository;
         $this->logger = $logger;
     }
 
     /**
-     * @param int $shipmentId
+     * @param string $pitneyBowesShipmentId
+     * @param int $magentoShipmentId
      *
      * @return \Labelin\PitneyBowesRestApi\Api\Data\CancelShipmentDtoInterface|null
      */
-    public function cancelShipment(int $shipmentId)
+    public function cancelShipment(string $pitneyBowesShipmentId, int $magentoShipmentId)
     {
         $this->oauthConfiguration->setAccessToken($this->configHelper->getApiAccessToken());
 
         $this->logger->info('REQUEST:');
-        $this->logger->info($shipmentId);
-
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('shipment_id', $shipmentId, 'eq')
-            ->create();
-
-        $shipments = $this->shipmentPitneyBowesRepository->getList($searchCriteria)->getItems();
-
-        if (empty($shipments)) {
-            return null;
-        }
-
-        /** @var ShipmentPitney $shipment */
-        $shipment = current($shipments);
+        $this->logger->info($pitneyBowesShipmentId);
 
         try {
-            $pitneyBowesShipmentId = json_decode($shipment->getResponse(), true);
-            $pitneyBowesShipmentId = $pitneyBowesShipmentId['shipmentId'];
-
             $response = (new ShipmentApi($this->oauthConfiguration))->cancelShipment(
-                $shipment->getId(),
+                $magentoShipmentId,
                 $pitneyBowesShipmentId,
                 true,
                 $this->configHelper->getMerchantId(),
@@ -121,9 +96,7 @@ class CancelShipment implements CancelShipmentInterface
         $this->logger->info('RESPONSE:');
         $this->logger->info($response);
 
-        $this->shipmentPitneyBowesRepository->delete($shipment);
-
-        $this->deleteShipment($shipmentId);
+        $this->deleteShipment($magentoShipmentId);
 
         return (new CancelShipmentDto())
             ->setCancelInitiator($response->getCancelInitiator())
@@ -133,12 +106,14 @@ class CancelShipment implements CancelShipmentInterface
             ->setTotalCarrierCharge($response->getTotalCarrierCharge());
     }
 
-    protected function deleteShipment(int $shipmentId): bool
+    protected function deleteShipment(int $shipmentId): void
     {
-        $deleteShipment = false;
-
         try {
             $shipment = $this->shipmentRepository->get($shipmentId);
+
+            if (!$shipment) {
+                return;
+            }
 
             $order = $this->orderRepository->get($shipment->getOrderId());
             $order->setState(Order::STATE_NEW);
@@ -156,11 +131,9 @@ class CancelShipment implements CancelShipmentInterface
                 }
             }
 
-            $deleteShipment = $this->shipmentRepository->delete($shipment);
+            $this->shipmentRepository->delete($shipment);
         } catch (\Exception $exception) {
             $this->logger->critical($exception->getMessage());
         }
-
-        return $deleteShipment;
     }
 }
