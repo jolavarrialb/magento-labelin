@@ -295,4 +295,18 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             (int)$request->getPackageId()
         );
     }
+
+    /**
+     * @param string $tracking
+     * @return DataObject
+     */
+    public function getTrackingInfo($tracking): DataObject
+    {
+        $resultData = [
+            'carrier_title' => $this->getId(),
+            'url' => sprintf('%s%s', static::TRACKING_URL, $tracking),
+        ];
+
+        return new DataObject($resultData);;
+    }
 }
