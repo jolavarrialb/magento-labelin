@@ -273,11 +273,11 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         $toAddress = $this->addressHelper->getAddressDtoModel($packageParams->getData('toAddress'));
 
         $parcel = (new ParcelDto())
-            ->setHeight($packageParams->getHeight())
-            ->setLength($packageParams->getLength())
-            ->setWidth($packageParams->getWidth())
+            ->setHeight((float)$packageParams->getHeight())
+            ->setLength((float)$packageParams->getLength())
+            ->setWidth((float)$packageParams->getWidth())
             ->setDimensionsUnitOfMeasurement($packageParams->getDimensionUnits())
-            ->setWeight($packageParams->getWeight())
+            ->setWeight((float)$packageParams->getWeight())
             ->setWeightUnitOfMeasurement($packageParams->getWeightUnits());
 
         $rates = (new ShipmentsRatesDto())
