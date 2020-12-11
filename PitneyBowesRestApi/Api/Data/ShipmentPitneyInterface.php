@@ -28,11 +28,11 @@ interface ShipmentPitneyInterface
 
     public function getOrderId(): string;
 
-    public function setOrderId(string $orderId): self;
+    public function setOrderId(int $orderId): self;
 
     public function getShipmentId(): string;
 
-    public function setShipmentId(string $shipmentId): self;
+    public function setShipmentId(int $shipmentId): self;
 
     public function getResponse(): string;
 

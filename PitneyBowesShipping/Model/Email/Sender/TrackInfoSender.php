@@ -11,17 +11,17 @@ use Magento\Sales\Model\Order\Shipment;
 
 class TrackInfoSender extends Sender
 {
-    public function send(string $trackingNumber, Shipment $shipment): void
+    public function send(Shipment\Track $tracking, Shipment $shipment): void
     {
-        if (!$trackingNumber || !$shipment->getId()) {
+        if (!$tracking->getTrackNumber() || !$shipment->getId()) {
             return;
         }
 
         $transport = [
             'shipment' => $shipment,
             'order' => $shipment->getOrder(),
-            'tracking_link' => AbstractPitneyBowesCarrier::TRACKING_URL . $trackingNumber,
-            'tracking_number' => $trackingNumber,
+            'tracking_link' => AbstractPitneyBowesCarrier::TRACKING_URL . $tracking->getTrackNumber(),
+            'tracking_number' => $tracking->getTrackNumber(),
             'customer_name' => $shipment->getOrder()->getCustomerName(),
             'template_subject' => __('Tracking info for order #%1', $shipment->getOrder()->getIncrementId()),
         ];

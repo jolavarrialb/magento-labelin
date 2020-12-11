@@ -143,21 +143,46 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return $method;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function requestToShipment($request)
     {
         $packages = $request->getPackages();
+
         if (!is_array($packages) || !$packages) {
             throw new LocalizedException(__('No packages for request'));
         }
-        if ($request->getStoreId() != null) {
+
+        if ($request->getStoreId() !== null) {
             $this->setStore($request->getStoreId());
         }
+
         $data = [];
+        $response = new DataObject([]);
+
+        $isServicesExists = true;
+
+        foreach ($packages as $package) {
+            if (!$package['params']['service']) {
+                $isServicesExists = false;
+
+                break;
+            }
+        }
+
+        if (!$isServicesExists) {
+            $response->setErrors(__('One of your services is empty. Please request rates for package.'));
+
+            return $response;
+        }
+
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
-            $request->setPackageParams(new \Magento\Framework\DataObject($package['params']));
+            $request->setPackageParams(new DataObject($package['params']));
             $request->setPackageItems($package['items']);
             $result = $this->_doShipmentRequest($request);
+
             if ($result->hasErrors()) {
                 $this->rollBack($data);
                 break;
@@ -167,16 +192,18 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
                     'label_content' => $result->getShippingLabelContent(),
                 ];
             }
+
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
                 $isFirstRequest = false;
             }
         }
 
-        $response = new \Magento\Framework\DataObject(['info' => $data]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }
+
+        $response->setData('info', $data);
 
         return $response;
     }
@@ -238,21 +265,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         return false;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function returnOfShipment($request)
-    {
-        $response = $this->cancelShipmentRestApi->cancelShipment((int)$request->getOrderShipment()->getId());
-
-        if (!$response) {
-            return new DataObject([]);
-        }
-
-        return $response;
-    }
-
-    protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
+    protected function _doShipmentRequest(DataObject $request)
     {
         $this->_prepareShipmentRequest($request);
         $packageParams = $request->getPackageParams();
@@ -273,6 +286,13 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             ->setParcelType($this->configHelper->getContainer())
             ->setInductionPostalCode($fromAddress->getPostcode());
 
-        return $this->shipment->requestShipmentLabel($fromAddress, $toAddress, $parcel, $rates, $request);;
+        return $this->shipment->requestShipmentLabel(
+            $fromAddress,
+            $toAddress,
+            $parcel,
+            $rates,
+            (int)$request->getOrderShipment()->getOrderId(),
+            (int)$request->getPackageId()
+        );
     }
 }

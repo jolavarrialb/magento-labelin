@@ -75,12 +75,14 @@
                            type="checkbox"
                         <?php if ($shippingHelper->isPitneyBowesShippingByShipment($block->getShipment())): ?>
                             checked="checked"
-                            disabled="disabled"
+                            style="display: none"
                         <?php endif; ?>
                            onclick="toggleCreateLabelCheckbox();"/>
-                    <label class="admin__field-label"
-                           for="create_shipping_label">
-                        <span><?= $block->escapeHtml(__('Create Shipping Label')) ?></span></label>
+                    <?php if (!$shippingHelper->isPitneyBowesShippingByShipment($block->getShipment())): ?>
+                        <label class="admin__field-label"
+                               for="create_shipping_label">
+                            <span><?= $block->escapeHtml(__('Create Shipping Label')) ?></span></label>
+                    <?php endif; ?>
                 </div>
             <?php endif ?>
 

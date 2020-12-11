@@ -16,14 +16,14 @@ interface ParcelDtoInterface
     public const OUNCES_KG = 35.274;
 
     /**
-     * @param int|float $weight
+     * @param float $weight
      *
      * @return $this
      */
-    public function setWeight($weight = 0);
+    public function setWeight(float $weight = 0.1);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getWeight();
 
@@ -40,38 +40,38 @@ interface ParcelDtoInterface
     public function getWeightUnitOfMeasurement(): string;
 
     /**
-     * @param int|float $length
+     * @param float $length
      *
      * @return $this
      */
-    public function setLength($length = 0.1);
+    public function setLength(float $length = 0.1);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getLength();
 
     /**
-     * @param int|float $width
+     * @param float $width
      *
      * @return $this
      */
-    public function setWidth($width = 0.1);
+    public function setWidth(float $width = 0.1);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getWidth();
 
     /**
-     * @param int|float $height
+     * @param float $height
      *
      * @return $this
      */
-    public function setHeight($height = 0.1);
+    public function setHeight(float $height = 0.1);
 
     /**
-     * @return int|float
+     * @return float
      */
     public function getHeight();
 

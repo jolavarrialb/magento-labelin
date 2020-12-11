@@ -15,18 +15,19 @@ use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Services;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Shipment as ShipmentApiResponse;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialService;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialServiceCodes;
-use Labelin\PitneyBowesOfficialApi\Model\ApiException;
 use Labelin\PitneyBowesOfficialApi\Model\Configuration as OauthConfiguration;
 use Labelin\PitneyBowesOfficialApi\Model\Shipping\ShipmentApi;
 use Labelin\PitneyBowesRestApi\Api\Data\AddressDtoInterface;
 use Labelin\PitneyBowesRestApi\Api\Data\ParcelDtoInterface;
+use Labelin\PitneyBowesRestApi\Api\Data\ShipmentPitneyInterface;
 use Labelin\PitneyBowesRestApi\Api\ShipmentInterface;
+use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentResponseDto;
 use Labelin\PitneyBowesRestApi\Model\Api\Data\ShipmentsRatesDto;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitney;
+use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyFactory;
 use Labelin\PitneyBowesRestApi\Model\ShipmentPitneyRepository;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
-use Magento\Framework\DataObject;
-use Magento\Framework\Serialize\SerializerInterface;
+use Magento\Framework\Math\Random;
 use Psr\Log\LoggerInterface;
 
 class Shipment implements ShipmentInterface
@@ -40,52 +41,55 @@ class Shipment implements ShipmentInterface
     /** @var ShipmentPitneyRepository */
     protected $shipmentPitneyRepository;
 
-    /** @var ShipmentPitney */
-    protected $shipmentPitney;
+    /** @var ShipmentPitneyFactory */
+    protected $shipmentPitneyFactory;
 
-    /** @var SerializerInterface */
-    protected $serializer;
+    /** @var Random */
+    protected $mathRandom;
 
-    /** @var LoggerInterface  */
+    /** @var LoggerInterface */
     protected $logger;
 
     public function __construct(
         ConfigHelper $configHelper,
         OauthConfiguration $oauthConfiguration,
         ShipmentPitneyRepository $shipmentPitneyRepository,
-        ShipmentPitney $shipmentPitney,
-        SerializerInterface $serializer,
+        ShipmentPitneyFactory $shipmentPitneyFactory,
+        Random $mathRandom,
         LoggerInterface $logger
     ) {
         $this->configHelper = $configHelper;
         $this->oauthConfiguration = $oauthConfiguration;
 
-        $this->shipmentPitney = $shipmentPitney;
+        $this->shipmentPitneyFactory = $shipmentPitneyFactory;
         $this->shipmentPitneyRepository = $shipmentPitneyRepository;
 
-        $this->serializer = $serializer;
+        $this->mathRandom = $mathRandom;
         $this->logger = $logger;
     }
 
     /**
      * @param AddressDtoInterface $fromAddress
      * @param AddressDtoInterface $toAddress
-     * @param ParcelDtoInterface $parcel
-     * @param ShipmentsRatesDto $rates
-     * @param DataObject $request
-     * @return DataObject
+     * @param ParcelDtoInterface  $parcel
+     * @param ShipmentsRatesDto   $rates
+     * @param int                 $orderId
+     * @param int                 $packageId
      *
-     * @throws ApiException on non-2xx response
+     * @return \Labelin\PitneyBowesRestApi\Api\Data\ShipmentResponseDtoInterface
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function requestShipmentLabel(
         AddressDtoInterface $fromAddress,
         AddressDtoInterface $toAddress,
         ParcelDtoInterface $parcel,
         ShipmentsRatesDto $rates,
-        DataObject $request
+        int $orderId,
+        int $packageId
     ) {
-        $result = new DataObject();
-        $xPbTransactionId = sprintf('%s_PKG_%s',$request->getOrderShipment()->getIncrementId(), $request->getPackageId());
+        $result = new ShipmentResponseDto();
+        $xPbTransactionId = sprintf('%s_PKG_%s_%s', $orderId, $packageId, $this->mathRandom->getRandomString(10));
 
         $shipment = new ShipmentApiResponse([
             'from_address' => new Address($fromAddress->toShippingOptionsArray()),
@@ -117,9 +121,9 @@ class Shipment implements ShipmentInterface
             'documents' => [
                 new Document([
                     'type' => 'SHIPPING_LABEL',
-                    'content_type' => Document::CONTENT_TYPE_URL,
+                    'content_type' => Document::CONTENT_TYPE_BASE64,
                     'size' => Document::SIZE__4_X6,
-                    'file_format' => Document::FILE_FORMAT_PDF,
+                    'file_format' => Document::FILE_FORMAT_PNG,
                     'print_dialog_option' => Document::PRINT_DIALOG_OPTION_NO_PRINT_DIALOG,
                 ]),
             ],
@@ -131,7 +135,8 @@ class Shipment implements ShipmentInterface
         $this->logger->info($shipment);
 
         try {
-            $shipmentRequest = (new ShipmentApi($this->oauthConfiguration))->createShipmentLabel($xPbTransactionId, $shipment);
+            $shipmentRequest = (new ShipmentApi($this->oauthConfiguration))
+                ->createShipmentLabel($xPbTransactionId, $shipment);
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
 
@@ -142,44 +147,48 @@ class Shipment implements ShipmentInterface
         $this->logger->info($shipmentRequest);
 
 
-        $this->saveShipmentRequest($request, $shipmentRequest);
+        $shipmentPitneyBowes = $this->saveShipmentRequest($orderId, $shipmentRequest);
 
-        $result->setShipmentRequest($shipmentRequest);
-        $result->setShippingLabelContent($this->shipmentPitney->getLabelLink());
-        $result->setTrackingNumber($this->shipmentPitney->getTrackingId());
+        $result->setShippingLabelContent($shipmentPitneyBowes->getLabelLink());
+        $result->setTrackingNumber($shipmentPitneyBowes->getTrackingId());
 
         return $result;
     }
 
     /**
-     * @param $serviceId
+     * @param string $serviceId
+     *
      * @return array
      */
-    protected function getSpecialServices($serviceId): array
+    protected function getSpecialServices(string $serviceId): array
     {
         $specialServices = [];
         switch ($serviceId) {
-            case Services::EM :
+            case Services::EM:
                 $specialServices[] = new SpecialService([
                     'special_service_id' => SpecialServiceCodes::SERVICE_INS,
-                    'input_parameters' => [new Parameter(
-                        [
-                            'name' => 'INPUT_VALUE',
-                            "value" => 1,
-                        ]
-                    )],
+                    'input_parameters' => [
+                        new Parameter(
+                            [
+                                'name' => 'INPUT_VALUE',
+                                "value" => 1,
+                            ]
+                        ),
+                    ],
                 ]);
 
                 break;
             default:
                 $specialServices[] = new SpecialService([
                     'special_service_id' => SpecialServiceCodes::SERVICE_DEL_CON,
-                    'input_parameters' => [new Parameter(
-                        [
-                            'name' => 'INPUT_VALUE',
-                            "value" => 0,
-                        ]
-                    )],
+                    'input_parameters' => [
+                        new Parameter(
+                            [
+                                'name' => 'INPUT_VALUE',
+                                "value" => 0,
+                            ]
+                        ),
+                    ],
                 ]);
         }
 
@@ -187,35 +196,44 @@ class Shipment implements ShipmentInterface
     }
 
     /**
-     * @param DataObject $request
-     * @param $result
-     * @return void
+     * @param mixed               $orderId
+     * @param ShipmentApiResponse $result
+     *
+     * @return ShipmentPitneyInterface
      */
-    protected function saveShipmentRequest(DataObject $request, $result): void
+    protected function saveShipmentRequest($orderId, ShipmentApiResponse $result): ShipmentPitneyInterface
     {
-        $this->shipmentPitney
-            ->setOrderId($request->getOrderShipment()->getOrderId())
-            ->setResponse($this->serializer->serialize($result->__toString()))
+        $shipmentPitneyBowes = $this->initShipmentPitneyBowes()
+            ->setOrderId($orderId)
+            ->setShipmentId($orderId)
+            ->setResponse($result->__toString())
             ->setTrackingId($result->getParcelTrackingNumber())
-            ->setLabelLink($this->getShippingLabelUrl($result))
-            ->setShipmentId($result->getShipmentId());
+            ->setLabelLink($this->getShippingLabelContent($result));
 
-        $this->shipmentPitneyRepository->save($this->shipmentPitney);
+        return $this->shipmentPitneyRepository->save($shipmentPitneyBowes);
     }
 
     /**
-     * @param $result
+     * @param ShipmentApiResponse $result
+     *
      * @return string
      */
-    protected function getShippingLabelUrl($result): string
+    protected function getShippingLabelContent(ShipmentApiResponse $result): string
     {
-        /** @var \Labelin\PitneyBowesOfficialApi\Model\Api\Model\Document $document */
+        /** @var Document $document */
         foreach ($result->getDocuments() as $document) {
-            if ($document->getType() === 'SHIPPING_LABEL' && $document->getContentType() === Document::CONTENT_TYPE_URL) {
-                return $document->getContents();
+            if ($document->getType() === 'SHIPPING_LABEL' &&
+                $document->getContentType() === Document::CONTENT_TYPE_BASE64
+            ) {
+                return base64_decode(current($document->getPages())->getContents());
             }
         }
 
         return '';
+    }
+
+    protected function initShipmentPitneyBowes(array $data = []): ShipmentPitney
+    {
+        return $this->shipmentPitneyFactory->create($data);
     }
 }
