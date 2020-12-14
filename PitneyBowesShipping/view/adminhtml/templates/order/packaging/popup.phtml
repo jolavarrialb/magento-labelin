@@ -43,8 +43,10 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         packaging.setCancelCallback(function() {
             if ($('create_shipping_label')) {
                 packaging.cleanPackages();
-                $('create_shipping_label').checked = false;
-                toggleCreateLabelCheckbox();
+                <?php if (!$shippingHelper->isPitneyBowesShippingByShipment($block->getShipment())): ?>
+                    $('create_shipping_label').checked = false;
+                    toggleCreateLabelCheckbox();
+                <?php endif; ?>
             }
         });
         packaging.setItemQtyCallback(function(itemId){
