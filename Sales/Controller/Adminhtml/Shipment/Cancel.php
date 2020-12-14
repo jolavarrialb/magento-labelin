@@ -68,18 +68,18 @@ class Cancel extends Action
 
             $response = $this->cancelShipment->cancelShipment($pitneyBowesShipmentId, $shipmentId);
 
-            if ($response) {
-                $this
-                    ->messageManager
-                    ->addSuccessMessage(__('Request about cancellation is successfully sent to Pitney Bowes.'));
-
-                $this->shipmentPitneyBowesRepository->delete($shipment);
-            } else {
+            if (!$response) {
                 $this
                     ->messageManager
                     ->addErrorMessage(__('Error.Check log on server by the path: var/log/pitney_bowes_api_debug.log'));
+
+                return $this->_redirect($this->_redirect->getRefererUrl());
             }
         }
+
+        $this
+            ->messageManager
+            ->addSuccessMessage(__('Request about cancellation is successfully sent to Pitney Bowes.'));
 
         return $this->_redirect('sales/order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);
     }
