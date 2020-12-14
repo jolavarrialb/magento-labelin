@@ -31,7 +31,9 @@ class View extends MagentoView
                 [
                     'label' => __('Cancel'),
                     'class' => 'cancel',
-                    'onclick' => 'setLocation(\'' . $this->getCancelUrl() . '\')',
+                    'onclick' => "deleteConfirm('" . __(
+                            'Are you sure you want to cancel a shipment?'
+                        ) . "', '" . $this->getCancelUrl() . "')",
                 ]
             );
         }
