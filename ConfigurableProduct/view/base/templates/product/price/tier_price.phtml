@@ -1,7 +1,14 @@
 <?php /** @var $block Magento\Framework\View\Element\Template */ ?>
+<?php $helper = $this->helper(Labelin\ConfigurableProduct\Helper\ProductType::class); ?>
 <script type="text/x-magento-template" id="tier-prices-template">
     <div class="header-wrapper">
-        <h2 class="checkout-page-header"><?= $block->escapeHtml(__('Select Quantity')) ?></h2>
+        <h2 class="checkout-page-header">
+            <?= $block->escapeHtml(__('Select Quantity')) ?>
+
+            <?php if ($helper->isProductPackagingTape($block->getPrice()->getProduct())): ?>
+                <?= $block->escapeHtml(__('(300 ft/roll)')) ?>
+            <?php endif; ?>
+        </h2>
         <p class="checkout-page-text">
             <?= $block->escapeHtml(__('The larger quantity gives the lower cost per sticker')) ?>
         </p>
