@@ -52,6 +52,18 @@ class Configurable extends MagentoSwatchesConfigurable
         ],
     ];
 
+    protected const CONFIGURABLE_PRODUCT_DEFAULT_PRICE_VALUES = [
+        'oldPrice' => [
+            'amount' => 0,
+        ],
+        'basePrice' => [
+            'amount' => 0,
+        ],
+        'finalPrice' => [
+            'amount' => 0,
+        ],
+    ];
+
     protected const ATTRIBUTE_STICKER_TYPE = 'sticker_type';
 
     /** @var Format|mixed|null */
@@ -151,6 +163,16 @@ class Configurable extends MagentoSwatchesConfigurable
     {
         return $this->jsonHelper;
     }
+
+    public function getJsonConfig(): string
+    {
+        $jsonConfig = $this->jsonHelper->unserialize(parent::getJsonConfig());
+
+        $jsonConfig['prices'] = static::CONFIGURABLE_PRODUCT_DEFAULT_PRICE_VALUES;
+
+        return $this->jsonHelper->serialize($jsonConfig);
+    }
+
 
     protected function getOptionPrices(): array
     {
