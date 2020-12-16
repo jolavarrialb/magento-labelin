@@ -3,10 +3,7 @@
     <body>
         <referenceContainer name="content">
             <block class="Labelin\PitneyBowesShipping\Block\Adminhtml\View" name="sales_shipment_view">
-                <block class="Magento\Shipping\Block\Adminhtml\View\Form" name="form" template="Labelin_PitneyBowesShipping::view/form.phtml">
-                    <arguments>
-                        <argument name="view_model" xsi:type="object">Labelin\PitneyBowesShipping\ViewModel\Shipment</argument>
-                    </arguments>
+                <block class="Magento\Shipping\Block\Adminhtml\View\Form" name="form" template="Magento_Shipping::view/form.phtml">
                     <block class="Magento\Sales\Block\Adminhtml\Order\View\Info" name="order_info" template="Magento_Sales::order/view/info.phtml">
                         <container name="extra_customer_info"/>
                     </block>
