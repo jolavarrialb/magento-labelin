@@ -187,7 +187,9 @@ class Order extends MagentoOrder
         if ($this->isPaymentReview()) {
             return false;
         }
+
         $state = $this->getState();
+
         if ($state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $this->isCanceled()) {
             return false;
         }
