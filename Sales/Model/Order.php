@@ -182,6 +182,29 @@ class Order extends MagentoOrder
         return true;
     }
 
+    public function canInvoice(): bool
+    {
+        if ($this->isPaymentReview()) {
+            return false;
+        }
+        $state = $this->getState();
+        if ($state === self::STATE_COMPLETE || $state === self::STATE_CLOSED || $this->isCanceled()) {
+            return false;
+        }
+
+        if ($this->getActionFlag(self::ACTION_FLAG_INVOICE) === false) {
+            return false;
+        }
+
+        foreach ($this->getAllItems() as $item) {
+            if ($item->getQtyToInvoice() > 0 && !$item->getLockedDoInvoice()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getOverdueAvailableStatuses(): array
     {
         return $this->overdueAvailableStatuses;
