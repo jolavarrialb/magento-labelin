@@ -1,7 +1,8 @@
 <?php /** @var $block Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic */ ?>
 <?php use Magento\ConfigurableProduct\Model\Product\Type\Configurable; ?>
 
-<?php if ($block->getItem()->getProduct()->getTypeId() === Configurable::TYPE_CODE): ?>
+<?php if (!$block->getItem()->getData('is_reordered') &&
+    $block->getItem()->getProduct()->getTypeId() === Configurable::TYPE_CODE): ?>
     <span>
         <b><?= $block->escapeHtml(__('This image is not approved and will be edited by the designer')) ?></b>
     </span>
