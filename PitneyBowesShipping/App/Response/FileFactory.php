@@ -12,17 +12,7 @@ use Magento\Framework\App\ResponseInterface;
 class FileFactory extends \Magento\Framework\App\Response\Http\FileFactory
 {
     /**
-     * @param string $fileName
-     * @param string|array $content
-     * @param string $baseDir
-     * @param string $contentType
-     * @param int $contentLength
-     * @return ResponseInterface
-     *
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @throws InvalidArgumentException
-     * @throws Exception
+     * @inheridoc
      */
     public function create(
         $fileName,
