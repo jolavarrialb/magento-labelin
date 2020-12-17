@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Shipping\Block\Adminhtml\Order\Packaging\Grid" type="Labelin\PitneyBowesShipping\Block\Adminhtml\Order\Packaging\Grid"/>
+    <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\PrintLabel">
+        <arguments>
+            <argument name="fileFactory" xsi:type="object">Labelin\PitneyBowesShipping\App\Response\FileFactory</argument>
+        </arguments>
+    </type>
 </config>
