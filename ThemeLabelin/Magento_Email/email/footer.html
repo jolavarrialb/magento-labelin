@@ -1,0 +1,54 @@
+<!--@subject {{trans "Footer"}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var url_about_us":"About Us URL",
+"var url_customer_service":"Customer Service URL",
+"var store_phone":"Store Phone",
+"var store_hours":"Store Hours",
+"var store.formatted_address|raw":"Store Address"
+} @-->
+
+                    <!-- End Content -->
+                    </td>
+                </tr>
+                <tr style="background-color: #010101; color: #fff;">
+                    <td class="footer" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: top; background-color: #010101; padding: 25px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="logo-image-wrapper">
+                                        <img src="{{media url="footer/logo-white.png"}}" alt="logo">
+                                    </div>
+                                    <p class="footer-logo-text" >
+                                        Easy online ordering for beautiful product labels and packaging
+                                        decoration
+                                    </p>
+                                    <p class="copyright up">© 2020 Labelin</p>
+                                </td>
+                                <td>
+                                    {{depend store_phone}}
+                                    <p class="phone">
+                                        {{trans '<a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}
+                                    </p>
+                                    {{/depend}}
+                                    {{depend store_hours}}
+                                    <p class="hours">
+                                        {{trans 'Hours of Operation:<br /><span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                                    </p>
+                                    {{/depend}}
+                                </td>
+                                <td>
+                                    <p class="address">
+                                        {{var store.formatted_address|raw}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<!-- End wrapper table -->
+</body>
