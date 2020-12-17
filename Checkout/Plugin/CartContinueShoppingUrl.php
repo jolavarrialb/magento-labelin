@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace Labelin\Checkout\Plugin;
 
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Checkout\Block\Cart as CheckoutCart;
 use Magento\Checkout\Model\Session;
+use Magento\Framework\Url;
 
 class CartContinueShoppingUrl
 {
+    protected const HOMEPAGE_SECTION = '#order-section';
+
     /** @var Session */
     protected $checkoutSession;
 
-    /** @var ProductRepositoryInterface */
-    protected $productRepository;
+    /** @var Url */
+    protected $urlBuilder;
 
-    public function __construct(Session $session, ProductRepositoryInterface $productRepository)
+    public function __construct(Session $session, Url $urlBuilder)
     {
         $this->checkoutSession = $session;
-        $this->productRepository = $productRepository;
+        $this->urlBuilder = $urlBuilder;
     }
 
     public function beforeGetContinueShoppingUrl(CheckoutCart $subject): self
@@ -41,6 +43,6 @@ class CartContinueShoppingUrl
 
     protected function getRedirectUrl(): string
     {
-        return $this->productRepository->get('sticker')->getProductUrl();
+        return $this->urlBuilder->getBaseUrl() . static::HOMEPAGE_SECTION;
     }
 }
