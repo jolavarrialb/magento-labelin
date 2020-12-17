@@ -7,7 +7,6 @@ namespace Labelin\PitneyBowesShipping\App\Response;
 use Exception;
 use InvalidArgumentException;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\ResponseInterface;
 
 class FileFactory extends \Magento\Framework\App\Response\Http\FileFactory
 {
