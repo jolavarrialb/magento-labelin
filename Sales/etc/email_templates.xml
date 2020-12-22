@@ -57,4 +57,11 @@
               module="Labelin_Sales"
               area="frontend"
     />
+    <template id="labelin_sales_email_assign_designer_template"
+              label="Assign Designer"
+              file="designer/assign.html"
+              type="html"
+              module="Labelin_Sales"
+              area="frontend"
+    />
 </config>

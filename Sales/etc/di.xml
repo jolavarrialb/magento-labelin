@@ -120,6 +120,17 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="AssignDesignerVirtual" type="Labelin\Sales\Model\Order\Email\Container\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_sales_email/assign_designer/enabled</item>
+                <item name="template" xsi:type="string">labelin_sales_email/assign_designer/template</item>
+                <item name="identity" xsi:type="string">labelin_sales_email/assign_designer/identity</item>
+                <item name="copy_to" xsi:type="string">labelin_sales_email/assign_designer/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_sales_email/assign_designer/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\ApproveSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">ApproveIdentity</argument>
@@ -158,6 +169,11 @@
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\ApproveSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">GuestCheckoutApproveArtwork</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Order\Email\Sender\AssignDesignerSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">AssignDesignerVirtual</argument>
         </arguments>
     </type>
     <virtualType name="Labelin\Sales\Order\Item\ArtworkStatusDebug" type="Magento\Framework\Logger\Handler\Base">

@@ -38,6 +38,11 @@ class MassDesignerAssign extends MassDesignerAbstract
             $this->orderRepository->save($order);
         }
 
+        $this->_eventManager->dispatch('labelin_order_designer_assign', [
+            'orders' => $orders,
+            'designer' => $this->designerHelper->getDesignerById((int)$designerId),
+        ]);
+
         $this->messageManager->addSuccessMessage(__('%1 order(s) was assigned to the designer.', count($orderIds)));
 
         return $this->_redirect($this->_redirect->getRefererUrl());
