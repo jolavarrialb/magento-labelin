@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Labelin\Sales\Ui\Component;
 
 use Labelin\Sales\Helper\Designer as DesignerHelper;
-use Magento\Backend\Model\Auth\Session;
+use Labelin\Sales\Helper\Shipper as ShipperHelper;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 class MassAction extends \Magento\Ui\Component\MassAction
@@ -15,13 +15,18 @@ class MassAction extends \Magento\Ui\Component\MassAction
     /** @var DesignerHelper */
     protected $designerHelper;
 
+    /** @var ShipperHelper */
+    protected $shipperHelper;
+
     public function __construct(
         ContextInterface $context,
         DesignerHelper $designerHelper,
+        ShipperHelper $shipperHelper,
         array $components = [],
         array $data = []
     ) {
         $this->designerHelper = $designerHelper;
+        $this->shipperHelper = $shipperHelper;
 
         parent::__construct($context, $components, $data);
     }
@@ -30,7 +35,7 @@ class MassAction extends \Magento\Ui\Component\MassAction
     {
         parent::prepare();
 
-        if (!$this->designerHelper->isCurrentAuthUserDesigner()) {
+        if (!$this->designerHelper->isCurrentAuthUserDesigner() && !$this->shipperHelper->isCurrentAuthUserShipper()) {
             return;
         }
 
