@@ -28,7 +28,10 @@ class AssignHandler implements ObserverInterface
         }
 
         foreach ($orders as $order) {
-            $this->sender->send($order, $designer);
+            $this->sender
+                ->setOrder($order)
+                ->setDesigner($designer)
+                ->send();
         }
 
         return $this;

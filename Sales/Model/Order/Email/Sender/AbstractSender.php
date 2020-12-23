@@ -45,26 +45,28 @@ abstract class AbstractSender extends Sender
         $this->urlBuilder = $urlBuilder;
     }
 
-    protected function getDesigner(): User
+    abstract public function send(): void;
+
+    public function getDesigner(): User
     {
         return $this->designer;
     }
 
-    protected function setDesigner(User $designer): self
+    public function setDesigner(User $designer): self
     {
         $this->designer = $designer;
 
         return $this;
     }
 
-    protected function setOrder(Order $order): self
+    public function setOrder(Order $order): self
     {
         $this->order = $order;
 
         return $this;
     }
 
-    protected function getOrder(): Order
+    public function getOrder(): Order
     {
         return $this->order;
     }

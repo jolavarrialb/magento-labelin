@@ -44,7 +44,7 @@ class Identity extends Container
         return (string)$this->getConfigValue($this->xmlPathSettings['copy_method'], $this->getStore()->getStoreId());
     }
 
-    public function getGuestTemplateId()
+    public function getGuestTemplateId(): string
     {
         return $this->getConfigValue($this->xmlPathSettings['template'], $this->getStore()->getStoreId());
     }
