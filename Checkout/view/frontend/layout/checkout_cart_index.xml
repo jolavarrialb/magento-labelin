@@ -8,6 +8,7 @@
                     <argument name="template" xsi:type="string">Labelin_Checkout::cart/form.phtml</argument>
                 </action>
             </referenceBlock>
+            <referenceBlock name="checkout.cart.coupon" remove="true" />
         </referenceContainer>
     </body>
 </page>
