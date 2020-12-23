@@ -10,6 +10,7 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\Auth\Session;
+use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\OrderFactory;
 
