@@ -16,7 +16,7 @@ use Magento\Sales\Model\Order\Email\SenderBuilderFactory;
 use Magento\User\Model\User;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractSender extends Sender
+abstract class AbstractDesignerSender extends Sender
 {
     /** @var DesignerHelper */
     protected $designerHelper;
@@ -39,7 +39,13 @@ abstract class AbstractSender extends Sender
         DesignerHelper $designerHelper,
         Url $urlBuilder
     ) {
-        parent::__construct($templateContainer, $identityContainer, $senderBuilderFactory, $logger, $addressRenderer);
+        parent::__construct(
+            $templateContainer,
+            $identityContainer,
+            $senderBuilderFactory,
+            $logger,
+            $addressRenderer
+        );
 
         $this->designerHelper = $designerHelper;
         $this->urlBuilder = $urlBuilder;

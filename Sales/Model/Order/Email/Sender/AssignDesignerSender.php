@@ -6,7 +6,7 @@ namespace Labelin\Sales\Model\Order\Email\Sender;
 
 use Magento\Framework\DataObject;
 
-class AssignDesignerSender extends AbstractSender
+class AssignDesignerSender extends AbstractDesignerSender
 {
     public function send(): void
     {
