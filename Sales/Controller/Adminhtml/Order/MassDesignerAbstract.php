@@ -6,20 +6,22 @@ namespace Labelin\Sales\Controller\Adminhtml\Order;
 
 use Labelin\Sales\Helper\Artwork;
 use Labelin\Sales\Helper\Designer as DesignerHelper;
+use Labelin\Sales\Helper\Shipper as ShipperHelper;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Backend\Model\Auth\Session;
-use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\OrderFactory;
 
 abstract class MassDesignerAbstract extends Action
 {
-    /*** @var DesignerHelper */
+    /** @var DesignerHelper */
     protected $designerHelper;
 
-    /*** @var OrderFactory */
+    /** @var ShipperHelper */
+    protected $shipperHelper;
+
+    /** @var OrderFactory */
     protected $orderFactory;
 
     /** @var OrderRepositoryInterface */
@@ -34,11 +36,14 @@ abstract class MassDesignerAbstract extends Action
     public function __construct(
         Context $context,
         DesignerHelper $designerHelper,
+        ShipperHelper $shipperHelper,
         OrderRepositoryInterface $orderRepository,
         Artwork $artworkHelper,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->designerHelper = $designerHelper;
+        $this->shipperHelper = $shipperHelper;
+
         $this->orderRepository = $orderRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->artworkHelper = $artworkHelper;
@@ -48,6 +53,7 @@ abstract class MassDesignerAbstract extends Action
 
     protected function _isAllowed(): bool
     {
-        return !$this->designerHelper->isCurrentAuthUserDesigner();
+        return !$this->designerHelper->isCurrentAuthUserDesigner() &&
+            !$this->shipperHelper->isCurrentAuthUserShipper();
     }
 }
