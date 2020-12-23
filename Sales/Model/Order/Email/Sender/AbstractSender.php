@@ -47,8 +47,12 @@ abstract class AbstractSender extends Sender
 
     abstract public function send(): void;
 
-    public function getDesigner(): User
+    public function getDesigner(): ?User
     {
+        if (!$this->designer) {
+            return null;
+        }
+
         return $this->designer;
     }
 
@@ -66,8 +70,12 @@ abstract class AbstractSender extends Sender
         return $this;
     }
 
-    public function getOrder(): Order
+    public function getOrder(): ?Order
     {
+        if (!$this->order) {
+            return null;
+        }
+
         return $this->order;
     }
 
@@ -83,6 +91,6 @@ abstract class AbstractSender extends Sender
 
     protected function isSendingAvailable(): bool
     {
-        return $this->getOrder()->getId() && $this->getDesigner()->getId();
+        return $this->getOrder() && $this->getDesigner();
     }
 }
