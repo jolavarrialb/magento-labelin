@@ -46,7 +46,7 @@ class PrintShippingLabelButton
                 'label' => __('Print Shipping Label'),
                 'class' => __('Print Shipping Label'),
                 'id' => 'order-view-print-shipping-label-button',
-                'onclick' => 'setLocation(\'' . $url . '\')',
+                'onclick' => 'window.open(\'' . $url . '\', \'_blank\')',
             ]
         );
     }
