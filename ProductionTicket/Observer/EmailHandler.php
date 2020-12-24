@@ -37,7 +37,7 @@ class EmailHandler implements ObserverInterface
         /** @var ProductionTicket $productionTicket */
         $productionTicket = $observer->getData('object');
 
-        if (!$productionTicket || !$productionTicket->getOrder()) {
+        if (!$productionTicket || !$productionTicket->getOrder() || $productionTicket->isComplete()) {
             return $this;
         }
 
