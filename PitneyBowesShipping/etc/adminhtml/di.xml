@@ -6,4 +6,7 @@
             <argument name="fileFactory" xsi:type="object">Labelin\PitneyBowesShipping\App\Response\FileFactory</argument>
         </arguments>
     </type>
+    <type name="Magento\Shipping\Block\Adminhtml\View\Form">
+        <plugin name="labelin_adminhtml_order_shipment_view_add_print_shipping_label_button" type="Labelin\PitneyBowesShipping\Plugin\Block\Adminhtml\Order\Shipment\View\PrintShippingLabelButton" sortOrder="10"/>
+    </type>
 </config>
