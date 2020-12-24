@@ -89,7 +89,8 @@ class InProductionStatusHandler implements ObserverInterface
             ->setArtwork($artwork['value'])
             ->setApprovalDate($orderItem->getApprovalDate())
             ->setDesigner($order->getDesigner() ? $order->getDesigner()->getName() : '')
-            ->setMaterial($orderItem->getType());
+            ->setMaterial($orderItem->getType())
+            ->setIsComplete(false);
 
         $this->productionTicketRepository->save($this->productionTicket);
 

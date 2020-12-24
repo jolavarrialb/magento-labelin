@@ -143,10 +143,20 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
 
     public function getStatus(): bool
     {
-        return $this->getData(ProductionTicketInterface::STATUS);
+        return (bool)$this->getData(ProductionTicketInterface::STATUS);
+    }
+
+    public function isComplete(): bool
+    {
+        return (bool)$this->getData(ProductionTicketInterface::STATUS);
     }
 
     public function setStatus(bool $status): self
+    {
+        return $this->setData(ProductionTicketInterface::STATUS, $status ? 1 : 0);
+    }
+
+    public function setIsComplete(bool $status): self
     {
         return $this->setData(ProductionTicketInterface::STATUS, $status ? 1 : 0);
     }
