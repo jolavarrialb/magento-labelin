@@ -49,7 +49,7 @@ class AwaitingCustomerApproveHandler
         }
 
         $fromDate = new \DateTime();
-        $fromDate->modify(sprintf('- %s days', $this->awaitingCustomerApproveHelper->getDaysBeforeNotification()));
+        $fromDate->modify(sprintf('- %s days', $this->awaitingCustomerApproveHelper->getExceededDays()));
 
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('is_artwork_approved', 0, 'eq')
