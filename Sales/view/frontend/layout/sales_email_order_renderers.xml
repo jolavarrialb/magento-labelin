@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Creditmemo Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="sales.email.order.renderers">
+            <referenceBlock name="sales.email.order.renderers.default">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Labelin_Sales::email/items/order/default.phtml</argument>
+                </action>
+                <block class="Labelin\Sales\Block\Order\Item\Renderer\DefaultRenderer\ArtWork" name="labelin.sales.order.item.renderers.default.artwork" as="artwork" template="Labelin_Sales::order/items/renderer/default/artwork.phtml" />
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>
