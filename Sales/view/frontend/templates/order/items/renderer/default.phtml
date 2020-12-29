@@ -28,16 +28,16 @@ $_item = $block->getItem();
         <?php endif; ?>
 
         <br/>
-        <?= $block->getChildBlock('artwork_forms_wrapper')->setData('item', $_item)->toHtml() ?>
-
+        <?php if ($artworkFormWrapperBlock = $block->getChildBlock('artwork_forms_wrapper')): ?>
+            <?= $artworkFormWrapperBlock->setData('item', $_item)->toHtml(); ?>
+        <?php endif; ?>
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
         <?php if ($addtInfoBlock): ?>
             <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <td class="col sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"><?= /* @noEscape */
-        $block->prepareSku($block->getSku()) ?></td>
+    <td class="col sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></td>
     <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
         <?= $block->getItemPriceHtml() ?>
     </td>
