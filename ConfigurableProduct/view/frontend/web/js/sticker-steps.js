@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
             isAvailableSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option'),
             selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected'),
-            qtyInput = document.querySelector('input[name="qty"]');
+            qtyInput = document.querySelector('input[name="qty"]'),
+            qtyInputCheckedList = document.querySelectorAll('input[name="qty"]:checked');
 
         proceedStep(currentStep + 1);
 
@@ -118,8 +119,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (qtyInput &&
             parseInt(qtyInput.closest('#sticker_price').getAttribute('data-step')) === currentStep
         ) {
-            qtyInput.setAttribute('checked', 'checked');
-            qtyInput.click();
+            document.querySelector('input#ac-1').setAttribute('checked', 'checked');
+
+            this.disabled = !qtyInputCheckedList.length;
+
+            if (qtyInputCheckedList.length) {
+                localStorage.setItem('data-step-' + localStorage.getItem('sticker_current_step'), qtyInputCheckedList[0].value);
+                selectOptionYourOrderStep();
+            }
         }
     });
 

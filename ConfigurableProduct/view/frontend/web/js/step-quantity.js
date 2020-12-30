@@ -2,7 +2,7 @@ define(['jquery', 'domReady!'], function ($) {
     'use strict';
 
     function init() {
-        let $tierPriceBlock = $("div[data-role='tier-price-block']")
+        let $tierPriceBlock = $("div[data-role='tier-price-block']");
 
         $tierPriceBlock.on('click', 'label.ac-label', function () {
             toggleCheckedLabel(this);
@@ -11,6 +11,7 @@ define(['jquery', 'domReady!'], function ($) {
         $tierPriceBlock.on('click', 'input.radiobutton', function () {
             updateLocalStorageData(this.value);
             selectOptionYourOrderStep();
+            updateNextStepBtn(this);
         });
     }
 
@@ -34,6 +35,12 @@ define(['jquery', 'domReady!'], function ($) {
     function updateLocalStorageData(selectedQty) {
         let currentStepItemName = 'data-step-' + localStorage.getItem('sticker_current_step');
         localStorage.setItem(currentStepItemName, selectedQty);
+    }
+
+    function updateNextStepBtn(element) {
+        let nextStepBtn = document.getElementById('sticker-next-step');
+
+        nextStepBtn.disabled = !element.checked;
     }
 
     return function () {
