@@ -17,4 +17,4 @@ $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAl
             <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
     />
 </a>
-<a href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"><img class="mobile-header-cart" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/shopping_cart.png'); ?>"  /></a> /** todo: transfer this line to a separate phtml. */
+<a href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"><img class="mobile-header-cart" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/shopping_cart.png'); ?>"  /></a>  <!-- todo: transfer this line to a separate phtml. -->
