@@ -3,10 +3,8 @@
     .page-layout-1column {
         .product-info-main-sticker {
             width: 100%;
-
             .sticker-buttons {
                 display: flex;
-
                 button {
                     margin-right: 10px;
                 }
@@ -18,7 +16,6 @@
 .product-info-main-sticker {
     #sticker-steps-wrapper {
         display: flex;
-
         .sticker-step-info {
             width: 200px;
             height: 6px;
@@ -79,13 +76,10 @@
 
     .column.main {
         padding-bottom: 0;
-
     }
-
     p {
       margin: 0;
     }
-
     .messages {
         max-width: 1455px;
         padding-top: 10px;
@@ -97,7 +91,6 @@
         }
         float: inherit;
     }
-
     .header-wrapper {
         .checkout-page-header {
             font-size: @fs-header-medium;
@@ -112,7 +105,6 @@
               margin-bottom: 0;
             }
         }
-
         .checkout-page-text {
             font-weight: normal;
             font-size: @fs-content;
@@ -125,7 +117,6 @@
               margin-bottom: 17px;
             }
         }
-
         @media (max-width: 1024px) {
             padding-left: 20px;
         }
@@ -133,21 +124,17 @@
             padding-left: 0;
         }
     }
-
     .checkout-main {
         display: flex;
-
         .sticker-form-wrapper {
             width: 100%;
             display: block;
             @media(max-width:768px) {
               position: relative;
             }
-
             .swatch-attribute-label {
                 display: none;
             }
-
             .swatch-attribute-selected-option {
                 display: none;
             }
@@ -158,7 +145,6 @@
                 justify-content: center;
               }
             }
-
             .card-wrapper {
                 cursor: pointer;
                 display: flex;
@@ -167,7 +153,6 @@
                   align-items: center;
                   margin: 5px;
                 }
-
                 .card-text {
                     font-weight: normal;
                     font-size: @fs-header;
@@ -177,12 +162,10 @@
                     margin-bottom: 10px !important;
                     text-align: center;
                     display: inline-flex;
-
                     @media (max-width: 768px) {
                         font-size: 16px;
                     }
                 }
-
                 .swatch-option {
                     border: none;
                     background-color: white;
@@ -196,7 +179,6 @@
                       margin: 0;
                     }
                 }
-
                 .swatch-option.sticker_type {
                     height: 200px !important;
                     @media (max-width: 768px) {
@@ -204,13 +186,11 @@
                       height: 135px !important;
                     }
                 }
-
             }
         }
 
         .chosen-values-wrapper {
             margin-left: 35px;
-
             .chosen-values {
                 background-color: @color-white;
                 box-shadow: 4px 8px 24px rgba(217, 219, 222, 0.32);
@@ -221,7 +201,6 @@
                   width: auto;
                   min-width: unset;
                 }
-
                 .values-header {
                     font-weight: normal;
                     font-size: @fs-header-content;
@@ -233,7 +212,6 @@
                       font-size: 22px;
                     }
                 }
-
                 .value {
                     font-size: @fs-content;
                     line-height: 50px;
@@ -241,16 +219,13 @@
                     padding-left: 40px;
                     position: relative;
                     display: flex;
-
                     .value-text {
                         width: 30%;
                         @media (max-width: 768px) {
                           font-size: 15px;
                         }
                     }
-
                 }
-
                 .checked {
                     &::before {
                         position: absolute;
@@ -265,23 +240,19 @@
                         transform: rotate(45deg);
                     }
                 }
-
                 .value:nth-last-of-type(odd) {
                     background-color: @color-bg-grey;
                 }
-
                 .selected-value {
                     font-size: @fs-content;
                     line-height: 50px;
                     color: @color-grafite;
                     font-weight: bold;
-
                     &.size {
                         margin-left: 5px;
                     }
                 }
             }
-
             .next-and-back-button-wrapper {
                 display: flex;
                 align-items: center;
@@ -290,7 +261,6 @@
                 @media (max-width: 768px) {
                   justify-content: center;
                 }
-
                 .back-button,
                 .next-button,
                 .submit-button {
@@ -302,7 +272,6 @@
                     line-height: 22px;
                     font-weight: bold;
                 }
-
                 .back-button {
                     color: @color-black;
                     background-color: @color-white;
@@ -311,13 +280,11 @@
                       margin-right: 16px;
                     }
                 }
-
                 .next-button {
                     background-color: @color-grafite;
                     color: @color-white;
                     border: none;
                     position: relative;
-
                     &::after {
                         position: absolute;
                         top: 24px;
@@ -333,7 +300,6 @@
                           right: 20px;
                         }
                     }
-
                     &:hover {
                         background-color: @color-buttons-hover;
                     }
@@ -341,32 +307,27 @@
                         max-width: 288px;
                     }
                 }
-
                 .submit-button {
                     background-color: @color-grafite;
                     color: @color-white;
                     border: none;
                     position: relative;
-
                     &:hover {
                         background-color: @color-buttons-hover;
                     }
                 }
-
                 .next-button:focus,
                 .back-button:focus,
                 .submit-button:focus {
                     outline: none;
                 }
             }
-
             @media (max-width: 1024px) {
                 margin-top: 33px;
                 margin-left: 0;
                 width: 100%;
             }
         }
-
         @media (max-width: 1024px) {
             flex-direction: column;
             align-items: center;

@@ -1,12 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
-
-/**
- *  General template for displaying group of blocks divided into sections
- */
 
 $group = $block->getGroupName();
 $groupCss = $block->getGroupCss();
@@ -17,25 +9,25 @@ $groupCss = $block->getGroupCss();
         <div class="section-items <?= $block->escapeHtmlAttr($groupCss) ?>-items"
              data-mage-init='{"tabs":{"openedState":"active"}}'>
              <div class="section-item-content <?= $block->escapeHtmlAttr($groupCss) ?>-item-content"
-                                 data-role="content">
-                                 <div class="mobile-nav-header">
-                                     <img src="<?= $block->getLayout()->getBlock('logo')->getLogoSrc() ?>"
-                                              title="<?= $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoAlt()) ?>"
-                                              alt="<?= $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoAlt()) ?>"
-                                                 <?= $block->getLayout()->getBlock('logo')->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoWidth()) . '"' : '' ?>
-                                                 <?= $block->getLayout()->getBlock('logo')->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoHeight()) . '"' : '' ?>
-                                         />
-                                     <img id="mobile-nav-close" class="mobile-nav-close-button" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/Close.png'); ?>"/>
-                                 </div>
-                                <nav class="navigation" data-action="navigation">
-                                    <?php
-                                        echo $this->getLayout()
-                                        ->createBlock('Magento\Cms\Block\Block')
-                                        ->setBlockId('header_navigation_mobile')
-                                        ->toHtml();
-                                    ?>
-                                </nav>
-                            </div>
+                 data-role="content">
+                 <div class="mobile-nav-header">
+                     <img src="<?= $block->getLayout()->getBlock('logo')->getLogoSrc() ?>"
+                          title="<?= $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoAlt()) ?>"
+                          alt="<?= $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoAlt()) ?>"
+                             <?= $block->getLayout()->getBlock('logo')->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoWidth()) . '"' : '' ?>
+                             <?= $block->getLayout()->getBlock('logo')->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLayout()->getBlock('logo')->getLogoHeight()) . '"' : '' ?>
+                     />
+                     <img id="mobile-nav-close" class="mobile-nav-close-button" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/Close.png'); ?>"/>
+                 </div>
+                <nav class="navigation" data-action="navigation">
+                    <?php
+                        echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('header_navigation_mobile')
+                        ->toHtml();
+                    ?>
+                </nav>
+            </div>
         </div>
     </div>
 <?php endif; ?>

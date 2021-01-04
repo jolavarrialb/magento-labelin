@@ -1,15 +1,10 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
 /**
  * @var \Magento\Theme\Block\Html\Header\Logo $block
  */
 $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt()
 ?>
-
 <span data-action="toggle-nav" class="action nav-toggle"><span><?= $block->escapeHtml(__('Toggle Nav')) ?></span></span>
 <a
     class="logo"
@@ -22,6 +17,5 @@ $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAl
             <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
             <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
     />
-
 </a>
-<a href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"><img class="mobile-header-cart" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/shopping_cart.png'); ?>"  /></a>
+<a href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"><img class="mobile-header-cart" src="<?= $this->getViewFileUrl('Magento_Theme/images/source/navigation/shopping_cart.png'); ?>"  /></a> /** todo: transfer this code to a separate phtml. */
