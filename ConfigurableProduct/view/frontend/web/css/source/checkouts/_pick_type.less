@@ -24,9 +24,24 @@
             padding: 24px;
             z-index: 99;
             text-align: initial;
+            @media (max-width: 768px) {
+              min-width: unset;
+              width: 298px;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+            @media (max-width: 370px) {
+              width: 210px;
+            }
 
             &.center {
                 right: -51px;
+                @media (max-width: 768px) {
+                  right: 0;
+                }
             }
 
             .tooltip-header {
