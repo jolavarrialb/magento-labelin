@@ -20,6 +20,7 @@ class TrackInfoSender extends Sender
         $transport = [
             'shipment' => $shipment,
             'order' => $shipment->getOrder(),
+            'order_number' => $shipment->getOrder()->getIncrementId(),
             'tracking_link' => AbstractPitneyBowesCarrier::TRACKING_URL . $tracking->getTrackNumber(),
             'tracking_number' => $tracking->getTrackNumber(),
             'customer_name' => $shipment->getOrder()->getCustomerName(),

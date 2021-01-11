@@ -66,6 +66,7 @@ class ProductionTicketSender extends Sender
         $transport = [
             'production_ticket' => $productionTicket,
             'order' => $order,
+            'order_number' => $productionTicket->getData('order_item_label'),
             'attachments' => [
                 'image' => $this->ticketImageHelper->getEmailAttachment($orderItem),
                 'pdf' => $this->ticketPdfHelper->getEmailAttachment($orderItem),
