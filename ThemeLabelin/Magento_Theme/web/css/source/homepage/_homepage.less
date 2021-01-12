@@ -102,23 +102,28 @@ body {
                       padding: 0;
                     }
                 }
-                .nav-button {
-                  display: none;
-                  @media (max-width: 768px) {
-                    display: block;
-                    width: 100%;
-                    max-width: 289px;
-                    height: 50px;
-                    font-size: @fs-header;
-                    border-radius: 30px;
-                    margin-top: 10px;
-                    &:hover {
-                        text-decoration: none;
-                        color: white;
-                        background-color: @color-buttons-hover;
+                .mobile-nav-button-wrapper {
+                  width: 100%;
+                  max-width: 289px;
+                  .nav-button {
+                    display: none;
+                    @media (max-width: 768px) {
+                      display: block;
+                      width: 100%;
+                      max-width: 289px;
+                      height: 50px;
+                      font-size: @fs-header;
+                      border-radius: 30px;
+                      margin-top: 10px;
+                      &:hover {
+                          text-decoration: none;
+                          color: white;
+                          background-color: @color-buttons-hover;
+                      }
                     }
                   }
                 }
+
             }
             .main-header__stickers-wrapper {
                 height: 580px;
