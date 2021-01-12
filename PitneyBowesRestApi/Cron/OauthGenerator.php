@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesRestApi\Cron;
 
+use Labelin\PitneyBowesRestApi\Helper\CacheCleaner;
 use Labelin\PitneyBowesRestApi\Model\Api\Oauth;
 use Labelin\PitneyBowesShipping\Helper\Config\FixedPriceShippingConfig;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig;
 
 class OauthGenerator
 {
+    /** @var array  */
+    protected $cacheCleantypes = [
+        'config',
+    ];
+
     /** @var Oauth */
     protected $oauth;
 
@@ -19,15 +25,20 @@ class OauthGenerator
     /** @var FixedPriceShippingConfig */
     protected $fixedPriceShippingConfig;
 
+    /** @var CacheCleaner  */
+    protected $cacheCleanerHelper;
+
     public function __construct(
         Oauth $oauth,
         FreeShippingConfig $freeShippingConfig,
-        FixedPriceShippingConfig $fixedPriceShippingConfig
+        FixedPriceShippingConfig $fixedPriceShippingConfig,
+        CacheCleaner $cacheCleanerHelper
     ) {
         $this->oauth = $oauth;
 
         $this->freeShippingConfig = $freeShippingConfig;
         $this->fixedPriceShippingConfig = $fixedPriceShippingConfig;
+        $this->cacheCleanerHelper = $cacheCleanerHelper;
     }
 
     /**
@@ -44,6 +55,8 @@ class OauthGenerator
 
         $this->freeShippingConfig->saveApiAccessToken($token);
         $this->fixedPriceShippingConfig->saveApiAccessToken($token);
+
+        $this->cacheCleanerHelper->cacheClean($this->cacheCleantypes);
 
         return $this;
     }
