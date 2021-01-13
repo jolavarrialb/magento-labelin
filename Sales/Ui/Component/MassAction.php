@@ -10,13 +10,30 @@ use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 class MassAction extends \Magento\Ui\Component\MassAction
 {
-    protected const ACTIONS = ['assign_designer', 'unassign_designer'];
+    protected const DISALLOW_ACTIONS = [
+        'assign_designer',
+        'unassign_designer',
+        'cancel',
+        'hold_order',
+        'unhold_order',
+        'pdfinvoices_order',
+        'pdfshipments_order',
+        'pdfcreditmemos_order',
+        'pdfdocs_order',
+    ];
+
+    protected const DESIGNER_DISALLOW_ACTIONS = [
+        'print_shipping_label',
+    ];
 
     /** @var DesignerHelper */
     protected $designerHelper;
 
     /** @var ShipperHelper */
     protected $shipperHelper;
+
+    /** @var array */
+    protected $config;
 
     public function __construct(
         ContextInterface $context,
@@ -39,16 +56,30 @@ class MassAction extends \Magento\Ui\Component\MassAction
             return;
         }
 
-        $config = $this->getConfiguration();
+        $this->config = $this->getConfiguration();
+
+        $this->filterActions(static::DISALLOW_ACTIONS);
+
+        if ($this->designerHelper->isCurrentAuthUserDesigner()) {
+            $this->filterActions(static::DESIGNER_DISALLOW_ACTIONS);
+        }
+
+        $this->setData('config', $this->config);
+    }
+
+    /**
+     * @param array $disallowActions
+     */
+    protected function filterActions($disallowActions = []): void
+    {
         $allowedActions = [];
 
-        foreach ($config['actions'] as $action) {
-            if (!in_array($action['type'], static::ACTIONS, false)) {
+        foreach ($this->config['actions'] as $action) {
+            if (!in_array($action['type'], $disallowActions, false)) {
                 $allowedActions[] = $action;
             }
         }
 
-        $config['actions'] = $allowedActions;
-        $this->setData('config', $config);
+        $this->config['actions'] = $allowedActions;
     }
 }

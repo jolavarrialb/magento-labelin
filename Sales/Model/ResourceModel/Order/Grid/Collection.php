@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Labelin\Sales\Model\ResourceModel\Order\Grid;
 
 use Labelin\Sales\Helper\Designer as DesignerHelper;
+use Labelin\Sales\Helper\Shipper as ShipperHelper;
+use Labelin\Sales\Model\Order as LabelinOrderModel;
+use Magento\Sales\Model\Order as OrderModel;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface as FetchStrategy;
 use Magento\Framework\Data\Collection\EntityFactoryInterface as EntityFactory;
 use Magento\Framework\Event\ManagerInterface as EventManager;
@@ -20,6 +23,9 @@ class Collection extends GridCollection
     /** @var DesignerHelper */
     protected $designerHelper;
 
+    /** @var ShipperHelper  */
+    protected $shipperHelper;
+
     public function __construct(
         EntityFactory $entityFactory,
         Logger $logger,
@@ -27,9 +33,11 @@ class Collection extends GridCollection
         EventManager $eventManager,
         DesignerHelper $designerHelper,
         $mainTable = 'sales_order_grid',
+        ShipperHelper $shipperHelper,
         $resourceModel = Order::class
     ) {
         $this->designerHelper = $designerHelper;
+        $this->shipperHelper = $shipperHelper;
 
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
@@ -64,6 +72,10 @@ class Collection extends GridCollection
 
         if ($this->designerHelper->isCurrentAuthUserDesigner()) {
             $this->addFieldToFilter('assigned_designer_id', $this->designerHelper->getCurrentAuthUser()->getId());
+        }
+
+        if ($this->shipperHelper->isCurrentAuthUserShipper()) {
+            $this->addFieldToFilter('status', ['in' => [LabelinOrderModel::STATUS_READY_TO_SHIP, OrderModel::STATE_COMPLETE ]]);
         }
 
         return $this;
