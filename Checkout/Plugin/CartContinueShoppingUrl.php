@@ -26,17 +26,9 @@ class CartContinueShoppingUrl
 
     public function beforeGetContinueShoppingUrl(CheckoutCart $subject): self
     {
-        $url = $subject->getData('continue_shopping_url');
+        $url = $this->getRedirectUrl();
 
-        if ($url === null) {
-            $url = $this->checkoutSession->getContinueShoppingUrl(true);
-
-            if (!$url) {
-                $url = $this->getRedirectUrl();
-            }
-
-            $subject->setData('continue_shopping_url', $url);
-        }
+        $subject->setData('continue_shopping_url', $url);
 
         return $this;
     }
