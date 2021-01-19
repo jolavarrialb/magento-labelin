@@ -236,6 +236,10 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
     {
         $quoteShippingAddress = $this->checkoutSession->getQuote()->getShippingAddress();
 
+        if (!$this->isAddressData($quoteShippingAddress, $request)) {
+            return false;
+        }
+
         $address = (new AddressDto())
             ->setAddressLines($quoteShippingAddress->getStreet())
             ->setCity($request->getDestCity())
@@ -308,5 +312,19 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         ];
 
         return new DataObject($resultData);;
+    }
+
+    /**
+     * @param array $quoteShippingAddress
+     * @param DataObject $request
+     *
+     * @return bool
+     */
+    protected function isAddressData($quoteShippingAddress = [], DataObject $request): bool
+    {
+        return (bool)array_filter($quoteShippingAddress->getStreet()) ||
+            (bool)$request->getDestRegionCode() ||
+            (bool)$request->getDestCity() ||
+            (bool)$request->getDestPostcode();
     }
 }
