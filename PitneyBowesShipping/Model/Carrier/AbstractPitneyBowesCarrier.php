@@ -322,14 +322,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
      */
     protected function isAddressData($quoteShippingAddress = [], DataObject $request): bool
     {
-        if (!array_filter($quoteShippingAddress->getStreet()) &&
-            !$request->getDestCity() &&
-            !$request->getDestRegionCode() &&
-            !$request->getDestPostcode()
-        ) {
-            return false;
-        }
-
-        return true;
+        return (bool)array_filter($quoteShippingAddress->getStreet()) ||
+            (bool)$request->getDestRegionCode() ||
+            (bool)$request->getDestCity() ||
+            (bool)$request->getDestPostcode();
     }
 }
