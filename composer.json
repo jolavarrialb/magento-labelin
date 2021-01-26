@@ -22,7 +22,8 @@
       "PitneyBowesOfficialApi/registration.php",
       "PitneyBowesShipping/registration.php",
       "PitneyBowesRestApi/registration.php",
-      "Customer/registration.php"
+      "Customer/registration.php",
+      "InventorySales/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
@@ -37,7 +38,8 @@
       "Labelin\\PitneyBowesOfficialApi\\": "PitneyBowesOfficialApi",
       "Labelin\\PitneyBowesShipping\\": "PitneyBowesShipping",
       "Labelin\\PitneyBowesRestApi\\": "PitneyBowesRestApi",
-      "Labelin\\Customer\\": "Customer"
+      "Labelin\\Customer\\": "Customer",
+      "Labelin\\InventorySales\\": "InventorySales"
     }
   }
 }
