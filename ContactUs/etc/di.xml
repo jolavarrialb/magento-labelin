@@ -2,8 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Contact\Controller\Index\Post">
         <plugin name="homepage_contact_form_execute" type="Labelin\ContactUs\Plugin\HomepageContactFormExecute" sortOrder="1" />
-        <plugin name="labelin_contact_us_home_page_arround_execute"
-                type="Labelin\ContactUs\Plugin\HomePageContactUsFormArround"
-                sortOrder="200"/>
+        <plugin name="labelin_contact_us_home_page_arround_execute" type="Labelin\ContactUs\Plugin\HomePageContactUsFormArround" sortOrder="20"/>
     </type>
 </config>
