@@ -3,6 +3,8 @@
         <move element="minicart" destination="header.panel" after="header.links"/>
         <move element="catalog.topnav" destination="header-wrapper" after="logo"/>
         <move element="header-menu-button" destination="header-wrapper" after="navigation.sections"/>
+        <referenceContainer name="category.view.container" remove="true"/>
+        <referenceContainer name="sidebar.main" remove="true"/>
         <referenceBlock name="top.search" remove="true"/>
         <referenceBlock name="catalog.compare.link" remove="true" />
         <referenceBlock name="catalog.compare.sidebar" remove="true"/>

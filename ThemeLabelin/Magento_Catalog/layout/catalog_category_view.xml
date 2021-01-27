@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <container name="page.wrapper" as="page_wrapper" htmlTag="div" htmlClass="page-wrapper catalog-products-page-wrapper"/>
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="css_class" xsi:type="string">catalog-category-title</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="breadcrumbs" class="Magento\Theme\Block\Html\Breadcrumbs" template="Magento_Catalog::product/breadcrumbs.phtml"/>
+    </body>
+</page>
