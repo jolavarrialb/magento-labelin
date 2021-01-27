@@ -12,6 +12,27 @@ define(['jquery'],
                     });
                 }
             );
+
+            $(document).ready(function ($) {
+                $('#contact-form').submit(function (event) {
+                    let $form = $('#contact-form');
+                    let url = $form.attr('action');
+
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: $form.serialize(),
+                        cache: false,
+                        success: function (data) {
+                            if (confirm(data['response'])) {
+                                $form.find(':submit').prop('disabled', false);
+                            }
+                        }
+                    });
+                });
+            });
         }
     }
 );
