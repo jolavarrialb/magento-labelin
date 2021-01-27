@@ -22,6 +22,8 @@ class HomePageContactUsFormArround
 {
     protected const HOME_CONTACT_US_FORM_PARAM = 'homeContactUs';
 
+    protected const IS_HOME_PAGE_CONTACT_US_FORM = '1';
+
     /** @var ResultFactory */
     protected $resultFactory;
 
@@ -72,7 +74,7 @@ class HomePageContactUsFormArround
             return $this->redirectFactory->create()->setPath('*/*/');
         }
 
-        if ($this->request->getParam(static::HOME_CONTACT_US_FORM_PARAM) !== '1') {
+        if ($this->request->getParam(static::HOME_CONTACT_US_FORM_PARAM) !== static::IS_HOME_PAGE_CONTACT_US_FORM) {
             return $proceed();
         }
 
@@ -112,12 +114,15 @@ class HomePageContactUsFormArround
         if (trim($this->request->getParam('name')) === '') {
             throw new LocalizedException(__('Enter the Name and try again.'));
         }
+
         if (trim($this->request->getParam('comment')) === '') {
             throw new LocalizedException(__('Enter the comment and try again.'));
         }
+
         if (false === \strpos($this->request->getParam('email'), '@')) {
             throw new LocalizedException(__('The email address is invalid. Verify the email address and try again.'));
         }
+
         if (trim($this->request->getParam('hideit')) !== '') {
             throw new \Exception();
         }
