@@ -19,6 +19,10 @@
                 line-height: 28px;
                 letter-spacing: 0em;
                 text-align: left;
+
+                a {
+                    color: #010101;
+                }
             }
 
             .item:not(:last-child):after {
@@ -42,8 +46,17 @@
     }
 
     .columns {
+        @media (max-width: 768px) {
+            padding-top: 10px;
+            .products-grid,
+            .product-items {
+                margin-top: 0;
+            }
+        }
+
         .column.main {
             padding-top: 0;
+
 
             .products.wrapper.grid.products-grid {
                 margin-top: 20px;
@@ -52,15 +65,32 @@
                     .product-item {
                         background-color: #FFFFFF;
                         margin: 10px;
+                        @media (max-width: 1920px) {
+                            width: calc((100% - 9%)/4);
+                        }
+                        @media (max-width: 889px) {
+                            width: calc((100% - 8%)/2);
+                        }
+                        @media (max-width: 500px) {
+                            width: 95%;
+                        }
 
                         .product-item-info {
                             box-shadow: none;
                             margin: 0;
                             padding: 0;
                             border: none;
+                            width: 100%;
+
+                            .product-item-photo {
+                                .product-image-container {
+                                        width: 100% !important;
+                                }
+                            }
 
                             .product-item-details {
                                 text-align: center;
+
                                 .product-item-inner {
                                     width: 100px;
 
@@ -70,6 +100,7 @@
                                                 button.tocart {
                                                     background: #010101;
                                                     border-radius: 23px;
+                                                    margin: 10px 5px;
                                                 }
                                             }
                                         }
@@ -89,6 +120,7 @@
                                         position: relative;
                                         width: 0px;
                                         overflow: visible;
+                                        margin: 0;
 
                                         .product-item-actions {
                                             margin: 0;
@@ -106,4 +138,5 @@
             }
         }
     }
+
 }
