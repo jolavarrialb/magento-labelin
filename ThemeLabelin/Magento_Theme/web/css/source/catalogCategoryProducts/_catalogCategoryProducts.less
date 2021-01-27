@@ -1,0 +1,142 @@
+.catalog-products-page-wrapper {
+    background-color: #e5e5e5;
+
+    .page-header {
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.11);
+        background-color: #FFFFFF;
+    }
+
+    #catalog-category-breadcrumbs {
+        margin-top: 33px;
+        padding-left: 0;
+
+        .items {
+            .item {
+                font-family: Lato;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 28px;
+                letter-spacing: 0em;
+                text-align: left;
+
+                a {
+                    color: #010101;
+                }
+            }
+
+            .item:not(:last-child):after {
+                vertical-align: middle;
+                font-size: 11px;
+            }
+        }
+    }
+
+    .catalog-category-title {
+        margin-top: 16px;
+        padding-left: 0;
+
+        .page-title {
+            line-height: 38px;
+            font-weight: 700;
+            font-family: "Lato", sans-serif;
+            color: #010101;
+            margin-bottom: 0;
+        }
+    }
+
+    .columns {
+        @media (max-width: 768px) {
+            padding-top: 10px;
+            .products-grid,
+            .product-items {
+                margin-top: 0;
+            }
+        }
+
+        .column.main {
+            padding-top: 0;
+
+
+            .products.wrapper.grid.products-grid {
+                margin-top: 20px;
+
+                .product-items {
+                    .product-item {
+                        background-color: #FFFFFF;
+                        margin: 10px;
+                        @media (max-width: 1920px) {
+                            width: calc((100% - 9%)/4);
+                        }
+                        @media (max-width: 889px) {
+                            width: calc((100% - 8%)/2);
+                        }
+                        @media (max-width: 500px) {
+                            width: 95%;
+                        }
+
+                        .product-item-info {
+                            box-shadow: none;
+                            margin: 0;
+                            padding: 0;
+                            border: none;
+                            width: 100%;
+
+                            .product-item-photo {
+                                .product-image-container {
+                                        width: 100% !important;
+                                }
+                            }
+
+                            .product-item-details {
+                                text-align: center;
+
+                                .product-item-inner {
+                                    width: 100px;
+
+                                    .product-item-actions {
+                                        .actions-primary {
+                                            form {
+                                                button.tocart {
+                                                    background: #010101;
+                                                    border-radius: 23px;
+                                                    margin: 10px 5px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .product-item-inner:before {
+                                    display: none;
+                                }
+
+                                @media (min-width: 640px) {
+                                    .product-item-inner {
+                                        border: 0;
+                                        clip: rect(0, 0, 0, 0);
+                                        height: auto;
+                                        padding: 0;
+                                        position: relative;
+                                        width: 0px;
+                                        overflow: visible;
+                                        margin: 0;
+
+                                        .product-item-actions {
+                                            margin: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .product-item:hover {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+
+}
