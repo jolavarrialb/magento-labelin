@@ -2,15 +2,23 @@ document.addEventListener('swatch-full-render', function () {
     let stepsSelectors = document.querySelectorAll('div[data-step]'),
         stickerStepsWrapper = document.getElementById('sticker-steps-wrapper');
 
+    // Qty Price block split vs Size step
     document
         .getElementById('sticker_price')
-        .setAttribute('data-step', stepsSelectors.length + 1);
+        .setAttribute('data-step', 'sticker_price');
+
     document
         .getElementById('sticker_artwork')
-        .setAttribute('data-step', stepsSelectors.length + 2);
+        .setAttribute('data-step', stepsSelectors.length + 1);
 
+    // Steps blocks in head
     document.querySelectorAll('div[data-step]').forEach(function (element) {
         let stepDiv = document.createElement('div');
+
+        //for split size and qty/price steps
+        if (element.getAttribute('id') === 'sticker_price') {
+            return;
+        }
 
         stepDiv.className = 'sticker-step-info info-nonactive';
         stepDiv.setAttribute('data-step-wrapper', element.getAttribute('data-step'));
@@ -18,7 +26,7 @@ document.addEventListener('swatch-full-render', function () {
     });
 
     processCurrentStepWrapper();
-    processYourOrderSection()
+    processYourOrderSection();
 });
 
 document.addEventListener('swatch-select-option', function () {
@@ -38,15 +46,15 @@ document.addEventListener('swatch-unselect-option', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    let backStep = document.getElementById('sticker-back-step'),
-        nextStep = document.getElementById('sticker-next-step'),
+    let backStepButton = document.getElementById('sticker-back-step'),
+        nextStepButton = document.getElementById('sticker-next-step'),
         submitStep = document.getElementById('product-addtocart-button');
 
     if (isFirstStep()) {
-        hideBtn(backStep);
+        hideBtn(backStepButton);
     }
 
-    backStep.addEventListener('click', function () {
+    backStepButton.addEventListener('click', function () {
         let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
             isAvailableSwatchOption = document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option'),
             previousSelectedSwatchOption = document.querySelector('div[data-step="' + (currentStep - 1) + '"] .swatch-option.selected'),
@@ -63,9 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         processCurrentStepWrapper();
 
-        nextStep.disabled = false;
+        nextStepButton.disabled = false;
         if (isAvailableSwatchOption) {
-            nextStep.disabled = !previousSelectedSwatchOption;
+            nextStepButton.disabled = !previousSelectedSwatchOption;
         }
 
         if (isFirstStep()) {
@@ -74,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         currentStep = parseInt(localStorage.getItem('sticker_current_step'));
 
+        toggleQtyPricesVisibility();
+
         if (document.querySelectorAll('div[data-step]').length > currentStep) {
-            showBtn(nextStep);
+            showBtn(nextStepButton);
             hideBtn(submitStep);
         }
 
@@ -89,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    nextStep.addEventListener('click', function () {
+    nextStepButton.addEventListener('click', function () {
         let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
             isAvailableSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option'),
             selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected'),
@@ -112,8 +122,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         currentStep = parseInt(localStorage.getItem('sticker_current_step'));
 
+        toggleQtyPricesVisibility();
+
         if (currentStep > 1) {
-            showBtn(backStep);
+            showBtn(backStepButton);
         }
 
         if (qtyInput &&
@@ -148,7 +160,13 @@ function isFirstStep() {
 }
 
 function isLastStep() {
-    return document.querySelectorAll('div[data-step]').length === parseInt(localStorage.getItem('sticker_current_step'));
+    let uniqSteps = 0;
+
+    document.querySelectorAll('div[data-step-wrapper]').forEach(function (element) {
+        uniqSteps++
+    });
+
+    return uniqSteps === parseInt(localStorage.getItem('sticker_current_step'));
 }
 
 function hideBtn(element) {
@@ -177,4 +195,25 @@ function processCurrentStepWrapper() {
     currentStepWrapper.classList.add('info-active');
 
     document.getElementById('sticker-steps-wrapper-info').innerHTML = stepWrapperLabel;
+}
+
+function toggleQtyPricesVisibility() {
+    const sizeStep = 'sticker_size',
+        displayNone = 'none',
+        displayShow = '',
+        currentStep = localStorage.getItem('sticker_current_step');
+
+    let qtyPriceElementStyle = document.getElementById('sticker_price').style,
+        currentStepWrapper = document.querySelector('div[data-step="' + (currentStep) + '"]');
+
+    if (currentStepWrapper.hasAttribute('attribute-code')
+        && currentStepWrapper.getAttribute('attribute-code') === sizeStep) {
+        qtyPriceElementStyle['display'] = displayShow;
+
+        return;
+    }
+
+    qtyPriceElementStyle['display'] = displayNone;
+
+    return;
 }

@@ -28,7 +28,6 @@ define([
                     display = optionCount > 0 ? ' style="display:none" ' : ' style="display:block" ',
                     controls = '',
                     additionClass = '',
-                    additionBlock = '',
                     header = '',
                     headerInfo = '',
                     wrapper = false,
@@ -66,11 +65,6 @@ define([
                     additionClass = 'radiobuttons-wrapper';
                     let url = $widget.options.additionalSizeBlockImgUrl ? $widget.options.additionalSizeBlockImgUrl : '#';
                     wrapper = true;
-                    additionBlock = `
-                                    <div class="set-size-image-wrapper">
-                                        <img src="${url}"/>
-                                    </div>
-                    `;
 
                 } else if (item.code === 'sticker_shape') {
                     header = $widget.options.optionShapeHeader.header ? $widget.options.optionShapeHeader.header : '';
@@ -110,7 +104,6 @@ define([
                              ${options}
                              ${select}
                         </div>
-                        ${additionBlock}
                         ${input}
                         ${wrapper ? "<\div>" : ''}
                     </div>

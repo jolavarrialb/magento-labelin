@@ -10,7 +10,7 @@ define(['jquery', 'domReady!'], function ($) {
 
         $tierPriceBlock.on('click', 'input.radiobutton', function () {
             updateLocalStorageData(this.value);
-            selectOptionYourOrderStep();
+            selectOptionYourOrderStepQty(this.value);
             updateNextStepBtn(this);
         });
     }
