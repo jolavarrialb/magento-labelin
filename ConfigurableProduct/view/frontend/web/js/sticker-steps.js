@@ -209,6 +209,7 @@ function toggleQtyPricesVisibility() {
     if (currentStepWrapper.hasAttribute('attribute-code')
         && currentStepWrapper.getAttribute('attribute-code') === sizeStep) {
         qtyPriceElementStyle['display'] = displayShow;
+        initStepQuantity()
 
         return;
     }

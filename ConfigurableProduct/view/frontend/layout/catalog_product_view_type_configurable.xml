@@ -4,6 +4,7 @@
     <head>
         <script src="Labelin_ConfigurableProduct::js/sticker-steps.js" />
         <script src="Labelin_ConfigurableProduct::js/your-order-section.js" />
+        <script src="Labelin_ConfigurableProduct::js/step-quantity.js" />
     </head>
     <body>
         <referenceContainer name="product.info.price" remove="true"/>
