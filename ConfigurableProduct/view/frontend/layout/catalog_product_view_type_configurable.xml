@@ -4,6 +4,7 @@
     <head>
         <script src="Labelin_ConfigurableProduct::js/sticker-steps.js" />
         <script src="Labelin_ConfigurableProduct::js/your-order-section.js" />
+        <script src="Labelin_ConfigurableProduct::js/step-quantity.js" />
     </head>
     <body>
         <referenceContainer name="product.info.price" remove="true"/>
@@ -22,6 +23,9 @@
             <arguments>
                 <argument name="view_model" xsi:type="object">Labelin\ConfigurableProduct\ViewModel\ProductViewForm</argument>
             </arguments>
+            <block name="product.info.steps" as="sticker_steps" template="Labelin_ConfigurableProduct::product/view/steps.phtml" />
+            <block name="product.info.sticker.buttons" as="sticker_buttons" template="Labelin_ConfigurableProduct::product/view/buttons.phtml" />
+            <block name="product.info.order.info" as="sticker_order_info" template="Labelin_ConfigurableProduct::product/view/orderinfo.phtml" />
         </referenceBlock>
         <move element="product.price.tier" destination="product.info.options.wrapper" />
         <referenceBlock name="product.info.form.options">
@@ -31,18 +35,9 @@
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Labelin_ConfigurableProduct::product/view/options/wrapper.phtml</argument>
             </action>
-        </referenceBlock>
-        <referenceBlock name="product.info">
-            <block name="product.info.steps" as="sticker_steps" template="Labelin_ConfigurableProduct::product/view/steps.phtml" />
-            <block name="product.info.sticker.buttons" as="sticker_buttons" template="Labelin_ConfigurableProduct::product/view/buttons.phtml" />
-            <block name="product.info.order.info" as="sticker_order_info" template="Labelin_ConfigurableProduct::product/view/orderinfo.phtml" />
-        </referenceBlock>
-        <referenceBlock name="product.info.options.wrapper">
-            <block class="Labelin\ConfigurableProduct\Block\Product\Renderer\Configurable" name="product.info.options.swatches"
-                   as="swatch_options" before="-">
+            <block class="Labelin\ConfigurableProduct\Block\Product\Renderer\Configurable" name="product.info.options.swatches" as="swatch_options" before="-">
                 <arguments>
-                    <argument name="configurable_view_model"
-                              xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
+                    <argument name="configurable_view_model" xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
                 </arguments>
                 <block class="Magento\Framework\View\Element\Template"
                        name="paper_labels"

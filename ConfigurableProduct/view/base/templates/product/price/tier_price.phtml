@@ -14,40 +14,30 @@
         </p>
     </div>
     <div class="ac-container">
-        <% _.each(tierPrices, function(item, key) { %>
-        <div>
-            <input id="ac-<%= (key+1) %>"
-                   name="accordion-<%= (key+1) %>"
-                   type="radio"
-                   class="ac-input"
-            />
-            <label class="ac-label" for="<%= (key+1) %>"><%= item.label %></label>
-            <div class="accordion-content">
-                <ul class="accordion-header">
-                    <li><?= $block->escapeHtml(__('Amount')) ?></li>
-                    <li><?= $block->escapeHtml(__('Price')) ?></li>
-                    <li><?= $block->escapeHtml(__('Price per sticker')) ?></li>
-                </ul>
-                <div class="radiobuttons-wrapper">
-                    <% _.each(item.groupData, function(item, key) { %>
-                    <div class="radio-container">
-                        <input type="radio"
-                               id="radio<%= (key+1) %>"
-                               name="qty"
-                               value="<%= item.qty %>"
-                               class="radiobutton"
-                        />
-                        <label for="radio<%= (key+1) %>">
-                            <span class="count"><%= item.qty %></span>
-                            <span class="price">$<%= item.bulkPrice %></span>
-                            <span class="price">$<%= item.price %></span>
-                        </label>
-                    </div>
-                    <% }); %>
+        <div class="accordion-content">
+            <div class="accordion-header">
+                <span><?= $block->escapeHtml(__('Amount')) ?></span>
+                <span><?= $block->escapeHtml(__('Price')) ?></span>
+                <span><?= $block->escapeHtml(__('Price per sticker')) ?></span>
+            </div>
+            <div class="radiobuttons-wrapper">
+                <% _.each(tierPrices, function(item, key) { %>
+                <div class="radio-container">
+                    <input type="radio"
+                           id="radio<%= (key+1) %>"
+                           name="qty"
+                           value="<%= item.qty %>"
+                           class="radiobutton"
+                    />
+                    <label for="radio<%= (key+1) %>">
+                        <span class="count"><%= item.qty %></span>
+                        <span class="price">$<%= item.bulkPrice %></span>
+                        <span class="price">$<%= item.price %></span>
+                    </label>
                 </div>
+                <% }); %>
             </div>
         </div>
-        <% }); %>
     </div>
 </script>
 <script type="text/x-magento-init">

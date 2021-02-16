@@ -1,49 +1,38 @@
-define(['jquery', 'domReady!'], function ($) {
-    'use strict';
+function initStepQuantity() {
 
-    function init() {
-        let $tierPriceBlock = $("div[data-role='tier-price-block']");
+    let tierPriceBlock = jQuery("div[data-role='tier-price-block']"),
+        sizeBlock = jQuery(".sticker_size").find(".swatch-option");
+    ;
 
-        $tierPriceBlock.on('click', 'label.ac-label', function () {
-            toggleCheckedLabel(this);
-        });
+    sizeBlock.on('click', function () {
+        clearYourOrderSectionQty();
+    });
 
-        $tierPriceBlock.on('click', 'input.radiobutton', function () {
-            updateLocalStorageData(this.value);
-            selectOptionYourOrderStep();
-            updateNextStepBtn(this);
-        });
-    }
+    tierPriceBlock.on('click', 'input.radiobutton', function () {
+        updateLocalStorageData(this.value);
+        selectOptionYourOrderStepQty(this.value);
+        updateNextStepBtn(this);
+    });
+}
 
-    function toggleCheckedLabel(label) {
-        let $checkBoxElement = $(label).parent('div').find('input.ac-input').first();
-        let checked = $checkBoxElement.is(':checked');
+function updateLocalStorageData(selectedQty) {
+    let currentStepItemName = 'data-step-' + localStorage.getItem('sticker_current_step');
+    localStorage.setItem(currentStepItemName, selectedQty);
+}
 
-        if (checked) {
-            $checkBoxElement.prop("checked", false);
-        }
+function updateNextStepBtn(element) {
+    let nextStepBtn = document.getElementById('sticker-next-step');
 
-        if (!checked) {
-            $('input.ac-input').not($checkBoxElement).each(function () {
-                $(this).prop('checked', false);
-            });
+    nextStepBtn.disabled = !element.checked;
+}
 
-            $checkBoxElement.prop("checked", true);
-        }
-    }
+function disableNextStepBtn() {
+    let nextStepBtn = document.getElementById('sticker-next-step');
 
-    function updateLocalStorageData(selectedQty) {
-        let currentStepItemName = 'data-step-' + localStorage.getItem('sticker_current_step');
-        localStorage.setItem(currentStepItemName, selectedQty);
-    }
+    nextStepBtn.disabled = true;
+}
 
-    function updateNextStepBtn(element) {
-        let nextStepBtn = document.getElementById('sticker-next-step');
-
-        nextStepBtn.disabled = !element.checked;
-    }
-
-    return function () {
-        init();
-    }
-});
+function clearYourOrderSectionQty() {
+    unselectOptionYourOrderStepQty();
+    disableNextStepBtn();
+}

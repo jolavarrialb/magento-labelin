@@ -6,6 +6,11 @@ function processYourOrderSection() {
             dataStep = element.getAttribute('data-step');
 
         let div = document.createElement('div');
+
+        if (element.getAttribute('id') === 'sticker_price') {
+            dataStep = 'sticker_price';
+        }
+
         div.className = 'value';
         div.id = 'your-order-section-step-' + dataStep;
 
@@ -44,6 +49,33 @@ function selectOptionYourOrderStep() {
 function unselectOptionYourOrderStep() {
     let currentStep = parseInt(localStorage.getItem('sticker_current_step')),
         yourOrderStep = document.getElementById('your-order-section-step-' + currentStep);
+
+    if (yourOrderStep) {
+        let yourOrderStepValue = yourOrderStep.querySelector('div.selected-value');
+        yourOrderStep.classList.remove('checked');
+
+        if (yourOrderStepValue) {
+            yourOrderStep.removeChild(yourOrderStepValue);
+        }
+    }
+}
+
+function selectOptionYourOrderStepQty(value) {
+    unselectOptionYourOrderStepQty();
+
+    let divValue = document.createElement('div'),
+        yourOrderStepQty = document.getElementById('your-order-section-step-sticker_price');
+
+    if (value) {
+        divValue.className = 'selected-value';
+        divValue.innerHTML = value;
+        yourOrderStepQty.append(divValue);
+        yourOrderStepQty.classList.add('checked');
+    }
+}
+
+function unselectOptionYourOrderStepQty() {
+    let yourOrderStep = document.getElementById('your-order-section-step-sticker_price');
 
     if (yourOrderStep) {
         let yourOrderStepValue = yourOrderStep.querySelector('div.selected-value');

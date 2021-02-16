@@ -35,8 +35,6 @@ class Configurable extends MagentoSwatchesConfigurable
 
     protected const LABELIN_SWATCH_RENDERER_TEMPLATE = 'Labelin_ConfigurableProduct::product/view/renderer.phtml';
 
-    protected const LIMIT_COLLAPSE_QUANTITY_FOR_TIER_PRICES = 4;
-
     protected const SWATCHES_HEADERS = [
         self::SIZE_HEADER => [
             'header' => "Set Size<span>/inch</span>",
@@ -218,53 +216,19 @@ class Configurable extends MagentoSwatchesConfigurable
         }
 
         $tierPrices = [];
-        $tierPricesListQty = count($tierPricesList);
-        $pricesQtyForSubGroup = (int)ceil($tierPricesListQty / static::LIMIT_COLLAPSE_QUANTITY_FOR_TIER_PRICES);
-        $count = 0;
-        $tierPricesListCount = 0;
-        $groupPrices = [];
-        $minGroupQty = 0;
 
         foreach ($tierPricesList as $tierPrice) {
-            $tierPricesListCount++;
 
-            if ($count === 0) {
-                $minGroupQty = $this->localeFormat->getNumber($tierPrice['price_qty']);
-            }
-
-            if ($count === $pricesQtyForSubGroup - 1 || $tierPricesListCount === $tierPricesListQty) {
-                $maxGroupQty = $this->localeFormat->getNumber($tierPrice['price_qty']);
-                $bulkPrice = $this->localeFormat
-                    ->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']);
-
-                $groupPrices[] = [
-                    'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
-                    'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
-                    'bulkPrice' => $bulkPrice,
-                    'percentage' => $this->localeFormat->getNumber(
-                        $tierPriceModel->getSavePercent($tierPrice['price'])
-                    ),
-                ];
-                $priceGroupLabel = sprintf('%d - %d', $minGroupQty, $maxGroupQty);
-                $tierPrices[] = [
-                    'label' => $priceGroupLabel,
-                    'groupData' => $groupPrices,
-                ];
-                $count = 0;
-                $groupPrices = [];
-                continue;
-            }
-
-            $bulkPrice = $this->localeFormat->getNumber($tierPrice['price']->getValue() * $tierPrice['price_qty']);
-            $groupPrices[] = [
+            $tierPrices[] = [
                 'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
                 'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
-                'bulkPrice' => $bulkPrice,
+                'bulkPrice' => $this->localeFormat->getNumber(
+                    $tierPrice['price']->getValue() * $this->localeFormat->getNumber($tierPrice['price_qty'])
+                ),
                 'percentage' => $this->localeFormat->getNumber(
                     $tierPriceModel->getSavePercent($tierPrice['price'])
                 ),
             ];
-            $count++;
         }
 
         return $tierPrices;

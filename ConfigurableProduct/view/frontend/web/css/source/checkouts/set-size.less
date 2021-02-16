@@ -5,83 +5,49 @@
         span {
             font-size: 18px;
             font-weight: 500;
+            display: inline-block;
         }
     }
 }
 
 .checkout-main {
     .set-size-wrapper {
-        display: flex;
-
         .radiobuttons-wrapper {
-            display: flex;
-            flex-direction: column;
-            max-width: 344px;
             width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            text-align: center;
 
             .swatch-option.text {
-                position: relative;
+                width: 23%;
+                margin: 1%;
                 background: none;
-                padding: 10px 12px 10px 12px;
-                margin-bottom: 0;
-                height: 36px;
+                height: 48px;
+                justify-content: center;
+                align-items: center;
+                padding: 3px 28px;
                 z-index: 20;
+                border: 1px solid #303437;
+                box-sizing: border-box;
+                border-radius: 2px;
+                -webkit-box-shadow: -2px 2px 5px 3px rgba(0, 0, 0, 0.31);
+                box-shadow: -2px 2px 5px 3px rgba(0, 0, 0, 0.31);
+
+                @media (max-width: 1024px) {
+                    width: 47%;
+                    height: 40px;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3px 24px;
+                }
+
                 &:hover {
                     border: none;
                 }
-            }
-
-            .radio-container,
-            .swatch-option {
-                display: flex;
-                align-items: center;
-                margin-bottom: 24px;
-                padding: 12px;
-
-                &.selected {
-                    background-color: @color-buttons-hover;
-                    border:none;
-                    outline-color: @color-selected-bg;
-                    box-shadow: none;
-                }
-
-                &:checked {
-                    box-shadow: none;
-                }
 
                 .radiobutton {
-                    width: 20px;
-                    height: 20px;
-                    position: relative;
-
-                    &:checked {
-                        &::after {
-                            display: block;
-                            position: relative;
-                            top: -25px;
-                            left: -2px;
-                            width: 6px;
-                            height: 6px;
-                            border-radius: 50%;
-                            content: url("../../../images/source/checkouts/set-size/radio_button.png");
-                        }
-
-                        &::before {
-                            content: "";
-                            display: block;
-                            position: relative;
-                            top: 0;
-                            left: -1px;
-                            width: 22px;
-                            height: 22px;
-                            border-radius: 50%;
-                            background-color: @color-bg-grey;
-                        }
-                    }
-
-                    &:focus {
-                        box-shadow: none;
-                    }
+                    display: none;
                 }
 
                 label {
@@ -90,17 +56,35 @@
                     color: @color-grafite;
                     text-align: center;
                     margin-bottom: 0;
-                    margin-left: 21px;
                     z-index: 10;
                     position: relative;
                 }
-            }
 
-            .swatch-option {
-                border: none;
-                float: none;
-                background-color: #ffffff;
+                &.selected {
+                    background-color: #303437 !important;
+                    outline-color: @color-selected-bg;
+                    border-color: #303437;
+
+                    label {
+                        color: #FFFFFF;
+                    }
+                }
+
+                &:checked {
+                    box-shadow: none;
+                }
+
+
+                &:focus {
+                    box-shadow: none;
+                }
             }
+        }
+
+        .swatch-option {
+            border: none;
+            float: none;
+            background-color: #ffffff;
         }
     }
 
