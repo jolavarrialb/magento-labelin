@@ -223,7 +223,7 @@ class Configurable extends MagentoSwatchesConfigurable
                 'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
                 'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
                 'bulkPrice' => $this->localeFormat->getNumber(
-                    $tierPrice['price']->getValue() * $tierPrice['price_qty']
+                    $tierPrice['price']->getValue() * $this->localeFormat->getNumber($tierPrice['price_qty'])
                 ),
                 'percentage' => $this->localeFormat->getNumber(
                     $tierPriceModel->getSavePercent($tierPrice['price'])
