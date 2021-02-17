@@ -9,7 +9,7 @@ use Zend_Currency_Exception;
 
 class Currency extends MagentoCurrency
 {
-    protected const DEFAULT_PRECISION = 3;
+    public const DEFAULT_PRECISION = 3;
 
     /**
      * @param float $price
