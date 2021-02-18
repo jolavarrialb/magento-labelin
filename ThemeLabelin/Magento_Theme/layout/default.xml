@@ -1,8 +1,14 @@
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name='customer-account-navigation-downloadable-products-link' remove='true'/>
         <referenceBlock name='customer-account-navigation-my-credit-cards-link' remove='true'/>
         <referenceBlock name='customer-account-navigation-billing-agreements-link' remove='true'/>
+        <referenceContainer name="header.container">
+            <referenceContainer name="header.panel.wrapper">
+                <referenceContainer name="header.panel">
+                    <block class="Magento\Framework\View\Element\Template" name="socials_header_icons" template="Magento_Theme::html/header/social.phtml" before="-"/>
+                </referenceContainer>
+            </referenceContainer>
+        </referenceContainer>
     </body>
 </page>
