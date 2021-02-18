@@ -1,0 +1,14 @@
+{
+    "name": "labelin/priceCurrency",
+    "license": "Commercial",
+    "description": "Labelin Price Currency",
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Labelin\\PriceCurrency\\": ""
+        }
+    }
+}
