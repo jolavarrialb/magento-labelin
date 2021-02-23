@@ -1,22 +1,28 @@
 document.addEventListener('swatch-full-render', function () {
     let stepsSelectors = document.querySelectorAll('div[data-step]'),
-        stickerStepsWrapper = document.getElementById('sticker-steps-wrapper');
-
+        stickerStepsWrapper = document.getElementById('sticker-steps-wrapper'),
+        stepsCount = 1;
     // Qty Price block split vs Size step
-    document
-        .getElementById('sticker_price')
-        .setAttribute('data-step', 'sticker_price');
+    if (document.querySelectorAll('div[attribute-code="sticker_size"]').length) {
+        document
+            .getElementById('sticker_price')
+            .setAttribute('data-step', 'sticker_price');
+    } else {
+        document
+            .getElementById('sticker_price')
+            .setAttribute('data-step', "" + (parseInt(stepsSelectors.length) + stepsCount++));
+    }
 
     document
         .getElementById('sticker_artwork')
-        .setAttribute('data-step', stepsSelectors.length + 1);
+        .setAttribute('data-step', "" + (parseInt(stepsSelectors.length) + stepsCount++));
 
     // Steps blocks in head
     document.querySelectorAll('div[data-step]').forEach(function (element) {
         let stepDiv = document.createElement('div');
 
         //for split size and qty/price steps
-        if (element.getAttribute('id') === 'sticker_price') {
+        if (element.getAttribute('id') === 'sticker_price' && document.getElementsByClassName('sticker_size').length) {
             return;
         }
 
@@ -30,9 +36,15 @@ document.addEventListener('swatch-full-render', function () {
 });
 
 document.addEventListener('swatch-select-option', function () {
-    let nextStep = document.getElementById('sticker-next-step');
+    let nextStep = document.getElementById('sticker-next-step'),
+        sizeElementStyle = document.getElementById('sticker_price').style;
+    ;
 
-    nextStep.disabled = false;
+    if (sizeElementStyle['display'] === 'none') {
+        nextStep.disabled = false;
+    } else {
+        nextStep.disabled = sizeAndQtyBothChecked();
+    }
 
     selectOptionYourOrderStep();
 });
@@ -127,19 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentStep > 1) {
             showBtn(backStepButton);
         }
-
-        if (qtyInput &&
-            parseInt(qtyInput.closest('#sticker_price').getAttribute('data-step')) === currentStep
-        ) {
-            document.querySelector('input#ac-1').setAttribute('checked', 'checked');
-
-            this.disabled = !qtyInputCheckedList.length;
-
-            if (qtyInputCheckedList.length) {
-                localStorage.setItem('data-step-' + localStorage.getItem('sticker_current_step'), qtyInputCheckedList[0].value);
-                selectOptionYourOrderStep();
-            }
-        }
     });
 
     uploadFileListener();
@@ -203,6 +202,11 @@ function toggleQtyPricesVisibility() {
         displayShow = '',
         currentStep = localStorage.getItem('sticker_current_step');
 
+    if (document.querySelectorAll('div[attribute-code="sticker_size"]').length === 0) {
+        initStepQuantity();
+        return;
+    }
+
     let qtyPriceElementStyle = document.getElementById('sticker_price').style,
         currentStepWrapper = document.querySelector('div[data-step="' + (currentStep) + '"]');
 
@@ -217,4 +221,43 @@ function toggleQtyPricesVisibility() {
     qtyPriceElementStyle['display'] = displayNone;
 
     return;
+}
+
+function sizeAndQtyBothChecked() {
+
+    if (qtyIsChecked() && sizeIsChecked()) {
+        return false
+    }
+
+    return true;
+}
+
+function qtyIsChecked() {
+    let qtyOptions = document.querySelector("#sticker_price").querySelectorAll('.radio-container'),
+        flag = false;
+
+    qtyOptions.forEach(function (element) {
+        if (element.getElementsByClassName('radiobutton').checked === true) {
+            flag = true;
+
+            return;
+        }
+    })
+
+    return flag;
+}
+
+function sizeIsChecked() {
+    let sizeOoptions = document.querySelector("[attribute-code='sticker_size']").querySelectorAll('.radio-container'),
+        flag = false;
+
+    sizeOoptions.forEach(function (element) {
+        if (element.classList.contains('selected')) {
+            flag = true;
+
+            return;
+        }
+    })
+
+    return flag;
 }

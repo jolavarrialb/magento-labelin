@@ -2,7 +2,6 @@ function initStepQuantity() {
 
     let tierPriceBlock = jQuery("div[data-role='tier-price-block']"),
         sizeBlock = jQuery(".sticker_size").find(".swatch-option");
-    ;
 
     sizeBlock.on('click', function () {
         clearYourOrderSectionQty();
