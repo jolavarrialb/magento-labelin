@@ -43,7 +43,7 @@ document.addEventListener('swatch-select-option', function () {
     if (sizeElementStyle['display'] === 'none') {
         nextStep.disabled = false;
     } else {
-        nextStep.disabled = sizeAndQtyBothChecked();
+        nextStep.disabled = !sizeAndQtyBothChecked();
     }
 
     selectOptionYourOrderStep();
@@ -225,12 +225,7 @@ function toggleQtyPricesVisibility() {
 }
 
 function sizeAndQtyBothChecked() {
-
-    if (qtyIsChecked() && sizeIsChecked()) {
-        return false
-    }
-
-    return true;
+    return qtyIsChecked() && sizeIsChecked();
 }
 
 function qtyIsChecked() {
