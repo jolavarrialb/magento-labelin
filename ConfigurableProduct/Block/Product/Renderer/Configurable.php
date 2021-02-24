@@ -42,7 +42,7 @@ class Configurable extends MagentoSwatchesConfigurable
         ],
         self::SHAPE_HEADER => [
             'header' => "Choose Shape",
-            'headerInfo' => "Order will take 8-10 business days",
+            'headerInfo' => "",
         ],
         self::TYPE_HEADER => [
             'header' => "Pick Type",
