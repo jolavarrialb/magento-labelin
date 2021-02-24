@@ -2,6 +2,7 @@ document.addEventListener('swatch-full-render', function () {
     let stepsSelectors = document.querySelectorAll('div[data-step]'),
         stickerStepsWrapper = document.getElementById('sticker-steps-wrapper'),
         stepsCount = 1;
+
     // Qty Price block split vs Size step
     if (document.querySelectorAll('div[attribute-code="sticker_size"]').length) {
         document
@@ -38,7 +39,6 @@ document.addEventListener('swatch-full-render', function () {
 document.addEventListener('swatch-select-option', function () {
     let nextStep = document.getElementById('sticker-next-step'),
         sizeElementStyle = document.getElementById('sticker_price').style;
-    ;
 
     if (sizeElementStyle['display'] === 'none') {
         nextStep.disabled = false;
@@ -204,6 +204,7 @@ function toggleQtyPricesVisibility() {
 
     if (document.querySelectorAll('div[attribute-code="sticker_size"]').length === 0) {
         initStepQuantity();
+
         return;
     }
 
@@ -234,30 +235,30 @@ function sizeAndQtyBothChecked() {
 
 function qtyIsChecked() {
     let qtyOptions = document.querySelector("#sticker_price").querySelectorAll('.radio-container'),
-        flag = false;
+        checked = false;
 
     qtyOptions.forEach(function (element) {
         if (element.getElementsByClassName('radiobutton').checked === true) {
-            flag = true;
+            checked = true;
 
             return;
         }
     })
 
-    return flag;
+    return checked;
 }
 
 function sizeIsChecked() {
     let sizeOoptions = document.querySelector("[attribute-code='sticker_size']").querySelectorAll('.radio-container'),
-        flag = false;
+        checked = false;
 
     sizeOoptions.forEach(function (element) {
         if (element.classList.contains('selected')) {
-            flag = true;
+            checked = true;
 
             return;
         }
     })
 
-    return flag;
+    return checked;
 }
