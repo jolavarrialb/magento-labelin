@@ -8,22 +8,43 @@ use Labelin\Sales\Helper\Artwork;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Catalog\Model\Product\Option\UrlBuilder;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Quote\Api\Data\CartItemInterface;
 
 class ArtworkPreview extends AbstractHelper
 {
+    protected const EPS_IMG_PATH = 'Labelin_ConfigurableProduct::images/source/checkouts/upload-image/eps-icon.png';
+    protected const PDF_IMG_PATH = 'Labelin_ConfigurableProduct::images/source/checkouts/upload-image/pdf-icon.png';
+
+    protected const PDF = 'application/pdf';
+    protected const EPS = 'application/postscript';
+
     /** @var Json */
     protected $serializer;
 
     /** @var UrlBuilder */
     protected $url;
 
-    public function __construct(Context $context, Json $serializer, UrlBuilder $url)
-    {
+    /** @var Repository */
+    protected $assetRepo;
+
+    /** @var RequestInterface */
+    protected $request;
+
+    public function __construct(
+        Context $context,
+        Json $serializer,
+        Repository $assetRepo,
+        RequestInterface $request,
+        UrlBuilder $url
+    ) {
         parent::__construct($context);
 
+        $this->assetRepo = $assetRepo;
+        $this->request = $request;
         $this->serializer = $serializer;
         $this->url = $url;
     }
@@ -44,7 +65,18 @@ class ArtworkPreview extends AbstractHelper
             $option = $item->getOptionByCode('option_' . $option['option_id']);
             $optionValue = $this->serializer->unserialize($option->getValue());
 
-            $url = $this->url->getUrl($optionValue['url']['route'], $optionValue['url']['params']);
+            $params = ['_secure' => $this->request->isSecure()];
+
+            switch ($optionValue['type']) {
+                case static::PDF:
+                    $url = $this->assetRepo->getUrlWithParams(static::PDF_IMG_PATH, $params);
+                    break;
+                case static::EPS:
+                    $url = $this->assetRepo->getUrlWithParams(static::EPS_IMG_PATH, $params);
+                    break;
+                default:
+                    $url = $this->url->getUrl($optionValue['url']['route'], $optionValue['url']['params']);
+            }
         }
 
         return $url;
