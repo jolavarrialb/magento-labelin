@@ -1,96 +1,110 @@
 .order-section {
     background-color: @color-grafite;
-    height: 573px;
+    height: 440px;
     display: flex;
     align-items: center;
 
-    .order-card-wrapper {
-        display: flex;
-        justify-content: space-between;
-        max-width: 990px;
-        width: 100%;
-        margin: 0 auto;
-        .order-card {
+    .container {
+        padding: 10px;
+        .order-card-wrapper {
             display: flex;
-            flex-direction: column;
-            max-width: 250px;
+            justify-content: space-between;
+            max-width: 990px;
             width: 100%;
-            border-radius: 32px;
-            background-color: @color-grafite;
-            padding: 28px;
-            cursor: pointer;
-            &:hover {
-                background-color: @color-hover-grey;
-                .order-button {
-                    background-color: @color-black;
-                }
-            }
-            @media (max-width: 768px) {
-                max-width: 151px;
-                max-height: 151px;
-                height: 100%;
-                padding: 7px 5px;
-                a {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                }
-                img {
-                  max-height: 100px;
-                  max-width: 100px;
-                  height: 100%;
-                  width: 100%;
-                }
-            }
-            .order-button {
-                color: @color-white;
-                background-color: @color-grafite;
-                border: 2px solid @color-light-grey;
-                padding: 20px;
-                border-radius: 30px;
+            margin: 0 auto;
+
+            .order-card {
+                display: flex;
+                flex-direction: column;
                 max-width: 250px;
                 width: 100%;
-                font-size: @fs-header;
-                line-height: 22px;
-                font-weight: bold;
-                margin-top: 70px;
-                box-shadow: none;
+                border-radius: 32px;
+                background-color: @color-grafite;
+                padding: 28px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: @color-hover-grey;
+
+                    .order-button {
+                        background-color: @color-black;
+                    }
+                }
+
                 @media (max-width: 768px) {
-                    margin-top: 15px;
-                    max-width: 145px;
-                    font-size: 12px;
-                    line-height: 14px;
-                    border-radius: 16px;
-                    height: 34px;
-                    padding: 0;
+                    max-width: 151px;
+                    max-height: 151px;
+                    height: 100%;
+                    padding: 7px 5px;
+                    a {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+
+                    img {
+                        max-height: 100px;
+                        max-width: 100px;
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+
+                .order-button {
+                    color: @color-white;
+                    background-color: @color-grafite;
+                    border: 2px solid @color-light-grey;
+                    padding: 20px;
+                    border-radius: 30px;
+                    max-width: 250px;
+                    width: 100%;
+                    font-size: @fs-header;
+                    line-height: 22px;
+                    font-weight: bold;
+                    margin-top: 70px;
+                    box-shadow: none;
+                    @media (max-width: 768px) {
+                        margin-top: 15px;
+                        max-width: 145px;
+                        font-size: 12px;
+                        line-height: 14px;
+                        border-radius: 16px;
+                        height: 34px;
+                        padding: 0;
+                    }
                 }
             }
+
+            @media (max-width: 768px) {
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 23px 9px;
+                max-width: unset;
+                width: auto;
+            }
         }
+
         @media (max-width: 768px) {
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 23px 9px;
-            max-width: unset;
-            width: auto;
+            height: auto;
+            min-height: 357px;
         }
-    }
-    @media (max-width: 768px) {
-        height: auto;
-        min-height: 357px;
     }
 }
+
 .video-section {
     background-color: @color-white;
     color: @color-black;
     height: 685px;
     display: flex;
     align-items: center;
+
     .video-and-text-wrapper {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
+
         .video {
             max-width: 680px;
             width: 100%;
@@ -101,6 +115,7 @@
                 height: 100%;
             }
         }
+
         .text-wrapper {
             max-width: 585px;
             width: 100%;
@@ -110,6 +125,7 @@
                 align-items: center;
                 justify-content: center;
             }
+
             .video-header {
                 font-weight: bold;
                 font-size: @fs-header-xl;
@@ -123,6 +139,7 @@
                     margin-bottom: 2rem;
                 }
             }
+
             .video-header-text {
                 font-size: @fs-header;
                 line-height: 32px;
@@ -136,6 +153,7 @@
                     margin-bottom: 36px;
                 }
             }
+
             .video-button {
                 color: @color-white;
                 background-color: @color-grafite;
@@ -148,13 +166,16 @@
                 line-height: 22px;
                 font-weight: bold;
                 text-align: center;
+
                 &:hover {
                     text-decoration: none;
                     background-color: @color-buttons-hover;
                 }
+
                 &:active {
                     background-color: @color-black;
                 }
+
                 @media (max-width: 768px) {
                     font-size: 16px;
                     line-height: 28px;
@@ -163,12 +184,14 @@
                 }
             }
         }
+
         @media (max-width: 768px) {
             flex-direction: column;
             padding: 34px 16px 49px;
             width: auto;
         }
     }
+
     @media (max-width: 768px) {
         align-items: center;
         max-width: unset;
@@ -176,6 +199,7 @@
         height: unset;
     }
 }
+
 .labels-section {
     height: 823px;
     display: flex;
@@ -212,12 +236,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
     &.examples-images {
         .column {
             display: flex;
             justify-content: space-between;
             max-width: 708px;
             width: 100%;
+
             img {
                 @media (max-width: 1024px) {
                     width: 50%;
@@ -228,6 +254,7 @@
                     width: 50%;
                     height: 50%;
                 }
+
                 &:last-of-type {
                     @media (max-width: 768px) {
                         margin-left: 10px;
@@ -236,46 +263,51 @@
             }
         }
     }
+
     @media (max-width: 768px) {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      img {
-        width: 100%;
-        height: auto;
-        max-width: 142px;
-        max-height: 177px;
-        margin-bottom: 20px;
-        padding: 0 10px;
-      }
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 142px;
+            max-height: 177px;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
     }
 }
 
 .how-to-order-section {
-  background-color: @color-white;
-  color: @color-black;
-  .images-wrapper {
-    .image-card-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .image-text {
-            margin-top: 1em;
-        }
-        @media (max-width: 768px) {
-            margin-bottom: 30px;
-        }
-    }
-  }
-  @media (max-width: 768px) {
-    padding: 46px 5px 48px;
+    background-color: @color-white;
+    color: @color-black;
+
     .images-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+        .image-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .image-text {
+                margin-top: 1em;
+            }
+
+            @media (max-width: 768px) {
+                margin-bottom: 30px;
+            }
+        }
     }
-  }
+
+    @media (max-width: 768px) {
+        padding: 46px 5px 48px;
+        .images-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 }
 
 .labels-button-wrapper {
@@ -300,14 +332,17 @@
     line-height: 22px;
     font-weight: bold;
     text-align: center;
+
     &:hover {
         text-decoration: none;
         background-color: @color-buttons-hover;
     }
+
     &:active {
         background-color: @color-black;
     }
+
     @media (max-width: 768px) {
-      max-width: 283px;
+        max-width: 283px;
     }
 }

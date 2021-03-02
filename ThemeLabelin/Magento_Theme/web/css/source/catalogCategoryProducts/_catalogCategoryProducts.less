@@ -66,10 +66,10 @@
                         background-color: #FFFFFF;
                         margin: 10px;
                         @media (max-width: 1920px) {
-                            width: calc((100% - 9%)/4);
+                            width: calc((100% - 9%) / 4);
                         }
                         @media (max-width: 889px) {
-                            width: calc((100% - 8%)/2);
+                            width: calc((100% - 8%) / 2);
                         }
                         @media (max-width: 500px) {
                             width: 95%;
@@ -84,18 +84,35 @@
 
                             .product-item-photo {
                                 .product-image-container {
-                                        width: 100% !important;
+                                    width: 100% !important;
+                                    .product-image-wrapper {
+                                        padding-bottom: 110% !important;
+                                    }
+                                    .product-image-photo {
+                                        border: 1px solid rgba(0,0,0,0.14);
+                                    }
                                 }
                             }
 
                             .product-item-details {
                                 text-align: center;
-
+                                .price-box {
+                                    margin: 10px 0 5px;
+                                }
                                 .product-item-inner {
-                                    width: 100px;
+                                    clip: auto;
+                                    width: 100%;
+                                    position: relative;
+                                    box-shadow: none;
 
                                     .product-item-actions {
+                                        display: flex;
+                                        flex-direction: row;
+                                        width: 100%;
+                                        justify-content: center;
+
                                         .actions-primary {
+                                            display: block;
                                             form {
                                                 button.tocart {
                                                     background: #010101;
@@ -114,11 +131,8 @@
                                 @media (min-width: 640px) {
                                     .product-item-inner {
                                         border: 0;
-                                        clip: rect(0, 0, 0, 0);
                                         height: auto;
                                         padding: 0;
-                                        position: relative;
-                                        width: 0px;
                                         overflow: visible;
                                         margin: 0;
 
