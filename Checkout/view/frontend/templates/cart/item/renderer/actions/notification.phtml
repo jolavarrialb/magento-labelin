@@ -4,6 +4,6 @@
 <?php if (!$block->getItem()->getData('is_reordered') &&
     $block->getItem()->getProduct()->getTypeId() === Configurable::TYPE_CODE): ?>
     <span>
-        <b><?= $block->escapeHtml(__('You will get a digital proof after your order is placed. It may take 24-48 business hours.')) ?></b>
+        <b><?= $block->escapeHtml(__('This is not your final proof.')) ?></b>
     </span>
 <?php endif; ?>
