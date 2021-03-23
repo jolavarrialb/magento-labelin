@@ -40,6 +40,15 @@
                     <dataScope>artwork_status</dataScope>
                 </settings>
             </filterSelect>
+            <filterSelect name="product_type" provider="${ $.parentName }">
+                <settings>
+                    <options class="Labelin\Sales\Ui\Component\Filters\FilterSelect\Options\ProductType"/>
+                    <caption translate="true">Select Product Type</caption>
+                    <label translate="true">Product Type</label>
+                    <dataType>select</dataType>
+                    <dataScope>product_type</dataScope>
+                </settings>
+            </filterSelect>
         </filters>
     </listingToolbar>
     <columns name="sales_order_columns">
@@ -55,6 +64,12 @@
             <settings>
                 <bodyTmpl>Labelin_Sales/ui/grid/cells/artwork</bodyTmpl>
                 <label translate="true">Artworks</label>
+                <fieldAction></fieldAction>
+            </settings>
+        </column>
+        <column name="product_type" class="Labelin\Sales\Ui\Component\Column\Html\ProductType" component="Labelin_Sales/js/grid/columns/product_type">
+            <settings>
+                <label translate="true">Product Types</label>
                 <fieldAction></fieldAction>
             </settings>
         </column>

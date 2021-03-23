@@ -1,0 +1,11 @@
+<div class="data-grid-cell-content">
+    <!-- ko foreach: $col.getProductType($row()) -->
+    <!-- ko if: ($data === 'configurable') -->
+    <b><span style="color: #d7cb8c" data-bind="i18n: 'Artwork'"></span></b>
+    <!-- /ko -->
+    <!-- ko if: ($data === 'simple') -->
+    <b><span style="color: #866ac7" data-bind="i18n: 'Pre-made'"></span></b>
+    <!-- /ko -->
+    <br/>
+    <!-- /ko -->
+</div>

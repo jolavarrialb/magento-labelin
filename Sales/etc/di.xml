@@ -197,6 +197,7 @@
         <arguments>
             <argument name="addFilterStrategies" xsi:type="array">
                 <item name="artwork_status" xsi:type="object">Labelin\Sales\Ui\DataProvider\Artwork\AddArtworkStatusCustomFilter</item>
+                <item name="product_type" xsi:type="object">Labelin\Sales\Ui\DataProvider\Artwork\AddArtworkStatusCustomFilter</item>
             </argument>
         </arguments>
     </type>
