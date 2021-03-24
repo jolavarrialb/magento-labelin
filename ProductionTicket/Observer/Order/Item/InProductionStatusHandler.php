@@ -4,48 +4,38 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Observer\Order\Item;
 
-use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface;
-use Labelin\ProductionTicket\Model\Order\Item;
 use Labelin\ProductionTicket\Model\ProductionTicket;
 use Labelin\ProductionTicket\Model\ProductionTicketRepository;
+use Labelin\Sales\Helper\Product\Premade;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Sales\Model\Order\Item;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
 use Labelin\Sales\Model\Order;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 
-class InProductionStatusHandler implements ObserverInterface
+class InProductionStatusHandler extends InProductionStatus implements ObserverInterface
 {
-    /** @var ProductionTicketRepository */
-    protected $productionTicketRepository;
-
-    /** @var ProductionTicket */
-    protected $productionTicket;
-
-    /** @var SearchCriteriaBuilder */
-    protected $searchCriteriaBuilder;
+    protected const ITEM_EMPTY_ARTWORK = 'ARTWORK IS EMPTY';
 
     /** @var ArtworkHelper */
     protected $artworkHelper;
-
-    /** @var JsonHelper */
-    protected $jsonHelper;
 
     public function __construct(
         ProductionTicketRepository $productionTicketRepository,
         ProductionTicket $productionTicket,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        ArtworkHelper $artworkHelper,
-        JsonHelper $jsonHelper
+        Premade $premadeHelper,
+        ArtworkHelper $artworkHelper
     ) {
-        $this->productionTicketRepository = $productionTicketRepository;
-        $this->productionTicket = $productionTicket;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        parent::__construct(
+            $productionTicketRepository,
+            $productionTicket,
+            $searchCriteriaBuilder,
+            $premadeHelper
+        );
 
         $this->artworkHelper = $artworkHelper;
-        $this->jsonHelper = $jsonHelper;
     }
 
     /**
@@ -64,50 +54,25 @@ class InProductionStatusHandler implements ObserverInterface
         }
 
         /** @var Order $order */
-        $order = $orderItem->getOrder();
+        $this->order = $orderItem->getOrder();
 
-        if (!$order) {
+        if (!$this->order) {
             return $this;
         }
 
-        $label = sprintf(
-            '%s_%s/%s',
-            $order->getIncrementId(),
-            ($this->getProductionTicketsByOrderId((int)$order->getId())->getTotalCount()) + 1,
-            $order->getItemsCollection(['configurable'])->getTotalCount()
-        );
+        $artwork = $this->getArtwork($orderItem);
 
-        $artwork = $this->artworkHelper->getArtworkProductOptionByItem($orderItem);
-
-        $this->productionTicket
-            ->setOrderItemId((int)$orderItem->getId())
-            ->setOrderId((int)$order->getId())
-            ->setOrderItemLabel($label)
-            ->setShape($orderItem->getShape())
-            ->setType($orderItem->getProduct()->getName())
-            ->setSize($orderItem->getSize())
-            ->setArtwork($artwork['value'])
-            ->setApprovalDate($orderItem->getApprovalDate())
-            ->setDesigner($order->getDesigner() ? $order->getDesigner()->getName() : '')
-            ->setMaterial($orderItem->getType())
-            ->setIsComplete(false);
-
-        $this->productionTicketRepository->save($this->productionTicket);
+        $this->saveProductionTicket($orderItem, $artwork);
 
         return $this;
     }
 
-    /**
-     * @param int $orderId
-     *
-     * @return ProductionTicketSearchResultsInterface|SearchResults
-     */
-    protected function getProductionTicketsByOrderId(int $orderId)
+    protected function getArtwork(Item $orderItem): string
     {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('order_id', $orderId, 'eq')
-            ->create();
+        $artwork = $this->artworkHelper->getArtworkProductOptionByItem($orderItem);
 
-        return $this->productionTicketRepository->getList($searchCriteria);
+        return array_key_exists('value', $artwork) ? $artwork['value'] : static::ITEM_EMPTY_ARTWORK ;
     }
+
+
 }

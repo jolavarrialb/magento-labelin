@@ -12,4 +12,8 @@
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />
         <observer name="labelin_production_ticket_email_to_programmer" instance="Labelin\ProductionTicket\Observer\EmailHandler" />
     </event>
+    <event name="labelin_premade_order_in_production">
+        <observer name="labelin_premade_order_in_production_items_move_to_production" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\InProductionPremadeItems"/>
+        <observer name="labelin_premade_order_in_production_order_production_status" instance="" />
+    </event>
 </config>
