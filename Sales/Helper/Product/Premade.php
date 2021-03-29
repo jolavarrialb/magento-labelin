@@ -14,6 +14,6 @@ class Premade extends AbstractHelper
 
     public function isPremade(Item $item): bool
     {
-        return null !== $item->getParentItemId() && Type::DEFAULT_TYPE === $item->getProductType();
+        return null === $item->getParentItemId() && Type::DEFAULT_TYPE === $item->getProductType();
     }
 }

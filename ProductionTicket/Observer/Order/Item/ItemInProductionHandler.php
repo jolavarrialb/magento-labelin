@@ -14,7 +14,7 @@ use Labelin\Sales\Model\Order;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
-class InProductionStatusHandler extends InProductionStatus implements ObserverInterface
+class ItemInProductionHandler extends AbstractItemInProduction implements ObserverInterface
 {
     protected const ITEM_EMPTY_ARTWORK = 'ARTWORK IS EMPTY';
 
@@ -50,6 +50,10 @@ class InProductionStatusHandler extends InProductionStatus implements ObserverIn
         $orderItem = $observer->getData('item');
 
         if (!$orderItem || !$orderItem->getProduct()) {
+            return $this;
+        }
+
+        if ($this->premadeHelper->isPremade($orderItem)) {
             return $this;
         }
 

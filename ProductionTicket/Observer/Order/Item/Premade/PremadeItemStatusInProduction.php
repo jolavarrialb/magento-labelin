@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Labelin\ProductionTicket\Observer\Order;
+namespace Labelin\ProductionTicket\Observer\Order\Item\Premade;
 
 use Labelin\ProductionTicket\Model\Order\Item;
 use Labelin\Sales\Helper\Product\Premade;
 use Labelin\Sales\Model\Order;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
 
-class InProductionStatusHandler implements ObserverInterface
+class PremadeItemStatusInProduction implements ObserverInterface
 {
     /** @var OrderItemRepositoryInterface */
     protected $orderItemRepository;
@@ -22,17 +21,17 @@ class InProductionStatusHandler implements ObserverInterface
     /** @var EventManager */
     protected $eventManager;
 
-    /** @var Premade */
+    /** @var Premade  */
     protected $premadeHelper;
 
     public function __construct(
         OrderItemRepositoryInterface $orderItemRepository,
         EventManager $eventManager,
         Premade $premadeHelper
-    ) {
+    )
+    {
         $this->orderItemRepository = $orderItemRepository;
         $this->eventManager = $eventManager;
-
         $this->premadeHelper = $premadeHelper;
     }
 
@@ -53,11 +52,10 @@ class InProductionStatusHandler implements ObserverInterface
 
         foreach ($order->getAllItems() as $item) {
             /** @var Item $item */
-            if ($item->getProductType() === Configurable::TYPE_CODE && !$item->isInProduction()) {
-                $item->markAsInProduction();
-                $this->orderItemRepository->save($item);
+            if ($this->premadeHelper->isPremade($item) && !$item->isInProduction()) {
+                $item->setData('is_in_production', true);
 
-                $this->eventManager->dispatch('labelin_order_item_production_status_after', ['item' => $item]);
+                $this->orderItemRepository->save($item);
             }
         }
 

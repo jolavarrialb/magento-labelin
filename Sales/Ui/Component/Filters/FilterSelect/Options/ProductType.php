@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Labelin\Sales\Ui\Component\Filters\FilterSelect\Options;
 
 use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Catalog\Model\Product\Type;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 
 class ProductType implements OptionSourceInterface
 {
-
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             [
-                'value' => 'configurable',
+                'value' => Configurable::TYPE_CODE,
                 'label' => __('Artwork'),
             ],
             [
-                'value' => 'simple',
+                'value' => Type::TYPE_SIMPLE,
                 'label' => __('Pre-made'),
             ],
 

@@ -8,7 +8,7 @@ use Magento\Framework\Api\Filter;
 use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\SearchCriteriaBuilder;
 
-abstract class LikeFilterAbstract implements AddCustomFilterInterface
+class LikeFilter implements AddCustomFilterInterface
 {
     protected const FILTER_COND_VALUE = 'like';
 

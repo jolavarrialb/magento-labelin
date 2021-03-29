@@ -14,7 +14,7 @@ use Magento\Framework\Api\SearchResults;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Item;
 
-abstract class InProductionStatus
+abstract class AbstractItemInProduction
 {
     /** @var Order */
     protected $order;
@@ -50,7 +50,7 @@ abstract class InProductionStatus
             '%s_%s/%s',
             $this->order->getIncrementId(),
             ($this->getProductionTicketsByOrderId((int)$this->order->getId())->getTotalCount()) + 1,
-            $this->order->getItemsCollection(['configurable'])->getTotalCount()
+            $this->order->getItemsCollection(['configurable', 'simple'], true)->getTotalCount()
         );
     }
 
@@ -60,10 +60,9 @@ abstract class InProductionStatus
      * @param $orderItem
      * @param string $artwork
      *
-     * @return ProductionTicketInterface
      * @throws \Exception
      */
-    protected function saveProductionTicket($orderItem, string $artwork = ''): ProductionTicketInterface
+    protected function saveProductionTicket($orderItem, string $artwork = ''): void
     {
         $this->productionTicket
             ->setOrderItemId((int)$orderItem->getId())
