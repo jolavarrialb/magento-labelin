@@ -20,6 +20,7 @@ class MassAction extends \Magento\Ui\Component\MassAction
         'pdfshipments_order',
         'pdfcreditmemos_order',
         'pdfdocs_order',
+        'premade_to_production',
     ];
 
     protected const DESIGNER_DISALLOW_ACTIONS = [
