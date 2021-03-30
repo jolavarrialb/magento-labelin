@@ -20,7 +20,6 @@ class PremadeToProduction extends Action
         Action\Context $context,
         OrderRepositoryInterface $orderRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
-
     ) {
         parent::__construct($context);
 
