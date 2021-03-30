@@ -5,11 +5,16 @@
     </event>
     <event name="labelin_order_item_production_status_after">
         <observer name="order_item_attached_files_creation_handler"  instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionAttachedFilesHandler" />
-        <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusHandler" />
+        <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\ItemInProductionHandler" />
         <observer name="order_item_in_production_email_sender" instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionStatusEmailHandler"/>
     </event>
     <event name="labelin_production_ticket_save_after">
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />
         <observer name="labelin_production_ticket_email_to_programmer" instance="Labelin\ProductionTicket\Observer\EmailHandler" />
+    </event>
+    <event name="labelin_premade_order_in_production">
+        <observer name="labelin_premade_order_in_production_items_move_to_production" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemInProduction"/>
+        <observer name="labelin_premade_order_in_production_item_status" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemStatusInProduction" />
+        <observer name="labelin_premade_order_in_production_status" instance="Labelin\ProductionTicket\Observer\Order\PremadeOrderToProduction" />
     </event>
 </config>

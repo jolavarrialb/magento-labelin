@@ -23,7 +23,7 @@ class Collection extends GridCollection
     /** @var DesignerHelper */
     protected $designerHelper;
 
-    /** @var ShipperHelper  */
+    /** @var ShipperHelper */
     protected $shipperHelper;
 
     public function __construct(
@@ -65,9 +65,12 @@ class Collection extends GridCollection
             ->joinLeft(
                 ['order_item' => 'sales_order_item'],
                 'main_table.entity_id = order_item.order_id',
-                ['artwork_status' => 'group_concat( distinct artwork_status)']
+                [
+                    'artwork_status' => 'group_concat( distinct artwork_status)',
+                    'product_type' => 'group_concat( distinct order_item.product_type)',
+                ]
             )
-            ->where('order_item.product_type = "configurable" AND order_item.parent_item_id IS NULL')
+            ->where('order_item.parent_item_id IS NULL')
             ->group('main_table.entity_id');
 
         if ($this->designerHelper->isCurrentAuthUserDesigner()) {
@@ -75,7 +78,7 @@ class Collection extends GridCollection
         }
 
         if ($this->shipperHelper->isCurrentAuthUserShipper()) {
-            $this->addFieldToFilter('status', ['in' => [LabelinOrderModel::STATUS_READY_TO_SHIP, OrderModel::STATE_COMPLETE ]]);
+            $this->addFieldToFilter('status', ['in' => [LabelinOrderModel::STATUS_READY_TO_SHIP, OrderModel::STATE_COMPLETE]]);
         }
 
         return $this;

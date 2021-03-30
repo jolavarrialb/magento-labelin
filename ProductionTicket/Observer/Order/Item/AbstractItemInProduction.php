@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Observer\Order\Item;
 
+use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface;
-use Labelin\ProductionTicket\Model\Order\Item;
 use Labelin\ProductionTicket\Model\ProductionTicket;
 use Labelin\ProductionTicket\Model\ProductionTicketRepository;
-use Labelin\Sales\Helper\Artwork as ArtworkHelper;
-use Labelin\Sales\Model\Order;
+use Labelin\Sales\Helper\Product\Premade;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchResults;
-use Magento\Framework\Event\Observer;
-use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Item;
 
-class InProductionStatusHandler implements ObserverInterface
+abstract class AbstractItemInProduction
 {
+    /** @var Order */
+    protected $order;
+
+    /** @var Premade */
+    protected $premadeHelper;
+
     /** @var ProductionTicketRepository */
     protected $productionTicketRepository;
 
@@ -27,74 +31,53 @@ class InProductionStatusHandler implements ObserverInterface
     /** @var SearchCriteriaBuilder */
     protected $searchCriteriaBuilder;
 
-    /** @var ArtworkHelper */
-    protected $artworkHelper;
-
-    /** @var JsonHelper */
-    protected $jsonHelper;
-
     public function __construct(
         ProductionTicketRepository $productionTicketRepository,
         ProductionTicket $productionTicket,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        ArtworkHelper $artworkHelper,
-        JsonHelper $jsonHelper
+        Premade $premadeHelper
     ) {
         $this->productionTicketRepository = $productionTicketRepository;
         $this->productionTicket = $productionTicket;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
 
-        $this->artworkHelper = $artworkHelper;
-        $this->jsonHelper = $jsonHelper;
+        $this->premadeHelper = $premadeHelper;
     }
 
+    protected function getLabel(): string
+    {
+        return sprintf(
+            '%s_%s/%s',
+            $this->order->getIncrementId(),
+            ($this->getProductionTicketsByOrderId((int)$this->order->getId())->getTotalCount()) + 1,
+            $this->order->getItemsCollection(['configurable', 'simple'], true)->getTotalCount()
+        );
+    }
+
+    protected abstract function getArtwork(Item $item): string;
+
     /**
-     * @param Observer $observer
+     * @param $orderItem
+     * @param string $artwork
      *
-     * @return $this
      * @throws \Exception
      */
-    public function execute(Observer $observer): self
+    protected function saveProductionTicket($orderItem, string $artwork = ''): void
     {
-        /** @var Item $orderItem */
-        $orderItem = $observer->getData('item');
-
-        if (!$orderItem || !$orderItem->getProduct()) {
-            return $this;
-        }
-
-        /** @var Order $order */
-        $order = $orderItem->getOrder();
-
-        if (!$order) {
-            return $this;
-        }
-
-        $label = sprintf(
-            '%s_%s/%s',
-            $order->getIncrementId(),
-            ($this->getProductionTicketsByOrderId((int)$order->getId())->getTotalCount()) + 1,
-            $order->getItemsCollection(['configurable'])->getTotalCount()
-        );
-
-        $artwork = $this->artworkHelper->getArtworkProductOptionByItem($orderItem);
-
         $this->productionTicket
             ->setOrderItemId((int)$orderItem->getId())
-            ->setOrderId((int)$order->getId())
-            ->setOrderItemLabel($label)
+            ->setOrderId((int)$this->order->getId())
+            ->setOrderItemLabel($this->getLabel())
             ->setShape($orderItem->getShape())
             ->setType($orderItem->getProduct()->getName())
             ->setSize($orderItem->getSize())
-            ->setArtwork($artwork['value'])
+            ->setArtwork($artwork)
             ->setApprovalDate($orderItem->getApprovalDate())
-            ->setDesigner($order->getDesigner() ? $order->getDesigner()->getName() : '')
+            ->setDesigner($this->getDesigner($orderItem))
             ->setMaterial($orderItem->getType())
             ->setIsComplete(false);
 
         $this->productionTicketRepository->save($this->productionTicket);
-
-        return $this;
     }
 
     /**
@@ -109,5 +92,14 @@ class InProductionStatusHandler implements ObserverInterface
             ->create();
 
         return $this->productionTicketRepository->getList($searchCriteria);
+    }
+
+    protected function getDesigner(Item $orderItem): string
+    {
+        if ($this->premadeHelper->isPremade($orderItem)) {
+            return $this->premadeHelper::PREMADE_DESIGNER;
+        }
+
+        return $this->order->getDesigner() ? $this->order->getDesigner()->getName() : '';
     }
 }
