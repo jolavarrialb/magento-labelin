@@ -87,7 +87,7 @@ class HomePageContactUsFormArround
                 ['data' => new DataObject($post)]
             );
             $resultData->setData([
-                'error' => true,
+                'error' => false,
                 'response' => __('Thanks for contacting us with your comments and questions. We\'ll respond to you very soon.')->render(),
             ]);
 
@@ -98,6 +98,7 @@ class HomePageContactUsFormArround
         } catch (\Exception $e) {
             $this->logger->critical($e);
             $resultData->setData([
+                'error' => true,
                 'response' => __('An error occurred while processing your form. Please try again later.')->render(),
             ]);
         }
