@@ -26,9 +26,15 @@ define(['jquery'],
                         data: $form.serialize(),
                         cache: false,
                         success: function (data) {
-                            if (confirm(data['response'])) {
+                            if (data['error']) {
                                 $form.find(':submit').prop('disabled', false);
                             }
+
+                            if (!data['error']) {
+                                $form.find(':submit').prop('disabled', true);
+                            }
+
+                            alert(data['response']);
                         }
                     });
                 });
