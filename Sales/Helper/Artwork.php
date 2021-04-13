@@ -21,6 +21,7 @@ class Artwork extends AbstractHelper
     public const ARTWORK_STATUS_AWAITING_DESIGNER = 'awaiting_designer_action';
     public const ARTWORK_STATUS_AWAITING_CUSTOMER = 'awaiting_customer_approve';
     public const ARTWORK_STATUS_NO_ACTION = 'no_action';
+    public const ARTWORK_STATUS_MAX_CUSTOMER_DECLINE = 'max_decline_count';
 
     public const FILTER_STATUSES = [
         self::ARTWORK_STATUS_DECLINE,
@@ -28,6 +29,7 @@ class Artwork extends AbstractHelper
         self::ARTWORK_STATUS_AWAITING_CUSTOMER,
         self::ARTWORK_STATUS_AWAITING_DESIGNER,
         self::ARTWORK_STATUS_NO_ACTION,
+        self::ARTWORK_STATUS_MAX_CUSTOMER_DECLINE,
     ];
 
     /** @var OrderItemRepositoryInterface */
