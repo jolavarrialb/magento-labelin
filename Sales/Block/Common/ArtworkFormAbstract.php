@@ -43,9 +43,7 @@ abstract class ArtworkFormAbstract extends Template
             return false;
         }
 
-        return ($this->artworkHelper->isArtworkAttachedToOrderItem($this->getOrderItem()) ||
-                $this->instructionsHelper->isInstructionsAttachedToOrderItem($orderItem)) &&
-            !$orderItem->isArtworkApproved() &&
+        return !$orderItem->isArtworkApproved() &&
             $orderItem->getOrder()->getStatus() === Order::STATUS_REVIEW;
     }
 
