@@ -14,5 +14,6 @@ $initOptions = $artworkPreviewHelper->initItemOptions($block->getData('item'));
         >
         <br>
         <?= $block->escapeHtml(__('Download file:')) ?>  <?= /* @noEscape */ $artworkPreviewHelper->getArtworkLabel() ?>
+        <?= $block->getChildBlock('admin.artwork.decline.reset')->setData('item', $block->getData('item'))->toHtml(); ?>
     </a>
 <?php endif; ?>

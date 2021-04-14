@@ -184,4 +184,16 @@ class Item extends MagentoOrderItem
     {
         return $this->getData(static::ARTWORK_STATUS);
     }
+
+    public function resetDeclineArtworkCounter(): self
+    {
+        $this->setData('artwork_declines_count', 0);
+
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+            'item' => $this,
+            'status' => Artwork::ARTWORK_STATUS_AWAITING_DESIGNER,
+        ]);
+
+        return $this;
+    }
 }
