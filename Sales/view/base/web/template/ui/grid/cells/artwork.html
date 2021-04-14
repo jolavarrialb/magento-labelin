@@ -9,6 +9,9 @@
     <!-- ko if: ($data['status'] === 'decline') -->
     <b><span style="color: #FF0000" data-bind="i18n: 'Declined'"></span></b>:
     <!-- /ko -->
+    <!-- ko if: ($data['status'] === 'max_decline_count') -->
+    <b><span style="color: #FF0000" data-bind="i18n: 'Max Decline Count'"></span></b>:
+    <!-- /ko -->
     <!-- ko if: ($data['status'] === 'awaiting_designer_action') -->
     <b><span style="color: #FF7400" data-bind="i18n: 'Awaiting Designer Action'"></span></b>:
     <!-- /ko -->

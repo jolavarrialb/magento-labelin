@@ -1,0 +1,16 @@
+<?php /** @var $block \Labelin\Sales\Block\Adminhtml\Order\View\Column\Items\Renderer\DefaultRenderer\ArtworkMaxDeclineResetButton */ ?>
+<?php if ($block->isAvailable()): ?>
+    <form action="<?= /* @noEscape */ $block->getSubmitUrl() ?>"
+          name="artwork_decline_count_reset"
+          method="GET"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="admin__field">
+            <div class="order-item-artwork-decline-action">
+                <button title="<?= $block->getButtonLabel(); ?>" type="submit" class="action-default action-reset-decline-cnt save">
+                    <?= $block->getButtonLabel(); ?>
+                </button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>

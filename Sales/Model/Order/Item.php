@@ -81,7 +81,9 @@ class Item extends MagentoOrderItem
 
         $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
             'item' => $this,
-            'status' => Artwork::ARTWORK_STATUS_DECLINE,
+            'status' => !$this->isArtworkDeclineAvailable()
+                ? Artwork::ARTWORK_STATUS_MAX_CUSTOMER_DECLINE
+                : Artwork::ARTWORK_STATUS_DECLINE,
         ]);
 
         return $this;
@@ -181,5 +183,17 @@ class Item extends MagentoOrderItem
     public function getArtworkStatus(): ?string
     {
         return $this->getData(static::ARTWORK_STATUS);
+    }
+
+    public function resetDeclineArtworkCounter(): self
+    {
+        $this->setData('artwork_declines_count', 0);
+
+        $this->_eventManager->dispatch('labelin_sales_order_item_artwork_update_status', [
+            'item' => $this,
+            'status' => Artwork::ARTWORK_STATUS_AWAITING_DESIGNER,
+        ]);
+
+        return $this;
     }
 }

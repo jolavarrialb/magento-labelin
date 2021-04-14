@@ -1,0 +1,6 @@
+<?php /** @var $block \Labelin\Sales\Block\Order\Items\Renderer\MaxDeclineQtyInfo */ ?>
+<?php if ($block->isAvailable()): ?>
+    <div class="message-notice notice message">
+        <?= $block->escapeHtml(__('The maximum number of free design suggestions for your product has been reached.')) ?>
+    </div>
+<?php endif; ?>
