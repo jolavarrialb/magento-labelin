@@ -8,6 +8,12 @@
                 <identity>sales</identity>
                 <copy_method>bcc</copy_method>
             </to_programmer>
+            <to_shipper>
+                <enabled>1</enabled>
+                <template>labelin_production_ticket_email_to_shipper_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </to_shipper>
             <artwork_item_in_production>
                 <enabled>1</enabled>
                 <template>labelin_production_ticket_email_artwork_item_in_production_template</template>

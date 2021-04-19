@@ -15,4 +15,11 @@
               module="Labelin_ProductionTicket"
               area="frontend"
     />
+    <template id="labelin_production_ticket_email_to_shipper_template"
+              label="Notify shipper about new order ready to ship"
+              file="order_to_shippment_ready.html"
+              type="html"
+              module="Labelin_ProductionTicket"
+              area="frontend"
+    />
 </config>

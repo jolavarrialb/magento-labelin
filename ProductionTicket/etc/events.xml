@@ -12,6 +12,9 @@
         <observer name="labelin_production_ticket_save_after" instance="Labelin\ProductionTicket\Observer\CompleteStatusHandler" />
         <observer name="labelin_production_ticket_email_to_programmer" instance="Labelin\ProductionTicket\Observer\EmailHandler" />
     </event>
+    <event name="labelin_order_ready_to_ship_status_after">
+        <observer name="labelin_production_ticket_email_to_shippers" instance="Labelin\ProductionTicket\Observer\ShipperEmailHandler"/>
+    </event>
     <event name="labelin_premade_order_in_production">
         <observer name="labelin_premade_order_in_production_items_move_to_production" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemInProduction"/>
         <observer name="labelin_premade_order_in_production_item_status" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemStatusInProduction" />

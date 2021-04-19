@@ -36,6 +36,21 @@
             <argument name="identityContainer" xsi:type="object">ProductionTicketIdentity</argument>
         </arguments>
     </type>
+    <virtualType name="OrderReadyToShipIdentity" type="Labelin\ProductionTicket\Model\Email\ReadyToShip\Identity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_production_ticket_email/to_shipper/enabled</item>
+                <item name="template" xsi:type="string">labelin_production_ticket_email/to_shipper/template</item>
+                <item name="identity" xsi:type="string">labelin_production_ticket_email/to_shipper/identity</item>
+                <item name="copy_method" xsi:type="string">labelin_production_ticket_email/to_shipper/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Labelin\ProductionTicket\Model\Email\Sender\ShipperOrderSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">OrderReadyToShipIdentity</argument>
+        </arguments>
+    </type>
     <virtualType name="Labelin\ProductionTicket\Helper\ProductionTicketDebug" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
             <argument name="fileName" xsi:type="string">/var/log/production_ticket.log</argument>
