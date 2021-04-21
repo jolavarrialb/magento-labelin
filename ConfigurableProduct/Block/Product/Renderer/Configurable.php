@@ -218,6 +218,9 @@ class Configurable extends MagentoSwatchesConfigurable
         $tierPrices = [];
 
         foreach ($tierPricesList as $tierPrice) {
+            if (empty($tierPrice['price']->getValue())) {
+                continue;
+            }
 
             $tierPrices[] = [
                 'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
