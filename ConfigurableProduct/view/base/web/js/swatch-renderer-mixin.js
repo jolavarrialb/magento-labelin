@@ -203,11 +203,16 @@ define([
             }
 
             $widget._Rebuild();
+            let $priceBoxArea = $widget.element.parents($widget.options.selectorProduct).find(this.options.selectorProductPrice),
+                priceBoxHasPrice = $priceBoxArea.is(':data(mage-priceBox)');
 
-            if ($widget.element.parents($widget.options.selectorProduct)
-                .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
-            ) {
+            if (priceBoxHasPrice && $this.hasClass('selected')) {
                 $widget._UpdatePrice();
+                $priceBoxArea.show();
+            }
+
+            if (priceBoxHasPrice && !$this.hasClass('selected')) {
+                $priceBoxArea.hide();
             }
 
             $(document).trigger('updateMsrpPriceBlock',

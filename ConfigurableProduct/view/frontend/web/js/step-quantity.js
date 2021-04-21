@@ -7,6 +7,8 @@ function initStepQuantity() {
         clearYourOrderSectionQty();
     });
 
+    tierPriceBlock.hide();
+
     tierPriceBlock.on('click', 'input.radiobutton', function () {
         updateLocalStorageData(this.value);
         selectOptionYourOrderStepQty(this.value);
