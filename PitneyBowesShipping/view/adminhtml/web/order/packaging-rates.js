@@ -10,6 +10,7 @@ define([
             this.formData = {};
             this.fromAddress = fromAddress;
             this.toAddress = toAddress;
+            this.lbsToOz = 16;
         },
 
         validate: function (section) {
@@ -72,13 +73,20 @@ define([
             let sectionElements = this.packagingWindow.querySelector('#' + section.id);
 
             this.formData = {
-                weight: sectionElements.querySelector('input[name=container_weight]').value,
-                weight_unit_of_measurement: sectionElements.querySelector('select[name=container_weight_units]').value,
+                weight: this.calculateWeight(sectionElements),
+                weight_unit_of_measurement: 'OZ',
                 length: sectionElements.querySelector('input[name=container_length]').value,
                 width: sectionElements.querySelector('input[name=container_width]').value,
                 height: sectionElements.querySelector('input[name=container_height]').value,
                 dimensions_unit_of_measurement: sectionElements.querySelector('select[name=container_dimension_units]').value
             };
-        }
+        },
+
+        calculateWeight: function (sectionElements) {
+            let lbs = sectionElements.querySelector('input[name=container_weight_lb]').value ?? '0',
+                oz = sectionElements.querySelector('input[name=container_weight_oz]').value ?? '0';
+
+            return (parseInt(lbs, 10) * this.lbsToOz) + parseInt(oz, 10);
+        },
     }
 });

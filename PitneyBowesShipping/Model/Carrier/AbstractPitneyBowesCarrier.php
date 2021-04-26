@@ -327,4 +327,9 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
             (bool)$request->getDestCity() ||
             (bool)$request->getDestPostcode();
     }
+
+    public function getPackagingTypesSizes(string $key): array
+    {
+        return $this->carrierConfig->getSizes($key);
+    }
 }

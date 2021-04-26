@@ -64,7 +64,11 @@
                     <td class="col-type">
                         <?php $containers = $block->getContainers(); ?>
                         <select name="package_container"
-                                onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?= $block->escapeHtmlAttr($block->escapeJs($girthEnabled)) ?>);"
+                                onchange="
+                                    packaging.changeContainerType(this);
+                                    packaging.checkSizeAndGirthParameter(this, <?= $block->escapeHtmlAttr($block->escapeJs($girthEnabled)) ?>);
+                                    packaging.updateDimensions(this, jQuery);
+                                    "
                             <?php if (empty($containers)) : ?>
                                 title="<?= $block->escapeHtmlAttr(__('USPS domestic shipments don\'t use package types.')) ?>"
                                 disabled=""
@@ -73,9 +77,20 @@
                                 class="admin__control-select"
                             <?php endif; ?>>
                             <?php foreach ($containers as $key => $value) : ?>
-                                <option value="<?= $block->escapeHtmlAttr($key) ?>" >
+                            <?php $packagingTypesSizes = $carrier->getPackagingTypesSizes($key);?>
+                            <?php if ($packagingTypesSizes) : ?>
+                                <option value="<?= $block->escapeHtmlAttr($key) ?>"
+                                        data-length="<?= $packagingTypesSizes['length']; ?>"
+                                        data-width="<?= $packagingTypesSizes['width']; ?>"
+                                        data-height="<?= $packagingTypesSizes['height']; ?>"
+                                >
                                     <?= $block->escapeHtml($value) ?>
                                 </option>
+                            <?php else : ?>
+                                    <option value="<?= $block->escapeHtmlAttr($key) ?>" >
+                                        <?= $block->escapeHtml($value) ?>
+                                    </option>
+                            <?php endif;?>
                             <?php endforeach; ?>
                         </select>
                     </td>
@@ -128,20 +143,26 @@
                     </td>
                     <td class="col-total-weight">
                         <div class="admin__control-addon">
+                            <?php foreach ($carrier->getWeightUnitOfMeasure() as $key => $value): ?>
                             <input type="text"
                                    class="options-weight input-text admin__control-text required-entry validate-greater-than-zero"
-                                   name="container_weight" />
+                                   name="container_weight_<?php echo $block->escapeHtml(strtolower($key)); ?>"
+                                   style="background-color: #FFFFFF"
+                            />
                             <select name="container_weight_units"
                                     class="options-units-weight measures admin__control-select"
-                                    onchange="packaging.changeMeasures(this);">
-                                <?php foreach ($carrier->getWeightUnitOfMeasure() as $key => $value): ?>
+                                    disabled="disabled"
+                            >
                                     <option
                                         value="<?= $block->escapeHtml($key) ?>"
-                                        <?php if($carrier->getConfigData('unit_of_measure') === $key): ?> selected="selected" <?php endif; ?>>
+                                        selected="selected"
+                                    >
                                         <?= $block->escapeHtml(strtolower($key)) ?>
                                     </option>
-                                <?php endforeach; ?>
+
                             </select>
+
+                            <?php endforeach; ?>
                             <span class="admin__addon-prefix"></span>
                         </div>
                     </td>
