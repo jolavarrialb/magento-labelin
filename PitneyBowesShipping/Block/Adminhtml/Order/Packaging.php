@@ -11,6 +11,7 @@ use Magento\Directory\Model\RegionFactory;
 use Magento\Framework\DataObject;
 use Magento\Framework\Json\EncoderInterface;
 use Magento\Framework\Registry;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Shipping\Block\Adminhtml\Order\Packaging as MagentoPackaging;
 use Magento\Shipping\Model\Carrier\Source\GenericInterface;
 use Magento\Shipping\Model\CarrierFactory;
@@ -24,6 +25,9 @@ class Packaging extends MagentoPackaging
     /** @var RegionFactory */
     protected $regionFactory;
 
+    /** @var Json  */
+    protected $jsonSerializer;
+
     public function __construct(
         Context $context,
         EncoderInterface $jsonEncoder,
@@ -32,12 +36,14 @@ class Packaging extends MagentoPackaging
         CarrierFactory $carrierFactory,
         StoreInformation $storeInformation,
         RegionFactory $regionFactory,
+        Json $jsonSerializer,
         array $data = []
     ) {
         parent::__construct($context, $jsonEncoder, $sourceSizeModel, $coreRegistry, $carrierFactory, $data);
 
         $this->storeInformation = $storeInformation;
         $this->regionFactory = $regionFactory;
+        $this->jsonSerializer = $jsonSerializer;
     }
 
     public function getFromAddressJson(): string
@@ -84,5 +90,11 @@ class Packaging extends MagentoPackaging
     protected function iniRegion(array $data = []): Region
     {
         return $this->regionFactory->create($data);
+    }
+
+    public function getConfigDataJson() {
+        $data = $this->jsonSerializer->unserialize(parent::getConfigDataJson());
+
+        return $this->jsonSerializer->serialize($data);
     }
 }

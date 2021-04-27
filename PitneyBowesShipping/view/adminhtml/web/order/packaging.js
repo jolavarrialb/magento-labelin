@@ -5,9 +5,8 @@ define([
     'use strict';
 
     if (window.packaging !== "undefined") {
-        (function (sendCreateLabelRequest) {
-            Packaging.prototype.sendCreateLabelRequest = function () {
-
+        window.Packaging.addMethods({
+            sendCreateLabelRequest: function () {
                 var self = this;
 
                 if (!this.validate()) {
@@ -15,6 +14,7 @@ define([
 
                     return;
                 }
+
                 this.messages.hide().update();
 
                 if (this.createLabelUrl) {
@@ -24,7 +24,7 @@ define([
                     this.packagesContent.childElements().each(function (pack) {
                         var packageId = this.getPackageId(pack);
 
-                        weight = parseFloat(pack.select('input[name="container_weight"]')[0].value);
+                        weight = parseFloat(this.calculateWeight(pack));
                         length = parseFloat(pack.select('input[name="container_length"]')[0].value);
                         width = parseFloat(pack.select('input[name="container_width"]')[0].value);
                         height = parseFloat(pack.select('input[name="container_height"]')[0].value);
@@ -158,8 +158,86 @@ define([
                         this.paramsCreateLabelRequest = {};
                     }
                 }
-            };
-        })(Packaging.prototype.sendCreateLabelRequest);
+            },
+            updateDimensions: function (object, $) {
+                let $object = $(object),
+                    packageBlock = $object.parents('[id^="package_block"]').first(),
+                    optionCustom = 'PKG',
+                    packageLength = packageBlock.find('[name="container_length"]'),
+                    packageWidth = packageBlock.find('[name="container_width"]'),
+                    packageHeight = packageBlock.find('[name="container_height"]'),
+                    dimensionUnitsIn = packageBlock.find('[name="container_dimension_units"]'),
+                    length = $('option:selected', object).attr('data-length'),
+                    width = $('option:selected', object).attr('data-width'),
+                    height = $('option:selected', object).attr('data-height');
+
+                if ($('option:selected', object).attr('value') !== optionCustom) {
+                    packageLength.val(length);
+                    packageWidth.val(width);
+                    packageHeight.val(height);
+                    packageLength.attr('disabled', true);
+                    packageWidth.attr('disabled', true);
+                    packageHeight.attr('disabled', true);
+                    dimensionUnitsIn.find('option[value=IN]').attr('selected', 'selected').attr('disabled', true);
+                    dimensionUnitsIn.attr('disabled', true);
+                } else {
+                    packageLength.val('');
+                    packageWidth.val('');
+                    packageHeight.val('');
+                    packageLength.attr('disabled', false);
+                    packageWidth.attr('disabled', false);
+                    packageHeight.attr('disabled', false);
+                    dimensionUnitsIn.attr('disabled', false);
+                }
+            },
+            calculateWeight: function (sectionElements) {
+                const lbsToOz = 16;
+
+                let lbs = sectionElements.querySelector('input[name=container_weight_lb]').value ?? '0',
+                    oz = sectionElements.querySelector('input[name=container_weight_oz]').value ?? '0';
+
+
+                return (parseInt(lbs, 10) * lbsToOz) + parseInt(oz, 10);
+            },
+            _recalcContainerWeightAndCustomsValue: function (container) {
+                var packageBlock = container.up('[id^="package_block"]');
+                var packageId = this.getPackageId(packageBlock);
+                var containerWeightLb = packageBlock.select('[name="container_weight_lb"]')[0];
+                var containerWeightOz = packageBlock.select('[name="container_weight_oz"]')[0];
+                var containerCustomsValue = packageBlock.select('[name="package_customs_value"]')[0];
+
+                containerWeightLb.value = 0;
+                containerWeightOz.value = 0;
+                containerCustomsValue.value = 0;
+                container.select('.grid tbody tr').each(function (item) {
+                    var itemId = item.select('[type="checkbox"]')[0].value;
+                    var qtyValue = parseFloat(item.select('[name="qty"]')[0].value);
+
+                    if (isNaN(qtyValue) || qtyValue <= 0) {
+                        qtyValue = 1;
+                        item.select('[name="qty"]')[0].value = qtyValue;
+                    }
+                    var itemWeight = parseFloat(this._getElementText(item.select('[data-role=item-weight]')[0]));
+
+                    let allWeight = parseFloat(itemWeight * qtyValue);
+
+                    containerWeightLb.value = Math.trunc(allWeight);
+                    containerWeightOz.value = Math.ceil((allWeight - Math.trunc(allWeight)) / 0.0625);
+
+                    var itemCustomsValue = parseFloat(item.select('[name="customs_value"]')[0].value) || 0;
+
+                    containerCustomsValue.value = parseFloat(containerCustomsValue.value) + itemCustomsValue * qtyValue;
+                    this.packages[packageId]['items'][itemId]['customs_value'] = itemCustomsValue;
+                }.bind(this));
+                containerWeightLb.value = parseFloat(parseFloat(Math.round(containerWeightLb.value + 'e+4') + 'e-4').toFixed(4));
+                containerWeightOz.value = parseFloat(parseFloat(Math.round(containerWeightOz.value + 'e+4') + 'e-4').toFixed(4));
+                containerCustomsValue.value = parseFloat(Math.round(containerCustomsValue.value + 'e+2') + 'e-2').toFixed(2);
+
+                if (containerCustomsValue.value == 0) {
+                    containerCustomsValue.value = '';
+                }
+            },
+        });
     }
 });
 
