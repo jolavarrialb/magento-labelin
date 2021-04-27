@@ -26,7 +26,7 @@ class Packaging extends MagentoPackaging
     protected $regionFactory;
 
     /** @var Json  */
-    protected $jsonSerialize;
+    protected $jsonSerializer;
 
     public function __construct(
         Context $context,
@@ -36,14 +36,14 @@ class Packaging extends MagentoPackaging
         CarrierFactory $carrierFactory,
         StoreInformation $storeInformation,
         RegionFactory $regionFactory,
-        Json $jsonSerialize,
+        Json $jsonSerializer,
         array $data = []
     ) {
         parent::__construct($context, $jsonEncoder, $sourceSizeModel, $coreRegistry, $carrierFactory, $data);
 
         $this->storeInformation = $storeInformation;
         $this->regionFactory = $regionFactory;
-        $this->jsonSerialize = $jsonSerialize;
+        $this->jsonSerializer = $jsonSerializer;
     }
 
     public function getFromAddressJson(): string
@@ -93,8 +93,8 @@ class Packaging extends MagentoPackaging
     }
 
     public function getConfigDataJson() {
-        $data = $this->jsonSerialize->unserialize(parent::getConfigDataJson());
+        $data = $this->jsonSerializer->unserialize(parent::getConfigDataJson());
 
-        return $this->jsonSerialize->serialize($data);
+        return $this->jsonSerializer->serialize($data);
     }
 }
