@@ -84,17 +84,17 @@ class GeneralConfig extends AbstractHelper
         ];
     }
 
-    protected function getContainerSizes($key): array
+    protected function getContainerSizes(string $key): array
     {
         return static::CONTAINER_SIZES[$key];
     }
 
-    protected function getContainerCode($key): string
+    protected function getContainerCode(string $key): string
     {
         return static::CONTAINER_CODES[$key];
     }
 
-    public function getSizes($containerKey): array
+    public function getSizes(string $containerKey): array
     {
         if (array_key_exists($containerKey, static::CONTAINER_SIZES)) {
             return static::CONTAINER_SIZES[$containerKey];

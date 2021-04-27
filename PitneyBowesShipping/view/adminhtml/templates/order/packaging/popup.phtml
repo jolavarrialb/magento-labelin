@@ -7,6 +7,8 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
 <?php /* @var $viewModel \Labelin\PitneyBowesShipping\ViewModel\Shipment */ ?>
 <?php $viewModel = $block->getViewModel() ?>
 <?php $shippingHelper = $viewModel->getShippingHelper() ?>
+<?php $isPitneyBowes = $shippingHelper->isPitneyBowesShippingByShipment($block->getShipment()); ?>
+<?php if($isPitneyBowes): ?>
 <script>
     require([
         "jquery",
@@ -85,8 +87,7 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         jQuery(document).data('packagingInited', true);
     });
 </script>
-<?php if($shippingHelper->isPitneyBowesShippingByShipment($block->getShipment())): ?>
     <?php include ($block->getTemplateFile('Labelin_PitneyBowesShipping::order/packaging/popup_content.phtml')) ?>
 <?php else: ?>
-    <?php include ($block->getTemplateFile('Magento_Shipping::order/packaging/popup_content.phtml')) ?>
+    <?php include ($block->getTemplateFile('Magento_Shipping::order/packaging/popup.phtml')) ?>
 <?php endif; ?>
