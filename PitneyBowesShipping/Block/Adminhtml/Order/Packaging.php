@@ -16,6 +16,7 @@ use Magento\Shipping\Block\Adminhtml\Order\Packaging as MagentoPackaging;
 use Magento\Shipping\Model\Carrier\Source\GenericInterface;
 use Magento\Shipping\Model\CarrierFactory;
 use Magento\Store\Model\Information as StoreInformation;
+use Labelin\PitneyBowesShipping\Helper\GeneralConfig;
 
 class Packaging extends MagentoPackaging
 {
@@ -28,6 +29,9 @@ class Packaging extends MagentoPackaging
     /** @var Json  */
     protected $jsonSerializer;
 
+    /** @var GeneralConfig  */
+    protected $generalConfig;
+
     public function __construct(
         Context $context,
         EncoderInterface $jsonEncoder,
@@ -37,6 +41,7 @@ class Packaging extends MagentoPackaging
         StoreInformation $storeInformation,
         RegionFactory $regionFactory,
         Json $jsonSerializer,
+        GeneralConfig $generalConfig,
         array $data = []
     ) {
         parent::__construct($context, $jsonEncoder, $sourceSizeModel, $coreRegistry, $carrierFactory, $data);
@@ -44,6 +49,7 @@ class Packaging extends MagentoPackaging
         $this->storeInformation = $storeInformation;
         $this->regionFactory = $regionFactory;
         $this->jsonSerializer = $jsonSerializer;
+        $this->generalConfig = $generalConfig;
     }
 
     public function getFromAddressJson(): string
@@ -94,6 +100,8 @@ class Packaging extends MagentoPackaging
 
     public function getConfigDataJson() {
         $data = $this->jsonSerializer->unserialize(parent::getConfigDataJson());
+
+        $data['packagesTypes'] = $this->generalConfig->getCode('packagesTypes');
 
         return $this->jsonSerializer->serialize($data);
     }

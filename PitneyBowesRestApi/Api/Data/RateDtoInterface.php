@@ -52,7 +52,7 @@ interface RateDtoInterface
     /**
      * @return string
      */
-    public function getRateTypeId(): string;
+    public function getRateTypeId(): ?string;
 
     /**
      * @param float $charge

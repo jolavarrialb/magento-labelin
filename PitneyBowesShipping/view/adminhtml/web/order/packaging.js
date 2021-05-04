@@ -1,11 +1,40 @@
 define([
     'jquery',
     'Magento_Shipping/order/packaging'
-], function ($) {
+], function (jquery, packaging) {
     'use strict';
 
     if (window.packaging !== "undefined") {
         window.Packaging.addMethods({
+            initialize: function (params) {
+                this.packageIncrement = 0;
+                this.packages = [];
+                this.packagesTypes = params.packagesTypes ? params.packagesTypes : false;
+                this.itemsAll = [];
+                this.createLabelUrl = params.createLabelUrl ? params.createLabelUrl : null;
+                this.itemsGridUrl = params.itemsGridUrl ? params.itemsGridUrl : null;
+                this.errorQtyOverLimit = params.errorQtyOverLimit;
+                this.titleDisabledSaveBtn = params.titleDisabledSaveBtn;
+                this.window = $('packaging_window');
+                this.messages = this.window.select('.message-warning')[0];
+                this.packagesContent = $('packages_content');
+                this.template = $('package_template');
+                this.paramsCreateLabelRequest = {};
+                this.validationErrorMsg = params.validationErrorMsg;
+
+                this.defaultItemsQty = params.shipmentItemsQty ? params.shipmentItemsQty : null;
+                this.defaultItemsPrice = params.shipmentItemsPrice ? params.shipmentItemsPrice : null;
+                this.defaultItemsName = params.shipmentItemsName ? params.shipmentItemsName : null;
+                this.defaultItemsWeight = params.shipmentItemsWeight ? params.shipmentItemsWeight : null;
+                this.defaultItemsProductId = params.shipmentItemsProductId ? params.shipmentItemsProductId : null;
+                this.defaultItemsOrderItemId = params.shipmentItemsOrderItemId ? params.shipmentItemsOrderItemId : null;
+
+                this.shippingInformation = params.shippingInformation ? params.shippingInformation : null;
+                this.thisPage = params.thisPage ? params.thisPage : null;
+                this.customizableContainers = params.customizable ? params.customizable : [];
+
+                this.eps = 0.000001;
+            },
             sendCreateLabelRequest: function () {
                 var self = this;
 
@@ -159,28 +188,33 @@ define([
                     }
                 }
             },
-            updateDimensions: function (object, $) {
-                let $object = $(object),
+            updateDimensions: function (object, jquery) {
+                const optionCustom = 'PKG';
+
+                let $object = jquery(object),
                     packageBlock = $object.parents('[id^="package_block"]').first(),
-                    optionCustom = 'PKG',
+                    dimensionIsRequired = false,
                     packageLength = packageBlock.find('[name="container_length"]'),
                     packageWidth = packageBlock.find('[name="container_width"]'),
                     packageHeight = packageBlock.find('[name="container_height"]'),
-                    dimensionUnitsIn = packageBlock.find('[name="container_dimension_units"]'),
-                    length = $('option:selected', object).attr('data-length'),
-                    width = $('option:selected', object).attr('data-width'),
-                    height = $('option:selected', object).attr('data-height');
+                    dimensionUnitsIn = packageBlock.find('[name="container_dimension_units"]');
 
-                if ($('option:selected', object).attr('value') !== optionCustom) {
-                    packageLength.val(length);
-                    packageWidth.val(width);
-                    packageHeight.val(height);
+                if (this.packagesTypes.hasOwnProperty(object.value)) {
+                    dimensionIsRequired = this.packagesTypes[object.value].dimensionRules.required;
+                }
+
+                if (!dimensionIsRequired) {
                     packageLength.attr('disabled', true);
                     packageWidth.attr('disabled', true);
                     packageHeight.attr('disabled', true);
+                    packageLength.val(0.0);
+                    packageWidth.val(0.0);
+                    packageHeight.val(0.0);
                     dimensionUnitsIn.find('option[value=IN]').attr('selected', 'selected').attr('disabled', true);
                     dimensionUnitsIn.attr('disabled', true);
-                } else {
+                }
+
+                if (object.value === optionCustom || dimensionIsRequired) {
                     packageLength.val('');
                     packageWidth.val('');
                     packageHeight.val('');

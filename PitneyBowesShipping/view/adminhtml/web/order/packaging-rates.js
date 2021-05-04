@@ -78,7 +78,8 @@ define([
                 length: sectionElements.querySelector('input[name=container_length]').value,
                 width: sectionElements.querySelector('input[name=container_width]').value,
                 height: sectionElements.querySelector('input[name=container_height]').value,
-                dimensions_unit_of_measurement: sectionElements.querySelector('select[name=container_dimension_units]').value
+                dimensions_unit_of_measurement: sectionElements.querySelector('select[name=container_dimension_units]').value,
+                package_container: sectionElements.querySelector('select[name=package_container]').value,
             };
         },
 
