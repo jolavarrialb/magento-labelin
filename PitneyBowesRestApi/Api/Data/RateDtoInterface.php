@@ -50,7 +50,7 @@ interface RateDtoInterface
     public function setRateTypeId(string $typeId);
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRateTypeId(): ?string;
 
