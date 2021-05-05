@@ -38,11 +38,16 @@ define([
             sendCreateLabelRequest: function () {
                 var self = this;
 
-                if (!this.validate()) {
-                    this.messages.show().update(this.validationErrorMsg);
+                this.packagesContent.childElements().each(function (pack) {
+                    let pkgType = pack.select('select[name="package_container"]')[0].value;
+                    let dimensionRequired = self.packagesTypes[pkgType].dimensionRules.required;
 
-                    return;
-                }
+                    if (dimensionRequired && !self.validate(pack)) {
+                        self.messages.show().update(self.validationErrorMsg);
+
+                        return;
+                    }
+                });
 
                 this.messages.hide().update();
 
@@ -67,7 +72,7 @@ define([
                             width: isNaN(width) ? '' : width,
                             height: isNaN(height) ? '' : height,
                             service: service === null ? '' : service,
-                            weight_units: pack.select('select[name="container_weight_units"]')[0].value,
+                            weight_units: 'OZ',
                             dimension_units: pack.select('select[name="container_dimension_units"]')[0].value,
 
                             fromAddress: JSON.stringify(self.fromAddress),
@@ -270,6 +275,29 @@ define([
                 if (containerCustomsValue.value == 0) {
                     containerCustomsValue.value = '';
                 }
+            },
+            validate: function (pack) {
+                var dimensionElements = pack.select(
+                    'input[name=container_length],input[name=container_width],input[name=container_height],input[name=container_girth]:not("._disabled")'
+                );
+                var callback = null;
+
+                if (dimensionElements.any(function (element) {
+                    return !!element.value;
+                })) {
+                    callback = function (element) {
+                        $(element).addClassName('required-entry');
+                    };
+                } else {
+                    callback = function (element) {
+                        $(element).removeClassName('required-entry');
+                    };
+                }
+                dimensionElements.each(callback);
+
+                return result = $$('[id^="package_block_"] input').collect(function (element) {
+                    return this.validateElement(element);
+                }, this).all();
             },
         });
     }

@@ -17,6 +17,15 @@ class GeneralConfig extends AbstractHelper
     public const CONTAINER_FIRST_CLASS_THICK_ENVELOP_PKG = 'FIRST_CLASS_ENVELOPE_PKG';
 
     protected const PACKS_TYPES = [
+        self::CONTAINER_PKG => [
+            'dimensionRules' => [
+                'required' => true,
+            ],
+            'weightRules' => [
+                'required' => true,
+            ],
+            'suggestedTrackableSpecialServiceId' => null,
+        ],
         self::CONTAINER_PRIORITY_FLAT_RATE_ENVELOPE => [
             'weightRules' => [
                 'required' => true,
