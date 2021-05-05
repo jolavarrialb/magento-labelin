@@ -26,6 +26,9 @@ class ParcelDto implements ParcelDtoInterface
     /** @var string */
     protected $dimensionsUnitOfMeasurement;
 
+    /** @var string */
+    protected $packageContainer;
+
     public function setWeight(float $weight = 0.1): self
     {
         $this->weight = $weight;
@@ -133,5 +136,17 @@ class ParcelDto implements ParcelDtoInterface
     protected function getIrregularParcelGirth(): float
     {
         return 2 * ($this->getHeight() + $this->getWidth());
+    }
+
+    public function getPackageContainer(): string
+    {
+        return $this->packageContainer;
+    }
+
+    public function setPackageContainer(string $packageContainer = ''): ParcelDtoInterface
+    {
+        $this->packageContainer = $packageContainer;
+
+        return $this;
     }
 }

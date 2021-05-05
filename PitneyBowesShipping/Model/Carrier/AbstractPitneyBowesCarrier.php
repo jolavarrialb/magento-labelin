@@ -287,7 +287,7 @@ abstract class AbstractPitneyBowesCarrier extends AbstractCarrierOnline implemen
         $rates = (new ShipmentsRatesDto())
             ->setServiceId($packageParams->getService())
             ->setCarrier(current($this->configHelper->getAllowedMethods()))
-            ->setParcelType($this->configHelper->getContainer())
+            ->setParcelType($this->configHelper->getParcelType($packageParams->getContainer()))
             ->setInductionPostalCode($fromAddress->getPostcode());
 
         return $this->shipment->requestShipmentLabel(

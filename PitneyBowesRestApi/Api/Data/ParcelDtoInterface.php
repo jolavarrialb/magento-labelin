@@ -7,8 +7,8 @@ namespace Labelin\PitneyBowesRestApi\Api\Data;
 interface ParcelDtoInterface
 {
     public const DEFAULT_WEIGHT_UNIT_OF_MEASURE = 'OZ';
-    public const WEIGHT_UNIT_OF_MEASURE_LBS     = 'LB';
-    public const WEIGHT_UNIT_OF_MEASURE_KG      = 'KG';
+    public const WEIGHT_UNIT_OF_MEASURE_LBS = 'LB';
+    public const WEIGHT_UNIT_OF_MEASURE_KG = 'KG';
 
     public const DEFAULT_DIMENSION_UNIT_OF_MEASURE = 'IN';
 
@@ -96,4 +96,16 @@ interface ParcelDtoInterface
      * @return array
      */
     public function toWeightArray(): array;
+
+    /**
+     * @return string
+     */
+    public function getPackageContainer(): string;
+
+    /**
+     * @param string $packageContainer
+     *
+     * @return $this
+     */
+    public function setPackageContainer(string $packageContainer = ''): self;
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\PitneyBowesRestApi\Model\Api;
 
+use Labelin\PitneyBowesOfficialApi\Model\Api\Model\SpecialService;
 use Labelin\PitneyBowesOfficialApi\Model\Configuration as OauthConfiguration;
 use Labelin\PitneyBowesOfficialApi\Model\Shipping\RateParcelsApi;
 use Labelin\PitneyBowesOfficialApi\Model\Api\Model\Address;
@@ -22,6 +23,8 @@ use Psr\Log\LoggerInterface;
 
 class Rates implements RatesInterface
 {
+    protected const PACKAGE = 'package_container';
+
     /** @var ConfigHelper */
     protected $configHelper;
 
@@ -47,7 +50,7 @@ class Rates implements RatesInterface
     /**
      * @param AddressDtoInterface $fromAddress
      * @param AddressDtoInterface $toAddress
-     * @param ParcelDtoInterface  $parcel
+     * @param ParcelDtoInterface $parcel
      *
      * @return \Labelin\PitneyBowesRestApi\Api\Data\RateDtoInterface[]
      */
@@ -66,8 +69,10 @@ class Rates implements RatesInterface
             'rates' => [
                 new Rate([
                     'carrier' => current($this->configHelper->getAllowedMethods()),
-                    'parcel_type' => $this->configHelper->getContainer(),
+                    'parcel_type' => $this->configHelper->getParcelType($parcel->getPackageContainer()),
+                    'service_id' => $this->configHelper->getServiceId($parcel->getPackageContainer()),
                     'induction_postal_code' => $fromAddress->getPostcode(),
+                    'special_services' => $this->configHelper->getSpecialServices($parcel->getPackageContainer()),
                 ]),
             ],
             'shipment_options' => [

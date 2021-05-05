@@ -50,9 +50,9 @@ interface RateDtoInterface
     public function setRateTypeId(string $typeId);
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRateTypeId(): string;
+    public function getRateTypeId(): ?string;
 
     /**
      * @param float $charge

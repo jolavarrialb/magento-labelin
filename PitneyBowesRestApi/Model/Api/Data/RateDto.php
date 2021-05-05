@@ -67,14 +67,14 @@ class RateDto implements RateDtoInterface
         return $this->baseCharge;
     }
 
-    public function setRateTypeId(string $typeId): self
+    public function setRateTypeId(?string $typeId): self
     {
         $this->typeId = $typeId;
 
         return $this;
     }
 
-    public function getRateTypeId(): string
+    public function getRateTypeId(): ?string
     {
         return $this->typeId;
     }
