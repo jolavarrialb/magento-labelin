@@ -1,6 +1,6 @@
 <?php /** @var $block \Labelin\Sales\Block\Order\Items\Renderer\DeclinesQtyInfo */ ?>
 <?php if ($block->isAvailable()): ?>
     <div class="message-notice notice message">
-        <?= $block->escapeHtml(__('You have %1 attempt(s) to decline artwork.', $block->getAvailableDeclinesQty())) ?>
+        <?= $block->escapeHtml(__('You have %1 revision(s) to decline artwork.', $block->getAvailableDeclinesQty())) ?>
     </div>
 <?php endif; ?>
