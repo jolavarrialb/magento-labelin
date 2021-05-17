@@ -8,7 +8,7 @@ use Magento\Directory\Model\PriceCurrency as MagentoPriceCurrency;
 
 class PriceRound
 {
-    protected const LABELIN_DEFAULT_PRECISION = 3;
+    protected const LABELIN_DEFAULT_PRECISION = 4;
 
     public function aroundConvertAndRound(
         MagentoPriceCurrency $subject,
