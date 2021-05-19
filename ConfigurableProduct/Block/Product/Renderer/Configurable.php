@@ -224,7 +224,7 @@ class Configurable extends MagentoSwatchesConfigurable
 
             $tierPrices[] = [
                 'qty' => $this->localeFormat->getNumber($tierPrice['price_qty']),
-                'price' => $this->localeFormat->getNumber($tierPrice['price']->getValue()),
+                'price' => number_format($this->localeFormat->getNumber($tierPrice['price']->getValue()), 4, '.', ' '),
                 'bulkPrice' => $this->localeFormat->getNumber(
                     $tierPrice['price']->getValue() * $this->localeFormat->getNumber($tierPrice['price_qty'])
                 ),
