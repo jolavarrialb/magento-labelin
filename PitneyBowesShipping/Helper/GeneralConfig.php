@@ -10,7 +10,7 @@ class GeneralConfig extends AbstractHelper
 {
     public const CONTAINER_PKG = 'PKG';
 
-    public const CONTAINER_PRIORITY_FLAT_RATE_ENVELOPE = 'SMALL_FLAT_RATE_ENV';
+    public const CONTAINER_PRIORITY_FLAT_RATE_ENVELOPE = 'FLAT_RATE_ENV';
     public const CONTAINER_PRIORITY_LARGE_FLAT_RATE_BOX = 'LG_FLAT_RATE_BOX';
     public const CONTAINER_PRIORITY_MEDIUM_FLAT_RATE_BOX = 'MED_FLAT_RATE_BOX';
 
@@ -159,10 +159,10 @@ class GeneralConfig extends AbstractHelper
             ],
             'container_description' => [
                 static::CONTAINER_PKG => __('Customer Packaging'),
-                static::CONTAINER_PRIORITY_FLAT_RATE_ENVELOPE => __('Small Flat Rate Box'),
-                static::CONTAINER_PRIORITY_LARGE_FLAT_RATE_BOX => __('Large Flat Rate Box'),
-                static::CONTAINER_PRIORITY_MEDIUM_FLAT_RATE_BOX => __('Flat Rate Box'),
                 static::CONTAINER_FIRST_CLASS_THICK_ENVELOP_PKG => __('First-Class Mail Package'),
+                static::CONTAINER_PRIORITY_MEDIUM_FLAT_RATE_BOX => __('Medium Flat Rate Box'),
+                static::CONTAINER_PRIORITY_LARGE_FLAT_RATE_BOX => __('Large Flat Rate Box'),
+                static::CONTAINER_PRIORITY_FLAT_RATE_ENVELOPE => __('Flat Rate Envelope Box'),
             ],
             'packagesTypes' => static::PACKS_TYPES,
             'packagesServices' => [
