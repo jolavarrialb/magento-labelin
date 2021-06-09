@@ -39,6 +39,11 @@
                     </dd>
                     <?php endif; ?>
             <?php endforeach; ?>
+            <?php if ($viewModel->isPremadeProduct($_item)): ?>
+                <dd>
+                    <?= $block->getChildBlock('simple_product_image_render')->setData('item', $_item)->toHtml(); ?>
+                </dd>
+            <?php endif;?>
         </dl>
     <?php endif; ?>
     <?= $block->escapeHtml($_item->getDescription()) ?>

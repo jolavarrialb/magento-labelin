@@ -1,12 +1,19 @@
 .action.primary.checkout,
 .action.continue,
 .action.submit,
+.action.primary,
 .action.submit.primary,
+.action.primary.tocart,
 .action.login.primary,
 .action.create.primary {
     border: 1px solid @color-grafite;
     background-color: @color-grafite;
-    &:hover {
+
+    &:hover,
+    &:focus,
+    &:active {
         background-color: @color-hover-grey;
+        border: 1px solid @color-grafite;
     }
+
 }

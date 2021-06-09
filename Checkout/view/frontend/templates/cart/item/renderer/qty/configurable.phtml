@@ -18,13 +18,6 @@
             </option>
         <?php endforeach; ?>
     </select>
-    <script type="text/x-magento-init">
-    {
-        "*": {
-            "Labelin_Checkout/js/update-cart-by-select-qty-change": {}
-        }
-    }
-</script>
 <?php else: ?>
     <?= $block->getLayout()->getBlock('checkout.cart.item.renderers.qty.default')->setData('item', $item)->toHtml() ?>
 <?php endif; ?>

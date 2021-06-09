@@ -1,6 +1,9 @@
 <?php
 /** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
 $_item = $block->getItem();
+$product = $_item->getProduct();
+/** @var $viewModel \Labelin\Sales\ViewModel\Order\Item\Renderer\DefaultRenderer */
+$viewModel = $block->getViewModel();
 ?>
 <tr id="order-item-row-<?= (int)$_item->getId() ?>">
     <td class="col name" data-th="<?= $block->escapeHtml(__('ID')) ?>">
@@ -17,13 +20,17 @@ $_item = $block->getItem();
                         <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
                             <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
                                 <?= $block->getChildBlock('artwork')->setData(['item' => $_item])->toHtml(); ?>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <?= $block->escapeHtml($_option['print_value'] ?? $_option['value']) ?>
                             <?php endif; ?>
                         </dd>
                     <?php endif; ?>
-
                 <?php endforeach; ?>
+                <?php if ($viewModel->isPremadeProduct($_item)): ?>
+                    <dd>
+                        <?= $block->getChildBlock('simple_product_image_render')->setData('item', $_item)->toHtml(); ?>
+                    </dd>
+                <?php endif;?>
             </dl>
         <?php endif; ?>
 
