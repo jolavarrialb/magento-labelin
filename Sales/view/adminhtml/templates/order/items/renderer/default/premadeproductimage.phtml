@@ -1,0 +1,11 @@
+<?php
+/** @var $block Labelin\Sales\Block\Adminhtml\Order\View\Column\PremadeProductImage */
+$item = $this->getData('item');
+?>
+<?php if (null !== $item && $block->productHasImages($item->getProduct())): ?>
+    <a href="<?= /* @noEscape */ $block->getProductOriginalImageUrl($item->getProduct()); ?>" target="_blank">
+        <img src="<?= /* @noEscape */ $block->getProductImageUrl($item->getProduct()); ?>">
+        <br>
+        <?= $block->escapeHtml(__('Download file')) ?>
+    </a>
+<?php endif; ?>

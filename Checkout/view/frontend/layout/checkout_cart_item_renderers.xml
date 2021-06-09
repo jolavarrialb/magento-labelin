@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.cart.item.renderers">
-            <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.cart.item.renderers.configurable" as="configurable" template="Labelin_Checkout::cart/item/default.phtml">
+            <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.cart.item.renderers.configurable" as="configurable" template="Labelin_Checkout::cart/item/configurable.phtml">
                 <arguments>
                     <argument name="view_model" xsi:type="object">Labelin\Checkout\ViewModel\CheckoutCartForm</argument>
                 </arguments>
@@ -13,6 +13,7 @@
                 <block class="Labelin\Checkout\Block\Cart\Item\Renderer\Qty\DefaultRenderer" name="checkout.cart.item.renderers.qty.default" as="renderer_qty_default" template="Labelin_Checkout::cart/item/renderer/qty/default.phtml" />
                 <block class="Labelin\Checkout\Block\Cart\Item\Renderer\Qty\Configurable" name="checkout.cart.item.renderers.qty.configurable" as="renderer_qty_configurable" template="Labelin_Checkout::cart/item/renderer/qty/configurable.phtml" />
             </block>
+            <referenceBlock name="checkout.cart.item.renderers.simple" template="Labelin_Checkout::cart/item/simple.phtml"></referenceBlock>
         </referenceBlock>
     </body>
 </page>
