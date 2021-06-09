@@ -31,15 +31,11 @@ class OrderItems implements ArgumentInterface
     }
 
     /**
-     * @param Item $item
+     * @param Item|null $item
      * @return bool
      */
     public function isPremadeProduct(?Item $item): bool
     {
-        if (!$item) {
-            return false;
-        }
-
-        return $this->premadeHelper->isPremade($item);
+        return $item && $this->premadeHelper->isPremade($item);
     }
 }
