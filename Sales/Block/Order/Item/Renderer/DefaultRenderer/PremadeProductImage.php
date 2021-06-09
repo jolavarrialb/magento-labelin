@@ -45,7 +45,7 @@ class PremadeProductImage extends Template
      */
     public function productHasImages(?Product $product): int
     {
-        if (null === $product) {
+        if (!$product) {
             return 0;
         }
 
