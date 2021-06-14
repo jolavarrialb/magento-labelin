@@ -6,6 +6,7 @@
 
     .container {
         padding: 10px;
+
         .order-card-wrapper {
             display: flex;
             justify-content: space-between;
@@ -230,60 +231,58 @@
     }
 }
 
-.images-wrapper {
-    //max-width: 1435px;
-    //width: 100%;
-    //display: flex;
-    //flex-direction: row;
-    //justify-content: space-between;
-
-    //&.examples-images {
-    //    .column {
-    //        display: flex;
-    //        justify-content: space-between;
-    //        max-width: 708px;
-    //        width: 100%;
-    //
-    //        img {
-    //            @media (max-width: 1024px) {
-    //                width: 50%;
-    //            }
-    //
-    //            @media (max-width: 768px) {
-    //                margin-bottom: 10px;
-    //                width: 50%;
-    //                height: 50%;
-    //            }
-    //
-    //            &:last-of-type {
-    //                @media (max-width: 768px) {
-    //                    margin-left: 10px;
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-    //
-    //@media (max-width: 768px) {
-    //    flex-direction: row;
-    //    flex-wrap: wrap;
-    //    justify-content: center;
-    //    img {
-    //        width: 100%;
-    //        height: auto;
-    //        max-width: 142px;
-    //        max-height: 177px;
-    //        margin-bottom: 20px;
-    //        padding: 0 10px;
-    //    }
-    //}
-}
-
 .how-to-order-section {
     background-color: @color-white;
     color: @color-black;
 
     .images-wrapper {
+        max-width: 1435px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &.examples-images {
+            .column {
+                display: flex;
+                justify-content: space-between;
+                max-width: 708px;
+                width: 100%;
+
+                img {
+                    @media (max-width: 1024px) {
+                        width: 50%;
+                    }
+
+                    @media (max-width: 768px) {
+                        margin-bottom: 10px;
+                        width: 50%;
+                        height: 50%;
+                    }
+
+                    &:last-of-type {
+                        @media (max-width: 768px) {
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            img {
+                width: 100%;
+                height: auto;
+                max-width: 142px;
+                max-height: 177px;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+        }
+
         .image-card-wrapper {
             display: flex;
             flex-direction: column;
