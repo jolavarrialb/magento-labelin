@@ -24,7 +24,8 @@
       "PitneyBowesRestApi/registration.php",
       "Customer/registration.php",
       "InventorySales/registration.php",
-      "PriceCurrency/registration.php"
+      "PriceCurrency/registration.php",
+      "Csp/registration.php"
     ],
     "psr-4": {
       "Labelin\\Sales\\": "Sales",
@@ -41,7 +42,8 @@
       "Labelin\\PitneyBowesRestApi\\": "PitneyBowesRestApi",
       "Labelin\\Customer\\": "Customer",
       "Labelin\\InventorySales\\": "InventorySales",
-      "Labelin\\PriceCurrency\\": "PriceCurrency"
+      "Labelin\\PriceCurrency\\": "PriceCurrency",
+      "Labelin\\Csp\\": "Csp"
     }
   }
 }
