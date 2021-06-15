@@ -19,7 +19,7 @@ class WithArtworkSender extends AbstractSender
                 'Artwork welcome email. Order #%1. Order Item #%2',
                 $this->getOrder()->getIncrementId(),
                 $this->getItem()->getId(),
-            ),
+            )->render(),
             'customer_name' => $this->getOrder()->getCustomerName(),
         ];
     }
