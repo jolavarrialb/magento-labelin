@@ -52,7 +52,7 @@ class ApproveSender extends AbstractSender
                 'Artwork Approve email. Order #%1. Order Item #%2',
                 $this->getOrder()->getIncrementId(),
                 $this->getItem()->getId(),
-            ),
+            )->render(),
             'customer_name' => $this->getOrder()->getCustomerName(),
             'attachments' => [
                 'image' => $this->ticketImageHelper->getEmailAttachment($this->getItem()),
