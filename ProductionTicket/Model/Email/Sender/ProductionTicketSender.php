@@ -8,6 +8,7 @@ use Labelin\ProductionTicket\Helper\ProductionTicketImage;
 use Labelin\ProductionTicket\Helper\ProductionTicketPdf;
 use Labelin\ProductionTicket\Helper\Programmer as ProgrammerHelper;
 use Labelin\ProductionTicket\Model\ProductionTicket;
+use Labelin\Sales\Helper\Product\Premade;
 use Labelin\Sales\Model\Order;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\FileSystemException;
@@ -16,6 +17,7 @@ use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Email\Container\IdentityInterface;
 use Magento\Sales\Model\Order\Email\Container\Template;
 use Magento\Sales\Model\Order\Email\Sender;
+use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
 
 class ProductionTicketSender extends Sender
@@ -26,11 +28,14 @@ class ProductionTicketSender extends Sender
     /** @var ProgrammerHelper */
     protected $programmerHelper;
 
-    /** @var ProductionTicketPdf  */
+    /** @var ProductionTicketPdf */
     protected $ticketPdfHelper;
 
-    /** @var ProductionTicketImage  */
+    /** @var ProductionTicketImage */
     protected $ticketImageHelper;
+
+    /** @var Premade */
+    protected $premadeHelper;
 
     public function __construct(
         Template $templateContainer,
@@ -40,13 +45,15 @@ class ProductionTicketSender extends Sender
         Renderer $addressRenderer,
         ProgrammerHelper $programmerHelper,
         ProductionTicketPdf $ticketPdfHelper,
-        ProductionTicketImage $ticketImageHelper
+        ProductionTicketImage $ticketImageHelper,
+        Premade $premadeHelper
     ) {
         parent::__construct($templateContainer, $identityContainer, $senderBuilderFactory, $logger, $addressRenderer);
 
         $this->programmerHelper = $programmerHelper;
         $this->ticketPdfHelper = $ticketPdfHelper;
         $this->ticketImageHelper = $ticketImageHelper;
+        $this->premadeHelper = $premadeHelper;
     }
 
     /**
@@ -67,10 +74,7 @@ class ProductionTicketSender extends Sender
             'production_ticket' => $productionTicket,
             'order' => $order,
             'order_number' => $productionTicket->getData('order_item_label'),
-            'attachments' => [
-                'image' => $this->ticketImageHelper->getEmailAttachment($orderItem),
-                'pdf' => $this->ticketPdfHelper->getEmailAttachment($orderItem),
-            ]
+            'attachments' => $this->getAttachments($orderItem),
         ];
 
         $transportObject = new DataObject($transport);
@@ -89,5 +93,44 @@ class ProductionTicketSender extends Sender
             $this->identityContainer->setCustomerEmail($programmersCollection->getFirstItem()->getData('email'));
             $this->identityContainer->setCustomerName($programmersCollection->getFirstItem()->getData('username'));
         }
+    }
+
+    /**
+     * @param Item $item
+     * @return array
+     */
+    protected function getAttachments(Item $item): array
+    {
+        if ($this->premadeHelper->isPremade($item)) {
+            return $this->getPremadeProductAttachments($item);
+        }
+
+        return $this->getLabelProductAttachments($item);
+    }
+
+    /**
+     * @param Item $item
+     * @return array
+     * @throws FileSystemException
+     */
+    protected function getPremadeProductAttachments(Item $item): array
+    {
+        return [
+            'pdf' => $this->ticketPdfHelper->getEmailAttachment($item),
+        ];
+
+    }
+
+    /**
+     * @param Item $item
+     * @return array
+     * @throws FileSystemException
+     */
+    protected function getLabelProductAttachments(Item $item): array
+    {
+        return [
+            'image' => $this->ticketImageHelper->getEmailAttachment($item),
+            'pdf' => $this->ticketPdfHelper->getEmailAttachment($item),
+        ];
     }
 }

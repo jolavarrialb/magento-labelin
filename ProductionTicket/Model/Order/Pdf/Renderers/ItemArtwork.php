@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\ProductionTicket\Model\Order\Pdf\Renderers;
 
 use Labelin\ProductionTicket\Helper\ProductionTicketImage;
+use Labelin\Sales\Model\Order\Item as OrderItem;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Filesystem;
@@ -97,11 +98,11 @@ class ItemArtwork extends AbstractItems
     }
 
     /**
-     * @param $item
+     * @param OrderItem $item
      * @return string
      * @throws FileSystemException
      */
-    protected function getImagePath($item): string
+    protected function getImagePath(OrderItem $item): string
     {
         return $this->productionTicketHelper->getArtworkOptionsPathByItem($item);
     }
