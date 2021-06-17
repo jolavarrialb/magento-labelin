@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf;
 
+use Labelin\Sales\Helper\Product\Premade;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filter\FilterManager;
@@ -32,6 +33,8 @@ class Item extends AbstractPdf
 
     protected const RENDERER_TYPE_ITEM_IMAGE = 'productionTicketArtworkImage';
 
+    protected const RENDERER_TYPE_ITEM_PREMADE = 'productionTicketPremadeImage';
+
     /** @var StoreManagerInterface */
     protected $storeManager;
 
@@ -43,6 +46,9 @@ class Item extends AbstractPdf
 
     /** @var FilterManager */
     protected $filterManager;
+
+    /** @var Premade */
+    protected $premadeHelper;
 
     public function __construct(
         Data $paymentData,
@@ -59,6 +65,7 @@ class Item extends AbstractPdf
         Reader $moduleReader,
         FilterManager $filterManager,
         Database $fileStorageDatabase = null,
+        Premade $premadeHelper,
         array $data = []
     ) {
         parent::__construct(
@@ -81,6 +88,7 @@ class Item extends AbstractPdf
         $this->storeManager = $storeManager;
         $this->moduleReader = $moduleReader;
         $this->filterManager = $filterManager;
+        $this->premadeHelper = $premadeHelper;
     }
 
     /**
@@ -100,6 +108,7 @@ class Item extends AbstractPdf
         $this->_beforeGetPdf();
         $this->_initRenderer(static::RENDERER_TYPE_ITEM);
         $this->_initRenderer(static::RENDERER_TYPE_ITEM_IMAGE);
+        $this->_initRenderer(static::RENDERER_TYPE_ITEM_PREMADE);
 
         $pdf = new \Zend_Pdf();
         $this->_setPdf($pdf);
@@ -116,7 +125,7 @@ class Item extends AbstractPdf
 
         $this->drawItemByType(static::RENDERER_TYPE_ITEM, $item, $page);
 
-        $this->drawItemByType(static::RENDERER_TYPE_ITEM_IMAGE, $item, $page);
+        $this->addItemImage($item, $page);
 
         $this->_afterGetPdf();
 
@@ -162,5 +171,17 @@ class Item extends AbstractPdf
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
+    }
+
+    protected function addItemImage(OrderItem $item, $page): void
+    {
+        if ($this->premadeHelper->isPremade($item)) {
+
+            $this->drawItemByType(static::RENDERER_TYPE_ITEM_PREMADE, $item, $page);
+
+            return;
+        }
+
+        $this->drawItemByType(static::RENDERER_TYPE_ITEM_IMAGE, $item, $page);
     }
 }

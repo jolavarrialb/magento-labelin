@@ -8,5 +8,8 @@
         <page type="productionTicketArtworkImage">
             <renderer product_type="productionTicketArtworkImage">Labelin\ProductionTicket\Model\Order\Pdf\Renderers\ItemArtwork</renderer>
         </page>
+        <page type="productionTicketPremadeImage">
+            <renderer product_type="productionTicketPremadeImage">Labelin\ProductionTicket\Model\Order\Pdf\Renderers\ItemPremade</renderer>
+        </page>
     </renderers>
 </config>
