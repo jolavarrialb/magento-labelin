@@ -83,6 +83,9 @@ class ProductionTicketSender extends Sender
         $this->checkAndSend($order);
     }
 
+    /**
+     * @param MagentoOrder $order
+     */
     protected function prepareTemplate(MagentoOrder $order): void
     {
         parent::prepareTemplate($order);

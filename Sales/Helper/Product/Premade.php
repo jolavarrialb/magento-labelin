@@ -44,6 +44,10 @@ class Premade extends AbstractHelper
         $this->artworkSizesHelper = $artworkSizesHelper;
     }
 
+    /**
+     * @param Item $item
+     * @return bool
+     */
     public function isPremade(Item $item): bool
     {
         return null === $item->getParentItemId() && Type::DEFAULT_TYPE === $item->getProductType();
@@ -76,6 +80,10 @@ class Premade extends AbstractHelper
         );
     }
 
+    /**
+     * @param Product $product
+     * @return string
+     */
     public function getProductAbsolutePath(Product $product): string
     {
         $image = $product->getMediaGalleryImages()->getFirstItem();

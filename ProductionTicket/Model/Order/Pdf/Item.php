@@ -173,7 +173,7 @@ class Item extends AbstractPdf
         $this->y -= 20;
     }
 
-    protected function addItemImage($item, $page): void
+    protected function addItemImage(OrderItem $item, $page): void
     {
         if ($this->premadeHelper->isPremade($item)) {
 
