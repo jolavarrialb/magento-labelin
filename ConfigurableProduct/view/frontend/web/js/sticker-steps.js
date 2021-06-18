@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
             currentSelectedSwatchOption = document.querySelector('div[data-step="' + (currentStep) + '"] .swatch-option.selected'),
             fileInput = document.querySelector('input.product-custom-option[type="file"]');
 
+        window.scrollTo(0, 0);
+
         if (currentSelectedSwatchOption) {
             currentSelectedSwatchOption.click();
         }
@@ -117,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
             selectedSwatchOption = document.querySelector('div[data-step="' + (currentStep + 1) + '"] .swatch-option.selected'),
             qtyInput = document.querySelector('input[name="qty"]'),
             qtyInputCheckedList = document.querySelectorAll('input[name="qty"]:checked');
+
+        window.scrollTo(0, 0);
 
         proceedStep(currentStep + 1);
 
