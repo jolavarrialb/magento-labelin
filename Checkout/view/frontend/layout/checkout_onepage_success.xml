@@ -6,5 +6,8 @@
             <block class="Labelin\Checkout\Block\Success\Favourite" name="checkout.success.favourite.block"
                    template="Labelin_Checkout::success/favourite.phtml"/>
         </referenceContainer>
+        <referenceContainer name="content">
+            <referenceBlock name="checkout.success" template="Labelin_Checkout::success.phtml"/>
+        </referenceContainer>
     </body>
 </page>
