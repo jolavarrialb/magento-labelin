@@ -11,7 +11,7 @@ use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig;
 
 class OauthGenerator
 {
-    /** @var array  */
+    /** @var array */
     protected $cacheCleantypes = [
         'config',
     ];
@@ -25,7 +25,7 @@ class OauthGenerator
     /** @var FixedPriceShippingConfig */
     protected $fixedPriceShippingConfig;
 
-    /** @var CacheCleaner  */
+    /** @var CacheCleaner */
     protected $cacheCleanerHelper;
 
     public function __construct(
@@ -50,14 +50,27 @@ class OauthGenerator
         $token = $this->oauth->getAuthToken();
 
         if (!$token) {
+            $this->setActualApiTokensStatus(false);
+
             return $this;
         }
 
         $this->freeShippingConfig->saveApiAccessToken($token);
         $this->fixedPriceShippingConfig->saveApiAccessToken($token);
 
+        $this->setActualApiTokensStatus();
+
         $this->cacheCleanerHelper->cacheClean($this->cacheCleantypes);
 
         return $this;
+    }
+
+    /**
+     * @param bool $tokenIsActual
+     */
+    protected function setActualApiTokensStatus(bool $tokenIsActual = true): void
+    {
+        $this->freeShippingConfig->setApiAccessTokenStatus($tokenIsActual);
+        $this->fixedPriceShippingConfig->setApiAccessTokenStatus($tokenIsActual);
     }
 }
