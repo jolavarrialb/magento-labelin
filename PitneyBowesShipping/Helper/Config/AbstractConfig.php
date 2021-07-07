@@ -145,7 +145,7 @@ abstract class AbstractConfig extends AbstractHelper
         return (bool)$this->scopeConfig->getValue($this->xmlPathSettings['api_token_is_actual']);
     }
 
-    public function setApiAccessTokenStatus(bool $isActual = true): self
+    public function setApiAccessTokenStatus(bool $isActual): self
     {
         $this->config->saveConfig($this->xmlPathSettings['api_token_is_actual'], $isActual);
 

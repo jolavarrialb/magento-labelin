@@ -7,7 +7,7 @@ namespace Labelin\PitneyBowesRestApi\Cron;
 use Labelin\PitneyBowesShipping\Helper\Config\FixedPriceShippingConfig;
 use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig;
 
-class OauthApiKeyIsValid
+class OauthApiKeyCheckIsValid
 {
     /** @var OauthGenerator */
     protected $oauthGenerator;
@@ -42,6 +42,5 @@ class OauthApiKeyIsValid
         $this->oauthGenerator->execute();
 
         return $this;
-
     }
 }
