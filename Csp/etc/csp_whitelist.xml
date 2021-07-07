@@ -6,6 +6,7 @@
                 <value id="cloudflare" type="host">*.cloudflare.com</value>
                 <value id="twitter.com" type="host">*.twitter.com</value>
                 <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="facebook.net" type="host">*.facebook.net</value>
                 <value id="google-analytics" type="host">*.google-analytics.com</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="cookiebot" type="host">*.cookiebot.com</value>
