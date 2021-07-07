@@ -6,9 +6,11 @@
                 <value id="cloudflare" type="host">*.cloudflare.com</value>
                 <value id="twitter.com" type="host">*.twitter.com</value>
                 <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="facebook.net" type="host">*.facebook.net</value>
                 <value id="google-analytics" type="host">*.google-analytics.com</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
                 <value id="cookiebot" type="host">*.cookiebot.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
             </values>
         </policy>
         <policy id="style-src">
@@ -27,6 +29,7 @@
                 <value id="twitter.com" type="host">*.twitter.com</value>
                 <value id="facebook.com" type="host">*.facebook.com</value>
                 <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="google" type="host">*.google.com</value>
             </values>
         </policy>
         <policy id="connect-src">
@@ -34,6 +37,8 @@
                 <value id="cloudflare" type="host">*.cloudflare.com</value>
                 <value id="twitter.com" type="host">*.twitter.com</value>
                 <value id="paypal" type="host">*.paypal.com</value>
+                <value id="doubleclick" type="host">*.doubleclick.net</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
             </values>
         </policy>
         <policy id="font-src">
@@ -46,6 +51,7 @@
         <policy id="frame-src">
             <values>
                 <value id="youtube.com" type="host">*.youtube.com</value>
+                <value id="cookiebot" type="host">*.cookiebot.com</value>
             </values>
         </policy>
     </policies>
