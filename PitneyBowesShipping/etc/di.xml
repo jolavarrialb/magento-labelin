@@ -7,6 +7,7 @@
                 <item name="api_secret" xsi:type="string">carriers/pitneybowesfreeshipping/api_secret</item>
                 <item name="api_url" xsi:type="string">carriers/pitneybowesfreeshipping/api_url</item>
                 <item name="api_token" xsi:type="string">carriers/pitneybowesfreeshipping/api_token</item>
+                <item name="api_token_is_actual" xsi:type="string">carriers/pitneybowesfreeshipping/api_token_is_actual</item>
                 <item name="allowed_methods" xsi:type="string">carriers/pitneybowesfreeshipping/allowed_methods</item>
                 <item name="container" xsi:type="string">carriers/pitneybowesfreeshipping/container</item>
                 <item name="merchant_id" xsi:type="string">carriers/pitneybowesfreeshipping/merchant_id</item>
@@ -20,6 +21,7 @@
                 <item name="api_secret" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_secret</item>
                 <item name="api_url" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_url</item>
                 <item name="api_token" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_token</item>
+                <item name="api_token_is_actual" xsi:type="string">carriers/pitneybowesfixedpriceshipping/api_token_is_actual</item>
                 <item name="allowed_methods" xsi:type="string">carriers/pitneybowesfixedpriceshipping/allowed_methods</item>
                 <item name="container" xsi:type="string">carriers/pitneybowesfixedpriceshipping/container</item>
                 <item name="merchant_id" xsi:type="string">carriers/pitneybowesfixedpriceshipping/merchant_id</item>

@@ -4,5 +4,8 @@
         <job instance="Labelin\PitneyBowesRestApi\Cron\OauthGenerator" method="execute" name="labelin_pitneybowes_rest_api_generate_oauth">
             <schedule>0 */8 * * *</schedule>
         </job>
+        <job instance="Labelin\PitneyBowesRestApi\Cron\OauthApiKeyCheckIsValid" method="execute" name="labelin_pitneybowes_rest_api_check_actual_and_generate_oauth">
+            <schedule>*/5 * * * *</schedule>
+        </job>
     </group>
 </config>
