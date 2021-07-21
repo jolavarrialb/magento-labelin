@@ -6,8 +6,8 @@ $initOptions = $artworkPreviewHelper->initItemOptions($block->getData('item'));
 <?php if ($initOptions): ?>
     <a href="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
        title="Download: <?= /* @noEscape */ $artworkPreviewHelper->getArtworkLabel() ?>">
-        <embed
-            src="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
+        <img
+            src="<?= /* @noEscape */ $block->getArtworkSrc() ?>"
             type="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkType() ?>"
             width="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkWidth() ?>"
             height="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkHeight() ?>"

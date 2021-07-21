@@ -15,6 +15,9 @@ use Labelin\Sales\Model\Order\Item as LabelinItem;
 
 class ArtworkPreview extends AbstractHelper
 {
+    protected const PDF_APPLICATION_TYPE = 'application/pdf';
+    protected const EPS_APPLICATION_TYPE = 'application/postscript';
+
     /** @var ArtworkSizes */
     protected $artworkSizesHelper;
 
@@ -138,5 +141,15 @@ class ArtworkPreview extends AbstractHelper
         }
 
         return $this->json->unserialize($options['option_value']);
+    }
+
+    public function isPdf(): bool
+    {
+        return $this->getArtworkType() === static::PDF_APPLICATION_TYPE;
+    }
+
+    public function isEps(): bool
+    {
+        return $this->getArtworkType() === static::EPS_APPLICATION_TYPE;
     }
 }
