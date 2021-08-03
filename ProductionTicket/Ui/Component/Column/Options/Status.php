@@ -20,11 +20,11 @@ class Status implements OptionSourceInterface
         $this->options = [
             [
                 'value' => 0,
-                'label' => __('Not completed'),
+                'label' => __('Not Programmed'),
             ],
             [
                 'value' => 1,
-                'label' => __('Completed'),
+                'label' => __('Programmed'),
             ],
         ];
 

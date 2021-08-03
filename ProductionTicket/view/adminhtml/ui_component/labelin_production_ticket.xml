@@ -36,10 +36,10 @@
                 <settings>
                     <url path="production_ticket/grid/complete"/>
                     <type>complete</type>
-                    <label translate="true">Complete</label>
+                    <label translate="true">To Programm</label>
                     <confirm>
-                        <title translate="true">Complete</title>
-                        <message translate="true">Are you sure to complete selected production tickets?</message>
+                        <title translate="true">To Programm</title>
+                        <message translate="true">Are you sure you want to process the selected production tickets?</message>
                     </confirm>
                 </settings>
             </action>
@@ -51,7 +51,7 @@
                     <label translate="true">Un-Complete</label>
                     <confirm>
                         <title translate="true">Un-Complete</title>
-                        <message translate="true">Are you sure to mark selected production tickets as not completed?</message>
+                        <message translate="true">Are you sure you want to process the selected production tickets?</message>
                     </confirm>
                 </settings>
             </action>
