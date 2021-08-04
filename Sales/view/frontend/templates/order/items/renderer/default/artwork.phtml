@@ -9,7 +9,7 @@ $initOptions = $artworkPreviewHelper->initItemOptions($block->getData('item'));
         <embed
             src="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
             type="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkType() ?>"
-            width="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkWidth() ?>"
+            width="<?= /* @noEscape */ $block->getData('width') ?? $artworkPreviewHelper->getArtworkWidth() ?>"
             height="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkHeight() ?>"
         >
         <br>

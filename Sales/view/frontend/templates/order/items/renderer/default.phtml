@@ -19,6 +19,7 @@ $viewModel = $block->getViewModel();
                         <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
                         <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
                             <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
+                                <?php continue;?>
                                 <?= $block->getChildBlock('artwork')->setData(['item' => $_item])->toHtml(); ?>
                             <?php else : ?>
                                 <?= $block->escapeHtml($_option['print_value'] ?? $_option['value']) ?>
@@ -35,9 +36,6 @@ $viewModel = $block->getViewModel();
         <?php endif; ?>
 
         <br/>
-        <?php if ($artworkFormWrapperBlock = $block->getChildBlock('artwork_forms_wrapper')): ?>
-            <?= $artworkFormWrapperBlock->setData('item', $_item)->toHtml(); ?>
-        <?php endif; ?>
         <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
         <?php if ($addtInfoBlock): ?>
             <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
@@ -79,4 +77,20 @@ $viewModel = $block->getViewModel();
     <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
         <?= $block->getItemRowTotalHtml() ?>
     </td>
+    <?php foreach ($_options as $_option): ?>
+    <?php if (!empty($_option['option_type']) && $_option['option_type'] === 'file'): ?>
+    <tr>
+        <td colspan="6" align="center" valign="center" style="width:100%; background-color: #FFFFFF;">
+
+                <?php echo $block->getChildBlock('artwork')->setData(
+                    [
+                        'item' => $_item,
+                        'width' => $viewModel::ARTWORK_FRONT_WIDTH,
+                    ]
+                )->toHtml(); ?>
+
+        </td>
+    </tr>
+<?php endif; ?>
+<?php endforeach; ?>
 </tr>
