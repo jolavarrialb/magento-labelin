@@ -25,7 +25,6 @@
     </event>
     <event name="labelin_order_review_status_after">
         <observer name="order_item_review_status" instance="Labelin\Sales\Observer\Order\Item\ReviewStatusHandler"/>
-        <observer name="order_item_guest_checkout_review_status" instance="Labelin\Sales\Observer\Order\Item\GuestCheckoutReviewStatusHandler"/>
     </event>
     <event name="labelin_sales_order_item_guest_artwork_update">
         <observer name="order_item_guest_artwork_update" instance="Labelin\Sales\Observer\Artwork\GuestCheckout\UploadHandler"/>
