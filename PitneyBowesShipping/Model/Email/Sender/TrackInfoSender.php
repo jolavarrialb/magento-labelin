@@ -24,7 +24,7 @@ class TrackInfoSender extends Sender
             'tracking_link' => AbstractPitneyBowesCarrier::TRACKING_URL . $tracking->getTrackNumber(),
             'tracking_number' => $tracking->getTrackNumber(),
             'customer_name' => $shipment->getOrder()->getCustomerName(),
-            'template_subject' => __('Tracking info for order #%1', $shipment->getOrder()->getIncrementId())->render(),
+            'template_subject' => __('Your order has shipped #%1', $shipment->getOrder()->getIncrementId())->render(),
         ];
 
         $transportObject = new DataObject($transport);
