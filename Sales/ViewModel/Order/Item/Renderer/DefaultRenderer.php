@@ -10,6 +10,8 @@ use Magento\Sales\Model\Order\Item;
 
 class DefaultRenderer implements ArgumentInterface
 {
+    public const ARTWORK_FRONT_WIDTH = '100%';
+
     /** @var Premade */
     protected $premadeHelper;
 
