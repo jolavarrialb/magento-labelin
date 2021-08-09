@@ -200,4 +200,14 @@ class ProductionTicket extends AbstractModel implements IdentityInterface, Produ
     {
         return $this->orderItemRepository->get($this->getOrderItemId());
     }
+
+    public function getItemQty(): string
+    {
+        return $this->getData(ProductionTicketInterface::ITEM_QTY);
+    }
+
+    public function setItemQty(string $itemQty): self
+    {
+        return $this->setData(ProductionTicketInterface::ITEM_QTY, $itemQty);
+    }
 }
