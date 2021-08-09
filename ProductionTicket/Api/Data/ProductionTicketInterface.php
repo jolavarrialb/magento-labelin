@@ -36,6 +36,8 @@ interface ProductionTicketInterface
 
     public const UPDATED_AT = 'updated_at';
 
+    public const ITEM_QTY = 'item_qty';
+
     /**
      * Sets entity ID
      *
@@ -206,4 +208,15 @@ interface ProductionTicketInterface
      * @return DateTime
      */
     public function getUpdatedAt(): DateTime;
+
+    /**
+     * @return string
+     */
+    public function getItemQty(): string;
+
+    /**
+     * @param string $itemQty
+     * @return $this
+     */
+    public function setItemQty(string $itemQty);
 }

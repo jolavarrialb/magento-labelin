@@ -14,13 +14,15 @@
             "created_at": true,
             "updated_at": true,
             "designer": true,
-            "material": true
+            "material": true,
+            "item_qty": true
         },
         "index": {
             "LABELIN_PRODUCTION_TICKET_SHAPE": true,
             "LABELIN_PRODUCTION_TICKET_TYPE": true,
             "LABELIN_PRODUCTION_TICKET_SIZE": true,
-            "LBLIN_PRDION_TICKET_ORDER_ITEM_LBL_SHAPE_TYPE_SIZE_ARTWORK": true
+            "LBLIN_PRDION_TICKET_ORDER_ITEM_LBL_SHAPE_TYPE_SIZE_ARTWORK": true,
+            "FTI_602CD01ACEAAD4C9477C78872CA9495D": true
         },
         "constraint": {
             "PRIMARY": true,

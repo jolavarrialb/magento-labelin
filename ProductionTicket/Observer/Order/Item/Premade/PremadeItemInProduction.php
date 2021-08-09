@@ -56,7 +56,8 @@ class PremadeItemInProduction extends AbstractItemInProduction implements Observ
             ->setApprovalDate(new \DateTime())
             ->setDesigner($this->premadeHelper::PREMADE_DESIGNER)
             ->setMaterial('')
-            ->setIsComplete(false);
+            ->setIsComplete(false)
+            ->setItemQty($this->getOrderItemQty($orderItem));
 
         $this->productionTicketRepository->save($this->productionTicket);
     }
@@ -68,5 +69,20 @@ class PremadeItemInProduction extends AbstractItemInProduction implements Observ
         $productName = $product->getName();
 
         return sprintf('<a href="%s" target="_blank">%s</a>', $url, $productName);
+    }
+
+    protected function getOrderItemQty(Item $orderItem): string
+    {
+        $result = '';
+        $customOptions = $orderItem->getProductOption()->getExtensionAttributes()->getCustomOptions();
+
+        foreach ($customOptions as $option) {
+            $productOptionValue = $orderItem->getProduct()
+                ->getOptionById($option->getOptionId())
+                ->getValueById($option->getOptionValue());
+            $result .= $productOptionValue->getTitle() . ' ';
+        }
+
+        return sprintf('Ordered: %s - in QTY: %s', $result, (int) $orderItem->getQtyOrdered());
     }
 }

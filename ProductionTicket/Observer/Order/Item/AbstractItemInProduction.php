@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Observer\Order\Item;
 
-use Labelin\ProductionTicket\Api\Data\ProductionTicketInterface;
 use Labelin\ProductionTicket\Api\Data\ProductionTicketSearchResultsInterface;
 use Labelin\ProductionTicket\Model\ProductionTicket;
 use Labelin\ProductionTicket\Model\ProductionTicketRepository;
@@ -75,7 +74,8 @@ abstract class AbstractItemInProduction
             ->setApprovalDate($orderItem->getApprovalDate())
             ->setDesigner($this->getDesigner($orderItem))
             ->setMaterial($orderItem->getType())
-            ->setIsComplete(false);
+            ->setIsComplete(false)
+            ->setItemQty($this->getOrderItemQty($orderItem));
 
         $this->productionTicketRepository->save($this->productionTicket);
     }
@@ -101,5 +101,10 @@ abstract class AbstractItemInProduction
         }
 
         return $this->order->getDesigner() ? $this->order->getDesigner()->getName() : '';
+    }
+
+    protected function getOrderItemQty(Item $orderItem): string
+    {
+        return sprintf('QTY: %s', $orderItem->getQtyOrdered())  ?? '';
     }
 }

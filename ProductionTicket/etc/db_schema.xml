@@ -17,6 +17,8 @@
                 comment="Order Item Type"/>
         <column xsi:type="varchar" name="size" nullable="true" length="255"
                 comment="Order Item Size"/>
+        <column xsi:type="varchar" name="item_qty" nullable="true" length="255"
+                comment="Order Item Qty"/>
         <column xsi:type="text" name="artwork" nullable="false" comment="Artwork Src Data"/>
         <column xsi:type="datetime" name="approval_date" on_update="false" nullable="false" comment="Approval Date"/>
         <column xsi:type="boolean" name="status" default="false"/>
@@ -42,12 +44,16 @@
         <index referenceId="LABELIN_PRODUCTION_TICKET_SIZE" indexType="btree">
             <column name="size"/>
         </index>
-        <index referenceId="LABELIN_PRODUCTION_TICKET_ORDER_ITEM_LABEL_SHAPE_TYPE_SIZE_ARTWORK" indexType="fulltext">
+        <index referenceId="LABELIN_PRODUCTION_TICKET_ITEM_QTY" indexType="btree">
+            <column name="size"/>
+        </index>
+        <index referenceId="LABELIN_PRODUCTION_TICKET_ORDER_ITEM_LABEL_SHAPE_TYPE_SIZE_QTY_ARTWORK" indexType="fulltext">
             <column name="order_item_label" />
             <column name="shape" />
             <column name="type" />
             <column name="size" />
             <column name="artwork" />
+            <column name="item_qty" />
         </index>
     </table>
     <table name="sales_order_item">

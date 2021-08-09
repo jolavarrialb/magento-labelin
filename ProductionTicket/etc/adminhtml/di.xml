@@ -12,4 +12,13 @@
             <argument name="errorMessage" xsi:type="string">A total of %1 production ticket(s) haven't been uncompleted. Please see server logs for more details.</argument>
         </arguments>
     </type>
+    <type name="Labelin\ProductionTicket\DataProvider\DataProvider">
+        <arguments>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="item_qty" xsi:type="object">
+                    Labelin\ProductionTicket\DataProvider\Filters\AddOrderedItemQtyFilterToGrid
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>
