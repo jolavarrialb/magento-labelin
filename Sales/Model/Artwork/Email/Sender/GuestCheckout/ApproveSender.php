@@ -49,9 +49,8 @@ class ApproveSender extends AbstractSender
 
         return [
             'template_subject' => __(
-                'Artwork Approve email. Order #%1. Order Item #%2',
+                'Your proof is ready. Order #%1.',
                 $this->getOrder()->getIncrementId(),
-                $this->getItem()->getId(),
             )->render(),
             'customer_name' => $this->getOrder()->getCustomerName(),
             'attachments' => [
