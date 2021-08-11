@@ -11,14 +11,14 @@ $_order = $_item->getOrder();
         <?php if ($block->getItemOptions()) : ?>
             <dl class="item-options">
             <?php foreach ($block->getItemOptions() as $option) : ?>
+                <?php if (!empty($option['option_type']) && $option['option_type'] === 'file'): ?>
+                    <?php continue; ?>
+                <?php else: ?>
                 <dt><strong><em><?= $block->escapeHtml($option['label']) ?></em></strong></dt>
                 <dd>
-                    <?php if (!empty($option['option_type']) && $option['option_type'] === 'file'): ?>
-                        <?= /* @noEscape */ $block->getChildBlock('artwork')->setData(['item' => $_item])->toHtml(); ?>
-                    <?php else: ?>
-                        <?= /* @noEscape */ nl2br($block->escapeHtml($option['value'])) ?>
-                    <?php endif; ?>
+                    <?= /* @noEscape */ nl2br($block->escapeHtml($option['value'])) ?>
                 </dd>
+                <?php endif; ?>
             <?php endforeach; ?>
             </dl>
         <?php endif; ?>
