@@ -100,6 +100,16 @@
             </argument>
         </arguments>
     </virtualType>
+    <virtualType name="GuestCheckoutWelcomeWithoutArtwork" type="Labelin\Sales\Model\Artwork\Email\Container\GuestCheckout\Welcome\WithoutArtworkIdentity">
+        <arguments>
+            <argument name="xmlPathSettings" xsi:type="array">
+                <item name="is_enabled" xsi:type="string">labelin_guest_checkout_email/welcome_email_without_artwork/enabled</item>
+                <item name="template" xsi:type="string">labelin_guest_checkout_email/welcome_email_without_artwork/template</item>
+                <item name="copy_to" xsi:type="string">labelin_guest_checkout_email/welcome_email_without_artwork/copy_to</item>
+                <item name="copy_method" xsi:type="string">labelin_guest_checkout_email/welcome_email_without_artwork/copy_method</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <virtualType name="GuestCheckoutApproveArtwork" type="Labelin\Sales\Model\Artwork\Email\Container\GuestCheckout\ApproveIdentity">
         <arguments>
             <argument name="xmlPathSettings" xsi:type="array">
@@ -144,6 +154,11 @@
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\AwaitingApproveSender">
         <arguments>
             <argument name="identityContainer" xsi:type="object">AwaitingApproveIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\Welcome\WithoutArtworkSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">GuestCheckoutWelcomeWithoutArtwork</argument>
         </arguments>
     </type>
     <type name="Labelin\Sales\Model\Artwork\Email\Sender\GuestCheckout\ApproveSender">
