@@ -40,6 +40,7 @@
         <arguments>
             <argument name="xmlPathSettings" xsi:type="array">
                 <item name="is_enabled" xsi:type="string">labelin_production_ticket_email/to_shipper/enabled</item>
+                <item name="send_to_customer" xsi:type="string">labelin_production_ticket_email/to_shipper/send_to_customer</item>
                 <item name="template" xsi:type="string">labelin_production_ticket_email/to_shipper/template</item>
                 <item name="identity" xsi:type="string">labelin_production_ticket_email/to_shipper/identity</item>
                 <item name="copy_method" xsi:type="string">labelin_production_ticket_email/to_shipper/copy_method</item>

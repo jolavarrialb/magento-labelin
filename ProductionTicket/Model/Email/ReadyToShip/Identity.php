@@ -21,6 +21,9 @@ class Identity extends Container
     /** @var Shipper  */
     protected $shipperHelper;
 
+    /** @var array  */
+    protected $emailCopyTo = [];
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
@@ -52,20 +55,26 @@ class Identity extends Container
 
     public function getEmailCopyTo(): array
     {
-        $emailCopyTo = [];
+        if (!empty($this->emailCopyTo)) {
+            return $this->emailCopyTo;
+        }
+
+        $result = [];
         $shippers = $this->shipperHelper->getShippersCollection();
 
         if ($shippers->getSize() === 0) {
-            return $emailCopyTo;
+            return $result;
         }
 
         $shippers->removeItemByKey($shippers->getFirstItem()->getId());
 
         foreach ($shippers as $shipper) {
-            $emailCopyTo[] = $shipper->getData('email');
+            $result[] = $shipper->getData('email');
         }
 
-        return $emailCopyTo;
+        $this->emailCopyTo = $result;
+
+        return $this->emailCopyTo;
     }
 
     public function getCopyMethod(): string
@@ -86,5 +95,31 @@ class Identity extends Container
     public function getEmailIdentity(): string
     {
         return (string)$this->getConfigValue($this->xmlPathSettings['identity'], $this->getStore()->getStoreId());
+    }
+
+    public function getCustomerEmail(): string
+    {
+        if ($this->getConfigValue($this->xmlPathSettings['send_to_customer'], $this->getStore()->getStoreId())) {
+            return $this->customerEmail;
+        }
+
+        if (!empty($this->getEmailCopyTo())) {
+            $firstShipperEmail = $this->emailCopyTo[0];
+
+            unset($this->emailCopyTo[0]);
+
+            return $firstShipperEmail;
+        }
+
+        return '';
+    }
+
+    public function getCustomerName(): string
+    {
+        if ($this->getConfigValue($this->xmlPathSettings['send_to_customer'], $this->getStore()->getStoreId())) {
+            return $this->customerName;
+        }
+
+        return '';
     }
 }
