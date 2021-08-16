@@ -59,20 +59,20 @@ class Identity extends Container
             return $this->emailCopyTo;
         }
 
-        $result = [];
+        $emailCopyTo = [];
         $shippers = $this->shipperHelper->getShippersCollection();
 
         if ($shippers->getSize() === 0) {
-            return $result;
+            return $emailCopyTo;
         }
 
         $shippers->removeItemByKey($shippers->getFirstItem()->getId());
 
         foreach ($shippers as $shipper) {
-            $result[] = $shipper->getData('email');
+            $emailCopyTo[] = $shipper->getData('email');
         }
 
-        $this->emailCopyTo = $result;
+        $this->emailCopyTo = $emailCopyTo;
 
         return $this->emailCopyTo;
     }
