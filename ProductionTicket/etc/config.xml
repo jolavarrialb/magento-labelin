@@ -9,6 +9,7 @@
                 <copy_method>bcc</copy_method>
             </to_programmer>
             <to_shipper>
+                <send_to_customer>0</send_to_customer>
                 <enabled>1</enabled>
                 <template>labelin_production_ticket_email_to_shipper_template</template>
                 <identity>sales</identity>
