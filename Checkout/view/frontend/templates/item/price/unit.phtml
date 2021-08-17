@@ -1,0 +1,13 @@
+<?php
+/** @var $block \Magento\Checkout\Block\Item\Price\Renderer */
+
+$_item = $block->getItem();
+?>
+<span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+    <span class="cart-price">
+        <?= $block->escapeHtml(
+            $this->helper(Labelin\Checkout\Helper\CheckoutData::class)->getTriplePrecisionPrice($_item->getCalculationPrice()),
+            ['span']
+        ) ?>
+    </span>
+</span>
