@@ -11,10 +11,10 @@ class CheckoutData extends Data
     protected const PRICE_TRIPLE_PRECISION = 3;
 
     /**
-     * @param $price
+     * @param float $price
      * @return float|string
      */
-    public function getTriplePrecisionPrice($price)
+    public function getTriplePrecisionPrice(float $price)
     {
         return $this->priceCurrency->format(
             $price,
