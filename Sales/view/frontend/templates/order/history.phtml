@@ -1,5 +1,8 @@
-<?php /** @var \Magento\Sales\Block\Order\History $block */ ?>
-<?php /* @var $viewModel \Labelin\Sales\ViewModel\Order\History */ ?>
+<?php
+use Labelin\Sales\ViewModel\Order\Favourite;
+use Labelin\Sales\ViewModel\Order\History;
+/** @var \Magento\Sales\Block\Order\History $block */?>
+<?php /* @var $viewModel History | Favourite */ ?>
 <?php $viewModel = $block->getViewModel() ?>
 <?php $_orders = $block->getOrders(); ?>
 <?= $block->getChildHtml('info') ?>
@@ -47,7 +50,7 @@
                         <a href="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>" class="action view">
                             <span><?= $block->escapeHtml(__('View Order')) ?></span>
                         </a>
-                        <?php if ($viewModel->getReorderHelper()->canReorder($_order->getEntityId())): ?>
+                        <?php if ($viewModel->getReorderHelper()->canReorder($_order->getEntityId()) && !$viewModel->isHistory()): ?>
                             <a href="#"
                                data-post='<?= /* @noEscape */
                                $viewModel->getPostHelper()->getPostData($block->getReorderUrl($_order)) ?>'

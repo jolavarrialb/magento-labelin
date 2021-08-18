@@ -8,6 +8,9 @@ use Magento\Sales\Block\Order\History;
 
 class Favourite extends History
 {
+    /** @var string  */
+    protected $_template = "Labelin_Sales::order/history.phtml";
+
     public function getOrders()
     {
         $orders = parent::getOrders();
