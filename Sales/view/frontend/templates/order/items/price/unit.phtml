@@ -1,0 +1,9 @@
+<?php
+/** @var \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer $block */
+$_item = $block->getItem();
+?>
+<span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+    <span class="cart-price">
+        <?= /* @noEscape */ $block->getOrder()->formatPricePrecision($block->getItem()->getPrice(),3) ?>
+    </span>
+</span>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block class="Magento\Checkout\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Labelin_Checkout::item/price/unit.phtml" />
+    </body>
+</page>
