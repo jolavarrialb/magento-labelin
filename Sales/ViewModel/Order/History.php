@@ -11,6 +11,8 @@ use Magento\Sales\Helper\Reorder as ReorderHelper;
 
 class History implements ArgumentInterface
 {
+    protected const IS_HISTORY = true;
+
     /** @var ReorderHelper */
     protected $reorderHelper;
 
@@ -43,5 +45,10 @@ class History implements ArgumentInterface
     public function getFavouriteHelper(): FavouriteHelper
     {
         return $this->favouriteHelper;
+    }
+
+    public function isHistory(): bool
+    {
+        return static::IS_HISTORY;
     }
 }

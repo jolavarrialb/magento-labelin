@@ -91,6 +91,13 @@ $viewModel = $block->getViewModel();
 
         </td>
     </tr>
+    <tr>
+        <td>
+            <?php if ($artworkFormWrapperBlock = $block->getChildBlock('artwork_forms_wrapper')): ?>
+                <?= $artworkFormWrapperBlock->setData('item', $_item)->toHtml(); ?>
+            <?php endif; ?>
+        </td>
+    </tr>
 <?php endif; ?>
 <?php endforeach; ?>
 </tr>
