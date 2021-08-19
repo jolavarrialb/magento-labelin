@@ -21,6 +21,10 @@ class ProductType implements OptionSourceInterface
                 'value' => Type::TYPE_SIMPLE,
                 'label' => __('Pre-made'),
             ],
+            [
+                'value' => 'is_reordered',
+                'label' => __('Reorder'),
+            ],
 
         ];
     }
