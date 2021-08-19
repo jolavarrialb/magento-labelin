@@ -17,9 +17,37 @@ class ProductType extends Column
         $data = &$dataSource['data']['items'];
 
         foreach ($data as &$item) {
-            $item['product_type'] = explode(',', $item['product_type']);
+            $item['product_type'] = $this->getOrderProductTypes($item);
         }
 
         return $dataSource;
+    }
+
+    protected function getOrderProductTypes(array $item): array
+    {
+        $productTypes = $this->getArrayFromDbString($item['product_type']);
+
+        if (!isset($item['is_reordered'])) {
+            return $productTypes;
+        }
+
+        $reorderedData = $this->getArrayFromDbString($item['is_reordered']);
+
+        if (count($reorderedData) > 1) {
+            $productTypes[] = 'has_reordered_item';
+
+            return $productTypes;
+        }
+
+        if (count($reorderedData) === 1 && $reorderedData[0]) {
+            return ['reordered'];
+        }
+
+        return $productTypes;
+    }
+
+    protected function getArrayFromDbString($dbString): array
+    {
+        return explode(',', $dbString);
     }
 }

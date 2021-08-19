@@ -66,8 +66,9 @@ class Collection extends GridCollection
                 ['order_item' => 'sales_order_item'],
                 'main_table.entity_id = order_item.order_id',
                 [
-                    'artwork_status' => 'group_concat( distinct artwork_status)',
-                    'product_type' => 'group_concat( distinct order_item.product_type)',
+                    'artwork_status' => 'group_concat(distinct artwork_status)',
+                    'product_type' => 'group_concat(distinct order_item.product_type)',
+                    'is_reordered' => 'group_concat(distinct order_item.is_reordered)',
                 ]
             )
             ->where('order_item.parent_item_id IS NULL')
