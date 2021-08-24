@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Order\Pdf;
 
+use Labelin\Sales\Helper\ArtworkPreview;
 use Labelin\Sales\Helper\Product\Premade;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Filesystem;
@@ -50,6 +51,9 @@ class Item extends AbstractPdf
     /** @var Premade */
     protected $premadeHelper;
 
+    /** @var ArtworkPreview */
+    protected $artworkPreviewHelper;
+
     public function __construct(
         Data $paymentData,
         StringUtils $string,
@@ -66,6 +70,7 @@ class Item extends AbstractPdf
         FilterManager $filterManager,
         Database $fileStorageDatabase = null,
         Premade $premadeHelper,
+        ArtworkPreview $artworkPreview,
         array $data = []
     ) {
         parent::__construct(
@@ -89,6 +94,7 @@ class Item extends AbstractPdf
         $this->moduleReader = $moduleReader;
         $this->filterManager = $filterManager;
         $this->premadeHelper = $premadeHelper;
+        $this->artworkPreviewHelper = $artworkPreview;
     }
 
     /**
@@ -125,7 +131,9 @@ class Item extends AbstractPdf
 
         $this->drawItemByType(static::RENDERER_TYPE_ITEM, $item, $page);
 
-        $this->addItemImage($item, $page);
+        if ($this->canAddImage($item)) {
+            $this->addItemImage($item, $page);
+        }
 
         $this->_afterGetPdf();
 
@@ -183,5 +191,16 @@ class Item extends AbstractPdf
         }
 
         $this->drawItemByType(static::RENDERER_TYPE_ITEM_IMAGE, $item, $page);
+    }
+
+    protected function canAddImage(OrderItem $item): bool
+    {
+        $this->artworkPreviewHelper->initItemOptions($item);
+
+        if ($this->artworkPreviewHelper->isPdf() || $this->artworkPreviewHelper->isEps()) {
+            return false;
+        }
+
+        return true;
     }
 }
