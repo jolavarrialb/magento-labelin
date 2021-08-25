@@ -7,7 +7,7 @@ $initOptions = $artworkPreviewHelper->initItemOptions($block->getData('item'));
     <a href="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
        title="Download: <?= /* @noEscape */ $artworkPreviewHelper->getArtworkLabel() ?>">
         <embed
-            src="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkUrl() ?>"
+            src="<?= /* @noEscape */ $block->getArtworkSrc() ?>"
             type="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkType() ?>"
             width="<?= /* @noEscape */ $block->getData('width') ?? $artworkPreviewHelper->getArtworkWidth() ?>"
             height="<?= /* @noEscape */ $artworkPreviewHelper->getArtworkHeight() ?>"

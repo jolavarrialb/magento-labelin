@@ -85,12 +85,12 @@ class ArtworkPreview extends AbstractHelper
 
     public function getArtworkWidth(): int
     {
-        return $this->artworkSizesHelper->getConfigHeight();
+        return $this->artworkSizesHelper->getConfigWidth();
     }
 
     public function getArtworkHeight(): int
     {
-        return $this->artworkSizesHelper->getConfigWidth();
+        return $this->artworkSizesHelper->getConfigHeight();
     }
 
     protected function getOrderOptions($item = null): array
