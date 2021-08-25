@@ -197,6 +197,6 @@ class Item extends AbstractPdf
     {
         $this->artworkPreviewHelper->initItemOptions($item);
 
-        return !$this->artworkPreviewHelper->isPdf() || !$this->artworkPreviewHelper->isEps();
+        return !$this->artworkPreviewHelper->isPdf() && !$this->artworkPreviewHelper->isEps();
     }
 }
