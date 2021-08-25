@@ -121,7 +121,6 @@ class ProductionTicketSender extends Sender
         return [
             'pdf' => $this->ticketPdfHelper->getEmailAttachment($item),
         ];
-
     }
 
     /**
