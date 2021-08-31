@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Labelin\ProductionTicket\Model\Artwork;
 
 use Exception;
+use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\File\Mime;
 use Magento\Framework\File\Uploader;
@@ -13,22 +14,19 @@ use Labelin\ProductionTicket\Model\Order\Item;
 
 class ArtworkUpload extends Uploader
 {
-    protected const ARTWORK_DESTINATION = '/production_ticket/item/artworkPdf';
-    protected const ARTWORK_EXTENSION_PDF = '.pdf';
-
     /** @var Filesystem */
     protected $fileSystem;
 
-    /** @var DirectoryList */
-    protected $directoryList;
-
     protected $_allowedExtensions = ['pdf'];
+
+    /** @var ProductionTicketArtworkPdfToProgrammer */
+    protected $artworkHelper;
 
     public function __construct(
         $fileId,
         Mime $fileMime,
         DirectoryList $directoryList,
-        Filesystem $fileSystem
+        ProductionTicketArtworkPdfToProgrammer $artworkHelper
     ) {
         parent::__construct(
             $fileId,
@@ -36,37 +34,29 @@ class ArtworkUpload extends Uploader
             $directoryList
         );
 
-        $this->fileSystem = $fileSystem;
-        $this->directoryList = $directoryList;
+        $this->artworkHelper = $artworkHelper;
     }
 
     /**
      * @throws Exception
      */
-    public function saveArtworkPdf(Item $item):array
+    public function saveArtworkPdf(Item $item): array
     {
         $filename = $this->getFileName($item);
         $destinationFolder = $this->getDestinationFolder($item);
+        $result = $this->save($destinationFolder, $filename);
+        $result['link'] = $this->artworkHelper->createLinkForDownloadPdf($item, $result);
 
-        return $this->save($destinationFolder, $filename);
+        return $result;
     }
 
-    protected function getFileName($item): string
+    protected function getFileName(Item $item): string
     {
-        $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
-
-        return sprintf('%s_%s_%s', $orderId, $item->getId(), $this->getUploadedFileName());
+        return $this->artworkHelper->getFileName($item, $this->getUploadedFileName());
     }
 
-    protected function getDestinationFolder(Item $item):string
+    protected function getDestinationFolder(Item $item): string
     {
-        $folderPath = sprintf('/orderId_%s/itemId_%s/', $item->getOrderId(), $item->getId());
-
-        return sprintf(
-            '%s%s%s',
-            $this->directoryList->getPath(DirectoryList::MEDIA),
-            static::ARTWORK_DESTINATION,
-            $folderPath
-        );
+        return $this->artworkHelper->getDestinationFolder($item);
     }
 }

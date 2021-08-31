@@ -10,6 +10,7 @@ use Labelin\Sales\Helper\Product\Premade;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Sales\Model\Order\Item;
 use Labelin\Sales\Helper\Artwork as ArtworkHelper;
+//use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer as ArtworkHelper;
 use Labelin\Sales\Model\Order;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
@@ -77,6 +78,4 @@ class ItemInProductionHandler extends AbstractItemInProduction implements Observ
 
         return array_key_exists('value', $artwork) ? $artwork['value'] : static::ITEM_EMPTY_ARTWORK ;
     }
-
-
 }
