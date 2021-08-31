@@ -32,7 +32,6 @@
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View">
         <plugin name="labelin_adminhtml_order_view_add_review_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ReviewButton" sortOrder="10" />
-        <plugin name="labelin_adminhtml_order_view_add_production_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\ProductionButton" sortOrder="20" />
         <plugin name="labelin_adminhtml_order_view_add_print_labelin_button" type="Labelin\Sales\Plugin\Block\Adminhtml\Order\View\PrintShippingLabelButton" sortOrder="30" />
     </type>
     <type name="Labelin\Sales\Block\Adminhtml\Order\Chart">

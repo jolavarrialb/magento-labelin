@@ -23,11 +23,16 @@ use Magento\Store\Model\StoreManagerInterface;
 class Item extends SalesOrderItem
 {
     public const ATTRIBUTE_CODE_STICKER_SHAPE = 'sticker_shape';
-    public const ATTRIBUTE_CODE_STICKER_TYPE  = 'sticker_type';
-    public const ATTRIBUTE_CODE_STICKER_SIZE  = 'sticker_size';
+    public const ATTRIBUTE_CODE_STICKER_TYPE = 'sticker_type';
+    public const ATTRIBUTE_CODE_STICKER_SIZE = 'sticker_size';
+
+    public const ARTWORK_TO_PRODUCTION_COLUMN = 'artwork_to_production';
 
     /** @var Attribute */
     protected $eavAttribute;
+
+    /** @var Json|mixed */
+    protected $serializer;
 
     public function __construct(
         Context $context,
@@ -59,6 +64,8 @@ class Item extends SalesOrderItem
             $data
         );
 
+        $this->serializer = $serializer ?: \Magento\Framework\App\ObjectManager::getInstance()
+            ->get(\Magento\Framework\Serialize\Serializer\Json::class);
         $this->eavAttribute = $eavAttribute;
     }
 
@@ -123,4 +130,10 @@ class Item extends SalesOrderItem
 
         return '';
     }
+
+    public function setUploadPdfSerializedData(array $pdfInfo): void
+    {
+        $this->setData(static::ARTWORK_TO_PRODUCTION_COLUMN, $this->serializer->serialize($pdfInfo));
+    }
+
 }
