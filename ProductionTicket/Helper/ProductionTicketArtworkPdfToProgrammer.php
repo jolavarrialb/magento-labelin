@@ -7,7 +7,8 @@ namespace Labelin\ProductionTicket\Helper;
 use Labelin\ProductionTicket\Model\Order\Item;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\Serialize\Serializer\Serialize;
+use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Serialize\Serializer\Json;
 
 class ProductionTicketArtworkPdfToProgrammer extends AbstractHelper
 {
@@ -18,13 +19,16 @@ class ProductionTicketArtworkPdfToProgrammer extends AbstractHelper
     /** @var DirectoryList */
     protected $directoryList;
 
-    /** @var Serialize  */
+    /** @var Json  */
     protected $json;
 
     public function __construct(
         DirectoryList $directoryList,
-        Serialize $json
+        Json $json,
+        Context $context
     ) {
+        parent::__construct($context);
+
         $this->directoryList = $directoryList;
         $this->json = $json;
     }
