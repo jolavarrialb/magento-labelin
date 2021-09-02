@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Controller\Adminhtml\Order\Item;
 
-use Labelin\ProductionTicket\Model\Artwork\ArtworkUploadFactory;
+use Labelin\ProductionTicket\Model\ArtworkUploader\ArtworkUploaderFactory;
 use Labelin\ProductionTicket\Model\Order\Item;
 use Labelin\Sales\Model\Order;
 use Magento\Backend\App\Action;
@@ -25,14 +25,14 @@ class InProduction extends Action
     /** @var OrderRepositoryInterface */
     protected $orderRepository;
 
-    /** @var ArtworkUploadFactory */
+    /** @var ArtworkUploaderFactory */
     protected $artworkUploadFactory;
 
     public function __construct(
         Context $context,
         OrderItemRepositoryInterface $orderItemRepository,
         OrderRepositoryInterface $orderRepository,
-        ArtworkUploadFactory $artworkUploadFactory
+        ArtworkUploaderFactory $artworkUploadFactory
     ) {
         $this->orderItemRepository = $orderItemRepository;
         $this->orderRepository = $orderRepository;
@@ -59,7 +59,16 @@ class InProduction extends Action
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        if (!$uploader = $this->artworkUploadFactory->create(['fileId' => static::ARTWORK_IMAGE_FILE_NAME])) {
+        $uploader = $this->artworkUploadFactory->create(
+            [
+                'fileId' => static::ARTWORK_IMAGE_FILE_NAME,
+                'data' => [
+                    'secret_key' => $this->getRequest()->getParam('form_key'),
+                ],
+            ]
+        );
+
+        if (!$uploader) {
             $this->messageManager->addErrorMessage(__('Artwork for Programmer is not uploaded'));
 
             return $this->_redirect($this->_redirect->getRefererUrl());

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Labelin\ProductionTicket\Model\Artwork;
+namespace Labelin\ProductionTicket\Model\ArtworkUploader;
 
 use Exception;
 use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer;
@@ -12,7 +12,7 @@ use Magento\Framework\File\Uploader;
 use Magento\Framework\Filesystem;
 use Labelin\ProductionTicket\Model\Order\Item;
 
-class ArtworkUpload extends Uploader
+class ArtworkUploader extends Uploader
 {
     /** @var Filesystem */
     protected $fileSystem;
@@ -22,11 +22,15 @@ class ArtworkUpload extends Uploader
     /** @var ProductionTicketArtworkPdfToProgrammer */
     protected $artworkHelper;
 
+    /** @var [] */
+    protected $data;
+
     public function __construct(
         $fileId,
         Mime $fileMime,
         DirectoryList $directoryList,
-        ProductionTicketArtworkPdfToProgrammer $artworkHelper
+        ProductionTicketArtworkPdfToProgrammer $artworkHelper,
+        $data = []
     ) {
         parent::__construct(
             $fileId,
@@ -35,6 +39,7 @@ class ArtworkUpload extends Uploader
         );
 
         $this->artworkHelper = $artworkHelper;
+        $this->data = $data;
     }
 
     /**
@@ -45,6 +50,8 @@ class ArtworkUpload extends Uploader
         $filename = $this->getFileName($item);
         $destinationFolder = $this->getDestinationFolder($item);
         $result = $this->save($destinationFolder, $filename);
+
+        $result['secret_key'] = $this->getData('secret_key');
         $result['link'] = $this->artworkHelper->createLinkForDownloadPdf($item, $result);
 
         return $result;
@@ -58,5 +65,10 @@ class ArtworkUpload extends Uploader
     protected function getDestinationFolder(Item $item): string
     {
         return $this->artworkHelper->getDestinationFolder($item);
+    }
+
+    protected function getData(string $key): ?string
+    {
+        return $this->data[$key] ?? null;
     }
 }

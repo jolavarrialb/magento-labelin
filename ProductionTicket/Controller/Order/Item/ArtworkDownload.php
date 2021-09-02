@@ -56,6 +56,12 @@ class ArtworkDownload extends Action implements HttpGetActionInterface
         $item = $this->itemRepository->get($this->getRequest()->getParam('id'));
         $artworkData = $this->serialize->unserialize($item->getArtworkToProduction());
 
+        if ($this->getRequest()->getParam('key') !== $artworkData['secret_key']) {
+            $this->messageManager->addErrorMessage(__('No Artwork'));
+
+            return $this->_redirect($this->_redirect->getRefererUrl());
+        }
+
         $content = [
             'type' => 'filename',
             'value' => $artworkData['path'] . $artworkData['file'],

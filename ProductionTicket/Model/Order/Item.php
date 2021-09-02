@@ -131,9 +131,14 @@ class Item extends SalesOrderItem
         return '';
     }
 
-    public function setUploadPdfSerializedData(array $pdfInfo): void
+    public function setUploadPdfSerializedData(array $fileInfo): void
     {
-        $this->setData(static::ARTWORK_TO_PRODUCTION_COLUMN, $this->serializer->serialize($pdfInfo));
+        $this->setData(static::ARTWORK_TO_PRODUCTION_COLUMN, $this->serializer->serialize($fileInfo));
+    }
+
+    public function getArtworkToProduction(): string
+    {
+        return $this->getData(static::ARTWORK_TO_PRODUCTION_COLUMN);
     }
 
 }

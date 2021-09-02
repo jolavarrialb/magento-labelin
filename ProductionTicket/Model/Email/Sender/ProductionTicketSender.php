@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\ProductionTicket\Model\Email\Sender;
 
-use Labelin\ProductionTicket\Helper\ProductionTicketImage;
+use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer as ProductionTicketImage;
 use Labelin\ProductionTicket\Helper\ProductionTicketPdf;
 use Labelin\ProductionTicket\Helper\Programmer as ProgrammerHelper;
 use Labelin\ProductionTicket\Model\ProductionTicket;
