@@ -69,4 +69,7 @@
             <argument name="logger" xsi:type="object">Labelin\ProductionTicket\Helper\ProductionTicketLogger</argument>
         </arguments>
     </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="AddArtworkToProductionToReorderItem" type="Labelin\ProductionTicket\Plugin\AddArtworkToProductionToReorderItem"/>
+    </type>
 </config>

@@ -64,4 +64,7 @@
             <column name="is_in_production"/>
         </index>
     </table>
+    <table name="quote_item">
+        <column xsi:type="text" name="artwork_to_production" nullable="true" comment="Artwork for Production"/>
+    </table>
 </schema>

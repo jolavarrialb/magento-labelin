@@ -136,7 +136,7 @@ class Item extends SalesOrderItem
         $this->setData(static::ARTWORK_TO_PRODUCTION_COLUMN, $this->serializer->serialize($fileInfo));
     }
 
-    public function getArtworkToProduction(): string
+    public function getArtworkToProduction(): ?string
     {
         return $this->getData(static::ARTWORK_TO_PRODUCTION_COLUMN);
     }

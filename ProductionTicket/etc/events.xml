@@ -16,4 +16,7 @@
         <observer name="labelin_premade_order_in_production_item_status" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemStatusInProduction" />
         <observer name="labelin_premade_order_in_production_status" instance="Labelin\ProductionTicket\Observer\Order\PremadeOrderToProduction" />
     </event>
+    <event name="checkout_cart_save_before">
+        <observer name="set_item_artwork_to_programmer_for_reordered" instance="Labelin\ProductionTicket\Observer\Order\Item\ReorderHandler"/>
+    </event>
 </config>
