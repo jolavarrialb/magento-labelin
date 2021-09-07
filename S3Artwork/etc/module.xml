@@ -3,6 +3,7 @@
     <module name="Labelin_S3Artwork" setup_version="0.1.0">
         <sequence>
             <module name="Labelin_Sales"/>
+            <module name="Labelin_ProductionTicket"/>
         </sequence>
     </module>
 </config>

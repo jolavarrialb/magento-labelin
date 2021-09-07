@@ -1,11 +1,22 @@
 <?php /** @var $block Labelin\ProductionTicket\Block\Adminhtml\Order\View\Column\InProductionForm */ ?>
 <?php if ($block->isAvailable()): ?>
     <br/>
-    <form action="<?= /* @noEscape */ $block->getActionUrl() ?>" name="in_production_form" method="POST">
+    <form action="<?= /* @noEscape */ $block->getActionUrl() ?>"
+          name="in_production_form"
+          method="POST"
+          data-mage-init='{"validation":{}}'
+          enctype="multipart/form-data"
+    >
         <?= $block->getBlockHtml('formkey') ?>
-        <button type="submit" class="action-default scalable action-secondary save">
-            <span><?= $block->escapeHtml(__('To Production')) ?></span>
-        </button>
+        <div class="admin__field">
+            <label for="artwork_to_programmer"><?= $block->escapeHtml(__("Add Artwork-PDF To Programmer And Move Item To Production")) ?></label>
+            <input type="file" name="artwork_to_programmer" class="scalable required"/>
+        </div>
+        <div class="admin__field">
+            <button type="submit" class="action-default scalable action-secondary save" name="submitAction">
+                <span><?= $block->escapeHtml(__('To Production')) ?></span>
+            </button>
+        </div>
     </form>
     <br/>
 <?php endif; ?>

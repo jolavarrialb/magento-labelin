@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="labelin_order_production_status_after">
-        <observer name="order_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\InProductionStatusHandler" />
-    </event>
     <event name="labelin_order_item_production_status_after">
         <observer name="order_item_attached_files_creation_handler"  instance="Labelin\ProductionTicket\Observer\Order\Item\InProductionAttachedFilesHandler" />
         <observer name="order_item_status_in_production_handler" instance="Labelin\ProductionTicket\Observer\Order\Item\ItemInProductionHandler" />
@@ -18,5 +15,8 @@
         <observer name="labelin_premade_order_in_production_items_move_to_production" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemInProduction"/>
         <observer name="labelin_premade_order_in_production_item_status" instance="Labelin\ProductionTicket\Observer\Order\Item\Premade\PremadeItemStatusInProduction" />
         <observer name="labelin_premade_order_in_production_status" instance="Labelin\ProductionTicket\Observer\Order\PremadeOrderToProduction" />
+    </event>
+    <event name="checkout_cart_save_before">
+        <observer name="set_item_artwork_to_programmer_for_reordered" instance="Labelin\ProductionTicket\Observer\Order\Item\ReorderHandler"/>
     </event>
 </config>
