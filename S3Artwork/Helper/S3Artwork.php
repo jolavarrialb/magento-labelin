@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Labelin\S3Artwork\Helper;
 
 use Exception;
+use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer;
 use Labelin\Sales\Helper\ArtworkPreview;
-use Labelin\Sales\Model\Order\Item;
+use Labelin\ProductionTicket\Model\Order\Item;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
@@ -41,6 +42,9 @@ class S3Artwork extends AbstractHelper
     /** @var ArtworkPreview */
     protected $artworkPreviewHelper;
 
+    /** @var ProductionTicketArtworkPdfToProgrammer */
+    protected $artworkPdfToProgrammerHelper;
+
     public function __construct(
         Context $context,
         LoggerInterface $logger,
@@ -48,6 +52,7 @@ class S3Artwork extends AbstractHelper
         DirectoryList $directoryList,
         StoreManagerInterface $storeManager,
         ArtworkPreview $artworkPreviewHelper,
+        ProductionTicketArtworkPdfToProgrammer $artworkPdfToProgrammerHelper,
         File $filesystemIo
     ) {
         parent::__construct($context);
@@ -56,6 +61,7 @@ class S3Artwork extends AbstractHelper
         $this->fileSystem = $fileSystem;
         $this->filesystemIo = $filesystemIo;
         $this->storeManager = $storeManager;
+        $this->artworkPdfToProgrammerHelper = $artworkPdfToProgrammerHelper;
         $this->artworkPreviewHelper = $artworkPreviewHelper;
         $this->logger = $logger;
     }
@@ -97,7 +103,12 @@ class S3Artwork extends AbstractHelper
      */
     public function getPath(Item $item): string
     {
-        return sprintf('%s%s%s', $this->getPubMedia()->getAbsolutePath(), $this->getS3Path(), $this->getOrderItemFolderPath($item));
+        return sprintf(
+            '%s%s%s',
+            $this->getPubMedia()->getAbsolutePath(),
+            $this->getS3Path(),
+            $this->getOrderItemFolderPath($item)
+        );
     }
 
     /**
@@ -106,13 +117,13 @@ class S3Artwork extends AbstractHelper
      */
     protected function getS3Path(): string
     {
-        $configValue =  $this->scopeConfig->getValue(
+        $configValue = $this->scopeConfig->getValue(
             static::S3_ARTWORK_OPTIONS_PATH,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
 
-        return DIRECTORY_SEPARATOR . $configValue . DIRECTORY_SEPARATOR ;
+        return DIRECTORY_SEPARATOR . $configValue . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -133,6 +144,10 @@ class S3Artwork extends AbstractHelper
      */
     public function getArtworkPath(Item $item): string
     {
+        if ($item->getArtworkToProduction()) {
+            return $this->artworkPdfToProgrammerHelper->getProductionFileDestination($item);
+        }
+
         $originalImagePath = $this->artworkPreviewHelper->getArtworkOptionsPathByItem($item);
 
         return sprintf('%s%s', $this->getPubMedia()->getAbsolutePath(), $originalImagePath);
@@ -153,6 +168,10 @@ class S3Artwork extends AbstractHelper
 
     public function getFileName(Item $item): string
     {
+        if ($item->getArtworkToProduction()) {
+            return $this->artworkPdfToProgrammerHelper->getFileName($item);
+        }
+
         $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
         $fileName = $this->artworkPreviewHelper->getArtworkFileNameByItem($item);
 

@@ -55,9 +55,10 @@ class ProductionTicketArtworkPdfToProgrammer extends AbstractHelper
 
     public function getFileName(Item $item, $filename = ''): string
     {
-        if (!$filename) {
+        if ($item->getArtworkToProduction()) {
             $filename = $this->getSavedFilename($item);
         }
+
         $orderId = $item->getOrder()->getIncrementId() ?: 'Order_ID_' . $item->getOrder()->getId();
 
         return sprintf('%s_%s_%s', $orderId, $item->getId(), $filename);
