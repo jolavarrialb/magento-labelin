@@ -13,7 +13,7 @@ class AddArtworkToProductionToReorderItem
 
         if ($artwork = $orderItem->getArtworkToProduction()) {
             foreach ($result->getItems()->getItems() as $item) {
-                if ($item->getProductType() === Configurable::TYPE_CODE && !$item->getArtworkToProduction()) {
+                if ($item->getProductType() === Configurable::TYPE_CODE && !$item->getArtworkToProduction() && $item->getIsReordered()) {
                     $item->setData('artwork_to_production', $artwork);
                 }
             }
