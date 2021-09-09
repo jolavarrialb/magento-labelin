@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Labelin\ProductionTicket\Plugin;
 
 use Magento\Quote\Model\Quote\Item\ToOrderItem;
