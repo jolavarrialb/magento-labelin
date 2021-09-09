@@ -9,13 +9,15 @@ use Magento\Framework\View\Element\Template;
 
 class InProductionForm extends Template
 {
+    protected const URL_ROUTE_IN_PRODUCTION = 'production_ticket/order_item/inProduction';
+
     public function isAvailable(): bool
     {
         if (!$this->getItem()) {
             return false;
         }
 
-        return $this->getItem()->isReadyForProduction();
+        return $this->getItem()->isReadyForProduction() && !$this->getItem()->getIsReordered();
     }
 
     public function getActionUrl(): string
@@ -24,7 +26,7 @@ class InProductionForm extends Template
             return '';
         }
 
-        return $this->getUrl('production_ticket/order_item/inProduction', ['item_id' => $this->getItem()->getId()]);
+        return $this->getUrl(static::URL_ROUTE_IN_PRODUCTION, ['item_id' => $this->getItem()->getId()]);
     }
 
     public function getItem(): ?Item

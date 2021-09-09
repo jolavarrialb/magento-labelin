@@ -1,0 +1,18 @@
+<?php /** @var $block Labelin\ProductionTicket\Block\Adminhtml\Order\View\Column\ReorderedInProductionForm */ ?>
+<?php if ($block->isAvailable()): ?>
+    <br/>
+    <form action="<?= /* @noEscape */ $block->getActionUrl() ?>"
+          name="in_production_form"
+          method="POST"
+          data-mage-init='{"validation":{}}'
+          enctype="multipart/form-data"
+    >
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="admin__field">
+            <button type="submit" class="action-default scalable action-secondary save" name="submitAction">
+                <span><?= $block->escapeHtml(__('To Production')) ?></span>
+            </button>
+        </div>
+    </form>
+    <br/>
+<?php endif; ?>

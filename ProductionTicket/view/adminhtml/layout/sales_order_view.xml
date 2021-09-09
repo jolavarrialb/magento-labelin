@@ -4,6 +4,7 @@
     <body>
         <referenceBlock name="order_item_column_name_extra_info">
             <block class="Labelin\ProductionTicket\Block\Adminhtml\Order\View\Column\InProductionForm" name="artwork_in_production_form" template="Labelin_ProductionTicket::order/items/inproductionform.phtml" />
+            <block class="Labelin\ProductionTicket\Block\Adminhtml\Order\View\Column\ReorderedInProductionForm" name="reordered_artwork_in_production_form" template="Labelin_ProductionTicket::order/items/reorderedinproductionform.phtml" />
         </referenceBlock>
     </body>
 </page>

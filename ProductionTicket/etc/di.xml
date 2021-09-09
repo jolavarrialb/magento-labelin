@@ -72,4 +72,8 @@
     <type name="Magento\Checkout\Model\Cart">
         <plugin name="AddArtworkToProductionToReorderItem" type="Labelin\ProductionTicket\Plugin\AddArtworkToProductionToReorderItem"/>
     </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="labelin_convert_qoute_artwork_item_to_order_item"
+                type="Labelin\ProductionTicket\Plugin\ConvertQuoteArtworkItemToOrderItem"/>
+    </type>
 </config>
