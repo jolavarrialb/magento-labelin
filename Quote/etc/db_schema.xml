@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="quote_item">
-        <column xsi:type="tinyint" name="is_reordered" unsigned="true" nullable="false" default="0" identity="false" comment="Is Item Reordered" />
+        <column xsi:type="tinyint" name="is_reordered" unsigned="true" nullable="true" default="null" identity="false" comment="Is Item Reordered" />
         <index referenceId="QUOTE_ITEM_IS_REORDERED">
             <column name="is_reordered"/>
         </index>

@@ -4,6 +4,7 @@
     <module name="Labelin_Quote" setup_version="0.1.0">
         <sequence>
             <module name="Magento_Quote"/>
+            <module name="Labelin_Sales"/>
         </sequence>
     </module>
 </config>

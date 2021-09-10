@@ -196,7 +196,4 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Sales\Controller\Order\Reorder">
-        <plugin name="labelin_sales_reorder_is_reorder" type="Labelin\Sales\Plugin\Controller\Reorder"/>
-    </type>
 </config>

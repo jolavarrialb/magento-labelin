@@ -70,7 +70,7 @@
         </arguments>
     </type>
     <type name="Magento\Checkout\Model\Cart">
-        <plugin name="AddArtworkToProductionToReorderItem" type="Labelin\ProductionTicket\Plugin\AddArtworkToProductionToReorderItem"/>
+        <plugin name="AddArtworkToProductionToReorderItem" type="Labelin\ProductionTicket\Plugin\AddArtworkToProductionToReorderItem"  sortOrder="100"/>
     </type>
     <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
         <plugin name="labelin_convert_qoute_artwork_item_to_order_item"
