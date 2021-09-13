@@ -11,11 +11,16 @@ class AddArtworkToProductionToReorderItem
     {
         $result = $proceed($orderItem, $qtyFlag);
 
-        if ($artwork = $orderItem->getArtworkToProduction()) {
-            foreach ($result->getItems()->getItems() as $item) {
-                if ($item->getProductType() === Configurable::TYPE_CODE && !$item->getArtworkToProduction() && $item->getIsReordered()) {
-                    $item->setData('artwork_to_production', $artwork);
-                }
+        if (!$artwork = $orderItem->getArtworkToProduction()) {
+            return $result;
+        }
+
+        foreach ($result->getItems()->getItems() as $item) {
+            if ($item->getProductType() === Configurable::TYPE_CODE &&
+                !$item->getArtworkToProduction() &&
+                $item->getIsReordered()) {
+
+                $item->setData('artwork_to_production', $artwork);
             }
         }
 
