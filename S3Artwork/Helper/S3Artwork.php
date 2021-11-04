@@ -8,6 +8,7 @@ use Exception;
 use Labelin\ProductionTicket\Helper\ProductionTicketArtworkPdfToProgrammer;
 use Labelin\Sales\Helper\ArtworkPreview;
 use Labelin\ProductionTicket\Model\Order\Item;
+use Laminas\Mime\Mime;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
@@ -194,5 +195,31 @@ class S3Artwork extends AbstractHelper
     protected function getOrderItemFolderPath(Item $item): string
     {
         return sprintf('/orderId_%s/itemId_%s/', $item->getOrderId(), $item->getId());
+    }
+
+    /**
+     * @param Item $item
+     * @return array
+     */
+    public function getArtworkAttachment(Item $item): array
+    {
+        return [
+            'content' => $this->getArtworkContent($item),
+            'filename' => $this->getFileName($item),
+            'type' => Mime::TYPE_OCTETSTREAM,
+        ];
+    }
+
+    /**
+     * @param Item $item
+     * @return string
+     */
+    protected function getArtworkContent(Item $item): string
+    {
+        return sprintf(
+            '%s%s',
+            preg_replace('~[\/]{2,}~', '/', $this->getPath($item)),
+            $this->getFileName($item)
+        );
     }
 }
