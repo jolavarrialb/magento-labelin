@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Labelin\Sales\Model\Artwork\Email\Sender;
 
+use Labelin\S3Artwork\Helper\S3Artwork;
 use Labelin\Sales\Model\Artwork\Email\Container\Identity;
 use Labelin\Sales\Model\Order;
 use Labelin\Sales\Model\Order\Item;
@@ -24,17 +25,22 @@ class UpdateByDesignerSender extends Sender
     /** @var User */
     protected $user;
 
+    /** @var S3Artwork */
+    protected $s3ArtworkHelper;
+
     public function __construct(
         Template $templateContainer,
         Identity $identityContainer,
         SenderBuilderFactory $senderBuilderFactory,
         LoggerInterface $logger,
         Renderer $addressRenderer,
-        Url $urlBuilder
+        Url $urlBuilder,
+        S3Artwork $s3ArtworkHelper
     ) {
         parent::__construct($templateContainer, $identityContainer, $senderBuilderFactory, $logger, $addressRenderer);
 
         $this->urlBuilder = $urlBuilder;
+        $this->s3ArtworkHelper = $s3ArtworkHelper;
     }
 
     public function send(Item $item, string $comment): void
@@ -47,10 +53,13 @@ class UpdateByDesignerSender extends Sender
         }
 
         $transport = [
-            'item'          => $item,
+            'item' => $item,
             'customer_name' => $order->getCustomerName(),
-            'comment'       => $comment,
-            'order_url'     => $this->urlBuilder->getUrl('sales/order/view', ['order_id' => $order->getId()]),
+            'comment' => $comment,
+            'order_url' => $this->urlBuilder->getUrl('sales/order/view', ['order_id' => $order->getId()]),
+            'attachments' => [
+                'img' => $this->s3ArtworkHelper->getArtworkAttachment($item),
+            ],
         ];
 
         $transportObject = new DataObject($transport);
