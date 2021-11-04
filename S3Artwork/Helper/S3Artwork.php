@@ -198,10 +198,10 @@ class S3Artwork extends AbstractHelper
     }
 
     /**
-     * @param $item
+     * @param Item $item
      * @return array
      */
-    public function getArtworkAttachment($item): array
+    public function getArtworkAttachment(Item $item): array
     {
         return [
             'content' => $this->getArtworkContent($item),
@@ -213,8 +213,6 @@ class S3Artwork extends AbstractHelper
     /**
      * @param Item $item
      * @return string
-     * @throws FileSystemException
-     * @throws NoSuchEntityException
      */
     protected function getArtworkContent(Item $item): string
     {
