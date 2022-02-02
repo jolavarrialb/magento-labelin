@@ -16,6 +16,7 @@ abstract class AbstractConfig extends AbstractHelper
 {
     protected const PKG_SERVICES = 'packagesServices';
     protected const PKG_TYPES = 'packagesTypes';
+    protected const API_SERVICES_PREFIX = '/shippingservices';
 
     /** @var EncryptorInterface */
     protected $encryptor;
@@ -61,6 +62,15 @@ abstract class AbstractConfig extends AbstractHelper
     public function getApiUrl(): string
     {
         return (string)$this->scopeConfig->getValue($this->xmlPathSettings['api_url']);
+    }
+
+    public function getOauthApiUrl(): string
+    {
+        return (string)str_replace(
+            static::API_SERVICES_PREFIX,
+            '',
+            $this->scopeConfig->getValue($this->xmlPathSettings['api_url'])
+        );
     }
 
     public function getApiAccessToken(): string

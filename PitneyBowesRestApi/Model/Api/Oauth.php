@@ -67,7 +67,7 @@ class Oauth implements OauthInterface
         ]);
 
         $this->request->setHeaders($this->headers);
-        $this->request->setUri($this->configHelper->getApiUrl() . static::URI);
+        $this->request->setUri(sprintf('%s%s', $this->configHelper->getOauthApiUrl(), static::URI));
         $this->request->setMethod(Request::METHOD_POST);
 
         $this->request->setPost($this->parameters->set('grant_type', 'client_credentials'));

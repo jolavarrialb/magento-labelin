@@ -28,6 +28,8 @@
 
 namespace Labelin\PitneyBowesOfficialApi\Model;
 
+use Labelin\PitneyBowesShipping\Helper\Config\FreeShippingConfig as ConfigHelper;
+
 /**
  * Configuration Class Doc Comment
  * PHP version 5
@@ -112,24 +114,32 @@ class Configuration
     protected $tempFolderPath;
 
     /**
+     * @var ConfigHelper
+     */
+    protected $configHelper;
+
+    /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct(
+        ConfigHelper $configHelper
+    ) {
         $this->tempFolderPath = sys_get_temp_dir();
+        $this->configHelper = $configHelper;
     }
 
     /**
      * Sets API key
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $key              API key or token
+     * @param string $key API key or token
      *
      * @return $this
      */
     public function setApiKey($apiKeyIdentifier, $key)
     {
         $this->apiKeys[$apiKeyIdentifier] = $key;
+
         return $this;
     }
 
@@ -149,13 +159,14 @@ class Configuration
      * Sets the prefix for API key (e.g. Bearer)
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $prefix           API key prefix, e.g. Bearer
+     * @param string $prefix API key prefix, e.g. Bearer
      *
      * @return $this
      */
     public function setApiKeyPrefix($apiKeyIdentifier, $prefix)
     {
         $this->apiKeyPrefixes[$apiKeyIdentifier] = $prefix;
+
         return $this;
     }
 
@@ -181,6 +192,7 @@ class Configuration
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
         return $this;
     }
 
@@ -204,6 +216,7 @@ class Configuration
     public function setUsername($username)
     {
         $this->username = $username;
+
         return $this;
     }
 
@@ -227,6 +240,7 @@ class Configuration
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
@@ -250,6 +264,7 @@ class Configuration
     public function setHost($host)
     {
         $this->host = $host;
+
         return $this;
     }
 
@@ -260,6 +275,10 @@ class Configuration
      */
     public function getHost()
     {
+        if (!empty($this->configHelper->getApiUrl())) {
+            return $this->configHelper->getApiUrl();
+        }
+
         return $this->host;
     }
 
@@ -268,8 +287,8 @@ class Configuration
      *
      * @param string $userAgent the user agent of the api client
      *
-     * @throws \InvalidArgumentException
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setUserAgent($userAgent)
     {
@@ -278,6 +297,7 @@ class Configuration
         }
 
         $this->userAgent = $userAgent;
+
         return $this;
     }
 
@@ -301,6 +321,7 @@ class Configuration
     public function setDebug($debug)
     {
         $this->debug = $debug;
+
         return $this;
     }
 
@@ -324,6 +345,7 @@ class Configuration
     public function setDebugFile($debugFile)
     {
         $this->debugFile = $debugFile;
+
         return $this;
     }
 
@@ -347,6 +369,7 @@ class Configuration
     public function setTempFolderPath($tempFolderPath)
     {
         $this->tempFolderPath = $tempFolderPath;
+
         return $this;
     }
 
@@ -393,7 +416,7 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (pitneybowesShipping) Debug Report:' . PHP_EOL;
+        $report = 'PHP SDK (pitneybowesShipping) Debug Report:' . PHP_EOL;
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    The version of the OpenAPI document: 1.0.0' . PHP_EOL;
@@ -406,7 +429,7 @@ class Configuration
     /**
      * Get API key (with prefix if set)
      *
-     * @param  string $apiKeyIdentifier name of apikey
+     * @param string $apiKeyIdentifier name of apikey
      *
      * @return string API key with the prefix
      */
